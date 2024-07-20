@@ -8,7 +8,8 @@ import 'package:iksha/home.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
-  runApp(const LoginPage());
+  runApp(const MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const MyHomePage(),
+      home: const LoginPage(),
     );
   }
 }
