@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iksha/pages/login.dart';
+
+import '../home.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -13,6 +16,8 @@ class _RegisterState extends State<Register> {
   final email = TextEditingController();
   final password = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  final auth = FirebaseAuth.instance;
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +49,7 @@ class _RegisterState extends State<Register> {
                           }
                         },
                       ),
+                      const SizedBox(height: 15),
                       TextFormField(
                         controller: email,
                         keyboardType: TextInputType.emailAddress,
@@ -71,9 +77,15 @@ class _RegisterState extends State<Register> {
                         },
                       ),
                       const SizedBox(height: 30),
+                      loading? const Center(child: CircularProgressIndicator(),):
                       ElevatedButton(
                         onPressed: () {
-                          if (formKey.currentState!.validate()) {}
+                          if (formKey.currentState!.validate()) {
+                            setState(() {
+                              loading = true;
+                            });
+                            register();
+                          }
                         },
                         child: const Text("Login"),
                       ),
@@ -91,4 +103,20 @@ class _RegisterState extends State<Register> {
           ],
         ));
   }
+  register() async {
+    try {
+      final result = await auth.createUserWithEmailAndPassword(email: email.text, password: password.text);
+      await result.user?.updateDisplayName(name.text);
+      setState(() {
+        loading = false;
+      });
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => const MyHomePage()), (route) => false);
+    } on FirebaseAuthException catch(e){
+      setState(() {
+        loading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message ?? "")));
+      print(e.message);
+    }
+}
 }
