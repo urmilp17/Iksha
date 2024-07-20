@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:iksha/pages/login.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:iksha/colours.dart';
@@ -7,7 +8,7 @@ import 'package:iksha/home.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
-  runApp(const MyApp());
+  runApp(const LoginPage());
 }
 
 class MyApp extends StatelessWidget {
@@ -20,10 +21,17 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+
         colorScheme: ColorScheme.light(
           background: background
         ),
-
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: background,
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.all(15)
+          )
+        ),
         useMaterial3: true,
       ),
       home: const MyHomePage(),
