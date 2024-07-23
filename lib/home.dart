@@ -20,7 +20,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: background,
-        title: const Text("Iksha"),
+        title: const Text("IKSHA", style: TextStyle(fontFamily: 'LibreBaskerville',fontWeight: FontWeight.bold),),
         elevation: 0,
       ),
       body: IndexedStack(
