@@ -71,6 +71,11 @@ flutter:
          - asset: fonts/LibreBaskerville-Italic.ttf
            style: italic
          - asset: fonts/LibreBaskerville-Bold.ttf
+     - family: Playfair
+       fonts:
+         - asset: fonts/Playfair-IV.tff
+           style: italic
+         - asset: fonts/Playfair-V.tff
 
   #
   #
