@@ -27,7 +27,7 @@ class _MyHomePageState extends State<MyHomePage> {
         index: currentPageIndex,
         children: <Widget>[
           Home(),
-          KeyFeatures(),
+          const KeyFeatures(),
           Articles(),
         ],
       ),

@@ -63,6 +63,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - assets/images/
+     - assets/fonts/
 
   fonts:
      - family: LibreBaskerville
@@ -73,9 +74,7 @@ flutter:
          - asset: fonts/LibreBaskerville-Bold.ttf
      - family: Playfair
        fonts:
-         - asset: fonts/Playfair-IV.tff
-           style: italic
-         - asset: fonts/Playfair-V.tff
+         - asset: assets/fonts/Playfair-V.tff
 
   #
   #

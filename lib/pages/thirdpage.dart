@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
 
-Column KeyFeatures() => Column(children: <Widget>[
-  Text("KeyFeatures")
-],);
+class KeyFeatures extends StatelessWidget {
+  const KeyFeatures({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        
+      ],
+    );
+  }
+}
