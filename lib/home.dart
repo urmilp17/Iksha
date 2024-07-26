@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iksha/colours.dart';
+import 'package:iksha/pages/login.dart';
 import 'NavBar.dart';
 import 'pages/firstpage.dart';
 import 'pages/thirdpage.dart';
@@ -20,7 +22,31 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: background,
-        title: const Text("IKSHA", style: TextStyle(fontFamily: 'LibreBaskerville',fontWeight: FontWeight.bold),),
+        title: const Text(
+          "IKSHA",
+          style: TextStyle(
+              fontFamily: 'LibreBaskerville', fontWeight: FontWeight.bold),
+        ),
+        actions: [
+          PopupMenuButton(
+              itemBuilder: (context) => [
+                    PopupMenuItem(
+                      onTap: () async {
+                        final auth = FirebaseAuth.instance;
+                        await auth.signOut();
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const LoginPage()),
+                            (route) => false);
+                      },
+                      child: Text(
+                        'Logout',
+                        style: TextStyle(fontFamily: 'Eczar'),
+                      ),
+                    ),
+                  ])
+        ],
         elevation: 0,
       ),
       body: IndexedStack(
@@ -40,11 +66,8 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.grey,
         indicatorColor: Colors.amber,
         selectedIndex: currentPageIndex,
-        destinations: destinations(),),
+        destinations: destinations(),
+      ),
     );
   }
-
-
-
-
 }
