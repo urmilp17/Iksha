@@ -26,7 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: IndexedStack(
         index: currentPageIndex,
         children: <Widget>[
-          Home(),
+          const Home(),
           const KeyFeatures(),
           Articles(),
         ],

@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_core: ^3.2.0
   firebase_auth: ^5.1.2
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:
@@ -75,6 +76,13 @@ flutter:
      - family: Playfair
        fonts:
          - asset: assets/fonts/PlayfairRegular.ttf
+     - family: Eczar
+       fonts:
+         - asset: assets/fonts/Eczar-Regular.ttf
+         - asset: assets/fonts/Eczar-Medium.ttf
+         - asset: assets/fonts/Eczar-SemiBold.ttf
+         - asset: assets/fonts/Eczar-Bold.ttf
+         - asset: assets/fonts/Eczar-ExtraBold.ttf
 
   #
   #
