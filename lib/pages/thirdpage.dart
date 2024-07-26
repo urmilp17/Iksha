@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iksha/colours.dart';
 
 class Articles extends StatefulWidget {
   const Articles({Key? key}) : super(key: key);
@@ -21,7 +22,9 @@ class _ArticlesState extends State<Articles> {
   Container Article() {
     return Container(
       width: double.maxFinite,
+
       child: Card(
+        color: background,
         child: Row(
           children: <Widget>[
             ClipRRect(
