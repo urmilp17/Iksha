@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:iksha/colours.dart';
 import 'NavBar.dart';
 import 'pages/firstpage.dart';
-import 'pages/secondpage.dart';
 import 'pages/thirdpage.dart';
+import 'pages/secondpage.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -25,9 +25,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: IndexedStack(
         index: currentPageIndex,
-        children: <Widget>[
-          const Home(),
-          const KeyFeatures(),
+        children: const <Widget>[
+          Home(),
+          KeyFeatures(),
           Articles(),
         ],
       ),

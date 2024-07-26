@@ -1,146 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:iksha/colours.dart';
 
-class KeyFeatures extends StatelessWidget {
-  const KeyFeatures({Key? key}) : super(key: key);
-  final double iheight = 170;
-  final double iwidth = 140;
-  final double? subtitle = 15;
+class Articles extends StatefulWidget {
+  const Articles({Key? key}) : super(key: key);
 
   @override
+  State<Articles> createState() => _ArticlesState();
+}
+
+class _ArticlesState extends State<Articles> {
+  @override
   Widget build(BuildContext context) {
-    const double subtitle = 11;
-    const double title = 14;
-    const String familyf = 'Eczar';
     return Column(
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
-          child: Card(
-            color: background,
-            child: Row(
-              children: <Widget>[
-                Image.asset(
-                  'assets/images/Logo.png',
-                  height: iheight,
-                  width: iwidth,
-                ),
-                const Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "Question Answer",
-                        style: TextStyle(
-                            fontFamily: familyf,
-                            fontWeight: FontWeight.bold,
-                            fontSize: title),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        "The Question Answer Vector Model"
-                            "\nuses advanced AI to analyze user"
-                            "\nquestions and provide answers based on"
-                            "\nHindu scriptures. It helps users explore"
-                            "\nDharma, spiritual paths, and"
-                            "\nphilosophical concepts by delivering"
-                            "\naccurate, and insightful responses.",
-                        style: TextStyle(
-                            fontFamily: familyf,
-                            fontWeight: FontWeight.w400,
-                            fontSize: subtitle),
-                      )
-                    ])
-              ],
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
-          child: Card(
-            color: background,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-
-              children: <Widget>[
-                SizedBox(width: 10,),
-                const Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "Questionnaire",
-                        style: TextStyle(
-                            fontFamily: familyf,
-                            fontWeight: FontWeight.bold,
-                            fontSize: title),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        "The Questionnaire helps users identify"
-                            "\ntheir spiritual path—Karma (action),"
-                            "\nBhakti (devotion), or Gyan (knowledge)"
-                            "\nthrough a series of introspective"
-                            "\nquestions,providing personalized"
-                            "\nguidance based on their responses"
-                            "\nto enhance their spiritual journey.",
-                        style: TextStyle(
-                            fontFamily: familyf,
-                            fontWeight: FontWeight.w400,
-                            fontSize: subtitle),
-                      )
-                    ]),
-                Image.asset(
-                  'assets/images/Logo.png',
-                  height: iheight,
-                  width: iwidth,
-                ),
-              ],
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
-          child: Card(
-            color: background,
-            child: Row(
-              children: <Widget>[
-                Image.asset(
-                  'assets/images/Logo.png',
-                  height: iheight,
-                  width: iwidth,
-                ),
-                const Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "Garbha Sanskar",
-                        style: TextStyle(
-                            fontFamily: familyf,
-                            fontWeight: FontWeight.bold,
-                            fontSize: title),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        "The Garbha Sanskar Guide offers"
-                            "\ncomprehensive prenatal education,"
-                            "\ncombining traditional Hindu practices"
-                            "\nand modern knowledge to enhance the"
-                            "\nwell-being of both mother and child."
-                            "\nIt includes rituals, dietary music,"
-                            "\nrecommendations, and meditative"
-                            "\ntechniques for a healthy pregnancy.",
-                        style: TextStyle(
-                            fontFamily: familyf,
-                            fontWeight: FontWeight.w400,
-                            fontSize: subtitle),
-                      )
-                    ])
-              ],
-            ),
-          ),
-        )
+        Article(),
+        Article(),
       ],
+    );
+  }
+
+  Container Article() {
+    return Container(
+      width: double.maxFinite,
+      child: Card(
+        child: Row(
+          children: <Widget>[
+            ClipRRect(
+              borderRadius: BorderRadius.circular(25.0),
+              child: Image.asset(
+                'assets/images/img1.jpeg',
+                width: 100,
+                height: 100,
+              ),
+            ),
+            const Column(
+              children: <Widget>[
+                Text(
+                  "Title",
+                  style: TextStyle(fontFamily: 'Ezcar'),
+                ),
+                Text(
+                  "date",
+                  style: TextStyle(fontFamily: 'Ezcar'),
+                )
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }
