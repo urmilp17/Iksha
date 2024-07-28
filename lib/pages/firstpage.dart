@@ -15,118 +15,128 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final List<Widget> imageSliders = [
       ClipRRect(
-        borderRadius: BorderRadius.circular(40.0),
+        borderRadius: BorderRadius.circular(30.0),
         child: Image.asset('assets/images/img1.jpeg',
             fit: BoxFit.cover, width: double.infinity),
       ),
       ClipRRect(
-        borderRadius: BorderRadius.circular(40.0),
+        borderRadius: BorderRadius.circular(30.0),
         child: Image.asset('assets/images/img2.jpeg',
             fit: BoxFit.cover, width: double.infinity),
       ),
       ClipRRect(
-        borderRadius: BorderRadius.circular(40.0),
+        borderRadius: BorderRadius.circular(30.0),
         child: Image.asset('assets/images/img3.jpeg',
             fit: BoxFit.cover, width: double.infinity),
       ),
       ClipRRect(
-        borderRadius: BorderRadius.circular(40.0),
+        borderRadius: BorderRadius.circular(30.0),
         child: Image.asset('assets/images/img4.jpeg',
             fit: BoxFit.cover, width: double.infinity),
       ),
       ClipRRect(
-        borderRadius: BorderRadius.circular(40.0),
+        borderRadius: BorderRadius.circular(30.0),
         child: Image.asset('assets/images/img5.jpeg',
             fit: BoxFit.cover, width: double.infinity),
       ),
       ClipRRect(
-        borderRadius: BorderRadius.circular(40.0),
+        borderRadius: BorderRadius.circular(30.0),
         child: Image.asset('assets/images/img6.jpeg',
             fit: BoxFit.cover, width: double.infinity),
       ),
     ];
 
-    return ListView(
-      children: <Widget>[
-        SizedBox(
-          height: 20,
-        ),
-        Container(
-          width: double.maxFinite,
-          child: CarouselSlider(
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(18.5, 20, 18.5, 0),
+      child: ListView(
+        children: <Widget>[
+
+          const Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Welcome to IKSHA",
+                  style: TextStyle(
+                      fontFamily: 'Eczar',
+                      fontWeight: FontWeight.w600,
+                      fontSize: 30),
+                ),
+                Text(
+                  "Lorem Ipsum is simply dummy text of"
+                  "the printing and typesetting industry. "
+                  "Lorem Ipsum has been the industry's standard "
+                  "dummy text ever since the 1500s, when "
+                  "an unknown printer took a galley "
+                  "of type and scrambled it to "
+                  "make a type specimen book.",
+                  textAlign: TextAlign.left,
+                  style:
+                      TextStyle(fontFamily: 'Eczar', fontSize: 12, height: 1.8),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          CarouselSlider(
             items: imageSliders,
             carouselController: buttonCarouselController,
             options: CarouselOptions(
-              autoPlay: true,
+              aspectRatio: 2.3,
               enlargeCenterPage: true,
+              autoPlay: true,
+              //enlargeCenterPage: true,
               viewportFraction: 0.9,
-              aspectRatio: 2.0,
+
               initialPage: 2,
             ),
           ),
-        ),
-        SizedBox(
-          height: 15,
-        ),
-        const Text(
-          "Welcome to IKSHA",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              fontFamily: 'Eczar', fontWeight: FontWeight.w600, fontSize: 25),
-        ),
-        const Text(
-          "Lorem Ipsum is simply dummy text of"
-          "\nthe printing and typesetting industry. "
-          "\nLorem Ipsum has been the industry's standard "
-          "\ndummy text ever since the 1500s, when "
-          "\nan unknown printer took a galley "
-          "\nof type and scrambled it to "
-          "\nmake a type specimen book.",
-          textAlign: TextAlign.center,
-          style: TextStyle(fontFamily: 'Eczar', fontSize: 15),
-        ),
-        SizedBox(
-          height: 15,
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
-          child: Container(
+          const SizedBox(
+            height: 15,
+          ),
+          Container(
             width: double.maxFinite,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
             ),
             child: Card(
               color: background,
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.asset('assets/images/img1.jpeg',
-                          fit: BoxFit.cover, width: double.infinity),
+              child: Expanded(
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset('assets/images/img1.jpeg',
+                            fit: BoxFit.cover, width: double.infinity),
+                      ),
                     ),
-                  ),
-                  const Text(
-                    "Sampradayas",
-                    style: TextStyle(fontFamily: 'Eczar', fontSize: 32),
-                  ),
-                  const Text(
-                    "Lorem Ipsum is simply dummy text of the printing"
-                        "\nand typesetting industry. Lorem Ipsum has been "
-                        "\nthe industry's standard dummy text ever since "
-                        "\nthe 1500s, when an unknown printer took a galley "
-                        "\nof type and scrambled it to make a type specimen book.",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontFamily: 'Eczar', fontSize: 13),
-                  ),
-                  const SizedBox(height: 8,)
-                ],
+                    const Text(
+                      "Sampradayas",
+                      style: TextStyle(fontFamily: 'Eczar', fontSize: 32),
+                    ),
+                    const Text(
+                      "Lorem Ipsum is simply dummy text of the printing"
+                      "and typesetting industry. Lorem Ipsum has been "
+                      "the industry's standard dummy text ever since "
+                      "the 1500s, when an unknown printer took a galley "
+                      "of type and scrambled it to make a type specimen book.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontFamily: 'Eczar', fontSize: 13),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }

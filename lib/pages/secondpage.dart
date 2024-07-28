@@ -25,32 +25,38 @@ class KeyFeatures extends StatelessWidget {
                   height: iheight,
                   width: iwidth,
                 ),
-                const Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "Question Answer",
-                        style: TextStyle(
-                            fontFamily: familyf,
-                            fontWeight: FontWeight.bold,
-                            fontSize: title),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        "The Question Answer Vector Model"
-                            "\nuses advanced AI to analyze user"
-                            "\nquestions and provide answers based on"
-                            "\nHindu scriptures. It helps users explore"
-                            "\nDharma, spiritual paths, and"
-                            "\nphilosophical concepts by delivering"
-                            "\naccurate, and insightful responses.",
-                        style: TextStyle(
-                            fontFamily: familyf,
-                            fontWeight: FontWeight.w400,
-                            fontSize: subtitle),
-                      )
-                    ])
+                const Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "Question Answer",
+                            style: TextStyle(
+                                fontFamily: familyf,
+                                fontWeight: FontWeight.bold,
+                                fontSize: title),
+                          ),
+                          SizedBox(height: 5,),
+                          Text(
+                            "The Question Answer Vector Model"
+                                "\nuses advanced AI to analyze user"
+                                "\nquestions and provide answers based on"
+                                "\nHindu scriptures. It helps users explore"
+                                "\nDharma, spiritual paths, and"
+                                "\nphilosophical concepts by delivering"
+                                "\naccurate, and insightful responses.",
+
+                            style: TextStyle(
+                                fontFamily: familyf,
+                                fontWeight: FontWeight.w400,
+                                fontSize: subtitle),
+                          )
+                        ]),
+                  ),
+                )
               ],
             ),
           ),
@@ -61,34 +67,38 @@ class KeyFeatures extends StatelessWidget {
             color: background,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-
               children: <Widget>[
-                SizedBox(width: 10,),
-                const Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "Questionnaire",
-                        style: TextStyle(
-                            fontFamily: familyf,
-                            fontWeight: FontWeight.bold,
-                            fontSize: title),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        "The Questionnaire helps users identify"
-                            "\ntheir spiritual path—Karma (action),"
-                            "\nBhakti (devotion), or Gyan (knowledge)"
-                            "\nthrough a series of introspective"
-                            "\nquestions,providing personalized"
-                            "\nguidance based on their responses"
-                            "\nto enhance their spiritual journey.",
-                        style: TextStyle(
-                            fontFamily: familyf,
-                            fontWeight: FontWeight.w400,
-                            fontSize: subtitle),
-                      )
-                    ]),
+                const SizedBox(width: 10,),
+                const Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "Questionnaire",
+                            style: TextStyle(
+                                fontFamily: familyf,
+                                fontWeight: FontWeight.bold,
+                                fontSize: title),
+                          ),
+                          SizedBox(height: 5,),
+                          Text(
+                            "The Questionnaire helps users identify"
+                                "\ntheir spiritual path—Karma (action),"
+                                "\nBhakti (devotion), or Gyan (knowledge)"
+                                "\nthrough a series of introspective"
+                                "\nquestions,providing personalized"
+                                "\nguidance based on their responses"
+                                "\nto enhance their spiritual journey.",
+                            style: TextStyle(
+                                fontFamily: familyf,
+                                fontWeight: FontWeight.w400,
+                                fontSize: subtitle),
+                          )
+                        ]),
+                  ),
+                ),
                 Image.asset(
                   'assets/images/Logo.png',
                   height: iheight,
@@ -109,33 +119,38 @@ class KeyFeatures extends StatelessWidget {
                   height: iheight,
                   width: iwidth,
                 ),
-                const Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "Garbha Sanskar",
-                        style: TextStyle(
-                            fontFamily: familyf,
-                            fontWeight: FontWeight.bold,
-                            fontSize: title),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        "The Garbha Sanskar Guide offers"
-                            "\ncomprehensive prenatal education,"
-                            "\ncombining traditional Hindu practices"
-                            "\nand modern knowledge to enhance the"
-                            "\nwell-being of both mother and child."
-                            "\nIt includes rituals, dietary music,"
-                            "\nrecommendations, and meditative"
-                            "\ntechniques for a healthy pregnancy.",
-                        style: TextStyle(
-                            fontFamily: familyf,
-                            fontWeight: FontWeight.w400,
-                            fontSize: subtitle),
-                      )
-                    ])
+                const Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "Garbha Sanskar",
+                            style: TextStyle(
+                                fontFamily: familyf,
+                                fontWeight: FontWeight.bold,
+                                fontSize: title),
+                          ),
+                          SizedBox(height: 5,),
+                          Text(
+                            "The Garbha Sanskar Guide offers"
+                                "\ncomprehensive prenatal education,"
+                                "\ncombining traditional Hindu practices"
+                                "\nand modern knowledge to enhance the"
+                                "\nwell-being of both mother and child."
+                                "\nIt includes rituals, dietary music,"
+                                "\nrecommendations, and meditative"
+                                "\ntechniques for a healthy pregnancy.",
+                            style: TextStyle(
+                                fontFamily: familyf,
+                                fontWeight: FontWeight.w400,
+                                fontSize: subtitle),
+                          )
+                        ]),
+                  ),
+                )
               ],
             ),
           ),
