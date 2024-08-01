@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                       blurRadius: 10.0,
                     ),
                   ],
-                  color: const Color(0xC8FFD79A),
+                  color: const Color(0xC8FFF9F2),
                   borderRadius: BorderRadius.circular(25.0)),
               child: Form(
                 key: formKey,
@@ -59,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                         'Please enter email and password to get started.',
                         style: TextStyle(fontFamily: 'Eczar'),
                       ),
-                      const SizedBox(height: 15),
+                      const SizedBox(height: 7),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: Column(
@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                                 }
                               },
                             ),
-                            const SizedBox(height: 15),
+                            const SizedBox(height: 7),
                             TextFormField(
                               textAlign: TextAlign.center,
                               controller: password,
@@ -86,6 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                               decoration: const InputDecoration(
                                 hintStyle: TextStyle(fontFamily: 'Eczar'),
                                 hintText: 'Enter your password',
+                                errorStyle: TextStyle(fontFamily: 'Eczar')
                               ),
                               validator: (value) {
                                 if (value!.isEmpty) {
@@ -108,6 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                                     loading = true;
                                   });
                                   startLogin();
+                                  FocusManager.instance.primaryFocus?.unfocus();
                                 }
                               },
                               style: const ButtonStyle(
@@ -127,13 +129,30 @@ class _LoginPageState extends State<LoginPage> {
                             style: const TextStyle(
                                 fontFamily: 'Eczar',
                                 fontSize: 15,
-                                color: Colors.black),
+                                decoration: TextDecoration.underline,
+                                color: Colors.black
+                            ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => const Register()));
+                                  context,
+                                  PageRouteBuilder(
+                                    pageBuilder: (context, animation, secondaryAnimation) => const Register(),
+                                    transitionDuration: const Duration(milliseconds: 600),
+                                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                      const begin = Offset(0.0, 1.0);
+                                      const end = Offset.zero;
+                                      const curve = Curves.easeInCubic;
+
+                                      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+                                      return SlideTransition(
+                                        position: animation.drive(tween),
+                                        child: child,
+                                      );
+                                    },
+                                  ),
+                                );
                               }),
                       )
                     ],
@@ -156,7 +175,22 @@ class _LoginPageState extends State<LoginPage> {
       });
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (_) => const MyHomePage()),
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => const MyHomePage(),
+            transitionDuration: const Duration(milliseconds: 1000),
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              const begin = Offset(2.5, 0.0);
+              const end = Offset.zero;
+              const curve = Curves.ease;
+
+              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+              return SlideTransition(
+                position: animation.drive(tween),
+                child: child,
+              );
+            },
+          ),
           (route) => false);
     } on FirebaseAuthException catch (e) {
       setState(() {

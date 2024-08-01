@@ -26,7 +26,7 @@ class _RegisterState extends State<Register> {
         body: Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/login.jpg'),
+          image: AssetImage('assets/images/regis.jpg'),
           fit: BoxFit.fill,
         ),
       ),
@@ -44,7 +44,7 @@ class _RegisterState extends State<Register> {
                       blurRadius: 10.0,
                     ),
                   ],
-                  color: const Color(0xC8FFD79A),
+                  color: const Color(0xC8FFF9F2),
                   borderRadius: BorderRadius.circular(25.0)),
               child: Form(
                 key: formKey,
@@ -58,7 +58,7 @@ class _RegisterState extends State<Register> {
                       'Please enter name, email and password to get started.',
                       style: TextStyle(fontFamily: 'Eczar'),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 7),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: Column(
@@ -68,40 +68,44 @@ class _RegisterState extends State<Register> {
                             controller: name,
                             keyboardType: TextInputType.text,
                             decoration: const InputDecoration(
-                              hintText: 'Enter your name',
-
-                              hintStyle: TextStyle(fontFamily: 'Eczar'),
-                            ),
+                                hintText: 'Enter your name',
+                                hintStyle: TextStyle(fontFamily: 'Eczar'),
+                                errorStyle: TextStyle(fontFamily: 'Eczar')),
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Please enter name';
                               }
                             },
                           ),
-                          const SizedBox(height: 15),
+                          const SizedBox(
+                            height: 7,
+                          ),
                           TextFormField(
                             textAlign: TextAlign.center,
                             controller: email,
                             keyboardType: TextInputType.emailAddress,
                             decoration: const InputDecoration(
-                              hintStyle: TextStyle(fontFamily: 'Eczar'),
-                              hintText: 'Enter your email',
-                            ),
+                                hintStyle: TextStyle(fontFamily: 'Eczar'),
+                                hintText: 'Enter your email',
+                                counterStyle: TextStyle(fontFamily: 'Eczar'),
+                                errorStyle: TextStyle(fontFamily: 'Eczar')),
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Please enter email';
                               }
                             },
                           ),
-                          const SizedBox(height: 15),
+                          const SizedBox(
+                            height: 7,
+                          ),
                           TextFormField(
                             textAlign: TextAlign.center,
                             controller: password,
                             obscureText: true,
                             decoration: const InputDecoration(
-                              hintText: 'Enter your password',
-                              hintStyle: TextStyle(fontFamily: 'Eczar'),
-                            ),
+                                hintText: 'Enter your password',
+                                hintStyle: TextStyle(fontFamily: 'Eczar'),
+                                errorStyle: TextStyle(fontFamily: 'Eczar')),
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Please enter password';
@@ -137,18 +141,34 @@ class _RegisterState extends State<Register> {
                           const SizedBox(height: 10),
                           RichText(
                             text: TextSpan(
-                                text: 'Already Registered ? Login',
-                                style: const TextStyle(
-                                    fontFamily: 'Eczar',
-                                    fontSize: 15,
-                                    color: Colors.black),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) => const LoginPage()));
-                                  }),
+                              text: 'Already Registered ? Login',
+                              style: const TextStyle(
+                                  fontFamily: 'Eczar',
+                                  fontSize: 15,
+                                  decoration: TextDecoration.underline,
+                                  color: Colors.black),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.push(
+                                    context,
+                                    PageRouteBuilder(
+                                      pageBuilder: (context, animation, secondaryAnimation) => LoginPage(),
+                                        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                          const begin = Offset(2.5, 0.0);
+                                          const end = Offset.zero;
+                                          const curve = Curves.ease;
+
+                                          var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+                                          return SlideTransition(
+                                            position: animation.drive(tween),
+                                            child: child,
+                                          );
+                                        },
+                                    ),
+                                  );
+                                },
+                            ),
                           ),
                           const SizedBox(height: 10),
                         ],
@@ -174,7 +194,22 @@ class _RegisterState extends State<Register> {
       });
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (_) => const MyHomePage()),
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => const MyHomePage(),
+            transitionDuration: const Duration(milliseconds: 1000),
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              const begin = Offset(2.5, 0.0);
+              const end = Offset.zero;
+              const curve = Curves.ease;
+
+              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+              return SlideTransition(
+                position: animation.drive(tween),
+                child: child,
+              );
+            },
+          ),
           (route) => false);
     } on FirebaseAuthException catch (e) {
       setState(() {
