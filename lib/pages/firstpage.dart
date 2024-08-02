@@ -146,15 +146,16 @@ class _HomeState extends State<Home> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
-          width: double.maxFinite,
-          height: double.maxFinite,
+          width: double.infinity,
+          height: double.infinity,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(
-                opacity: 1,
-                image: AssetImage(File),
-                fit: BoxFit.cover,
-              )),
+            borderRadius: BorderRadius.circular(10),
+            image: DecorationImage(
+              opacity: 1,
+              image: AssetImage(File),
+              fit: BoxFit.cover,
+            ),
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,7 +164,12 @@ class _HomeState extends State<Home> {
                 padding: EdgeInsets.fromLTRB(15, 8, 8, 8),
                 child: Text(
                   T,
-                  style: TextStyle(color: Colors.white, fontFamily: 'Eczar',fontWeight: FontWeight.w500,fontSize: 22),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Eczar',
+                    fontWeight: FontWeight.w500,
+                    fontSize: 22,
+                  ),
                 ),
               ),
             ],
