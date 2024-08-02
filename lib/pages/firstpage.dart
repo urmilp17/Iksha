@@ -14,36 +14,45 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> imageSliders = [
-      ClipRRect(
-        borderRadius: BorderRadius.circular(30.0),
-        child: Image.asset('assets/images/img1.jpeg',
-            fit: BoxFit.cover, width: double.infinity),
-      ),
-      ClipRRect(
-        borderRadius: BorderRadius.circular(30.0),
-        child: Image.asset('assets/images/img2.jpeg',
-            fit: BoxFit.cover, width: double.infinity),
-      ),
-      ClipRRect(
-        borderRadius: BorderRadius.circular(30.0),
-        child: Image.asset('assets/images/img3.jpeg',
-            fit: BoxFit.cover, width: double.infinity),
-      ),
-      ClipRRect(
-        borderRadius: BorderRadius.circular(30.0),
-        child: Image.asset('assets/images/img4.jpeg',
-            fit: BoxFit.cover, width: double.infinity),
-      ),
-      ClipRRect(
-        borderRadius: BorderRadius.circular(30.0),
-        child: Image.asset('assets/images/img5.jpeg',
-            fit: BoxFit.cover, width: double.infinity),
-      ),
-      ClipRRect(
-        borderRadius: BorderRadius.circular(30.0),
-        child: Image.asset('assets/images/img6.jpeg',
-            fit: BoxFit.cover, width: double.infinity),
-      ),
+      // ClipRRect(
+      //   borderRadius: BorderRadius.circular(30.0),
+      //   child: Image.asset('assets/images/img1.jpeg',
+      //       fit: BoxFit.cover, width: double.infinity),
+      // ),
+      // ClipRRect(
+      //   borderRadius: BorderRadius.circular(30.0),
+      //   child: Image.asset('assets/images/img2.jpeg',
+      //       fit: BoxFit.cover, width: double.infinity),
+      // ),
+      // ClipRRect(
+      //   borderRadius: BorderRadius.circular(30.0),
+      //   child: Image.asset('assets/images/img3.jpeg',
+      //       fit: BoxFit.cover, width: double.infinity),
+      // ),
+      // ClipRRect(
+      //   borderRadius: BorderRadius.circular(30.0),
+      //   child: Image.asset('assets/images/img4.jpeg',
+      //       fit: BoxFit.cover, width: double.infinity),
+      // ),
+      // ClipRRect(
+      //   borderRadius: BorderRadius.circular(30.0),
+      //   child: Image.asset('assets/images/img5.jpeg',
+      //       fit: BoxFit.cover, width: double.infinity),
+      // ),
+      // ClipRRect(
+      //   borderRadius: BorderRadius.circular(30.0),
+      //   child: Image.asset('assets/images/img6.jpeg',
+      //       fit: BoxFit.cover, width: double.infinity),
+      // ),
+      Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/ach.jpg'),
+            fit:BoxFit.fill
+          )
+        ),
+        child: Text('title'),
+      )
     ];
 
     return Padding(
