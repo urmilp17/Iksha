@@ -44,22 +44,14 @@ class _HomeState extends State<Home> {
       //   child: Image.asset('assets/images/img6.jpeg',
       //       fit: BoxFit.cover, width: double.infinity),
       // ),
-      Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/ach.jpg'),
-            fit:BoxFit.fill
-          )
-        ),
-        child: Text('title'),
-      )
+      Sampraday('assets/images/ach.jpg','Vaishnavism'),
+      Sampraday('assets/images/log.jpg','Shaivism')
     ];
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(18.5, 20, 18.5, 0),
       child: ListView(
         children: <Widget>[
-
           const Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,9 +85,9 @@ class _HomeState extends State<Home> {
             items: imageSliders,
             carouselController: buttonCarouselController,
             options: CarouselOptions(
-              aspectRatio: 2.3,
-              enlargeCenterPage: true,
-              autoPlay: true,
+              aspectRatio: 2.0,
+              enlargeCenterPage: false,
+              autoPlay: false,
               //enlargeCenterPage: true,
               viewportFraction: 0.9,
 
@@ -145,6 +137,38 @@ class _HomeState extends State<Home> {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  Scaffold Sampraday(String File, String T) {
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          width: double.maxFinite,
+          height: double.maxFinite,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              image: DecorationImage(
+                opacity: 1,
+                image: AssetImage(File),
+                fit: BoxFit.cover,
+              )),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.fromLTRB(15, 8, 8, 8),
+                child: Text(
+                  T,
+                  style: TextStyle(color: Colors.white, fontFamily: 'Eczar',fontWeight: FontWeight.w500,fontSize: 22),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
