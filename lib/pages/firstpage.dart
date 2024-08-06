@@ -20,6 +20,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> imageSliders = [
+      // ismai changes karna (eg assets/images/sp1.jpg)
       buildCarouselItem('assets/images/img1.jpeg', 'Sampraday 1', context, Sampradaya1()),
       buildCarouselItem('assets/images/img2.jpeg', 'Sampraday 2', context, Sampradaya2()),
       buildCarouselItem('assets/images/img3.jpeg', 'Sampraday 3', context, Sampradaya3()),

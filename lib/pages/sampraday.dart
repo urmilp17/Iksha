@@ -110,8 +110,4 @@ class SampradayPage extends StatelessWidget {
   }
 }
 
-void main() {
-  runApp(MaterialApp(
-    home: SampradayPage(),
-  ));
-}
+
