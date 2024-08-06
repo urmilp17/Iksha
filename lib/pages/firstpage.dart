@@ -24,13 +24,13 @@ class _HomeState extends State<Home> {
     ];
 
     return Scaffold(
-      backgroundColor: Color(0xFFFDF5DF),
+      backgroundColor: const Color(0xFFFDF5DF),
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(18.5, 20, 18.5, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
+            const Text(
               "Welcome to IKSHA",
               style: TextStyle(
                 fontFamily: 'Eczar',
@@ -38,8 +38,8 @@ class _HomeState extends State<Home> {
                 fontSize: 30,
               ),
             ),
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
               textAlign: TextAlign.left,
               style: TextStyle(
@@ -48,7 +48,7 @@ class _HomeState extends State<Home> {
                 height: 1.8,
               ),
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             CarouselSlider(
               items: imageSliders,
               carouselController: buttonCarouselController,
@@ -62,7 +62,7 @@ class _HomeState extends State<Home> {
                 scrollDirection: Axis.horizontal,
               ),
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             Container(
               width: double.maxFinite,
               decoration: BoxDecoration(
@@ -131,7 +131,7 @@ class _HomeState extends State<Home> {
                 color: Colors.black54,
                 child: Text(
                   text,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontFamily: 'Eczar',
                     fontWeight: FontWeight.w500,
@@ -148,7 +148,7 @@ class _HomeState extends State<Home> {
 }
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: Home(),
   ));
 }

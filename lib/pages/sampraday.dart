@@ -4,29 +4,32 @@ class SampradayPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Sampraday Page', style: TextStyle(fontFamily: 'Eczar')),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.account_circle),
-            onPressed: () {
-              // Navigate to the profile page or show a profile dialog
-            },
-          ),
-        ],
-        backgroundColor: Colors.deepOrange,
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Sampraday Page', style: TextStyle(fontFamily: 'Eczar')),
+      //   leading: IconButton(
+      //     icon: const Icon(Icons.arrow_back),
+      //     onPressed: () {
+      //       Navigator.pop(context);
+      //     },
+      //   ),
+      //   actions: [
+      //     IconButton(
+      //       icon: const Icon(Icons.account_circle),
+      //       onPressed: () {
+      //         // Navigate to the profile page or show a profile dialog
+      //       },
+      //     ),
+      //   ],
+      //   backgroundColor: Colors.deepOrange,
+      // ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            ElevatedButton(onPressed: () {
+              Navigator.pop(context);
+            }, child: Icon(Icons.keyboard_backspace)),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
@@ -35,7 +38,7 @@ class SampradayPage extends StatelessWidget {
                     color: Colors.grey.withOpacity(0.5),
                     spreadRadius: 5,
                     blurRadius: 7,
-                    offset: Offset(0, 3),
+                    offset: const Offset(0, 3),
                   ),
                 ],
               ),
@@ -47,8 +50,8 @@ class SampradayPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Welcome to Sampraday',
               style: TextStyle(
                 fontFamily: 'Eczar',
@@ -56,8 +59,8 @@ class SampradayPage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               'Sampraday is a community-focused platform that aims to connect like-minded individuals and promote cultural values. Join us to be a part of an ever-growing community.',
               style: TextStyle(
                 fontFamily: 'Eczar',
@@ -65,7 +68,7 @@ class SampradayPage extends StatelessWidget {
                 height: 1.5,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -73,24 +76,24 @@ class SampradayPage extends StatelessWidget {
                   onPressed: () {
                     // Action for joining the community
                   },
-                  icon: Icon(Icons.group_add),
-                  label: Text('Join Now'),
+                  icon: const Icon(Icons.group_add),
+                  label: const Text('Join Now'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepOrange,
                     foregroundColor: Colors.white,
-                    textStyle: TextStyle(fontFamily: 'Eczar'),
+                    textStyle: const TextStyle(fontFamily: 'Eczar'),
                   ),
                 ),
                 OutlinedButton.icon(
                   onPressed: () {
                     // Action for learning more
                   },
-                  icon: Icon(Icons.info),
-                  label: Text('Learn More'),
+                  icon: const Icon(Icons.info),
+                  label: const Text('Learn More'),
                   style: OutlinedButton.styleFrom(
                     foregroundColor: Colors.deepOrange,
-                    textStyle: TextStyle(fontFamily: 'Eczar'),
-                    side: BorderSide(color: Colors.deepOrange),
+                    textStyle: const TextStyle(fontFamily: 'Eczar'),
+                    side: const BorderSide(color: Colors.deepOrange),
                   ),
                 ),
               ],

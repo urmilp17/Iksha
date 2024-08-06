@@ -24,12 +24,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/img1.jpeg
-    - assets/images/img2.jpeg
-    - assets/images/img3.jpeg
-    - assets/images/img4.jpeg
-    - assets/images/img5.jpeg
-    - assets/images/img6.jpeg
+    - assets/images/
     - assets/fonts/
 
   fonts:
