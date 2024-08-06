@@ -20,13 +20,11 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> imageSliders = [
-      // ismai changes karna (eg assets/images/sp1.jpg)
-      buildCarouselItem('assets/images/img1.jpeg', 'Sampraday 1', context, Sampradaya1()),
-      buildCarouselItem('assets/images/img2.jpeg', 'Sampraday 2', context, Sampradaya2()),
-      buildCarouselItem('assets/images/img3.jpeg', 'Sampraday 3', context, Sampradaya3()),
-      buildCarouselItem('assets/images/img4.jpeg', 'Sampraday 4', context, Sampradaya4()),
-      buildCarouselItem('assets/images/img5.jpeg', 'Sampraday 5', context, Sampradaya5()),
-      // buildCarouselItem('assets/images/img6.jpeg', 'Sampraday 6', context),
+      buildCarouselItem('assets/images/sp1.jpg', 'Shaivism', context, Sampradaya1()),
+      buildCarouselItem('assets/images/sp2.jpg', 'Shaktism', context, Sampradaya2()),
+      buildCarouselItem('assets/images/sp3.jpg', 'Vaishnavism', context, Sampradaya3()),
+      buildCarouselItem('assets/images/sp4.jpg', 'Ganpatya', context, Sampradaya4()),
+      buildCarouselItem('assets/images/sp5.jpg', 'Smarthism', context, Sampradaya5()),
     ];
 
     return Scaffold(
@@ -46,7 +44,7 @@ class _HomeState extends State<Home> {
             ),
             const SizedBox(height: 10),
             const Text(
-              "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+              " ",
               textAlign: TextAlign.left,
               style: TextStyle(
                 fontFamily: 'Eczar',
@@ -110,11 +108,11 @@ class _HomeState extends State<Home> {
   }
 
   Widget buildCarouselItem(
-    String file,
-    String text,
-    BuildContext context,
-      StatelessWidget widget
-  ) {
+      String file,
+      String text,
+      BuildContext context,
+      StatelessWidget widget,
+      ) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -141,6 +139,7 @@ class _HomeState extends State<Home> {
               right: 0,
               child: Container(
                 padding: const EdgeInsets.all(8.0),
+                color: Colors.black54,
                 child: Text(
                   text,
                   style: const TextStyle(

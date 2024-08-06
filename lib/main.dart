@@ -6,6 +6,8 @@ import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:iksha/colours.dart';
 import 'package:iksha/home.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

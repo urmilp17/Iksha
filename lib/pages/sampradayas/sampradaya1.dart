@@ -34,14 +34,14 @@ class Sampradaya1 extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15.0),
                 child: Image.asset(
-                  'assets/images/img1.jpeg',
+                  'assets/images/sp1.jpg',
                   fit: BoxFit.cover,
                 ),
               ),
             ),
             const SizedBox(height: 20),
             const Text(
-              'Welcome to Sampraday',
+              'Shaivism',
               style: TextStyle(
                 fontFamily: 'Eczar',
                 fontSize: 24,
