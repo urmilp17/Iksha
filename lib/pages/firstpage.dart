@@ -1,5 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:iksha/pages/sampradayas/sampradaya1.dart';
+import 'package:iksha/pages/sampradayas/sampradaya2.dart';
+import 'package:iksha/pages/sampradayas/sampradaya3.dart';
+import 'package:iksha/pages/sampradayas/sampradaya4.dart';
+import 'package:iksha/pages/sampradayas/sampradaya5.dart';
 import 'sampraday.dart';
 
 class Home extends StatefulWidget {
@@ -15,12 +20,12 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> imageSliders = [
-      buildCarouselItem('assets/images/img1.jpeg', 'Sampraday 1', context),
-      buildCarouselItem('assets/images/img2.jpeg', 'Sampraday 2', context),
-      buildCarouselItem('assets/images/img3.jpeg', 'Sampraday 3', context),
-      buildCarouselItem('assets/images/img4.jpeg', 'Sampraday 4', context),
-      buildCarouselItem('assets/images/img5.jpeg', 'Sampraday 5', context),
-      buildCarouselItem('assets/images/img6.jpeg', 'Sampraday 6', context),
+      buildCarouselItem('assets/images/img1.jpeg', 'Sampraday 1', context, Sampradaya1()),
+      buildCarouselItem('assets/images/img2.jpeg', 'Sampraday 2', context, Sampradaya2()),
+      buildCarouselItem('assets/images/img3.jpeg', 'Sampraday 3', context, Sampradaya3()),
+      buildCarouselItem('assets/images/img4.jpeg', 'Sampraday 4', context, Sampradaya4()),
+      buildCarouselItem('assets/images/img5.jpeg', 'Sampraday 5', context, Sampradaya5()),
+      // buildCarouselItem('assets/images/img6.jpeg', 'Sampraday 6', context),
     ];
 
     return Scaffold(
@@ -103,12 +108,19 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget buildCarouselItem(String file, String text, BuildContext context) {
+  Widget buildCarouselItem(
+    String file,
+    String text,
+    BuildContext context,
+      StatelessWidget widget
+  ) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SampradayPage()),
+          MaterialPageRoute(
+            builder: (context) => widget,
+          ),
         );
       },
       child: Container(

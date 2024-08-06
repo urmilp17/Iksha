@@ -27,9 +27,14 @@ class SampradayPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ElevatedButton(onPressed: () {
-              Navigator.pop(context);
-            }, child: Icon(Icons.keyboard_backspace)),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(5, 15, 5, 15),
+              child: Icon(
+                Icons.keyboard_backspace,
+                color: Colors.black,
+                size: 28,
+              ),
+            ),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
