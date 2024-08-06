@@ -141,7 +141,6 @@ class _HomeState extends State<Home> {
               right: 0,
               child: Container(
                 padding: const EdgeInsets.all(8.0),
-                color: Colors.black54,
                 child: Text(
                   text,
                   style: const TextStyle(
