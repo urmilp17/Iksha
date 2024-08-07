@@ -92,7 +92,42 @@ class _HomeState extends State<Home> {
                       style: TextStyle(fontFamily: 'Eczar', fontSize: 32),
                     ),
                     const Text(
-                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                      "           ",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontFamily: 'Eczar', fontSize: 13),
+                    ),
+                    const SizedBox(height: 8),
+                  ],
+                ),
+
+              ),
+            ),
+            Container(
+              width: double.maxFinite,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Card(
+                color: Colors.white,
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset(
+                          'assets/images/img1.jpeg',
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                        ),
+                      ),
+                    ),
+                    const Text(
+                      "Books Recommendation",
+                      style: TextStyle(fontFamily: 'Eczar', fontSize: 32),
+                    ),
+                    const Text(
+                      "     ",
                       textAlign: TextAlign.center,
                       style: TextStyle(fontFamily: 'Eczar', fontSize: 13),
                     ),
@@ -101,6 +136,43 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
+
+            Container(
+              width: double.maxFinite,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Card(
+                color: Colors.white,
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset(
+                          'assets/images/img1.jpeg',
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                        ),
+                      ),
+                    ),
+                    const Text(
+                      "Trigunas",
+                      style: TextStyle(fontFamily: 'Eczar', fontSize: 32),
+                    ),
+                    const Text(
+                      "          ",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontFamily: 'Eczar', fontSize: 13),
+                    ),
+                    const SizedBox(height: 8),
+                  ],
+                ),
+
+              ),
+            ),
+
           ],
         ),
       ),
