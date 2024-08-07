@@ -138,15 +138,14 @@ class _HomeState extends State<Home> {
               left: 0,
               right: 0,
               child: Container(
-                padding: const EdgeInsets.all(8.0),
-                color: Colors.black54,
+                padding: const EdgeInsets.fromLTRB(15, 0, 0, 15),
                 child: Text(
                   text,
                   style: const TextStyle(
                     color: Colors.white,
                     fontFamily: 'Eczar',
                     fontWeight: FontWeight.w500,
-                    fontSize: 22,
+                    fontSize: 25,
                   ),
                 ),
               ),

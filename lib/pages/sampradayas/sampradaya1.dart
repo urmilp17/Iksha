@@ -10,13 +10,18 @@ class Sampradaya1 extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.fromLTRB(5, 15, 5, 15),
-              child: Icon(
-                Icons.keyboard_backspace,
-                color: Colors.black,
-                size: 28,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(5, 15, 5, 15),
+              child: GestureDetector(
+                onTap: (){
+                  Navigator.pop(context);
+                },
+                child: const Icon(
+                  Icons.keyboard_backspace,
+                  color: Colors.black,
+                  size: 28,
+                ),
               ),
             ),
             Container(
