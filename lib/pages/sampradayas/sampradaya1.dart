@@ -10,13 +10,18 @@ class Sampradaya1 extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.fromLTRB(5, 15, 5, 15),
-              child: Icon(
-                Icons.keyboard_backspace,
-                color: Colors.black,
-                size: 28,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.fromLTRB(5, 18, 5, 15),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(
+                  Icons.keyboard_backspace,
+                  color: Colors.black,
+                  size: 30,
+                ),
               ),
             ),
             LayoutBuilder(
@@ -54,14 +59,13 @@ class Sampradaya1 extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             const Text(
-              'Shaivism (/ˈʃaɪvɪzəm/; Sanskrit: शैवसम्प्रदायः, romanized: Śaivasampradāyaḥa) is one of the major Hindu traditions, which worships Shiva as the Supreme Being. One of the largest Hindu denominations, it incorporates many sub-traditions ranging from devotional dualistic theism such as Shaiva Siddhanta to yoga-orientated monistic non-theism such as Kashmiri Shaivism. It considers both the Vedas and the Agama texts as important sources of theology. According to a 2010 estimate by Johnson and Grim, Shaivism is the second-largest Hindu sect, constituting about 252 million or 26.6% of Hindus.',
+              'Shaivism is one of the major Hindu traditions, which worships Shiva as the Supreme Being. One of the largest Hindu denominations, it incorporates many sub-traditions ranging from devotional dualistic theism such as Shaiva Siddhanta to yoga-orientated monistic non-theism such as Kashmiri Shaivism.\nIt considers both the Vedas and the Agama texts as important sources of theology. According to a 2010 estimate by Johnson and Grim, Shaivism is the second-largest Hindu sect, constituting about 252 million or 26.6% of Hindus.',
               style: TextStyle(
                 fontFamily: 'Eczar',
                 fontSize: 16,
                 height: 1.5,
               ),
             ),
-
             const SizedBox(height: 20),
             const Text(
               'Part of a series of shaivism',
@@ -80,7 +84,8 @@ class Sampradaya1 extends StatelessWidget {
                 ),
                 title: Text(
                   'Origins and history',
-                  style: TextStyle(fontFamily: 'Eczar', fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontFamily: 'Eczar', fontWeight: FontWeight.bold),
                 ),
                 subtitle: Text(
                   'The origins of Shaivism are unclear and a matter of debate among scholars, as it is an amalgam of pre-Vedic cults and traditions and Vedic culture',
@@ -96,7 +101,8 @@ class Sampradaya1 extends StatelessWidget {
                 ),
                 title: Text(
                   'Beliefs and practices',
-                  style: TextStyle(fontFamily: 'Eczar', fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontFamily: 'Eczar', fontWeight: FontWeight.bold),
                 ),
                 subtitle: Text(
                   'Shaivism, organized worship of the Indian god Shiva and, with Vaishnavism and Shaktism, one of the three principal forms of modern Hinduism. Shaivism includes such diverse movements as the highly philosophical Shaiva-siddhanta, the socially distinctive Lingayat, ascetics such as the dashnami sannyasin s, and innumerable folk variants.',
@@ -123,15 +129,17 @@ class Sampradaya1 extends StatelessWidget {
                     // Action for Facebook
                   },
                 ),
-
                 IconButton(
-                  icon: const Icon(Icons.camera_alt, color: Color(0xFFC13584)), // using camera_alt for Instagram
+                  icon: const Icon(Icons.camera_alt,
+                      color:
+                          Color(0xFFC13584)), // using camera_alt for Instagram
                   onPressed: () {
                     // Action for Instagram
                   },
                 ),
                 IconButton(
-                  icon: const Icon(Icons.business, color: Color(0xFF0077B5)), // using business for LinkedIn
+                  icon: const Icon(Icons.business,
+                      color: Color(0xFF0077B5)), // using business for LinkedIn
                   onPressed: () {
                     // Action for LinkedIn
                   },
