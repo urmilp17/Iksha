@@ -66,7 +66,7 @@ class Sampradaya4 extends StatelessWidget {
                     // Action for joining the community
                   },
                   icon: const Icon(Icons.group_add),
-                  label: const Text('Join Now'),
+                  label: const Text('Read More'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepOrange,
                     foregroundColor: Colors.white,
@@ -78,7 +78,7 @@ class Sampradaya4 extends StatelessWidget {
                     // Action for learning more
                   },
                   icon: const Icon(Icons.info),
-                  label: const Text('Learn More'),
+                  label: const Text('Instagram'),
                   style: OutlinedButton.styleFrom(
                     foregroundColor: Colors.deepOrange,
                     textStyle: const TextStyle(fontFamily: 'Eczar'),
