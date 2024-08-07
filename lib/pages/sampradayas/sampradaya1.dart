@@ -54,12 +54,14 @@ class Sampradaya1 extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            const Text(
-              'Sampraday is a community-focused platform that aims to connect like-minded individuals and promote cultural values. Join us to be a part of an ever-growing community.',
-              style: TextStyle(
-                fontFamily: 'Eczar',
-                fontSize: 16,
-                height: 1.5,
+            const Expanded(
+              child: Text(
+                'Sampraday is a community-focused platform that aims to connect like-minded individuals and promote cultural values. Join us to be a part of an ever-growing community.',
+                style: TextStyle(
+                  fontFamily: 'Eczar',
+                  fontSize: 16,
+                  height: 1.5,
+                ),
               ),
             ),
             const SizedBox(height: 20),
