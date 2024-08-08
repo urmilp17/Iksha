@@ -88,7 +88,7 @@ class Sampradaya1 extends StatelessWidget {
                     child: ListTile(
                       leading: CircleAvatar(
                         backgroundImage:
-                            AssetImage('assets/images/testimonial1.jpg'),
+                        AssetImage('assets/images/testimonial1.jpg'),
                       ),
                       title: Text(
                         'Origins and history',
@@ -106,7 +106,7 @@ class Sampradaya1 extends StatelessWidget {
                     child: ListTile(
                       leading: CircleAvatar(
                         backgroundImage:
-                            AssetImage('assets/images/testimonial2.jpg'),
+                        AssetImage('assets/images/testimonial2.jpg'),
                       ),
                       title: Text(
                         'Beliefs and practices',
@@ -175,14 +175,17 @@ class Sampradaya1 extends StatelessWidget {
                       ),
                       OutlinedButton.icon(
                         onPressed: () async {
-                          const url = 'https://appopener.ai/ig/r2nvxlm7p';
+                          const url =
+                              'https://www.instagram.com/ishaivite?igsh=MXIycTB3c3oxMDF1MA==';
                           final Uri uri = Uri.parse(url);
 
-                          if (await canLaunchUrl(uri)) {
-                            await launchUrl(uri);
-                          } else {
-                            throw 'Could not launch $url';
-                          }
+                          // if (await canLaunchUrl(uri)) {
+                          //   await launchUrl(uri,mode: LaunchMode.externalApplication);
+                          // } else {
+                          //   throw 'Could not launch $url';
+                          // }
+
+                          launchUrl(uri,mode: LaunchMode.externalApplication);
                         },
                         icon: const Icon(Icons.info),
                         label: const Text('Instagram'),
@@ -192,9 +195,6 @@ class Sampradaya1 extends StatelessWidget {
                           side: const BorderSide(color: Colors.deepOrange),
                         ),
                       ),
-
-
-
                     ],
                   ),
                 ],
@@ -206,5 +206,3 @@ class Sampradaya1 extends StatelessWidget {
     );
   }
 }
-
-
