@@ -11,7 +11,8 @@ import 'package:iksha/pages/Other%20Modules/videofile.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:video_player/video_player.dart';
+import 'package:chewie/chewie.dart';
 import 'sampraday.dart';
 
 class Home extends StatefulWidget {
@@ -85,7 +86,7 @@ class _HomeState extends State<Home> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => VideoFilePage(),
+                    builder: (_) => VideoPlaylistPage(),
                   ),
                 );
               },
