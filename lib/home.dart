@@ -7,7 +7,6 @@ import 'pages/firstpage.dart';
 import 'pages/thirdpage.dart';
 import 'pages/secondpage.dart';
 
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
@@ -23,10 +22,12 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: background,
+        centerTitle: true,
         title: const Text(
           "IKSHA",
-          style: TextStyle(
-              fontFamily: 'LibreBaskerville', fontWeight: FontWeight.bold),
+           textAlign: TextAlign.center,
+           style: TextStyle(
+               fontFamily: 'LibreBaskerville', fontWeight: FontWeight.bold),
         ),
         actions: [
           PopupMenuButton(
@@ -50,8 +51,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
         elevation: 0,
       ),
-
-
       body: IndexedStack(
         index: currentPageIndex,
         children: const <Widget>[

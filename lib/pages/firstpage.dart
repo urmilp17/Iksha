@@ -1,11 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:iksha/pages/Other%20Modules/books.dart';
+import 'package:iksha/pages/Other%20Modules/trigunas.dart';
 import 'package:iksha/pages/sampradayas/sampradaya1.dart';
 import 'package:iksha/pages/sampradayas/sampradaya2.dart';
 import 'package:iksha/pages/sampradayas/sampradaya3.dart';
 import 'package:iksha/pages/sampradayas/sampradaya4.dart';
 import 'package:iksha/pages/sampradayas/sampradaya5.dart';
-import 'package:iksha/pages/sampradayas/videofile.dart';
+import 'package:iksha/pages/Other%20Modules/videofile.dart';
 import 'sampraday.dart';
 
 class Home extends StatefulWidget {
@@ -58,7 +60,7 @@ class _HomeState extends State<Home> {
                 height: 1.8,
               ),
             ),
-            const SizedBox(height: 15),
+            //const SizedBox(height: 15),
             CarouselSlider(
               items: imageSliders,
               carouselController: buttonCarouselController,
@@ -69,6 +71,7 @@ class _HomeState extends State<Home> {
                 enlargeCenterPage: true,
                 enableInfiniteScroll: true,
                 initialPage: 0,
+                autoPlay: true,
                 scrollDirection: Axis.horizontal,
               ),
             ),
@@ -117,71 +120,91 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
-            Container(
-              width: double.maxFinite,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Card(
-                color: Colors.white,
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.asset(
-                          'assets/images/img1.jpeg',
-                          fit: BoxFit.cover,
-                          width: double.infinity,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const Books(),
+                  ),
+                );
+              },
+              child: Container(
+                width: double.maxFinite,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Card(
+                  color: Colors.white,
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.asset(
+                            'assets/images/img1.jpeg',
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                          ),
                         ),
                       ),
-                    ),
-                    const Text(
-                      "Books Recommendation",
-                      style: TextStyle(fontFamily: 'Eczar', fontSize: 32),
-                    ),
-                    const Text(
-                      "     ",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontFamily: 'Eczar', fontSize: 13),
-                    ),
-                    const SizedBox(height: 8),
-                  ],
+                      const Text(
+                        "Books Recommendation",
+                        style: TextStyle(fontFamily: 'Eczar', fontSize: 32),
+                      ),
+                      const Text(
+                        "     ",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontFamily: 'Eczar', fontSize: 13),
+                      ),
+                      const SizedBox(height: 8),
+                    ],
+                  ),
                 ),
               ),
             ),
-            Container(
-              width: double.maxFinite,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Card(
-                color: Colors.white,
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.asset(
-                          'assets/images/img1.jpeg',
-                          fit: BoxFit.cover,
-                          width: double.infinity,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const Trigunas(),
+                  ),
+                );
+              },
+              child: Container(
+                width: double.maxFinite,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Card(
+                  color: Colors.white,
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.asset(
+                            'assets/images/img1.jpeg',
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                          ),
                         ),
                       ),
-                    ),
-                    const Text(
-                      "Trigunas",
-                      style: TextStyle(fontFamily: 'Eczar', fontSize: 32),
-                    ),
-                    const Text(
-                      "          ",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontFamily: 'Eczar', fontSize: 13),
-                    ),
-                    const SizedBox(height: 8),
-                  ],
+                      const Text(
+                        "Trigunas",
+                        style: TextStyle(fontFamily: 'Eczar', fontSize: 32),
+                      ),
+                      const Text(
+                        "          ",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontFamily: 'Eczar', fontSize: 13),
+                      ),
+                      const SizedBox(height: 8),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -201,8 +224,21 @@ class _HomeState extends State<Home> {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => widget,
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => widget,
+            transitionDuration: const Duration(milliseconds: 700),
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              const begin = Offset(2.5, 0.0);
+              const end = Offset.zero;
+              const curve = Curves.ease;
+
+              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+              return SlideTransition(
+               position: animation.drive(tween),
+               child: child,
+             );
+            },
           ),
         );
       },
