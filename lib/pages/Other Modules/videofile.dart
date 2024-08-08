@@ -1,98 +1,137 @@
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
-import 'package:chewie/chewie.dart';
 
-class VideoPlaylistPage extends StatefulWidget {
-  @override
-  _VideoPlaylistPageState createState() => _VideoPlaylistPageState();
-}
-
-class _VideoPlaylistPageState extends State<VideoPlaylistPage> {
-  VideoPlayerController? _videoPlayerController;
-  ChewieController? _chewieController;
-  int _currentIndex = 0;
-
-  final List<String> _videoUrls = [
-    'https://www.example.com/video1.mp4',
-    'https://www.example.com/video2.mp4',
-    'https://www.example.com/video3.mp4',
+class VideoPlaylistPage extends StatelessWidget {
+  final List<Map<String, String>> videos = [
+    {
+      'title': 'Session 1: Summary of Word Power Made Easy',
+      'subtitle': '1.2M views · 4 years ago',
+      'thumbnail': 'assets/images/session1.jpg',
+      'duration': '23:08',
+    },
+    {
+      'title': 'Session 2: Summary of Word Power Made Easy',
+      'subtitle': '331K views · 4 years ago',
+      'thumbnail': 'assets/images/session2.jpg',
+      'duration': '18:41',
+    },
+    {
+      'title': 'Session 3: Summary of Word Power Made Easy',
+      'subtitle': '231K views · 4 years ago',
+      'thumbnail': 'assets/images/session3.jpg',
+      'duration': '19:45',
+    },
+    // Add more sessions as needed
   ];
-
-  @override
-  void initState() {
-    super.initState();
-    _initializePlayer(_videoUrls[_currentIndex]);
-  }
-
-  void _initializePlayer(String url) {
-    _videoPlayerController = VideoPlayerController.network(url);
-    _chewieController = ChewieController(
-      videoPlayerController: _videoPlayerController!,
-      aspectRatio: 16 / 9,
-      autoPlay: true,
-      looping: false,
-    );
-
-    _videoPlayerController!.addListener(() {
-      if (_videoPlayerController!.value.isInitialized) {
-        setState(() {});
-      }
-    });
-    _videoPlayerController!.initialize();
-  }
-
-  @override
-  void dispose() {
-    _videoPlayerController?.dispose();
-    _chewieController?.dispose();
-    super.dispose();
-  }
-
-  void _playVideo(int index) {
-    setState(() {
-      _currentIndex = index;
-      _initializePlayer(_videoUrls[_currentIndex]);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Video Playlist'),
-      ),
-      body: Column(
-        children: [
-          // Video Player Section
-          if (_chewieController != null &&
-              _chewieController!.videoPlayerController.value.isInitialized)
-            AspectRatio(
-              aspectRatio: _chewieController!.videoPlayerController.value.aspectRatio,
-              child: Chewie(
-                controller: _chewieController!,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 200.0,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text('Word Power Made Easy (Summary)'),
+              background: Image.asset(
+                'assets/images/Sri-Jnaneshwar-pi.gif',
+                fit: BoxFit.cover,
               ),
-            )
-          else
-            Center(
-              child: CircularProgressIndicator(),
             ),
-          const SizedBox(height: 20),
-          // Video Playlist Section
-          Expanded(
-            child: ListView.builder(
-              itemCount: _videoUrls.length,
-              itemBuilder: (context, index) {
+            pinned: true,
+            actions: [
+              IconButton(
+                icon: Icon(Icons.cast),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: Icon(Icons.more_vert),
+                onPressed: () {},
+              ),
+            ],
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('40 videos', style: TextStyle(fontSize: 16)),
+                  Row(
+                    children: [
+                      Icon(Icons.save_alt),
+                      SizedBox(width: 10),
+                      Icon(Icons.share),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Divider(),
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+                  (context, index) {
                 return ListTile(
-                  title: Text('Video ${index + 1}'),
+                  leading: Stack(
+                    children: [
+                      Image.asset(videos[index]['Sri-Jnaneshwar-pi.gif']!, fit: BoxFit.cover),
+                      Positioned(
+                        bottom: 5,
+                        right: 5,
+                        child: Container(
+                          color: Colors.black54,
+                          padding: EdgeInsets.all(2),
+                          child: Text(
+                            videos[index]['duration']!,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  title: Text(
+                    videos[index]['title']!,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text(videos[index]['subtitle']!),
                   onTap: () {
-                    _playVideo(index);
+                    // Navigate to the video player page
                   },
-                  selected: index == _currentIndex,
                 );
               },
+              childCount: videos.length,
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.video_library),
+            label: 'Subscriptions',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_circle_outline),
+            label: 'Add',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.subscriptions),
+            label: 'Library',
+          ),
+        ],
+        selectedItemColor: Colors.red,
+        unselectedItemColor: Colors.grey,
       ),
     );
   }
