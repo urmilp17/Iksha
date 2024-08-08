@@ -8,6 +8,10 @@ import 'package:iksha/pages/sampradayas/sampradaya3.dart';
 import 'package:iksha/pages/sampradayas/sampradaya4.dart';
 import 'package:iksha/pages/sampradayas/sampradaya5.dart';
 import 'package:iksha/pages/Other%20Modules/videofile.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'sampraday.dart';
 
 class Home extends StatefulWidget {

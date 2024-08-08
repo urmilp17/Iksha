@@ -172,18 +172,28 @@ class Sampradaya1 extends StatelessWidget {
                           textStyle: const TextStyle(fontFamily: 'Eczar'),
                         ),
                       ),
-                      OutlinedButton.icon(
-                        onPressed: () {
-                          // Action for learning more
-                        },
-                        icon: const Icon(Icons.info),
-                        label: const Text('Instagram'),
-                        style: OutlinedButton.styleFrom(
-                          foregroundColor: Colors.deepOrange,
-                          textStyle: const TextStyle(fontFamily: 'Eczar'),
-                          side: const BorderSide(color: Colors.deepOrange),
-                        ),
-                      ),
+                      // OutlinedButton.icon(
+                      //   onPressed: () async {
+                      //     const url = 'https://www.instagram.com/ishaivite?igsh=MXIycTB3c3oxMDF1MA==';
+                      //     final Uri uri = Uri.parse(url);
+                      //
+                      //     if (await canLaunchUrl(uri)) {
+                      //       await launchUrl(uri);
+                      //     } else {
+                      //       throw 'Could not launch $url';
+                      //     }
+                      //   },
+                      //   icon: const Icon(Icons.info),
+                      //   label: const Text('Instagram'),
+                      //   style: OutlinedButton.styleFrom(
+                      //     foregroundColor: Colors.deepOrange,
+                      //     textStyle: const TextStyle(fontFamily: 'Eczar'),
+                      //     side: const BorderSide(color: Colors.deepOrange),
+                      //   ),
+                      // ),
+
+
+
                     ],
                   ),
                 ],
@@ -195,3 +205,5 @@ class Sampradaya1 extends StatelessWidget {
     );
   }
 }
+
+
