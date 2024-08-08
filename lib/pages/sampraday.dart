@@ -21,7 +21,7 @@ class SampradayPage extends StatelessWidget {
       //     ),
       //   ],
       //   backgroundColor: Colors.deepOrange,
-      // ),
+      // ),`
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
