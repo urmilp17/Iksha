@@ -5,6 +5,7 @@ import 'package:iksha/pages/sampradayas/sampradaya2.dart';
 import 'package:iksha/pages/sampradayas/sampradaya3.dart';
 import 'package:iksha/pages/sampradayas/sampradaya4.dart';
 import 'package:iksha/pages/sampradayas/sampradaya5.dart';
+import 'package:iksha/pages/sampradayas/videofile.dart';
 import 'sampraday.dart';
 
 class Home extends StatefulWidget {
@@ -20,11 +21,16 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> imageSliders = [
-      buildCarouselItem('assets/images/sp1.jpg', 'Shaivism', context, Sampradaya1()),
-      buildCarouselItem('assets/images/sp2.jpg', 'Shaktism', context, Sampradaya2()),
-      buildCarouselItem('assets/images/sp3.jpg', 'Vaishnavism', context, Sampradaya3()),
-      buildCarouselItem('assets/images/sp4.jpg', 'Ganpatya', context, Sampradaya4()),
-      buildCarouselItem('assets/images/sp5.jpg', 'Smarthism', context, Sampradaya5()),
+      buildCarouselItem(
+          'assets/images/sp1.jpg', 'Shaivism', context, const Sampradaya1()),
+      buildCarouselItem(
+          'assets/images/sp2.jpg', 'Shaktism', context, const Sampradaya2()),
+      buildCarouselItem(
+          'assets/images/sp3.jpg', 'Vaishnavism', context, const Sampradaya3()),
+      buildCarouselItem(
+          'assets/images/sp4.jpg', 'Ganpatya', context, const Sampradaya4()),
+      buildCarouselItem(
+          'assets/images/sp5.jpg', 'Smarthism', context, const Sampradaya5()),
     ];
 
     return Scaffold(
@@ -67,39 +73,48 @@ class _HomeState extends State<Home> {
               ),
             ),
             const SizedBox(height: 15),
-            Container(
-              width: double.maxFinite,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Card(
-                color: Colors.white,
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.asset(
-                          'assets/images/img1.jpeg',
-                          fit: BoxFit.cover,
-                          width: double.infinity,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => VideoFilePage(),
+                  ),
+                );
+              },
+              child: Container(
+                width: double.maxFinite,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Card(
+                  color: Colors.white,
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.asset(
+                            'assets/images/img1.jpeg',
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                          ),
                         ),
                       ),
-                    ),
-                    const Text(
-                      "Video Recommendation",
-                      style: TextStyle(fontFamily: 'Eczar', fontSize: 32),
-                    ),
-                    const Text(
-                      "           ",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontFamily: 'Eczar', fontSize: 13),
-                    ),
-                    const SizedBox(height: 8),
-                  ],
+                      const Text(
+                        "Video Recommendation",
+                        style: TextStyle(fontFamily: 'Eczar', fontSize: 32),
+                      ),
+                      const Text(
+                        "           ",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontFamily: 'Eczar', fontSize: 13),
+                      ),
+                      const SizedBox(height: 8),
+                    ],
+                  ),
                 ),
-
               ),
             ),
             Container(
@@ -136,7 +151,6 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
-
             Container(
               width: double.maxFinite,
               decoration: BoxDecoration(
@@ -169,10 +183,8 @@ class _HomeState extends State<Home> {
                     const SizedBox(height: 8),
                   ],
                 ),
-
               ),
             ),
-
           ],
         ),
       ),
@@ -180,11 +192,11 @@ class _HomeState extends State<Home> {
   }
 
   Widget buildCarouselItem(
-      String file,
-      String text,
-      BuildContext context,
-      StatelessWidget widget,
-      ) {
+    String file,
+    String text,
+    BuildContext context,
+    StatelessWidget widget,
+  ) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
