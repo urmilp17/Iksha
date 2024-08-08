@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Sampradaya2 extends StatelessWidget {
   const Sampradaya2({Key? key}) : super(key: key);
@@ -12,12 +13,12 @@ class Sampradaya2 extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.fromLTRB(5, 18, 5, 15),
+              padding: const EdgeInsets.fromLTRB(5, 18, 5, 15),
               child: GestureDetector(
                 onTap: () {
                   Navigator.pop(context);
                 },
-                child: Icon(
+                child: const Icon(
                   Icons.keyboard_backspace,
                   color: Colors.black,
                   size: 30,
@@ -49,132 +50,155 @@ class Sampradaya2 extends StatelessWidget {
               },
             ),
             const SizedBox(height: 20),
-            const Text(
-              'Shaktism',
-              style: TextStyle(
-                fontFamily: 'Eczar',
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 10),
-            const Text(
-              'Shaivism is one of the major Hindu traditions, which worships Shiva as the Supreme Being. One of the largest Hindu denominations, it incorporates many sub-traditions ranging from devotional dualistic theism such as Shaiva Siddhanta to yoga-orientated monistic non-theism such as Kashmiri Shaivism.\nIt considers both the Vedas and the Agama texts as important sources of theology. According to a 2010 estimate by Johnson and Grim, Shaivism is the second-largest Hindu sect, constituting about 252 million or 26.6% of Hindus.',
-              style: TextStyle(
-                fontFamily: 'Eczar',
-                fontSize: 16,
-                height: 1.5,
-              ),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Part of a series of shaivism',
-              style: TextStyle(
-                fontFamily: 'Eczar',
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 10),
-            const Card(
-              margin: EdgeInsets.symmetric(vertical: 10.0),
-              child: ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/testimonial1.jpg'),
-                ),
-                title: Text(
-                  'Origins and history',
-                  style: TextStyle(
-                      fontFamily: 'Eczar', fontWeight: FontWeight.bold),
-                ),
-                subtitle: Text(
-                  'The origins of Shaivism are unclear and a matter of debate among scholars, as it is an amalgam of pre-Vedic cults and traditions and Vedic culture',
-                  style: TextStyle(fontFamily: 'Eczar'),
-                ),
-              ),
-            ),
-            const Card(
-              margin: EdgeInsets.symmetric(vertical: 10.0),
-              child: ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/testimonial2.jpg'),
-                ),
-                title: Text(
-                  'Beliefs and practices',
-                  style: TextStyle(
-                      fontFamily: 'Eczar', fontWeight: FontWeight.bold),
-                ),
-                subtitle: Text(
-                  'Shaivism, organized worship of the Indian god Shiva and, with Vaishnavism and Shaktism, one of the three principal forms of modern Hinduism. Shaivism includes such diverse movements as the highly philosophical Shaiva-siddhanta, the socially distinctive Lingayat, ascetics such as the dashnami sannyasin s, and innumerable folk variants.',
-                  style: TextStyle(fontFamily: 'Eczar'),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Follow Us',
-              style: TextStyle(
-                fontFamily: 'Eczar',
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.facebook, color: Color(0xFF3b5998)),
-                  onPressed: () {
-                    // Action for Facebook
-                  },
-                ),
-                IconButton(
-                  icon: const Icon(Icons.camera_alt,
-                      color:
-                      Color(0xFFC13584)), // using camera_alt for Instagram
-                  onPressed: () {
-                    // Action for Instagram
-                  },
-                ),
-                IconButton(
-                  icon: const Icon(Icons.business,
-                      color: Color(0xFF0077B5)), // using business for LinkedIn
-                  onPressed: () {
-                    // Action for LinkedIn
-                  },
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton.icon(
-                  onPressed: () {
-                    // Action for joining the community
-                  },
-                  icon: const Icon(Icons.group_add),
-                  label: const Text('Know More'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepOrange,
-                    foregroundColor: Colors.white,
-                    textStyle: const TextStyle(fontFamily: 'Eczar'),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+              child: Column(
+                // Add New Widgets here
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  const Text(
+                    'Shaktism',
+                    style: TextStyle(
+                      fontFamily: 'Eczar',
+                      fontSize: 27,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                OutlinedButton.icon(
-                  onPressed: () {
-                    // Action for learning more
-                  },
-                  icon: const Icon(Icons.info),
-                  label: const Text('Instagram'),
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: Colors.deepOrange,
-                    textStyle: const TextStyle(fontFamily: 'Eczar'),
-                    side: const BorderSide(color: Colors.deepOrange),
+                  const SizedBox(height: 5),
+                  const Text(
+                    'Shaivism is one of the major Hindu traditions, which worships Shiva as the Supreme Being. One of the largest Hindu denominations, it incorporates many sub-traditions ranging from devotional dualistic theism such as Shaiva Siddhanta to yoga-orientated monistic non-theism such as Kashmiri Shaivism.\nIt considers both the Vedas and the Agama texts as important sources of theology. According to a 2010 estimate by Johnson and Grim, Shaivism is the second-largest Hindu sect, constituting about 252 million or 26.6% of Hindus.',
+                    style: TextStyle(
+                      fontFamily: 'Eczar',
+                      fontSize: 16,
+                      height: 1.5,
+                    ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 20),
+                  const Text(
+                    'Part of a series of shaivism',
+                    style: TextStyle(
+                      fontFamily: 'Eczar',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  const Card(
+                    margin: EdgeInsets.symmetric(vertical: 10.0),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundImage:
+                        AssetImage('assets/images/testimonial1.jpg'),
+                      ),
+                      title: Text(
+                        'Origins and history',
+                        style: TextStyle(
+                            fontFamily: 'Eczar', fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text(
+                        'The origins of Shaivism are unclear and a matter of debate among scholars, as it is an amalgam of pre-Vedic cults and traditions and Vedic culture',
+                        style: TextStyle(fontFamily: 'Eczar'),
+                      ),
+                    ),
+                  ),
+                  const Card(
+                    margin: EdgeInsets.symmetric(vertical: 10.0),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundImage:
+                        AssetImage('assets/images/testimonial2.jpg'),
+                      ),
+                      title: Text(
+                        'Beliefs and practices',
+                        style: TextStyle(
+                            fontFamily: 'Eczar', fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text(
+                        'Shaivism, organized worship of the Indian god Shiva and, with Vaishnavism and Shaktism, one of the three principal forms of modern Hinduism. Shaivism includes such diverse movements as the highly philosophical Shaiva-siddhanta, the socially distinctive Lingayat, ascetics such as the dashnami sannyasin s, and innumerable folk variants.',
+                        style: TextStyle(fontFamily: 'Eczar'),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'Follow Us',
+                    style: TextStyle(
+                      fontFamily: 'Eczar',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.facebook,
+                            color: Color(0xFF3b5998)),
+                        onPressed: () {
+                          // Action for Facebook
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.camera_alt,
+                            color: Color(
+                                0xFFC13584)), // using camera_alt for Instagram
+                        onPressed: () {
+                          // Action for Instagram
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.business,
+                            color: Color(
+                                0xFF0077B5)), // using business for LinkedIn
+                        onPressed: () {
+                          // Action for LinkedIn
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          // Action for joining the community
+                        },
+                        icon: const Icon(Icons.group_add),
+                        label: const Text('Know More'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.deepOrange,
+                          foregroundColor: Colors.white,
+                          textStyle: const TextStyle(fontFamily: 'Eczar'),
+                        ),
+                      ),
+                      OutlinedButton.icon(
+                        onPressed: () async {
+                          const url =
+                              'https://www.instagram.com/ishaivite?igsh=MXIycTB3c3oxMDF1MA==';
+                          final Uri uri = Uri.parse(url);
+
+                          // if (await canLaunchUrl(uri)) {
+                          //   await launchUrl(uri,mode: LaunchMode.externalApplication);
+                          // } else {
+                          //   throw 'Could not launch $url';
+                          // }
+
+                          launchUrl(uri,mode: LaunchMode.externalApplication);
+                        },
+                        icon: const Icon(Icons.info),
+                        label: const Text('Instagram'),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: Colors.deepOrange,
+                          textStyle: const TextStyle(fontFamily: 'Eczar'),
+                          side: const BorderSide(color: Colors.deepOrange),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),
