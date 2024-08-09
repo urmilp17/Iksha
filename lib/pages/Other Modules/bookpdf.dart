@@ -35,7 +35,7 @@ class BookDetailsPage extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: Image.asset(
-                    'assets/images/logo_design_love.jpg', // Replace with your image asset
+                    'assets/images/book2.jpg', // Replace with your image asset
                     width: 100,
                     height: 150,
                     fit: BoxFit.cover,
@@ -99,7 +99,7 @@ class BookDetailsPage extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {},
-                  child: const Text('BUY IT NOW'),
+                  child: const Text('READ NOW'),
                 ),
                 IconButton(
                   icon: const Icon(Icons.favorite_border),
