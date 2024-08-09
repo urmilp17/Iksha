@@ -28,16 +28,20 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Home Screen'),
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).push(
-              SwipeablePageRoute(
-                builder: (BuildContext context) => const Trigunas(),
-                canOnlySwipeFromEdge: true, // Optional: swipe only from the edge
-              ),
-            );
-          },
-          child: const Text('Go to Trigunas'),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                SwipeablePageRoute(
+                  builder: (BuildContext context) => const Trigunas(),
+                  canOnlySwipeFromEdge: true,
+                ),
+              );
+            },
+            style: _buttonStyle(),
+            child: const Text('Go to Trigunas'),
+          ),
         ),
       ),
     );
@@ -51,7 +55,7 @@ class Trigunas extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.blueGrey[700],
         title: const Text('Trigunas Screen'),
         actions: [
           IconButton(
@@ -86,10 +90,11 @@ class Trigunas extends StatelessWidget {
                 Navigator.of(context).push(
                   SwipeablePageRoute(
                     builder: (BuildContext context) => const NextPage(),
-                    canOnlySwipeFromEdge: true, // Optional: swipe only from the edge
+                    canOnlySwipeFromEdge: true,
                   ),
                 );
               },
+              style: _buttonStyle(),
               child: const Text('Go to Next Page'),
             ),
           ),
@@ -100,6 +105,7 @@ class Trigunas extends StatelessWidget {
           Navigator.of(context).pop(); // Go back to the previous page
         },
         child: const Icon(Icons.arrow_back),
+        backgroundColor: Colors.blueGrey[700], // Same color as other buttons
       ),
     );
   }
@@ -112,17 +118,8 @@ class NextPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.blueGrey[700],
         title: const Text('Next Page'),
-        actions: [
-          // IconButton(
-          //   key: const ValueKey('back'),
-          //   icon: const Icon(Icons.arrow_back),
-          //   onPressed: () {
-          //     Navigator.of(context).pop(); // Go back to the previous page
-          //   },
-          // ),
-        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -137,10 +134,11 @@ class NextPage extends StatelessWidget {
                 Navigator.of(context).push(
                   SwipeablePageRoute(
                     builder: (BuildContext context) => const AnotherPage(),
-                    canOnlySwipeFromEdge: true, // Optional: swipe only from the edge
+                    canOnlySwipeFromEdge: true,
                   ),
                 );
               },
+              style: _buttonStyle(),
               child: const Text('Go to Another Page'),
             ),
           ),
@@ -151,6 +149,7 @@ class NextPage extends StatelessWidget {
           Navigator.of(context).pop(); // Go back to the previous page
         },
         child: const Icon(Icons.arrow_back),
+        backgroundColor: Colors.blueGrey[700], // Same color as other buttons
       ),
     );
   }
@@ -163,7 +162,7 @@ class AnotherPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.blueGrey[700],
         title: const Text('Another Page'),
       ),
       body: Column(
@@ -172,7 +171,16 @@ class AnotherPage extends StatelessWidget {
           const Center(
             child: Text('Hello from Another Page!'),
           ),
-
+          // Padding(
+          //   padding: const EdgeInsets.all(16.0),
+          //   child: ElevatedButton(
+          //     onPressed: () {
+          //       Navigator.of(context).pop(); // Go back to the previous page
+          //     },
+          //     style: _buttonStyle(),
+          //     child: const Text('Go Back'),
+          //   ),
+          // ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -180,7 +188,20 @@ class AnotherPage extends StatelessWidget {
           Navigator.of(context).pop(); // Go back to the previous page
         },
         child: const Icon(Icons.arrow_back),
+        backgroundColor: Colors.blueGrey[700], // Same color as other buttons
       ),
     );
   }
+}
+
+// Common button style
+ButtonStyle _buttonStyle() {
+  return ElevatedButton.styleFrom(
+    backgroundColor: Colors.blueGrey[700], // Background color
+    foregroundColor: Colors.white, // Text color
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(8.0), // Rounded corners
+    ),
+    padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0), // Padding
+  );
 }
