@@ -31,7 +31,7 @@ class VideoPlaylistPage extends StatelessWidget {
           SliverAppBar(
             expandedHeight: 200.0,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text('Word Power Made Easy (Summary)'),
+              title: Text('    '),
               background: Image.asset(
                 'assets/images/Sri-Jnaneshwar-pi.gif',
                 fit: BoxFit.cover,

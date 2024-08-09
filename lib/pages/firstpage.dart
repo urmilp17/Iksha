@@ -130,7 +130,7 @@ class _HomeState extends State<Home> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => const Books(),
+                    builder: (_) => Books(),
                   ),
                 );
               },
@@ -148,7 +148,7 @@ class _HomeState extends State<Home> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.asset(
-                            'assets/images/img1.jpeg',
+                            'assets/images/book.jpg',
                             fit: BoxFit.cover,
                             width: double.infinity,
                           ),
@@ -156,7 +156,7 @@ class _HomeState extends State<Home> {
                       ),
                       const Text(
                         "Books Recommendation",
-                        style: TextStyle(fontFamily: 'Eczar', fontSize: 32),
+                        style: TextStyle(fontFamily: 'Eczar', fontSize: 25),
                       ),
                       const Text(
                         "     ",
