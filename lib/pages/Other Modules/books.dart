@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 
+import 'bookpdf.dart';
+
 class Books extends StatelessWidget {
   const Books({Key? key}) : super(key: key);
 
-  static const List<Map<String, String>> interests = [
+  static  List<Map<String, dynamic>> interests = [
     {
       'title': 'The Testaments',
       'author': 'Margaret Atwood',
       'image': 'assets/images/book1.jpg',
+      'page': BookDetailsPage(),
     },
     {
-      'title': 'Daisy Jones and The Six',
+      'title': 'Daisy Jones',
       'author': 'Taylor Jenkins Reid',
       'image': 'assets/images/book2.jpg',
     },
@@ -86,16 +89,24 @@ class Books extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8.0),
-                              child: Image.asset(
-                                interests[index]['image']!,
-                                fit: BoxFit.cover,
-                                width: 150, // Ensure image fills the width
-                                height: 200, // Consistent height with exploreBooks
+                          GestureDetector(
+                            child: Expanded(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Image.asset(
+                                  interests[index]['image']!,
+                                  fit: BoxFit.cover,
+                                  width: 150, // Ensure image fills the width
+                                  height: 200, // Consistent height with exploreBooks
+                                ),
                               ),
                             ),
+                            onTap: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => BookDetailsPage()),
+                              );
+                            },
                           ),
                           const SizedBox(height: 8.0),
                           Text(

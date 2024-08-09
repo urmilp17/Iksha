@@ -5,19 +5,19 @@ class VideoPlaylistPage extends StatelessWidget {
     {
       'title': 'Session 1: Summary of Word Power Made Easy',
       'subtitle': '1.2M views · 4 years ago',
-      'thumbnail': 'assets/images/session1.jpg',
+      'thumbnail': 'assets/images/img1.jpeg',
       'duration': '23:08',
     },
     {
       'title': 'Session 2: Summary of Word Power Made Easy',
       'subtitle': '331K views · 4 years ago',
-      'thumbnail': 'assets/images/session2.jpg',
+      'thumbnail': 'assets/images/img2.jpeg',
       'duration': '18:41',
     },
     {
       'title': 'Session 3: Summary of Word Power Made Easy',
       'subtitle': '231K views · 4 years ago',
-      'thumbnail': 'assets/images/session3.jpg',
+      'thumbnail': 'assets/images/img3.jpeg',
       'duration': '19:45',
     },
     // Add more sessions as needed
@@ -31,7 +31,7 @@ class VideoPlaylistPage extends StatelessWidget {
           SliverAppBar(
             expandedHeight: 200.0,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text('    '),
+              title: const Text('    '),
               background: Image.asset(
                 'assets/images/Sri-Jnaneshwar-pi.gif',
                 fit: BoxFit.cover,
@@ -40,22 +40,22 @@ class VideoPlaylistPage extends StatelessWidget {
             pinned: true,
             actions: [
               IconButton(
-                icon: Icon(Icons.cast),
+                icon: const Icon(Icons.cast),
                 onPressed: () {},
               ),
               IconButton(
-                icon: Icon(Icons.search),
+                icon: const Icon(Icons.search),
                 onPressed: () {},
               ),
               IconButton(
-                icon: Icon(Icons.more_vert),
+                icon: const Icon(Icons.more_vert),
                 onPressed: () {},
               ),
             ],
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -71,7 +71,7 @@ class VideoPlaylistPage extends StatelessWidget {
               ),
             ),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: Divider(),
           ),
           SliverList(
@@ -80,16 +80,16 @@ class VideoPlaylistPage extends StatelessWidget {
                 return ListTile(
                   leading: Stack(
                     children: [
-                      Image.asset(videos[index]['Sri-Jnaneshwar-pi.gif']!, fit: BoxFit.cover),
+                      Image.asset(videos[index]['thumbnail']!, fit: BoxFit.fill),
                       Positioned(
                         bottom: 5,
                         right: 5,
                         child: Container(
                           color: Colors.black54,
-                          padding: EdgeInsets.all(2),
+                          padding: const EdgeInsets.all(2),
                           child: Text(
                             videos[index]['duration']!,
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                           ),
                         ),
                       ),
@@ -97,7 +97,7 @@ class VideoPlaylistPage extends StatelessWidget {
                   ),
                   title: Text(
                     videos[index]['title']!,
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text(videos[index]['subtitle']!),
                   onTap: () {
