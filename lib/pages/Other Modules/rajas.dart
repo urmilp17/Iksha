@@ -8,30 +8,45 @@ class RajasPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onHorizontalDragEnd: (details) {
-        if (details.primaryVelocity! < 0) { // Swiping left
-          Navigator.of(context).push(SwipeablePageRoute(
-            canSwipe: true,
-            builder: (BuildContext context) => TamasPage(),
-          ));
-        }
 
-      },
         onHorizontalDragStart: (details) {
           Navigator.of(context).push(SwipeablePageRoute(
             canSwipe: true,
-            builder: (BuildContext context) => const Trigunas(),
+            builder: (BuildContext context) => Trigunas(),
           ));
         },
+      onDoubleTap: () {
+
+          Navigator.of(context).push(SwipeablePageRoute(
+            canOnlySwipeFromEdge: true,
+            builder: (BuildContext context) => TamasPage(),
+          ));
+
+
+      },
       child: const Scaffold(
         body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-
           Text(
             "Rajas",
-            style: TextStyle(color: Colors.black,fontSize: 40),
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 40,
+            ),
+          ),
+          SizedBox(height: 20), // Adds some space between the two texts
+          Text(
+            "Rajas is one of the three Gunas (qualities) in Hindu philosophy. "
+                "It represents activity, passion, and movement. "
+                "Rajas is associated with energy, desire, and a restless state of mind, "
+                "often driving one towards action and change but can lead to attachment and agitation.",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.black54,
+              fontSize: 18,
+            ),
           ),
         ],
       ),
