@@ -21,19 +21,27 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/images/login.jpg'),
-          fit: BoxFit.fill,
-        ),
-      ),
+      decoration: const BoxDecoration(color: Colors.white),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 18),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            const SizedBox(height: 90,),
+            Container(
+              width: 170,
+              height: 170,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/Logo.png'),
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+            const SizedBox(height: 25,),
             Container(
               decoration: BoxDecoration(
                   boxShadow: const [
@@ -42,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                       blurRadius: 10.0,
                     ),
                   ],
-                  color: const Color(0xC8FFF9F2),
+                  color: const Color(0xFFFFF9F2),
                   borderRadius: BorderRadius.circular(25.0)),
               child: Form(
                 key: formKey,
@@ -84,10 +92,9 @@ class _LoginPageState extends State<LoginPage> {
                               controller: password,
                               obscureText: true,
                               decoration: const InputDecoration(
-                                hintStyle: TextStyle(fontFamily: 'Eczar'),
-                                hintText: 'Enter your password',
-                                errorStyle: TextStyle(fontFamily: 'Eczar')
-                              ),
+                                  hintStyle: TextStyle(fontFamily: 'Eczar'),
+                                  hintText: 'Enter your password',
+                                  errorStyle: TextStyle(fontFamily: 'Eczar')),
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return 'Please enter password';
@@ -130,21 +137,25 @@ class _LoginPageState extends State<LoginPage> {
                                 fontFamily: 'Eczar',
                                 fontSize: 15,
                                 decoration: TextDecoration.underline,
-                                color: Colors.black
-                            ),
+                                color: Colors.black),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 Navigator.push(
                                   context,
                                   PageRouteBuilder(
-                                    pageBuilder: (context, animation, secondaryAnimation) => const Register(),
-                                    transitionDuration: const Duration(milliseconds: 600),
-                                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                    pageBuilder: (context, animation,
+                                            secondaryAnimation) =>
+                                        const Register(),
+                                    transitionDuration:
+                                        const Duration(milliseconds: 600),
+                                    transitionsBuilder: (context, animation,
+                                        secondaryAnimation, child) {
                                       const begin = Offset(0.0, 1.0);
                                       const end = Offset.zero;
                                       const curve = Curves.easeInCubic;
 
-                                      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                                      var tween = Tween(begin: begin, end: end)
+                                          .chain(CurveTween(curve: curve));
 
                                       return SlideTransition(
                                         position: animation.drive(tween),
@@ -176,14 +187,17 @@ class _LoginPageState extends State<LoginPage> {
       Navigator.pushAndRemoveUntil(
           context,
           PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) => const MyHomePage(),
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                const MyHomePage(),
             transitionDuration: const Duration(milliseconds: 1000),
-            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
               const begin = Offset(2.5, 0.0);
               const end = Offset.zero;
               const curve = Curves.ease;
 
-              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+              var tween =
+                  Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
               return SlideTransition(
                 position: animation.drive(tween),

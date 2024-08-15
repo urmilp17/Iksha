@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:iksha/pages/Splash.dart';
+import 'package:iksha/pages/firstpage.dart';
 import 'package:iksha/pages/login.dart';
 import 'package:iksha/pages/register.dart';
 import 'firebase_options.dart';
@@ -24,16 +25,13 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.light(
-          background: background
-        ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: background,
-              foregroundColor: Colors.white,
               padding: const EdgeInsets.all(15)
           )
         ),
+        scaffoldBackgroundColor: Colors.white,
         useMaterial3: true,
       ),
       home: const MyHomePage(),

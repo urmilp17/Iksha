@@ -23,19 +23,29 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Container(
       decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/images/regis.jpg'),
-          fit: BoxFit.fill,
-        ),
+        color: Colors.white
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 18),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            const SizedBox(height: 90,),
+            Container(
+              width: 170,
+              height: 170,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/Logo.png'),
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+            const SizedBox(height: 25,),
             Container(
               decoration: BoxDecoration(
                   boxShadow: const [
@@ -44,7 +54,7 @@ class _RegisterState extends State<Register> {
                       blurRadius: 10.0,
                     ),
                   ],
-                  color: const Color(0xC8FFF9F2),
+                  color: const Color(0xFFFFF9F2),
                   borderRadius: BorderRadius.circular(25.0)),
               child: Form(
                 key: formKey,
@@ -56,7 +66,7 @@ class _RegisterState extends State<Register> {
                     const SizedBox(height: 7),
                     const Text(
                       'Please enter name, email and password to get started.',
-                      style: TextStyle(fontFamily: 'Eczar'),
+                      style: TextStyle(fontFamily: 'Eczar',fontSize: 13),
                     ),
                     const SizedBox(height: 7),
                     Padding(

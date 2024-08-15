@@ -4,24 +4,28 @@ import 'package:iksha/colours.dart';
 List<Widget> destinations() {
   return [
     NavigationDestination(
+      tooltip: "Home Page",
       selectedIcon: Icon(
         Icons.home,
         color: iconcolor,
+        size: 35,
       ),
-      icon: const Icon(Icons.home_outlined),
-      label: 'Home',
+      icon: const Icon(Icons.home_outlined,size: 30,),
+      label: "",
+
+
     ),
     NavigationDestination(
-      icon: Badge(
-        child: Icon(Icons.lightbulb, color: iconcolor),
-      ),
-      label: 'Main Features',
+      tooltip: "Main Features",
+      selectedIcon: Icon(Icons.lightbulb, color: iconcolor,size: 35,),
+      icon: Icon(Icons.lightbulb_outline, color: iconcolor,size: 30,),
+      label: '',
     ),
     NavigationDestination(
-      icon: Badge(
-        child: Icon(Icons.article, color: iconcolor),
-      ),
-      label: 'Articles',
+      selectedIcon: Icon(Icons.article, color: iconcolor,size: 35,),
+      tooltip: "Articles",
+      icon: Icon(Icons.article_outlined, color: iconcolor,size: 30,),
+      label: '',
     ),
   ];
 }

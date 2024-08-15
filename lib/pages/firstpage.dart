@@ -1,5 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide CarouselController;
 import 'package:iksha/pages/Other%20Modules/books.dart';
 import 'package:iksha/pages/Other%20Modules/trigunas.dart';
 import 'package:iksha/pages/sampradayas/sampradaya1.dart';
@@ -42,12 +42,13 @@ class _HomeState extends State<Home> {
     ];
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFDF5DF),
+     // backgroundColor: const Color(0xFFFDF5DF),
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(18.5, 20, 18.5, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            const SizedBox(height: 7),
             const Text(
               "Welcome to IKSHA",
               style: TextStyle(
