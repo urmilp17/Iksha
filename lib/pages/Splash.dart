@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       body: Center(
         child: AnimatedOpacity(
           opacity: _opacity,
-          duration: Duration(seconds: 5), // Duration for the fade-in animation
+          duration: const Duration(seconds: 3), // Duration for the fade-in animation
           child: Image.asset('assets/images/Logo.png', height: 350, width: 360),
         ),
       ),

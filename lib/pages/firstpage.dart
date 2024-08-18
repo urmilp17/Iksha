@@ -1,20 +1,17 @@
+import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart' hide CarouselController;
 import 'package:iksha/pages/Other%20Modules/books.dart';
 import 'package:iksha/pages/Other%20Modules/trigunas.dart';
 import 'package:iksha/pages/sampradayas/sampradaya1.dart';
+import 'package:iksha/pages/sampradaya/sampradaya2.dart';
+import 'package:iksha/pages/sampradaya/sampradaya3.dart';
+import 'package:iksha/pages/sampradaya/sampradaya4.dart';
 import 'package:iksha/pages/sampradayas/sampradaya2.dart';
 import 'package:iksha/pages/sampradayas/sampradaya3.dart';
 import 'package:iksha/pages/sampradayas/sampradaya4.dart';
 import 'package:iksha/pages/sampradayas/sampradaya5.dart';
 import 'package:iksha/pages/Other%20Modules/videofile.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:video_player/video_player.dart';
-import 'package:chewie/chewie.dart';
-import 'sampraday.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -29,223 +26,115 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> imageSliders = [
-      buildCarouselItem(
-          'assets/images/sp1.jpg', 'Shaivism', context, const Sampradaya1()),
-      buildCarouselItem(
-          'assets/images/sp2.jpg', 'Shaktism', context, const Sampradaya2()),
-      buildCarouselItem(
-          'assets/images/sp3.jpg', 'Vaishnavism', context, const Sampradaya3()),
-      buildCarouselItem(
-          'assets/images/sp4.jpg', 'Ganpatya', context, const Sampradaya4()),
-      buildCarouselItem(
-          'assets/images/sp5.jpg', 'Smarthism', context, const Sampradaya5()),
+      buildCarouselItem('assets/images/sp1.jpg', 'Shaivism', context, Sampradaya1()),
+      buildCarouselItem('assets/images/sp2.jpg', 'Shaktism', context, Sampradaya2()),
+      buildCarouselItem('assets/images/sp3.jpg', 'Vaishnavism', context, Sampradaya3()),
+      buildCarouselItem('assets/images/sp4.jpg', 'Ganpatya', context, Sampradaya4()),
+      buildCarouselItem('assets/images/sp5.jpg', 'Smarthism', context, Sampradaya5()),
     ];
 
     return Scaffold(
-     // backgroundColor: const Color(0xFFFDF5DF),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(18.5, 20, 18.5, 0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const SizedBox(height: 7),
-            const Text(
-              "Welcome to IKSHA",
-              style: TextStyle(
-                fontFamily: 'Eczar',
-                fontWeight: FontWeight.w600,
-                fontSize: 30,
-              ),
-            ),
-            const SizedBox(height: 10),
-            const Text(
-              " ",
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                fontFamily: 'Eczar',
-                fontSize: 12,
-                height: 1.8,
-              ),
-            ),
-            //const SizedBox(height: 15),
-            CarouselSlider(
-              items: imageSliders,
-              carouselController: buttonCarouselController,
-              options: CarouselOptions(
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(16.5, 38, 16.5, 0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
                 height: 400,
-                aspectRatio: 16 / 9,
-                viewportFraction: 0.8,
-                enlargeCenterPage: true,
-                enableInfiniteScroll: true,
-                initialPage: 0,
-                autoPlay: true,
-                scrollDirection: Axis.horizontal,
-              ),
-            ),
-            const SizedBox(height: 15),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => VideoPlaylistPage(),
-                  ),
-                );
-              },
-              child: Container(
                 width: double.maxFinite,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(25.0),
+                    topRight: Radius.circular(25.0),
+                  ),
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/garbha.jpg'),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                child: Card(
-                  color: Colors.white,
+              ),
+              const SizedBox(height: 20),
+              Container(
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFDF5DF),
+                  borderRadius: BorderRadius.circular(25.0),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.asset(
-                            'assets/images/videoicon.jpeg',
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                          ),
+                      const Text(
+                        "Welcome To Iksha",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontFamily: 'Eczar',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 30,
                         ),
                       ),
-                      const Text(
+                      const SizedBox(height: 20),
+                      CarouselSlider(
+                        items: imageSliders,
+                        carouselController: buttonCarouselController,
+                        options: CarouselOptions(
+                          autoPlay: true,
+                          enlargeCenterPage: true,
+                          aspectRatio: 2.0,
+                          onPageChanged: (index, reason) {
+                            setState(() {});
+                          },
+                        ),
+                      ),
+                      const SizedBox(height: 30),
+                      buildRecommendationCard(
+                        context,
+                        'assets/images/video-icon.jpg',
                         "Video Recommendation",
-                        style: TextStyle(fontFamily: 'Eczar', fontSize: 32),
+                        "Explore a curated selection of insightful videos.",
+                        VideoPlaylistPage(),
                       ),
-                      const Text(
-                        "           ",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontFamily: 'Eczar', fontSize: 13),
-                      ),
-                      const SizedBox(height: 8),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => Books(),
-                  ),
-                );
-              },
-              child: Container(
-                width: double.maxFinite,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Card(
-                  color: Colors.white,
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.asset(
-                            'assets/images/book.jpg',
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                          ),
-                        ),
-                      ),
-                      const Text(
+                      const SizedBox(height: 15),
+                      buildRecommendationCard(
+                        context,
+                        'assets/images/book.jpg',
                         "Books Recommendation",
-                        style: TextStyle(fontFamily: 'Eczar', fontSize: 25),
+                        "Discover must-read books on spirituality.",
+                        const Books(),
                       ),
-                      const Text(
-                        "     ",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontFamily: 'Eczar', fontSize: 13),
-                      ),
-                      const SizedBox(height: 8),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const Trigunas(),
-                  ),
-                );
-              },
-              child: Container(
-                width: double.maxFinite,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Card(
-                  color: Colors.white,
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.asset(
-                            'assets/images/triguna.png',
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                          ),
-                        ),
-                      ),
-                      const Text(
+                      const SizedBox(height: 20),
+                      buildRecommendationCard(
+                        context,
+                        'assets/images/triguna.png',
                         "Trigunas",
-                        style: TextStyle(fontFamily: 'Eczar', fontSize: 32),
+                        "Learn about the three fundamental qualities.",
+                        const Trigunas(),
                       ),
-                      const Text(
-                        "          ",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontFamily: 'Eczar', fontSize: 13),
-                      ),
-                      const SizedBox(height: 8),
                     ],
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget buildCarouselItem(
-    String file,
-    String text,
-    BuildContext context,
-    StatelessWidget widget,
-  ) {
+      String file,
+      String text,
+      BuildContext context,
+      StatelessWidget widget,
+      ) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
-          PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) => widget,
-            transitionDuration: const Duration(milliseconds: 700),
-            transitionsBuilder: (context, animation, secondaryAnimation, child) {
-              const begin = Offset(2.5, 0.0);
-              const end = Offset.zero;
-              const curve = Curves.ease;
-
-              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-              return SlideTransition(
-               position: animation.drive(tween),
-               child: child,
-             );
-            },
+          SwipeablePageRoute(
+            builder: (_) => widget,
           ),
         );
       },
@@ -265,19 +154,108 @@ class _HomeState extends State<Home> {
               left: 0,
               right: 0,
               child: Container(
-                padding: const EdgeInsets.fromLTRB(15, 0, 0, 15),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.black.withOpacity(0.7),
+                      Colors.transparent,
+                    ],
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                  ),
+                ),
+                padding: const EdgeInsets.all(15),
                 child: Text(
                   text,
                   style: const TextStyle(
                     color: Colors.white,
                     fontFamily: 'Eczar',
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
                     fontSize: 25,
                   ),
                 ),
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildRecommendationCard(
+      BuildContext context,
+      String image,
+      String title,
+      String subtitle,
+      Widget page,
+      ) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => page,
+          ),
+        );
+      },
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 10,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Card(
+          elevation: 8,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              ClipRRect(
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+                child: Image.asset(
+                  image,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: 120,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontFamily: 'Eczar',
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      subtitle,
+                      style: const TextStyle(
+                        fontFamily: 'Eczar',
+                        fontSize: 16,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
