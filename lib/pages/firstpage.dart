@@ -22,6 +22,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   CarouselController buttonCarouselController = CarouselController();
+  int _current = 0; // Track the index of the current slide
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +35,45 @@ class _HomeState extends State<Home> {
     ];
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        toolbarHeight: 70, // Increased height to add space between the status bar and AppBar content
+        title: Padding(
+          padding: const EdgeInsets.only(top: 15), // Adds space between the AppBar content and the top
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    "Hey, Mrs. Riya 👋",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    "Welcome To Iksha!",
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+              CircleAvatar(
+                radius: 20,
+                backgroundImage: AssetImage('assets/images/profile.jpg'),
+              ),
+            ],
+          ),
+        ),
+      ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(16.5, 38, 16.5, 0),
+        padding: const EdgeInsets.fromLTRB(16.5, 16, 16.5, 0),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -84,11 +122,35 @@ class _HomeState extends State<Home> {
                           enlargeCenterPage: true,
                           aspectRatio: 2.0,
                           onPageChanged: (index, reason) {
-                            setState(() {});
+                            setState(() {
+                              _current = index; // Update the current index
+                            });
                           },
                         ),
                       ),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 15),
+                      // Add dots indicator
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: imageSliders.asMap().entries.map((entry) {
+                          return GestureDetector(
+                            onTap: () => buttonCarouselController.animateToPage(entry.key),
+                            child: Container(
+                              width: 12.0,
+                              height: 12.0,
+                              margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: (Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black)
+                                    .withOpacity(_current == entry.key ? 0.9 : 0.4),
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                      const SizedBox(height: 15),
                       buildRecommendationCard(
                         context,
                         'assets/images/video-icon.jpg',
@@ -225,7 +287,7 @@ class _HomeState extends State<Home> {
                   image,
                   fit: BoxFit.cover,
                   width: double.infinity,
-                  height: 120,
+                  height: 200, // Adjusted height to match the image you uploaded
                 ),
               ),
               Padding(
@@ -237,7 +299,7 @@ class _HomeState extends State<Home> {
                       title,
                       style: const TextStyle(
                         fontFamily: 'Eczar',
-                        fontSize: 28,
+                        fontSize: 24, // Adjusted font size for the title
                         fontWeight: FontWeight.bold,
                         color: Colors.black87,
                       ),
@@ -247,7 +309,7 @@ class _HomeState extends State<Home> {
                       subtitle,
                       style: const TextStyle(
                         fontFamily: 'Eczar',
-                        fontSize: 16,
+                        fontSize: 16, // Adjusted font size for the subtitle
                         color: Colors.black54,
                       ),
                     ),
@@ -260,10 +322,4 @@ class _HomeState extends State<Home> {
       ),
     );
   }
-}
-
-void main() {
-  runApp(const MaterialApp(
-    home: Home(),
-  ));
 }
