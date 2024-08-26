@@ -105,7 +105,7 @@ class _HomeState extends State<Home> {
               ),
               child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                    const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -129,18 +129,18 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     const SizedBox(
-                      height: 6,
+                      height: 4,
                     ),
                     const Text(
-                      "Explore different sampradays",
+                      "Explore and learn about different sampradayas of Vedic Sanatan Dharma",
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         fontFamily: 'Eczar',
-                        fontSize: 15,
+                        fontSize: 16,
                       ),
                     ),
                     const SizedBox(
-                      height: 6,
+                      height: 10,
                     ),
                     CarouselSlider(
                       items: imageSliders,
