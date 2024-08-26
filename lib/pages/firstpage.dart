@@ -1,7 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart' hide CarouselController;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:iksha/pages/Other%20Modules/books.dart';
 import 'package:iksha/pages/Other%20Modules/trigunas.dart';
+import 'package:iksha/pages/login.dart';
 import 'package:iksha/pages/sampradayas/sampradaya1.dart';
 import 'package:iksha/pages/sampradaya/sampradaya2.dart';
 import 'package:iksha/pages/sampradaya/sampradaya3.dart';
@@ -25,110 +27,173 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    bool _stretch = true;
+    final auth = FirebaseAuth.instance;
     final List<Widget> imageSliders = [
-      buildCarouselItem('assets/images/sp1.jpg', 'Shaivism', context, Sampradaya1()),
-      buildCarouselItem('assets/images/sp2.jpg', 'Shaktism', context, Sampradaya2()),
-      buildCarouselItem('assets/images/sp3.jpg', 'Vaishnavism', context, Sampradaya3()),
-      buildCarouselItem('assets/images/sp4.jpg', 'Ganpatya', context, Sampradaya4()),
-      buildCarouselItem('assets/images/sp5.jpg', 'Smarthism', context, Sampradaya5()),
+      buildCarouselItem(
+          'assets/images/sp1.jpg', 'Shaivism', context, const Sampradaya1()),
+      buildCarouselItem(
+          'assets/images/sp2.jpg', 'Shaktism', context, const Sampradaya2()),
+      buildCarouselItem(
+          'assets/images/sp3.jpg', 'Vaishnavism', context, const Sampradaya3()),
+      buildCarouselItem(
+          'assets/images/sp4.jpg', 'Ganpatya', context, const Sampradaya4()),
+      buildCarouselItem(
+          'assets/images/sp5.jpg', 'Smarthism', context, const Sampradaya5()),
     ];
 
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(16.5, 38, 16.5, 0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                height: 400,
-                width: double.maxFinite,
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            pinned: true,
+            bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(15),
+              child: Container(
                 decoration: const BoxDecoration(
+                  color: Colors.white,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25.0),
-                    topRight: Radius.circular(25.0),
+                    topLeft: Radius.circular(35.0),
+                    topRight: Radius.circular(35.0),
                   ),
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/garbha.jpg'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFDF5DF),
-                  borderRadius: BorderRadius.circular(25.0),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  padding: const EdgeInsets.fromLTRB(26, 15, 26, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       const Text(
-                        "Welcome To Iksha",
-                        textAlign: TextAlign.left,
+                        "IKSHA",
                         style: TextStyle(
-                          fontFamily: 'Eczar',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 30,
-                        ),
+                            fontSize: 28,
+                            fontFamily: 'Eczar',
+                            fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(height: 20),
-                      CarouselSlider(
-                        items: imageSliders,
-                        carouselController: buttonCarouselController,
-                        options: CarouselOptions(
-                          autoPlay: true,
-                          enlargeCenterPage: true,
-                          aspectRatio: 2.0,
-                          onPageChanged: (index, reason) {
-                            setState(() {});
-                          },
-                        ),
-                      ),
-                      const SizedBox(height: 30),
-                      buildRecommendationCard(
-                        context,
-                        'assets/images/video-icon.jpg',
-                        "Video Recommendation",
-                        "Explore a curated selection of insightful videos.",
-                        VideoPlaylistPage(),
-                      ),
-                      const SizedBox(height: 15),
-                      buildRecommendationCard(
-                        context,
-                        'assets/images/book.jpg',
-                        "Books Recommendation",
-                        "Discover must-read books on spirituality.",
-                        const Books(),
-                      ),
-                      const SizedBox(height: 20),
-                      buildRecommendationCard(
-                        context,
-                        'assets/images/triguna.png',
-                        "Trigunas",
-                        "Learn about the three fundamental qualities.",
-                        const Trigunas(),
-                      ),
+                      PopupMenuButton(
+                          itemBuilder: (BuildContext context) => [
+                                PopupMenuItem(
+                                  child: Text("LogOut",style: TextStyle(fontFamily: 'Eczar'),),
+                                  onTap: () {
+                                    auth.signOut();
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => LoginPage(),
+                                      ),
+                                    );
+                                  },
+                                )
+                              ]),
                     ],
                   ),
                 ),
               ),
-            ],
+            ),
+            expandedHeight: 330,
+
+            flexibleSpace: FlexibleSpaceBar(
+              background: Image.asset('assets/images/bgr.jpg',
+                  width: double.maxFinite, fit: BoxFit.cover),
+            ),
           ),
-        ),
+          SliverToBoxAdapter(
+            child: Container(
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(25.0),
+              ),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    const Text(
+                      "Welcome To Iksha",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontFamily: 'Eczar',
+                        fontSize: 15,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      "Sampradayas",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontFamily: 'Eczar',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 25,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 6,
+                    ),
+                    const Text(
+                      "Explore different sampradays",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontFamily: 'Eczar',
+                        fontSize: 15,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 6,
+                    ),
+                    CarouselSlider(
+                      items: imageSliders,
+                      carouselController: buttonCarouselController,
+                      options: CarouselOptions(
+                        autoPlay: true,
+                        enlargeCenterPage: true,
+                        aspectRatio: 2.0,
+                        onPageChanged: (index, reason) {
+                          setState(() {});
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    buildRecommendationCard(
+                      context,
+                      'assets/images/video-icon.jpg',
+                      "Video Recommendation",
+                      "Explore a curated selection of insightful videos.",
+                      VideoPlaylistPage(),
+                    ),
+                    const SizedBox(height: 15),
+                    buildRecommendationCard(
+                      context,
+                      'assets/images/book.jpg',
+                      "Books Recommendation",
+                      "Discover must-read books on spirituality.",
+                      const Books(),
+                    ),
+                    const SizedBox(height: 20),
+                    buildRecommendationCard(
+                      context,
+                      'assets/images/triguna.png',
+                      "Trigunas",
+                      "Learn about the three fundamental qualities.",
+                      const Trigunas(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
 
   Widget buildCarouselItem(
-      String file,
-      String text,
-      BuildContext context,
-      StatelessWidget widget,
-      ) {
+    String file,
+    String text,
+    BuildContext context,
+    StatelessWidget widget,
+  ) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -184,12 +249,12 @@ class _HomeState extends State<Home> {
   }
 
   Widget buildRecommendationCard(
-      BuildContext context,
-      String image,
-      String title,
-      String subtitle,
-      Widget page,
-      ) {
+    BuildContext context,
+    String image,
+    String title,
+    String subtitle,
+    Widget page,
+  ) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -204,10 +269,10 @@ class _HomeState extends State<Home> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
-            BoxShadow(
+            const BoxShadow(
               color: Colors.black26,
               blurRadius: 10,
-              offset: const Offset(0, 5),
+              offset: Offset(0, 5),
             ),
           ],
         ),
@@ -220,7 +285,8 @@ class _HomeState extends State<Home> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(15)),
                 child: Image.asset(
                   image,
                   fit: BoxFit.cover,
