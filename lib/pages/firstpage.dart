@@ -22,6 +22,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   CarouselController buttonCarouselController = CarouselController();
+  int _current = 0; // Track the index of the current slide
 
   @override
   Widget build(BuildContext context) {
@@ -34,88 +35,126 @@ class _HomeState extends State<Home> {
     ];
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        toolbarHeight: 70, // Increased height to add space between the status bar and AppBar content
+        title: Padding(
+          padding: const EdgeInsets.only(top: 15), // Adds space between the AppBar content and the top
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    "Hey, David 👋",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    "Welcome to Iksha",
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+              CircleAvatar(
+                radius: 20,
+                backgroundImage: AssetImage('assets/images/profile.jpg'),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.more_vert, color: Colors.black),
+            onPressed: () {
+              // Add your action here
+            },
+          ),
+        ],
+      ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(16.5, 38, 16.5, 0),
+        padding: const EdgeInsets.fromLTRB(16.5, 16, 16.5, 0),
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(height: 10),
               Container(
-                height: 400,
-                width: double.maxFinite,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25.0),
-                    topRight: Radius.circular(25.0),
-                  ),
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/garbha.jpg'),
-                    fit: BoxFit.cover,
+                height: 50,
+                child: TextField(
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.search),
+                    hintText: 'Search...',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    filled: true,
+                    fillColor: Colors.grey[200],
                   ),
                 ),
               ),
+              // Removed the SizedBox here
               const SizedBox(height: 20),
-              Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFDF5DF),
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      const Text(
-                        "Welcome To Iksha",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontFamily: 'Eczar',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 30,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      CarouselSlider(
-                        items: imageSliders,
-                        carouselController: buttonCarouselController,
-                        options: CarouselOptions(
-                          autoPlay: true,
-                          enlargeCenterPage: true,
-                          aspectRatio: 2.0,
-                          onPageChanged: (index, reason) {
-                            setState(() {});
-                          },
-                        ),
-                      ),
-                      const SizedBox(height: 30),
-                      buildRecommendationCard(
-                        context,
-                        'assets/images/video-icon.jpg',
-                        "Video Recommendation",
-                        "Explore a curated selection of insightful videos.",
-                        VideoPlaylistPage(),
-                      ),
-                      const SizedBox(height: 15),
-                      buildRecommendationCard(
-                        context,
-                        'assets/images/book.jpg',
-                        "Books Recommendation",
-                        "Discover must-read books on spirituality.",
-                        const Books(),
-                      ),
-                      const SizedBox(height: 20),
-                      buildRecommendationCard(
-                        context,
-                        'assets/images/triguna.png',
-                        "Trigunas",
-                        "Learn about the three fundamental qualities.",
-                        const Trigunas(),
-                      ),
-                    ],
-                  ),
+              CarouselSlider(
+                items: imageSliders,
+                carouselController: buttonCarouselController,
+                options: CarouselOptions(
+                  autoPlay: true,
+                  enlargeCenterPage: true,
+                  aspectRatio: 1.5,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _current = index; // Update the current index
+                    });
+                  },
                 ),
               ),
+
+              const SizedBox(height: 15),
+              // Add dots indicator
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: imageSliders.asMap().entries.map((entry) {
+                  return GestureDetector(
+                    onTap: () => buttonCarouselController.animateToPage(entry.key),
+                    child: Container(
+                      width: 8.0,
+                      height: 8.0,
+                      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: (Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black)
+                            .withOpacity(_current == entry.key ? 0.9 : 0.4),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+              const SizedBox(height: 25),
+              buildSectionTitle("Sadhana Chatusthaya"),
+              buildHorizontalList([
+                buildSmallCard(context, "assets/images/card1.jpg"),
+                buildSmallCard(context, "assets/images/card2.jpg"),
+                buildSmallCard(context, "assets/images/card3.jpg"),
+                buildSmallCard(context, "assets/images/card4.jpg"),
+              ]),
+              const SizedBox(height: 20),
+              buildSectionTitle("Explore"),
+              buildVerticalList([
+                buildLargeCard(context, "assets/images/card4.jpg"),
+                buildLargeCard(context, "assets/images/card5.jpg"),
+                buildLargeCard(context, "assets/images/card6.jpg"),
+              ]),
             ],
           ),
         ),
@@ -172,7 +211,7 @@ class _HomeState extends State<Home> {
                     color: Colors.white,
                     fontFamily: 'Eczar',
                     fontWeight: FontWeight.w600,
-                    fontSize: 25,
+                    fontSize: 20,
                   ),
                 ),
               ),
@@ -183,87 +222,54 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget buildRecommendationCard(
-      BuildContext context,
-      String image,
-      String title,
-      String subtitle,
-      Widget page,
-      ) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => page,
-          ),
-        );
-      },
-      child: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              blurRadius: 10,
-              offset: const Offset(0, 5),
-            ),
-          ],
-        ),
-        child: Card(
-          elevation: 8,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
-                child: Image.asset(
-                  image,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  height: 120,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontFamily: 'Eczar',
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      subtitle,
-                      style: const TextStyle(
-                        fontFamily: 'Eczar',
-                        fontSize: 16,
-                        color: Colors.black54,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+  Widget buildSectionTitle(String title) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Text(
+        title,
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );
   }
-}
 
-void main() {
-  runApp(const MaterialApp(
-    home: Home(),
-  ));
+  Widget buildHorizontalList(List<Widget> cards) {
+    return SizedBox(
+      height: 120,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: cards,
+      ),
+    );
+  }
+
+  Widget buildSmallCard(BuildContext context, String image) {
+    return Container(
+      width: 200,
+      margin: const EdgeInsets.only(right: 10),
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        borderRadius: BorderRadius.circular(10),
+      ),
+    );
+  }
+
+  Widget buildVerticalList(List<Widget> cards) {
+    return Column(
+      children: cards,
+    );
+  }
+
+  Widget buildLargeCard(BuildContext context, String image) {
+    return Container(
+      height: 100,
+      margin: const EdgeInsets.only(bottom: 10),
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        borderRadius: BorderRadius.circular(10),
+      ),
+    );
+  }
 }
