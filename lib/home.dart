@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iksha/colours.dart';
+import 'package:iksha/pages/Main%20Features/garbha.dart';
+import 'package:iksha/pages/fourthpage.dart';
 import 'package:iksha/pages/login.dart';
 import 'NavBar.dart';
 import 'pages/firstpage.dart';
@@ -57,40 +59,40 @@ class _MyHomePageState extends State<MyHomePage> {
           Home(),
           KeyFeatures(),
           Articles(),
+          GarbhaSanskar()
         ],
       ),
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.fromLTRB(18.5, 0.0, 18.5, 20),
-          child: Material(
-            elevation: 8.0,  // This adds the shadow to create the floating effect
-            borderRadius: BorderRadius.circular(30.0),
-            //color: Colors.transparent,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey,
-                borderRadius: BorderRadius.circular(25.0),
-              ),
-              clipBehavior: Clip.antiAlias,  // This ensures the content inside the container is clipped by the border radius
-              child: NavigationBar(
+      extendBody: true,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton:Container(
+        width: 340,
+        height: 70,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(80.0),
+          color: background
+        ),
+        clipBehavior: Clip.antiAlias,  // This ensures the content inside the container is clipped by the border radius
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: NavigationBar(
 
-                onDestinationSelected: (int index) {
-                  setState(() {
-                    currentPageIndex = index;
-                  });
-                },
-                height: 65,
-                labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-                backgroundColor: background, // Use transparent since the color is set in the container
-                indicatorColor: Colors.amber,
-                selectedIndex: currentPageIndex,
-                indicatorShape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(70),  // Increase the radius for a larger indicator
-                ),
-                destinations: destinations(),
-              ),
+            onDestinationSelected: (int index) {
+              setState(() {
+                currentPageIndex = index;
+              });
+            },
+            height: 70,
+            labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+            backgroundColor: Colors.transparent, // Use transparent since the color is set in the container
+            indicatorColor: Colors.amber,
+            selectedIndex: currentPageIndex,
+            indicatorShape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(100),  // Increase the radius for a larger indicator
             ),
+            destinations: destinations(),
           ),
         ),
+      ),
 
     );
   }

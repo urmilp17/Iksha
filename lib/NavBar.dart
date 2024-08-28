@@ -12,8 +12,6 @@ List<Widget> destinations() {
       ),
       icon: const Icon(Icons.home_outlined,size: 30,),
       label: "",
-
-
     ),
     NavigationDestination(
       tooltip: "Main Features",
@@ -25,6 +23,12 @@ List<Widget> destinations() {
       selectedIcon: Icon(Icons.article, color: iconcolor,size: 35,),
       tooltip: "Articles",
       icon: Icon(Icons.article_outlined, color: iconcolor,size: 30,),
+      label: '',
+    ),
+    NavigationDestination(
+      selectedIcon: Icon(Icons.female, color: iconcolor,size: 35,),
+      tooltip: "Articles",
+      icon: Icon(Icons.female_outlined, color: iconcolor,size: 30,),
       label: '',
     ),
   ];
