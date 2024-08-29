@@ -141,10 +141,10 @@ class _HomeState extends State<Home> {
               const SizedBox(height: 20),
               buildSectionTitle("Sadhana Chatusthaya"),
               buildHorizontalList([
-                buildSmallCard(context, "assets/images/card1.jpg"),
-                buildSmallCard(context, "assets/images/card2.jpg"),
-                buildSmallCard(context, "assets/images/card3.jpg"),
-                buildSmallCard(context, "assets/images/card4.jpg"),
+                buildSmallCard(context, "assets/images/card1.jpg", "हिंदी टेक्स्ट 1", "English Text 1"),
+                buildSmallCard(context, "assets/images/card2.jpg", "हिंदी टेक्स्ट 2", "English Text 2"),
+                buildSmallCard(context, "assets/images/card3.jpg", "हिंदी टेक्स्ट 3", "English Text 3"),
+                buildSmallCard(context, "assets/images/card4.jpg", "हिंदी टेक्स्ट 4", "English Text 4"),
               ]),
               const SizedBox(height: 20),
               buildExploreSection(context), // Updated Explore section
@@ -230,7 +230,7 @@ class _HomeState extends State<Home> {
 
   Widget buildHorizontalList(List<Widget> cards) {
     return SizedBox(
-      height: 120,
+      height: 160, // Increased height for the card
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: cards,
@@ -238,16 +238,53 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget buildSmallCard(BuildContext context, String image) {
+  Widget buildSmallCard(BuildContext context, String image, String hindiText, String englishText) {
     return Container(
       width: 200,
       margin: const EdgeInsets.only(right: 10),
       decoration: BoxDecoration(
-        color: Colors.blue,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: const Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(height: 10), // Add spacing above the avatar
+          CircleAvatar(
+            radius: 30, // Set the desired radius for the avatar
+            backgroundImage: AssetImage(image),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            hindiText,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            englishText,
+            style: const TextStyle(
+              fontSize: 14,
+              color: Colors.grey,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }
+
 
   Widget buildExploreSection(BuildContext context) {
     return Column(
