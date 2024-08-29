@@ -38,9 +38,9 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        toolbarHeight: 70, // Increased height to add space between the status bar and AppBar content
+        toolbarHeight: 60, // Slightly reduced height
         title: const Padding(
-          padding: EdgeInsets.only(top: 15), // Adds space between the AppBar content and the top
+          padding: EdgeInsets.only(top: 10), // Adjusted padding
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -51,7 +51,7 @@ class _HomeState extends State<Home> {
                     "Hey, David 👋",
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 20,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -81,7 +81,7 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(16.5, 16, 16.5, 0),
+        padding: const EdgeInsets.fromLTRB(16.5, 10, 16.5, 0), // Adjusted top padding
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,8 +101,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              // Removed the SizedBox here
-              const SizedBox(height: 20),
+              const SizedBox(height: 15), // Reduced space
               CarouselSlider(
                 items: imageSliders,
                 carouselController: buttonCarouselController,
@@ -117,8 +116,7 @@ class _HomeState extends State<Home> {
                   },
                 ),
               ),
-
-              const SizedBox(height: 15),
+              const SizedBox(height: 10), // Reduced space
               // Add dots indicator
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -140,7 +138,7 @@ class _HomeState extends State<Home> {
                   );
                 }).toList(),
               ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 20),
               buildSectionTitle("Sadhana Chatusthaya"),
               buildHorizontalList([
                 buildSmallCard(context, "assets/images/card1.jpg"),
@@ -149,12 +147,7 @@ class _HomeState extends State<Home> {
                 buildSmallCard(context, "assets/images/card4.jpg"),
               ]),
               const SizedBox(height: 20),
-              buildSectionTitle("Explore"),
-              buildVerticalList([
-                buildLargeCard(context, "assets/images/card4.jpg"),
-                buildLargeCard(context, "assets/images/card5.jpg"),
-                buildLargeCard(context, "assets/images/card6.jpg"),
-              ]),
+              buildExploreSection(context), // Updated Explore section
             ],
           ),
         ),
@@ -256,19 +249,120 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget buildVerticalList(List<Widget> cards) {
+  Widget buildExploreSection(BuildContext context) {
     return Column(
-      children: cards,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        buildSectionTitle("Explore"),
+        const SizedBox(height: 15),
+        buildExploreCard(
+          context,
+          icon: Icons.play_circle_filled,
+          title: "Video Recommendation",
+          description: "Explore a curated selection of videos on various topics.",
+          color: Colors.amberAccent,
+          onTap: () {
+            Navigator.push(
+              context,
+              SwipeablePageRoute(
+                builder: (_) => VideoPlaylistPage(),
+              ),
+            );
+          },
+        ),
+        const SizedBox(height: 10), // Reduced space between cards
+        buildExploreCard(
+          context,
+          icon: Icons.auto_stories,
+          title: "Books to Read",
+          description: "Recommended reading materials for your growth.",
+          color: Colors.greenAccent,
+          onTap: () {
+            Navigator.push(
+              context,
+              SwipeablePageRoute(
+                builder: (_) => const Books(),
+              ),
+            );
+          },
+        ),
+        const SizedBox(height: 10), // Reduced space between cards
+        buildExploreCard(
+          context,
+          icon: Icons.book,
+          title: "Trigunas",
+          description: "Understanding the three gunas in daily life.",
+          color: Colors.lightBlueAccent,
+          onTap: () {
+            Navigator.push(
+              context,
+              SwipeablePageRoute(
+                builder: (_) => const Trigunas(),
+              ),
+            );
+          },
+        ),
+        const SizedBox(height: 100), // Added space below the Trigunas card
+      ],
     );
   }
 
-  Widget buildLargeCard(BuildContext context, String image) {
-    return Container(
-      height: 100,
-      margin: const EdgeInsets.only(bottom: 10),
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(10),
+  Widget buildExploreCard(
+      BuildContext context, {
+        required IconData icon,
+        required String title,
+        required String description,
+        required Color color,
+        required VoidCallback onTap,
+      }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(12), // Reduced padding to fit content better
+        decoration: BoxDecoration(
+          color: color.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: color.withOpacity(0.5), width: 2),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: color.withOpacity(0.8),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Icon(
+                icon,
+                color: Colors.white,
+                size: 30,
+              ),
+            ),
+            const SizedBox(width: 15),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    description,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
