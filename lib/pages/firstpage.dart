@@ -152,7 +152,7 @@ class _HomeState extends State<Home> {
               buildSectionTitle("Sadhana Chatusthaya"),
               buildHorizontalList([
                 buildSmallCard(context, "assets/images/card1.jpg",
-                    "हिंदी टेक्स्ट 1", "English Text 1", const Vairagya()),
+                    "हिंदी टेक्स्ट 1", "English Text 1", const Viveka()),
                 buildSmallCard(context, "assets/images/card2.jpg",
                     "हिंदी टेक्स्ट 2", "English Text 2", const Vairagya()),
                 buildSmallCard(context, "assets/images/card3.jpg",
