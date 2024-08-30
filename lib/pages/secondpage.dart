@@ -16,9 +16,7 @@ class _KeyFeaturesState extends State<KeyFeatures> with TickerProviderStateMixin
   late TabController _tabController;
   int _currentPageIndex = 0;
   final double iheight = 170;
-
   final double iwidth = 140;
-
   final double? subtitle = 15;
 
   void _handlePageViewChanged(int currentPageIndex) {
@@ -46,20 +44,21 @@ class _KeyFeaturesState extends State<KeyFeatures> with TickerProviderStateMixin
 
   @override
   void dispose() {
-    super.dispose();
     _pageViewController.dispose();
     _tabController.dispose();
+    super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
     const double subtitle = 16;
     const double title = 20;
     const String familyf = 'Eczar';
+
     return Stack(
       alignment: Alignment.bottomCenter,
       children: <Widget>[
+
         PageView(
           controller: _pageViewController,
           onPageChanged: _handlePageViewChanged,
@@ -68,8 +67,83 @@ class _KeyFeaturesState extends State<KeyFeatures> with TickerProviderStateMixin
             Yoga(),
           ],
         ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(
+            2,
+                (index) => AnimatedContainer(
+              duration: Duration(milliseconds: 300),
+              margin: EdgeInsets.symmetric(horizontal: 5.0),
+              height: 10.0,
+              width: _currentPageIndex == index ? 20.0 : 10.0,
+              decoration: BoxDecoration(
+                color: _currentPageIndex == index ? iconcolor : Colors.grey,
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
 }
 
+class PageIndicator extends StatelessWidget {
+  const PageIndicator({
+    super.key,
+    required this.tabController,
+    required this.currentPageIndex,
+    required this.onUpdateCurrentPageIndex,
+  });
+
+  final int currentPageIndex;
+  final TabController tabController;
+  final void Function(int) onUpdateCurrentPageIndex;
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          IconButton(
+            splashRadius: 16.0,
+            padding: EdgeInsets.zero,
+            onPressed: () {
+              if (currentPageIndex == 0) {
+                return;
+              }
+              onUpdateCurrentPageIndex(currentPageIndex - 1);
+            },
+            icon: const Icon(
+              Icons.arrow_left_rounded,
+              size: 32.0,
+            ),
+          ),
+          TabPageSelector(
+            controller: tabController,
+            color: colorScheme.surface,
+            selectedColor: background,
+          ),
+          IconButton(
+            splashRadius: 16.0,
+            padding: EdgeInsets.zero,
+            onPressed: () {
+              if (currentPageIndex == 2) {
+                return;
+              }
+              onUpdateCurrentPageIndex(currentPageIndex + 1);
+            },
+            icon: const Icon(
+              Icons.arrow_right_rounded,
+              size: 32.0,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
