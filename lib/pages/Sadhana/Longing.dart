@@ -5,6 +5,7 @@ class Mumukshatva extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return Scaffold(
       body: Center(
         child: Container(
@@ -130,3 +131,8 @@ void main() {
     debugShowCheckedModeBanner: false,
   ));
 }
+=======
+    return const Placeholder();
+  }
+}
+>>>>>>> origin/master
