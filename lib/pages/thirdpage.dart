@@ -25,22 +25,21 @@ class _ArticlesState extends State<Articles> {
     {
       'imagePath': 'assets/images/article3.jpg',
       'title': 'What makes goddess Lakshmi angry?',
-      'content': 'The following things make Goddess Lakshmi angry and she (the epitome of prosperity, happiness and potential) goes away from home '
-          '1.Insulting others.'
-          '2.Insulting holy works, Lord Vishnu and morals.'
-          '3.Disrespecting weak and people with lower status.'
-          '4.Not keeping house clean.'
-          '5.Offering her hot (chilly) or bitter food.'
-          '6.Disrespecting symbols of prosperity like Swastik, Sindoor, gold, basil and holy pot.'
-          '7.Having ego on existing prosperity.'
-          '8.Not thanking her for gifts like prosperity, power, fortune and kniwledge which she gave you.'
-
-          'Results if she gets angry then -'
-          '1.You will be affected by Alakshmi (epitome of proverty, hunger, bad luck, lazieness and dirtyness).'
-          '2.Your luck and fortune will leave you.'
-          '3.Your prosperity, wealth and self confidence will be destroyed.'
-          '4.You can never get success.'
-          '5.You may have to live poor life like without proper food, money, dress etc.',
+      'content': 'The following things make Goddess Lakshmi angry, and she (the epitome of prosperity, happiness, and potential) goes away from home:\n\n'
+          '1. Insulting others.\n'
+          '2. Insulting holy works, Lord Vishnu, and morals.\n'
+          '3. Disrespecting the weak and people with lower status.\n'
+          '4. Not keeping the house clean.\n'
+          '5. Offering her hot (chilly) or bitter food.\n'
+          '6. Disrespecting symbols of prosperity like Swastik, Sindoor, gold, basil, and holy pot.\n'
+          '7. Having ego about existing prosperity.\n'
+          '8. Not thanking her for gifts like prosperity, power, fortune, and knowledge which she gave you.\n\n'
+          'Results if she gets angry:\n\n'
+          '1. You will be affected by Alakshmi (the epitome of poverty, hunger, bad luck, laziness, and dirtiness).\n'
+          '2. Your luck and fortune will leave you.\n'
+          '3. Your prosperity, wealth, and self-confidence will be destroyed.\n'
+          '4. You can never achieve success.\n'
+          '5. You may have to live a poor life, lacking proper food, money, clothes, etc.',
       'date': '26 July 2024'
     },
     {
