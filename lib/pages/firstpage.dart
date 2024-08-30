@@ -152,13 +152,13 @@ class _HomeState extends State<Home> {
               buildSectionTitle("Sadhana Chatusthaya"),
               buildHorizontalList([
                 buildSmallCard(context, "assets/images/card1.jpg",
-                    "हिंदी टेक्स्ट 1", "English Text 1", const Viveka()),
+                    "हनित्यानित्यवस्तुविवेक", "DISCRIMINATION", const Viveka()),
                 buildSmallCard(context, "assets/images/card2.jpg",
-                    "हिंदी टेक्स्ट 2", "English Text 2", const Vairagya()),
+                    "इहामुत्रार्थफलभोगविराग", "DISPASSION", const Vairagya()),
                 buildSmallCard(context, "assets/images/card3.jpg",
-                    "हिंदी टेक्स्ट 3", "English Text 3", const ShadSampati()),
+                    "शमादिषट्कसम्पत्ति", "SHAD SAMPATI", const ShadSampati()),
                 buildSmallCard(context, "assets/images/card4.jpg",
-                    "हिंदी टेक्स्ट 4", "English Text 4", const Mumukshatva()),
+                    "मुमुक्षुत्वं चेति", "MUMUKSHUTVA", const Mumukshatva()),
               ]),
               const SizedBox(height: 20),
               buildExploreSection(context), // Updated Explore section
