@@ -5,7 +5,6 @@ class Mumukshatva extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     return Scaffold(
       body: Center(
         child: Container(
@@ -16,7 +15,7 @@ class Mumukshatva extends StatelessWidget {
             borderRadius: BorderRadius.circular(20.0),
             boxShadow: const [
               BoxShadow(
-                color: const Color(0xFFFDF5DF),
+                color: Colors.black26,
                 blurRadius: 10.0,
                 offset: Offset(0, 5),
               ),
@@ -96,7 +95,6 @@ class Mumukshatva extends StatelessWidget {
                   // Views count
                   Row(
                     children: const [
-                      // Icon(Icons.remove_red_eye, color: Colors.grey, size: 20),
                       SizedBox(width: 5),
                       Text(
                         '         ',
@@ -131,8 +129,3 @@ void main() {
     debugShowCheckedModeBanner: false,
   ));
 }
-=======
-    return const Placeholder();
-  }
-}
->>>>>>> origin/master

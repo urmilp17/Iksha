@@ -5,7 +5,6 @@ class ShadSampati extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     return Scaffold(
       body: Center(
         child: Container(
@@ -16,7 +15,7 @@ class ShadSampati extends StatelessWidget {
             borderRadius: BorderRadius.circular(20.0),
             boxShadow: const [
               BoxShadow(
-                color: const Color(0xFFFDF5DF),
+                color: Colors.black26,
                 blurRadius: 10.0,
                 offset: Offset(0, 5),
               ),
@@ -82,9 +81,9 @@ class ShadSampati extends StatelessWidget {
               // Content
               const Text(
                 'Meaning: What are the Shama etc., six-fold virtues constituting the inner wealth? They are Shama, Dama, Uparama, Titiksha, Shraddha, and Samadhana.'
-                    'These six virtues shape the character of a person. Having these virtues indicate the capability of a Sadhaka to endure, control the mind and senses, concentrate and finally have unswerving faith in achieving his goal. The six attributes are taken as one unit because they pertain to the various psychological aspects involved in bringing about mental control and discipline.'
-                    'After discrimination dawns on a person, he has awakened to the real purpose of his existence. It moves internally to drive the person to seek more than what he sees in the transient world. However, he has his old traits that distract him. Then comes Vairagya which prompts as an inner restraining voice at every passing appearance. ',
-                 style: TextStyle(
+                    'These six virtues shape the character of a person. Having these virtues indicates the capability of a Sadhaka to endure, control the mind and senses, concentrate, and finally have unswerving faith in achieving his goal. The six attributes are taken as one unit because they pertain to the various psychological aspects involved in bringing about mental control and discipline.'
+                    'After discrimination dawns on a person, he has awakened to the real purpose of his existence. It moves internally to drive the person to seek more than what he sees in the transient world. However, he has his old traits that distract him. Then comes Vairagya which prompts as an inner restraining voice at every passing appearance.',
+                style: TextStyle(
                   color: Colors.black,
                   fontSize: 16,
                 ),
@@ -98,7 +97,6 @@ class ShadSampati extends StatelessWidget {
                   // Views count
                   Row(
                     children: const [
-                      // Icon(Icons.remove_red_eye, color: Colors.grey, size: 20),
                       SizedBox(width: 5),
                       Text(
                         '         ',
@@ -133,8 +131,3 @@ void main() {
     debugShowCheckedModeBanner: false,
   ));
 }
-=======
-    return const Placeholder();
-  }
-}
->>>>>>> origin/master

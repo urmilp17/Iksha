@@ -5,17 +5,18 @@ class Vairagya extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     return Scaffold(
       body: Center(
         child: Container(
           width: 350, // Adjust width based on your preference
           padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
-            color: const Color(0xFFFDF5DF),            borderRadius: BorderRadius.circular(20.0),
+            color: const Color(0xFFFDF5DF),
+            borderRadius: BorderRadius.circular(20.0),
             boxShadow: const [
               BoxShadow(
-                color: const Color(0xFFFDF5DF),                blurRadius: 10.0,
+                color: Colors.black26,
+                blurRadius: 10.0,
                 offset: Offset(0, 5),
               ),
             ],
@@ -33,7 +34,7 @@ class Vairagya extends StatelessWidget {
                       Icon(Icons.stars_outlined, color: Colors.black, size: 30),
                       SizedBox(width: 8),
                       Text(
-                        'What is Viraga?',
+                        'What is Vairagya?',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 20,
@@ -59,7 +60,7 @@ class Vairagya extends StatelessWidget {
 
               // Title
               const Text(
-                'विरागः कः ? '
+                'वैराग्यम् किम् ? '
                     'इहस्वर्गभोगेषु इच्छाराहित्यम् ।',
                 style: TextStyle(
                   color: Colors.black,
@@ -79,7 +80,7 @@ class Vairagya extends StatelessWidget {
 
               // Content
               const Text(
-               'What is meant by Viraga? Viraga means indifference or disinterest, absence of raaga. Raaga means longing for something, an attachment to it believing that its presence will solve the problem. Viraga is absence of such anchoring things, binders to the worldly things, with the false notion that such a thing is required to make one happy. This freedom from raaga, or attachment is directed towards what is the question. It is directed towards Kartrtva and Bhoktrtva bhavas of a person. Raaga and desires motivate one towards performing more and more Karma, generating positive and negative karmaphalas. Karmaphala (in a positive sense of punya) must be enjoyed and this leads to the concept of Bhoga. However, while everyone performs karma with an intention of procuring benefits (punya) many a times it leads to undesirable phala (papa) which must also be endured and experienced.',
+                'What is meant by Vairagya? Vairagya means indifference or disinterest, absence of raaga. Raaga means longing for something, an attachment to it believing that its presence will solve the problem. Vairagya is the absence of such attachment to worldly things, with the false notion that such a thing is required to make one happy. This freedom from raaga, or attachment, is directed towards Kartrtva and Bhoktrtva bhavas of a person. Raaga and desires motivate one towards performing more and more Karma, generating positive and negative karmaphalas. Karmaphala (in a positive sense of punya) must be enjoyed and this leads to the concept of Bhoga. However, while everyone performs karma with an intention of procuring benefits (punya), many times it leads to undesirable phala (papa) which must also be endured and experienced.',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 16,
@@ -94,7 +95,6 @@ class Vairagya extends StatelessWidget {
                   // Views count
                   Row(
                     children: const [
-                      // Icon(Icons.remove_red_eye, color: Colors.grey, size: 20),
                       SizedBox(width: 5),
                       Text(
                         '         ',
@@ -129,8 +129,3 @@ void main() {
     debugShowCheckedModeBanner: false,
   ));
 }
-=======
-    return const Placeholder();
-  }
-}
->>>>>>> origin/master
