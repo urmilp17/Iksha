@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart' hide CarouselController;
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:iksha/pages/Sadhana/Discrimination.dart';
+import 'package:iksha/pages/Sadhana/Non-attachment.dart';
+import 'package:iksha/pages/Sadhana/Six-virtues.dart';
+import 'package:iksha/pages/Sadhana/Longing.dart';
+
 import 'package:iksha/pages/Other%20Modules/books.dart';
 import 'package:iksha/pages/Other%20Modules/trigunas.dart';
 import 'package:iksha/pages/sampradayas/sampradaya1.dart';
-import 'package:iksha/pages/sampradaya/sampradaya2.dart';
-import 'package:iksha/pages/sampradaya/sampradaya3.dart';
-import 'package:iksha/pages/sampradaya/sampradaya4.dart';
 import 'package:iksha/pages/sampradayas/sampradaya2.dart';
 import 'package:iksha/pages/sampradayas/sampradaya3.dart';
 import 'package:iksha/pages/sampradayas/sampradaya4.dart';
@@ -27,11 +29,16 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> imageSliders = [
-      buildCarouselItem('assets/images/sp1.jpg', 'Shaivism', context, const Sampradaya1()),
-      buildCarouselItem('assets/images/sp2.jpg', 'Shaktism', context, const Sampradaya2()),
-      buildCarouselItem('assets/images/sp3.jpg', 'Vaishnavism', context, const Sampradaya3()),
-      buildCarouselItem('assets/images/sp4.jpg', 'Ganpatya', context, const Sampradaya4()),
-      buildCarouselItem('assets/images/sp5.jpg', 'Smarthism', context, const Sampradaya5()),
+      buildCarouselItem(
+          'assets/images/sp1.jpg', 'Shaivism', context, const Sampradaya1()),
+      buildCarouselItem(
+          'assets/images/sp2.jpg', 'Shaktism', context, const Sampradaya2()),
+      buildCarouselItem(
+          'assets/images/sp3.jpg', 'Vaishnavism', context, const Sampradaya3()),
+      buildCarouselItem(
+          'assets/images/sp4.jpg', 'Ganpatya', context, const Sampradaya4()),
+      buildCarouselItem(
+          'assets/images/sp5.jpg', 'Smarthism', context, const Sampradaya5()),
     ];
 
     return Scaffold(
@@ -81,7 +88,8 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(16.5, 10, 16.5, 0), // Adjusted top padding
+        padding: const EdgeInsets.fromLTRB(
+            16.5, 10, 16.5, 0), // Adjusted top padding
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,16 +130,18 @@ class _HomeState extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: imageSliders.asMap().entries.map((entry) {
                   return GestureDetector(
-                    onTap: () => buttonCarouselController.animateToPage(entry.key),
+                    onTap: () =>
+                        buttonCarouselController.animateToPage(entry.key),
                     child: Container(
                       width: 8.0,
                       height: 8.0,
-                      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 4.0),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: (Theme.of(context).brightness == Brightness.dark
-                            ? Colors.white
-                            : Colors.black)
+                                ? Colors.white
+                                : Colors.black)
                             .withOpacity(_current == entry.key ? 0.9 : 0.4),
                       ),
                     ),
@@ -141,10 +151,14 @@ class _HomeState extends State<Home> {
               const SizedBox(height: 20),
               buildSectionTitle("Sadhana Chatusthaya"),
               buildHorizontalList([
-                buildSmallCard(context, "assets/images/card1.jpg", "हिंदी टेक्स्ट 1", "English Text 1"),
-                buildSmallCard(context, "assets/images/card2.jpg", "हिंदी टेक्स्ट 2", "English Text 2"),
-                buildSmallCard(context, "assets/images/card3.jpg", "हिंदी टेक्स्ट 3", "English Text 3"),
-                buildSmallCard(context, "assets/images/card4.jpg", "हिंदी टेक्स्ट 4", "English Text 4"),
+                buildSmallCard(context, "assets/images/card1.jpg",
+                    "हिंदी टेक्स्ट 1", "English Text 1", const Viveka()),
+                buildSmallCard(context, "assets/images/card2.jpg",
+                    "हिंदी टेक्स्ट 2", "English Text 2", const Vairagya()),
+                buildSmallCard(context, "assets/images/card3.jpg",
+                    "हिंदी टेक्स्ट 3", "English Text 3", const ShadSampati()),
+                buildSmallCard(context, "assets/images/card4.jpg",
+                    "हिंदी टेक्स्ट 4", "English Text 4", const Mumukshatva()),
               ]),
               const SizedBox(height: 20),
               buildExploreSection(context), // Updated Explore section
@@ -156,11 +170,11 @@ class _HomeState extends State<Home> {
   }
 
   Widget buildCarouselItem(
-      String file,
-      String text,
-      BuildContext context,
-      StatelessWidget widget,
-      ) {
+    String file,
+    String text,
+    BuildContext context,
+    StatelessWidget widget,
+  ) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -238,53 +252,62 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget buildSmallCard(BuildContext context, String image, String hindiText, String englishText) {
-    return Container(
-      width: 200,
-      margin: const EdgeInsets.only(right: 10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: const Offset(0, 3), // changes position of shadow
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(height: 10), // Add spacing above the avatar
-          CircleAvatar(
-            radius: 30, // Set the desired radius for the avatar
-            backgroundImage: AssetImage(image),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            hindiText,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
+  Widget buildSmallCard(BuildContext context, String image, String hindiText,
+      String englishText, StatelessWidget pagewidget) {
+    return GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            SwipeablePageRoute(
+              builder: (_) => pagewidget,
             ),
+          );
+        },
+        child: Container(
+          width: 200,
+          margin: const EdgeInsets.only(right: 10),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.2),
+                spreadRadius: 2,
+                blurRadius: 5,
+                offset: const Offset(0, 3), // changes position of shadow
+              ),
+            ],
           ),
-          const SizedBox(height: 4),
-          Text(
-            englishText,
-            style: const TextStyle(
-              fontSize: 14,
-              color: Colors.grey,
-            ),
-            textAlign: TextAlign.center,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 10), // Add spacing above the avatar
+              CircleAvatar(
+                radius: 30, // Set the desired radius for the avatar
+                backgroundImage: AssetImage(image),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                hindiText,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                englishText,
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
           ),
-        ],
-      ),
-    );
+        ));
   }
-
 
   Widget buildExploreSection(BuildContext context) {
     return Column(
@@ -296,7 +319,8 @@ class _HomeState extends State<Home> {
           context,
           icon: Icons.play_circle_filled,
           title: "Video Recommendation",
-          description: "Explore a curated selection of videos on various topics.",
+          description:
+              "Explore a curated selection of videos on various topics.",
           color: Colors.amberAccent,
           onTap: () {
             Navigator.push(
@@ -345,17 +369,18 @@ class _HomeState extends State<Home> {
   }
 
   Widget buildExploreCard(
-      BuildContext context, {
-        required IconData icon,
-        required String title,
-        required String description,
-        required Color color,
-        required VoidCallback onTap,
-      }) {
+    BuildContext context, {
+    required IconData icon,
+    required String title,
+    required String description,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(12), // Reduced padding to fit content better
+        padding:
+            const EdgeInsets.all(12), // Reduced padding to fit content better
         decoration: BoxDecoration(
           color: color.withOpacity(0.1),
           borderRadius: BorderRadius.circular(15),
