@@ -116,7 +116,7 @@ class _HomeState extends State<Home> {
                 options: CarouselOptions(
                   autoPlay: true,
                   enlargeCenterPage: true,
-                  aspectRatio: 1.5,
+                  aspectRatio: 1,
                   onPageChanged: (index, reason) {
                     setState(() {
                       _current = index; // Update the current index

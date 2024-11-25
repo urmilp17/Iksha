@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iksha/pages/Yogas/Yogas.dart';
 
 class Yoga extends StatelessWidget {
   const Yoga({super.key});
@@ -37,7 +38,7 @@ class Yoga extends StatelessWidget {
                 color: const Color(0xFFFDF5DF),
                 borderRadius: BorderRadius.circular(25.0),
               ),
-              child: const Padding(
+              child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -69,18 +70,28 @@ class Yoga extends StatelessWidget {
                     SizedBox(
                       height: 5,
                     ),
-                    Card(
-                      elevation: 8.0,
-                      color: Color(0xDF644C00),
-                      child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          " Find ",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Eczar',
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const Yogas(),
+                          ),
+                        );
+                      },
+                      child: Card(
+                        elevation: 8.0,
+                        color: Color(0xDF644C00),
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            " Find ",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Eczar',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
+                          ),
                         ),
                       ),
                     )
