@@ -37,6 +37,9 @@ flutter:
     - assets/fonts/
 
   fonts:
+    - family: Deva
+      fonts:
+        - asset: assets/fonts/DevTitle.TTF
     - family: LibreBaskerville
       fonts:
         - asset: fonts/LibreBaskerville-Regular.ttf
