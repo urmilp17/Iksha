@@ -326,7 +326,7 @@ class _HomeState extends State<Home> {
             Navigator.push(
               context,
               SwipeablePageRoute(
-                builder: (_) => VideoPlaylistPage(),
+                builder: (_) => VideoPage(),
               ),
             );
           },

@@ -1,137 +1,168 @@
 import 'package:flutter/material.dart';
 
-class VideoPlaylistPage extends StatelessWidget {
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: Colors.blueAccent,
+        fontFamily: 'Roboto',
+      ),
+      home: VideoPage(),
+    );
+  }
+}
+
+class VideoPage extends StatelessWidget {
   final List<Map<String, String>> videos = [
     {
-      'title': 'Session 1: Summary of Word Power Made Easy',
-      'subtitle': '1.2M views · 4 years ago',
-      'thumbnail': 'assets/images/img1.jpeg',
-      'duration': '23:08',
+      "title": "Explore the Mountains",
+      "thumbnail": "https://via.placeholder.com/150",
+      "duration": "4:20",
+      "subtitle": "A breathtaking journey into nature."
     },
     {
-      'title': 'Session 2: Summary of Word Power Made Easy',
-      'subtitle': '331K views · 4 years ago',
-      'thumbnail': 'assets/images/img2.jpeg',
-      'duration': '18:41',
+      "title": "City Lights at Night",
+      "thumbnail": "https://via.placeholder.com/150",
+      "duration": "3:15",
+      "subtitle": "Experience the vibrant cityscape."
     },
     {
-      'title': 'Session 3: Summary of Word Power Made Easy',
-      'subtitle': '231K views · 4 years ago',
-      'thumbnail': 'assets/images/img3.jpeg',
-      'duration': '19:45',
+      "title": "Cooking 101",
+      "thumbnail": "https://via.placeholder.com/150",
+      "duration": "6:05",
+      "subtitle": "Learn the basics of cooking delicious meals."
     },
-    // Add more sessions as needed
+    {
+      "title": "Fitness for Beginners",
+      "thumbnail": "https://via.placeholder.com/150",
+      "duration": "5:00",
+      "subtitle": "Start your fitness journey today!"
+    },
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            expandedHeight: 200.0,
-            flexibleSpace: FlexibleSpaceBar(
-              title: const Text('    '),
-              background: Image.asset(
-                'assets/images/Sri-Jnaneshwar-pi.gif',
-                fit: BoxFit.cover,
-              ),
-            ),
-            pinned: true,
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.cast),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: const Icon(Icons.search),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: const Icon(Icons.more_vert),
-                onPressed: () {},
-              ),
-            ],
-          ),
-          const SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('40 videos', style: TextStyle(fontSize: 16)),
-                  Row(
-                    children: [
-                      Icon(Icons.save_alt),
-                      SizedBox(width: 10),
-                      Icon(Icons.share),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: Divider(),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                return ListTile(
-                  leading: Stack(
-                    children: [
-                      Image.asset(videos[index]['thumbnail']!, fit: BoxFit.fill),
-                      Positioned(
-                        bottom: 5,
-                        right: 5,
-                        child: Container(
-                          color: Colors.black54,
-                          padding: const EdgeInsets.all(2),
-                          child: Text(
-                            videos[index]['duration']!,
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  title: Text(
-                    videos[index]['title']!,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text(videos[index]['subtitle']!),
-                  onTap: () {
-                    // Navigate to the video player page
-                  },
-                );
-              },
-              childCount: videos.length,
-            ),
+      appBar: AppBar(
+        title: const Text("Video Gallery"),
+        backgroundColor: Colors.blueAccent,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              // Search functionality
+            },
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.video_library),
-            label: 'Subscriptions',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add_circle_outline),
-            label: 'Add',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.subscriptions),
-            label: 'Library',
-          ),
-        ],
-        selectedItemColor: Colors.red,
-        unselectedItemColor: Colors.grey,
+      body: ListView.builder(
+        itemCount: videos.length,
+        itemBuilder: (context, index) {
+          final video = videos[index];
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 7),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              elevation: 5,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Thumbnail
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        video["thumbnail"]!,
+                        width: 120,
+                        height: 80,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    // Video Details
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            video["title"]!,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            video["subtitle"]!,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.black54,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 8),
+                          Row(
+                            children: [
+                              Text(
+                                "Duration: ${video["duration"]}",
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              const Spacer(),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton(
+                                    icon: const Icon(Icons.play_arrow,
+                                        color: Colors.blueAccent),
+                                    onPressed: () {
+                                      // Play video
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(Icons.favorite_border,
+                                        color: Colors.redAccent),
+                                    onPressed: () {
+                                      // Like video
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(Icons.bookmark_border,
+                                        color: Colors.green),
+                                    onPressed: () {
+                                      // Bookmark video
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
