@@ -7,121 +7,72 @@ class TamasPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.orange,
-        title: const Text("Tamas"),
+        backgroundColor: Colors.pink[50], // Replace `Colors.blue` with your desired color
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.share),
-            onPressed: () {
-              // Share functionality
-            },
-          ),
-        ],
+        title: const Text("Tamas Page"),
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              // Mantra Image
-              Center(
-                child: Container(
-                  height: 200,
-                  width: 200,
-                  decoration: BoxDecoration(
-                    color: Colors.orange[50],
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(11.0),
-                    child: Image.asset('assets/images/prashna.jpg'), // image path
+              // Image
+              Container(
+                width: double.infinity,
+                height: 480,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25.0),
+                  image: const DecorationImage(
+                    image: AssetImage("assets/images/tamas.jpg"),
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
-
-              // Mantra Text
+              const SizedBox(height: 16),
+              // Title
               const Text(
-                "Title : Tamas ",
-                style: TextStyle(
-                  color: Colors.orange,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                "तामस",
+                style: TextStyle(fontFamily: "Deva", fontSize: 45,
                 ),
               ),
-              const SizedBox(height: 10),
-              const Center(
+              const SizedBox(height: 16),
+              // Description
+              const Text(
+                "The word means “light”, “goodness” and “purity” in Sanskrit.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: "Eczar",
+                ),
+              ),
+              const SizedBox(height: 16),
+              // Detailed Information
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Text(
-                  " Tamas is a Sanskrit word meaning darkness.",
+                  "One of the aspects of Sattva guna is cleanliness, and taking good care of oneself. Keep your body clean, but also – keep your home clean.\nLiving in a tidy home has a positive impact on our mood. Also, the act of cleaning itself can help us get rid of not only physical but also mental clutter.",
                   style: TextStyle(
-                    color: Colors.green,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontFamily: "Eczar",
+                    fontSize: 16,
+                    height: 1.5,
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
-
-              // Meaning
+              const SizedBox(height: 16),
+              // Example Section
               const Text(
-                "Tamas Guna:",
+                "Example",
                 style: TextStyle(
-                  color: Colors.orange,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                "Tamas is the quality of inertia, inactivity, dullness, or lethargy. It is the lowest of three qualities or Gunas. Tamas is the template for inertia or resistance to action. It has also been translated from Sanskrit as “indifference.” It is because of Tamo or Tamas guna you experience dullness and ignorance.",
-                style: TextStyle(
-                  color: Colors.black,
+                  fontFamily: "Eczar",
                   fontSize: 18,
-                ),
-              ),
-              const SizedBox(height: 20),
-
-              // Details
-              const Text(
-                "Tamasic Foods:",
-                style: TextStyle(
-                  color: Colors.orange,
-                  fontSize: 20,
                   fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                " require a lot of energy to digest and have a grounding effect but usually create inertia and can dull the mind. To these belong onions, mushrooms, meats, leftovers, microwaved and frozen foods. Foods made with indifference also have tamasic qualities. Such foods do nothing to lift ones’ consciousness and energy, but rather drag one into a state of inertia and laziness. ",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
-              ),
-              const SizedBox(height: 20),
-
-              // Benefits
-              const Text(
-                "Benefits:",
-                style: TextStyle(
-                  color: Colors.orange,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                "🔆 This mantra blesses the practitioner with knowledge and wisdom.\n\n🔆 Improves weak memory.",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
                 ),
               ),
             ],
@@ -131,7 +82,6 @@ class TamasPage extends StatelessWidget {
     );
   }
 }
-
 void main() {
   runApp(const MaterialApp(
     home: TamasPage(),

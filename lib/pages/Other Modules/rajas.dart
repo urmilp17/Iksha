@@ -7,121 +7,74 @@ class RajasPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.orange,
-        title: const Text("Rajas "),
+        backgroundColor: Colors.blue, // Replace `Colors.blue` with your desired color
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.share),
-            onPressed: () {
-              // Share functionality
-            },
-          ),
-        ],
+        title: const Text("Rajas Page"),
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              // Mantra Image
-              Center(
-                child: Container(
-                  height: 200,
-                  width: 200,
-                  decoration: BoxDecoration(
-                    color: Colors.orange[50],
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(11.0),
-                    child: Image.asset('assets/images/prashna.jpg'), // image path
+              // Image
+              Container(
+                width: double.infinity,
+                height: 480,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25.0),
+                  image: const DecorationImage(
+                    image: AssetImage("assets/images/rajas.jpg"),
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
-
-              // Mantra Text
+              const SizedBox(height: 16),
+              // Title
               const Text(
-                "Title : Rajas ",
+                "रजस",
                 style: TextStyle(
-                  color: Colors.orange,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                  fontFamily: "Deva",
+                  fontSize: 45,
                 ),
               ),
-              const SizedBox(height: 10),
-              const Center(
+              const SizedBox(height: 16),
+              // Description
+              const Text(
+                "The word means “light”, “goodness” and “purity” in Sanskrit.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: "Eczar",
+                ),
+              ),
+              const SizedBox(height: 16),
+              // Detailed Information
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Text(
-                  "The matter surrounding you is movable, Blood continuously circulates is because of Rajas Guna (activity) present in nature and the body.",
+                  "One of the aspects of Sattva guna is cleanliness, and taking good care of oneself. Keep your body clean, but also – keep your home clean.\nLiving in a tidy home has a positive impact on our mood. Also, the act of cleaning itself can help us get rid of not only physical but also mental clutter.",
                   style: TextStyle(
-                    color: Colors.green,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontFamily: "Eczar",
+                    fontSize: 16,
+                    height: 1.5,
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
-
-              // Meaning
+              const SizedBox(height: 16),
+              // Example Section
               const Text(
-                "Rajas Guna:",
+                "Example",
                 style: TextStyle(
-                  color: Colors.orange,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                "Rajas Guna is known for ‘fickling & activity’ state among trigunas. Characteristics of Rajas guna are desire, fear, depression, and anxiety, selfish, excited, workaholic, ambitious, chaos, restlessness and angry. Rajas Guna symbolizes with Red color.",
-                style: TextStyle(
-                  color: Colors.black,
+                  fontFamily: "Eczar",
                   fontSize: 18,
-                ),
-              ),
-              const SizedBox(height: 20),
-
-              // Details
-              const Text(
-                "Rajasic Foods:",
-                style: TextStyle(
-                  color: Colors.orange,
-                  fontSize: 20,
                   fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                " usually come into play with hard labor as they support physical endurance and a resolute state of mind. They contain garlic, spices, caffeine (from coffee, black tea and chocolate), eggs, meat, alcohol and fermented or canned foods. Foods made in anger, fried foods or over-cooked Sattvic foods also get Rajasic qualities. These foods give an initial burst of energy but eventually one experiences a low or increase in stress levels. A predominantly rajasic",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
-              ),
-              const SizedBox(height: 20),
-
-              // Benefits
-              const Text(
-                "Benefits:",
-                style: TextStyle(
-                  color: Colors.orange,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                "🔆 This mantra blesses the practitioner with knowledge and wisdom.\n\n🔆 Improves weak memory.",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
                 ),
               ),
             ],
