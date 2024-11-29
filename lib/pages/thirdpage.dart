@@ -39,24 +39,24 @@ class _ArticlesState extends State<Articles> {
       'isLiked': false, // Track like state
     },
     {
-    'imagePath': 'assets/images/article3.jpg',
-    'title': 'What makes goddess Lakshmi angry?',
-    'content': 'The following things make Goddess Lakshmi angry, and she (the epitome of prosperity, happiness, and potential) goes away from home:\n\n'
-    '1. Insulting others.\n'
-    '2. Insulting holy works, Lord Vishnu, and morals.\n'
-    '3. Disrespecting the weak and people with lower status.\n'
-    '4. Not keeping the house clean.\n'
-    '5. Offering her hot (chilly) or bitter food.\n'
-    '6. Disrespecting symbols of prosperity like Swastik, Sindoor, gold, basil, and holy pot.\n'
-    '7. Having ego about existing prosperity.\n'
-    '8. Not thanking her for gifts like prosperity, power, fortune, and knowledge which she gave you.\n\n'
-    'Results if she gets angry:\n\n'
-    '1. You will be affected by Alakshmi (the epitome of poverty, hunger, bad luck, laziness, and dirtiness).\n'
-    '2. Your luck and fortune will leave you.\n'
-    '3. Your prosperity, wealth, and self-confidence will be destroyed.\n'
-    '4. You can never achieve success.\n'
-    '5. You may have to live a poor life, lacking proper food, money, clothes, etc.',
-    'date': '26 July 2024',
+      'imagePath': 'assets/images/article3.jpg',
+      'title': 'What makes goddess Lakshmi angry?',
+      'content': 'The following things make Goddess Lakshmi angry, and she (the epitome of prosperity, happiness, and potential) goes away from home:\n\n'
+          '1. Insulting others.\n'
+          '2. Insulting holy works, Lord Vishnu, and morals.\n'
+          '3. Disrespecting the weak and people with lower status.\n'
+          '4. Not keeping the house clean.\n'
+          '5. Offering her hot (chilly) or bitter food.\n'
+          '6. Disrespecting symbols of prosperity like Swastik, Sindoor, gold, basil, and holy pot.\n'
+          '7. Having ego about existing prosperity.\n'
+          '8. Not thanking her for gifts like prosperity, power, fortune, and knowledge which she gave you.\n\n'
+          'Results if she gets angry:\n\n'
+          '1. You will be affected by Alakshmi (the epitome of poverty, hunger, bad luck, laziness, and dirtiness).\n'
+          '2. Your luck and fortune will leave you.\n'
+          '3. Your prosperity, wealth, and self-confidence will be destroyed.\n'
+          '4. You can never achieve success.\n'
+          '5. You may have to live a poor life, lacking proper food, money, clothes, etc.',
+      'date': '26 July 2024',
       'readTime': '4 sec read',  // Default read time in seconds
       'views': 10,
       'likes': 2,
@@ -86,6 +86,7 @@ class _ArticlesState extends State<Articles> {
       'likes': 10,
       'isLiked': false, // Track like state
     },
+    // Add other articles...
   ];
 
   @override
@@ -226,22 +227,23 @@ class _ArticlesState extends State<Articles> {
                     readTime,
                     style: const TextStyle(fontSize: 12, color: Colors.grey),
                   ),
-                ],
-              ),
-              Row(
-                children: [
+
+                  const SizedBox(width: 16), // Spacing between readTime and views icon
                   const Icon(Icons.remove_red_eye, size: 16, color: Colors.grey),
-                  const SizedBox(width: 4),
+                  const SizedBox(width: 4), // Spacing between views icon and views count
                   Text(
                     views,
                     style: const TextStyle(fontSize: 12, color: Colors.grey),
                   ),
-                  const SizedBox(width: 12),
+                ],
+              ),
+              Row(
+                children: [
                   IconButton(
                     icon: Icon(
                       Icons.thumb_up_alt_outlined,
                       size: 16,
-                      color: isLiked ? Colors.blue : Colors.grey,  // Change color based on like state
+                      color: isLiked ? Colors.blue : Colors.grey, // Change color based on like state
                     ),
                     onPressed: () {
                       setState(() {
@@ -254,7 +256,6 @@ class _ArticlesState extends State<Articles> {
                       });
                     },
                   ),
-                  const SizedBox(width: 4),
                   Text(
                     likes,
                     style: const TextStyle(fontSize: 12, color: Colors.grey),
@@ -341,12 +342,64 @@ class _ArticlesState extends State<Articles> {
               ),
             ],
           ),
+          const SizedBox(height: 10),
+          buildCommentsSection(),
         ],
       ),
     );
   }
 
-  void _showCommentDialog(BuildContext context) {
+  Widget buildCommentsSection() {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(), // Prevent scrolling for this section
+      itemCount: comments.length,
+      itemBuilder: (context, index) {
+        return buildCommentCard(comments[index]);
+      },
+    );
+  }
+
+  Widget buildCommentCard(Map<String, dynamic> comment) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CircleAvatar(
+              radius: 20,
+              child: Text(comment['username']![0].toUpperCase()),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    comment['username']!,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(comment['comment']!),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Posted ${comment['timeAgo']} ago',
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _showCommentDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -356,26 +409,26 @@ class _ArticlesState extends State<Articles> {
             controller: commentController,
             decoration: const InputDecoration(hintText: 'Enter your comment'),
           ),
-          actions: [
+          actions: <Widget>[
             TextButton(
-              child: const Text('Cancel'),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.pop(context);
               },
+              child: const Text('Cancel'),
             ),
             TextButton(
-              child: const Text('Add'),
               onPressed: () {
-                if (commentController.text.isNotEmpty) {
-                  setState(() {
-                    comments.add({
-                      'text': commentController.text,
-                      'date': DateFormat('d MMM yyyy').format(DateTime.now()),
-                    });
-                    commentController.clear();
+                setState(() {
+                  comments.add({
+                    'username': 'User ${comments.length + 1}',
+                    'comment': commentController.text,
+                    'timeAgo': 'Just Now',  // Simplified, can use a timestamp library for real time diff
                   });
-                }
+                  commentController.clear();
+                });
+                Navigator.pop(context);
               },
+              child: const Text('Post'),
             ),
           ],
         );
