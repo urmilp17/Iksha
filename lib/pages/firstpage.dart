@@ -150,15 +150,24 @@ class _HomeState extends State<Home> {
               ),
               const SizedBox(height: 20),
               buildSectionTitle("Sadhana Chatusthaya"),
+              const Text(
+                'Sadhana Chatushtaya provides a foundation \nfor spiritual growth, '
+                'enabling seekers to discern \nreality, detach from worldly desires, '
+                'cultivate self-control, and intensely yearn for liberation,\nleading to Self-realization.',
+                style: TextStyle(
+                    fontFamily: 'Eczar',
+                height: 1.6),
+
+              ),
               buildHorizontalList([
                 buildSmallCard(context, "assets/images/viveka.jpg",
-                    "नित्यानित्यवस्तुविवेक", "DISCRIMINATION", const Viveka()),
+                    r"{ddoH$", "DISCRIMINATION", const Viveka()),
                 buildSmallCard(context, "assets/images/vairagya.jpg",
-                    "इहामुत्रार्थफलभोगविराग", "DISPASSION", const Vairagya()),
+                    "d¡am½`", "DISPASSION", const Vairagya()),
                 buildSmallCard(context, "assets/images/shad sampatii.jpg",
-                    "शमादिषट्कसम्पत्ति", "SHAD SAMPATI", const ShadSampati()),
+                    "eX-g§nÎmr", "SHAD SAMPATI", const ShadSampati()),
                 buildSmallCard(context, "assets/images/mumukshatva.jpg",
-                    "मुमुक्षुत्वं चेति", "MUMUKSHUTVA", const Mumukshatva()),
+                    "_w_wjwËd§", "MUMUKSHUTVA", const Mumukshatva()),
               ]),
               const SizedBox(height: 20),
               buildExploreSection(context), // Updated Explore section
@@ -231,13 +240,11 @@ class _HomeState extends State<Home> {
 
   Widget buildSectionTitle(String title) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.fromLTRB(0, 5, 0, 3),
       child: Text(
         title,
         style: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
+            fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Eczar'),
       ),
     );
   }
@@ -263,48 +270,51 @@ class _HomeState extends State<Home> {
             ),
           );
         },
-        child: Container(
-          width: 200,
-          margin: const EdgeInsets.only(right: 10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                spreadRadius: 2,
-                blurRadius: 5,
-                offset: const Offset(0, 3), // changes position of shadow
-              ),
-            ],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 10), // Add spacing above the avatar
-              CircleAvatar(
-                radius: 30, // Set the desired radius for the avatar
-                backgroundImage: AssetImage(image),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                hindiText,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(5, 12, 5, 7),
+          child: Container(
+            width: 180,
+            margin: const EdgeInsets.only(right: 10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: const Offset(0, 3), // changes position of shadow
                 ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                englishText,
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey,
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                const SizedBox(height: 7), // Add spacing above the avatar
+                CircleAvatar(
+                  radius: 33, // Set the desired radius for the avatar
+                  backgroundImage: AssetImage(image),
                 ),
-                textAlign: TextAlign.center,
-              ),
-            ],
+                //const SizedBox(height: 8),
+                Text(
+                  hindiText,
+                  style: const TextStyle(
+                    fontSize: 30,
+                    color: Colors.black,
+                    fontFamily: 'DevaHead'
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  englishText,
+                  style: const TextStyle(
+                    fontSize: 8,
+                    color: Colors.grey,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
           ),
         ));
   }

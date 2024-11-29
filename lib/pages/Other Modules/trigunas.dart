@@ -51,35 +51,46 @@ class _TrigunasState extends State<Trigunas> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: [
-        PageView(
-          controller: _pageViewController,
-          onPageChanged: _handlePageViewChanged,
-          children:  [
-            SattvaPage(),
-            RajasPage(),
-            TamasPage()
-          ],
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: background,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(
-            3,
-                (index) => AnimatedContainer(
-              duration: Duration(milliseconds: 300),
-              margin: EdgeInsets.symmetric(horizontal: 5.0),
-              height: 10.0,
-              width: _currentPageIndex == index ? 20.0 : 10.0,
-              decoration: BoxDecoration(
-                color: _currentPageIndex == index ? iconcolor : Colors.grey,
-                borderRadius: BorderRadius.circular(5.0),
+      ),
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          PageView(
+            controller: _pageViewController,
+            onPageChanged: _handlePageViewChanged,
+            children:  [
+              SattvaPage(),
+              RajasPage(),
+              TamasPage()
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List.generate(
+              3,
+                  (index) => AnimatedContainer(
+                duration: Duration(milliseconds: 300),
+                margin: EdgeInsets.symmetric(horizontal: 5.0),
+                height: 10.0,
+                width: _currentPageIndex == index ? 20.0 : 10.0,
+                decoration: BoxDecoration(
+                  color: _currentPageIndex == index ? iconcolor : Colors.grey,
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

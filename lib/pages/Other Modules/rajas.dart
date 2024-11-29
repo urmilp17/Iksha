@@ -6,16 +6,6 @@ class RajasPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue, // Replace `Colors.blue` with your desired color
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: const Text("Rajas Page"),
-      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -25,25 +15,25 @@ class RajasPage extends StatelessWidget {
               // Image
               Container(
                 width: double.infinity,
-                height: 480,
+                height: 280,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25.0),
                   image: const DecorationImage(
-                    image: AssetImage("assets/images/rajas.jpg"),
+                    image: AssetImage("assets/images/rajas.jpeg"),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
+              // const SizedBox(height: 16),
               // Title
               const Text(
-                "रजस",
+                "aO",
                 style: TextStyle(
                   fontFamily: "Deva",
                   fontSize: 45,
                 ),
               ),
-              const SizedBox(height: 16),
+              // const SizedBox(height: 16),
               // Description
               const Text(
                 "The word means “light”, “goodness” and “purity” in Sanskrit.",
@@ -53,7 +43,7 @@ class RajasPage extends StatelessWidget {
                   fontFamily: "Eczar",
                 ),
               ),
-              const SizedBox(height: 16),
+              // const SizedBox(height: 16),
               // Detailed Information
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10),
