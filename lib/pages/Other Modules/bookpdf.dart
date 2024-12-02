@@ -1,6 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BookDetailsPage extends StatelessWidget {
+  // Replace this with your Google Drive URL
+  final String driveUrl = 'https://drive.google.com/file/d/1uftD6RdGaSRSWaH0HVQbTxrGIkO_nf7X/view?usp=sharing';
+
+  Future<void> _launchDriveFolder() async {
+    final Uri uri = Uri.parse(driveUrl);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch $driveUrl';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,7 +111,7 @@ class BookDetailsPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: _launchDriveFolder, // Updated functionality
                   child: const Text('READ NOW'),
                 ),
                 IconButton(

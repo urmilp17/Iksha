@@ -56,7 +56,16 @@ class _SattvaPageState extends State<SattvaPage> {
                       height: 1.5),
                 ),
               ),
-              Text("Example")
+              const SizedBox(height: 16),
+              // Example Section
+              const Text(
+                "Example",
+                style: TextStyle(
+                  fontFamily: "Eczar",
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           ),
         ),
