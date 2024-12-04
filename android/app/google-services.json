@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "223989895816",
+    "project_id": "iksha-324658",
+    "storage_bucket": "iksha-324658.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223989895816:android:c9312ee22d682bac3b853d",
+        "android_client_info": {
+          "package_name": "com.example.iksha"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGp1Y101udAakKM5mmOc0xf8mGJq0KPzw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

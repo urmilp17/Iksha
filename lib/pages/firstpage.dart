@@ -4,7 +4,7 @@ import 'package:iksha/pages/Sadhana/Discrimination.dart';
 import 'package:iksha/pages/Sadhana/Non-attachment.dart';
 import 'package:iksha/pages/Sadhana/Six-virtues.dart';
 import 'package:iksha/pages/Sadhana/Longing.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:iksha/pages/Other%20Modules/books.dart';
 import 'package:iksha/pages/Other%20Modules/trigunas.dart';
 import 'package:iksha/pages/sampradayas/sampradaya1.dart';
@@ -13,6 +13,8 @@ import 'package:iksha/pages/sampradayas/sampradaya3.dart';
 import 'package:iksha/pages/sampradayas/sampradaya4.dart';
 import 'package:iksha/pages/sampradayas/sampradaya5.dart';
 import 'package:iksha/pages/Other%20Modules/videofile.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
 class Home extends StatefulWidget {
@@ -24,7 +26,61 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   CarouselController buttonCarouselController = CarouselController();
+  final auth = FirebaseAuth.instance;
+  final firestore = FirebaseFirestore.instance;
+  String? userName;
+  String? profileurl;
+
   int _current = 0; // Track the index of the current slide
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserName();
+    fetchUserProfile();
+  }
+
+  Future<void> fetchUserName() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        final snapshot = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .get();
+        if (snapshot.exists) {
+          setState(() {
+            userName = snapshot['name'];
+          });
+        }
+      }
+    } catch (e) {
+      print("Error fetching user name: $e");
+    }
+  }
+
+  Future<void> fetchUserProfile() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        final snapshot = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .get();
+        if (snapshot.exists) {
+          setState(() {
+            profileurl = snapshot['imageUrl'] ?? ''; // Safeguard against null values
+          });
+        } else {
+          print('No user data found for UID: ${user.uid}');
+        }
+      } else {
+        print('No user logged in.');
+      }
+    } catch (e) {
+      print("Error fetching user profile: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +102,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.white,
         elevation: 0,
         toolbarHeight: 60, // Slightly reduced height
-        title: const Padding(
+        title: Padding(
           padding: EdgeInsets.only(top: 10), // Adjusted padding
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -55,7 +111,7 @@ class _HomeState extends State<Home> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Hey, David 👋",
+                    "Hey, $userName👋",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 18,
@@ -72,15 +128,17 @@ class _HomeState extends State<Home> {
                 ],
               ),
               CircleAvatar(
-                radius: 20,
-                backgroundImage: AssetImage('assets/images/ka.jpg'),
+                radius: 18,
+                backgroundImage: profileurl != null && profileurl!.isNotEmpty
+                    ? NetworkImage(profileurl!)
+                    : AssetImage('assets/images/ach.jpg') as ImageProvider,
               ),
             ],
           ),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.more_vert, color: Colors.black),
+            icon: const Icon(Icons.more_vert, color: Colors.black,size: 30,),
             onPressed: () {
               // Add your action here
             },

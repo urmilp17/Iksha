@@ -54,7 +54,7 @@ class DefaultFirebaseOptions {
     appId: '1:223989895816:android:c9312ee22d682bac3b853d',
     messagingSenderId: '223989895816',
     projectId: 'iksha-324658',
-    storageBucket: 'iksha-324658.appspot.com',
+    storageBucket: 'iksha-324658.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -62,7 +62,8 @@ class DefaultFirebaseOptions {
     appId: '1:223989895816:ios:897f52d885f04e4e3b853d',
     messagingSenderId: '223989895816',
     projectId: 'iksha-324658',
-    storageBucket: 'iksha-324658.appspot.com',
+    storageBucket: 'iksha-324658.firebasestorage.app',
     iosBundleId: 'com.group1.iksha',
   );
+
 }
