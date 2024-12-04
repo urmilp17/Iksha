@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iksha/pages/Main%20Features/chat.dart';
 
 class Prashna extends StatelessWidget {
   const Prashna({super.key});
@@ -71,8 +72,12 @@ class Prashna extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: (){
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(content: Text("Development Stage")));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const AskQuestion(),
+                          ),
+                        );
                       },
                       child: const Card(
                         elevation: 8.0,
