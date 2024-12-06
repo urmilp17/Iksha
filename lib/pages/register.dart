@@ -2,6 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iksha/pages/login.dart';
 import 'package:flutter/gestures.dart';
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../home.dart';
 
@@ -18,7 +23,31 @@ class _RegisterState extends State<Register> {
   final password = TextEditingController();
   final formKey = GlobalKey<FormState>();
   final auth = FirebaseAuth.instance;
+  final firestore = FirebaseFirestore.instance;
+
+  File? _selectedImage;
+  String? _imageUrl;
   bool loading = false;
+  final picker = ImagePicker();
+
+
+  Future<void> selectImage(BuildContext context) async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      if (pickedFile != null) {
+        _selectedImage = File(pickedFile.path);
+      } else {
+        // Show Snackbar if no file is picked
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Please upload a profile picture.'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +65,8 @@ class _RegisterState extends State<Register> {
           children: <Widget>[
             const SizedBox(height: 90,),
             Container(
-              width: 170,
-              height: 170,
+              width: 140,
+              height: 140,
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/images/Logo.png'),
@@ -64,10 +93,23 @@ class _RegisterState extends State<Register> {
                     const Text("Register",
                         style: TextStyle(fontFamily: 'Eczar', fontSize: 45)),
                     const SizedBox(height: 7),
-                    const Text(
-                      'Please enter name, email and password to get started.',
-                      style: TextStyle(fontFamily: 'Eczar',fontSize: 13),
-                    ),
+                    GestureDetector(
+                      onTap: () => selectImage(context),
+                      child: CircleAvatar(
+                        radius: 40,
+                        backgroundColor: Colors.white,
+                        backgroundImage:
+                        _selectedImage != null ? FileImage(_selectedImage!) : null,
+                        child: _selectedImage == null
+                            ? const Icon(Icons.add_a_photo, size: 20)
+                            : null,
+                      ),
+                    )
+                    ,
+                    // const Text(
+                    //   'Please enter name, email and password to get started.',
+                    //   style: TextStyle(fontFamily: 'Eczar',fontSize: 13),
+                    // ),
                     const SizedBox(height: 7),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -194,11 +236,46 @@ class _RegisterState extends State<Register> {
     ));
   }
 
+
+
+
+
+
+
+  Future<void> upload() async {
+    if (_selectedImage == null) {
+      print('No image selected');
+      return;
+    }
+
+    try {
+      firebase_storage.FirebaseStorage storage = firebase_storage.FirebaseStorage.instance;
+      firebase_storage.Reference ref = storage.ref().child("user_avatar/${email.text}"); // Correct path
+      firebase_storage.UploadTask uploadTask = ref.putFile(_selectedImage!);
+
+      // Wait for the upload task to complete
+      await uploadTask.whenComplete(() async {
+        final url = await ref.getDownloadURL();
+        setState(() {
+          _imageUrl = url;
+        });
+        print('File uploaded successfully: $url');
+      });
+    } catch (e) {
+      print('Error uploading file: $e');
+    }
+  }
+
   register() async {
     try {
-      final result = await auth.createUserWithEmailAndPassword(
+      await upload();
+          final result = await auth.createUserWithEmailAndPassword(
           email: email.text, password: password.text);
-      await result.user?.updateDisplayName(name.text);
+      await firestore.collection('users').doc(result.user?.uid).set({
+        'name': name.text,
+        'email': email.text,
+        'imageUrl': _imageUrl,
+      });
       setState(() {
         loading = false;
       });
