@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 import 'dart:async';  // Import Timer for stopwatch
 
 class Articles extends StatefulWidget {
@@ -370,7 +370,7 @@ class _ArticlesState extends State<Articles> {
                   setState(() {
                     comments.add({
                       'text': commentController.text,
-                      'date': DateFormat('d MMM yyyy').format(DateTime.now()),
+
                     });
                     commentController.clear();
                   });

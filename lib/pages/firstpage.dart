@@ -410,11 +410,13 @@ class _HomeState extends State<Home> {
             Navigator.push(
               context,
               SwipeablePageRoute(
-                builder: (_) => const Books(),
+                builder: (_) => const Books(), // Keep 'const' since the class is const
               ),
             );
           },
         ),
+
+
         const SizedBox(height: 10), // Reduced space between cards
         buildExploreCard(
           context,
