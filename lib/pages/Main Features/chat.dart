@@ -23,6 +23,7 @@ class _AskQuestionState extends State<AskQuestion> {
   final List<Map<String, dynamic>> _messages =
       []; // Store chat messages with animation flag
   bool _isLoading = false;
+  int _animatedIndex = -1;
 
   @override
   void initState() {
@@ -75,7 +76,7 @@ class _AskQuestionState extends State<AskQuestion> {
   }
 
   Future<void> fetchAnswer(String question) async {
-    final String apiUrl = "http://192.168.0.100:8000/ask";
+    final String apiUrl = "http://192.168.0.102:8000/ask";
 
     setState(() {
       _isLoading = true;
@@ -124,11 +125,12 @@ class _AskQuestionState extends State<AskQuestion> {
     }
   }
 
-  Widget _buildMessageBubble(String message, bool isUser, bool isAnimated) {
+  Widget _buildMessageBubble(String message, bool isUser, bool isAnimated, int index) {
+    final shouldAnimate = isAnimated && index == _animatedIndex;
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment:
-          isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+      mainAxisAlignment: isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         if (!isUser) // AI avatar
           Padding(
@@ -156,29 +158,36 @@ class _AskQuestionState extends State<AskQuestion> {
                     : const Radius.circular(12),
               ),
             ),
-            child: isAnimated
+            child: shouldAnimate
                 ? AnimatedTextKit(
-                    animatedTexts: [
-                      TypewriterAnimatedText(
-                        message,
-                        textStyle: TextStyle(
-                          fontSize: 16,
-                          color: isUser ? iconcolor : Colors.black87,
-                          fontFamily: 'Eczar',
-                        ),
-                        speed: const Duration(milliseconds: 50),
-                      ),
-                    ],
-                    isRepeatingAnimation: false,
-                  )
-                : Text(
-                    message,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: isUser ? iconcolor : Colors.black87,
-                      fontFamily: 'Eczar',
-                    ),
+              animatedTexts: [
+                TypewriterAnimatedText(
+                  message,
+                  textStyle: TextStyle(
+                    fontSize: 16,
+                    color: isUser ? iconcolor : Colors.black87,
+                    fontFamily: 'Eczar',
                   ),
+                  speed: const Duration(milliseconds: 50),
+                ),
+              ],
+              isRepeatingAnimation: false,
+              onFinished: () {
+                // Mark animation as complete
+                setState(() {
+                  _messages[_messages.length - 1 - index]['isAnimated'] = false;
+                  _animatedIndex = _animatedIndex - 1; // Move to next message
+                });
+              },
+            )
+                : Text(
+              message,
+              style: TextStyle(
+                fontSize: 16,
+                color: isUser ? iconcolor : Colors.black87,
+                fontFamily: 'Eczar',
+              ),
+            ),
           ),
         ),
         if (isUser) // User avatar
@@ -194,6 +203,7 @@ class _AskQuestionState extends State<AskQuestion> {
       ],
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -219,6 +229,7 @@ class _AskQuestionState extends State<AskQuestion> {
                   message['message'],
                   isUser,
                   message['isAnimated'] ?? false,
+                  index,
                 );
               },
             ),
@@ -227,7 +238,7 @@ class _AskQuestionState extends State<AskQuestion> {
             const Padding(
               padding: EdgeInsets.all(8.0),
               child:
-                  Text("AI is typing...", style: TextStyle(color: Colors.grey)),
+                  Text("AI is typing...", style: TextStyle(color: Colors.grey,fontFamily: 'Eczar')),
             ),
           Padding(
             padding: const EdgeInsets.all(8.0),
