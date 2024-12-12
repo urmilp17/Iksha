@@ -109,10 +109,25 @@ class _YogaQuizScreenState extends State<YogaQuizScreen> {
         }
       }
     }
-
+    var sortedPaths = pathCount.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
     // Determine the Yoga path with the highest count
-    String recommendedPath =
-        pathCount.entries.reduce((a, b) => a.value > b.value ? a : b).key;
+    String resultMessage;
+
+    if (sortedPaths[0].value == sortedPaths[1].value &&
+        sortedPaths[0].value != sortedPaths[2].value) {
+      // If top two paths have the same count
+      resultMessage =
+      "You can go with either ${sortedPaths[0].key} or ${sortedPaths[1].key} Yoga.";
+    } else if (sortedPaths[0].value == sortedPaths[1].value &&
+        sortedPaths[1].value == sortedPaths[2].value) {
+      // If all three paths have the same count
+      resultMessage =
+      "You are a beginner for this, just cultivate faith for the Lord and listen to the vachanas of Saints.";
+    } else {
+      // Default case: One path has the highest count
+      resultMessage = "Based on your answers, your path is: ${sortedPaths[0].key} Yoga.";
+    }
 
     // Show result as a dialog
     showDialog(
@@ -123,7 +138,7 @@ class _YogaQuizScreenState extends State<YogaQuizScreen> {
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Eczar')),
-        content: Text("Based on your answers, your path is: $recommendedPath",
+        content: Text("Based on your answers, your path is: $resultMessage",
             style: const TextStyle(
                 fontSize: 14,
                 fontFamily: 'Eczar')

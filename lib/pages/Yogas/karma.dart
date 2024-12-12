@@ -23,13 +23,18 @@ class _KarmaYogState extends State<KarmaYog> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
-                child: Card(
-                  elevation: 8.0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+                child: Container(
+                  width: double.maxFinite,
+                  height: 270,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: const DecorationImage(
+                        image: NetworkImage("https://i.pinimg.com/736x/f6/71/67/f671675f55154667556bc26b58553d4a.jpg"),
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    child: Image.network(
-                        "https://i.pinimg.com/736x/f6/71/67/f671675f55154667556bc26b58553d4a.jpg")),
+                  child: Text(""),
+                ),
               ),
               const Text(
                 'In simple language Karma Yoga is nothing but proper action with proper attitude. Now we have to understand what is meant by proper action. All the human actions possible for us, are broadly classified into three types by the scriptures. This is based on their spiritual influence on the human beings.'
