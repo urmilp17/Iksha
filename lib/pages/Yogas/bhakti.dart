@@ -47,21 +47,84 @@ class _BhaktiYogState extends State<BhaktiYog> {
                 TextSpan(
                   children: [
                     TextSpan(
-                    text:'The three types of Bhakti, based on the intensity and perspective of love for God, are:\n\n',style: TextStyle(fontFamily: 'Eczar', height: 1.5)),
-                    TextSpan(text:'Manda Bhakti (Dull or Selfish Bhakti):',style: TextStyle(fontFamily: 'Eczar', height: 1.5,fontWeight: FontWeight.w500)),
-                    TextSpan(text:'\nLove for God as a means to achieve worldly desires or goals.'
-                    'Conditional and dependent on God fulfilling specific wishes.'
-                    '  The least intense form of devotion.'
-                    'Madhyama Bhakti (Middle-Level Bhakti):'
-                    'Love for God as the ultimate goal of life.'
-                    'God is seen as a representation of peace, happiness, and security.'
-                    'Devotion is more mature and intense than Manda Bhakti.'
-                    'Uttama Bhakti (Supreme Bhakti):'
-                    'Love for God as non-different from oneself.'
-                    'Recognizes the oneness of the individual self and God.'
-                    'This highest form of devotion equates love for God with self-love.',
-                      style: TextStyle(fontFamily: 'Eczar', height: 1.5)
-              ),],),)
+                        text:
+                            'The three types of Bhakti, based on the intensity and perspective of love for God, are:\n\n',
+                        style: TextStyle(fontFamily: 'Eczar', height: 1.5)),
+                    TextSpan(
+                        text: 'Manda Bhakti (Dull or Selfish Bhakti):',
+                        style: TextStyle(
+                            fontFamily: 'Eczar',
+                            height: 1.5,
+                            fontWeight: FontWeight.w500)),
+                    const TextSpan(
+                        text:
+                            '\nLove for God as a means to achieve worldly desires or goals.'
+                            'Conditional and dependent on God fulfilling specific wishes.'
+                            '  The least intense form of devotion.\n\n',
+                        style: TextStyle(fontFamily: 'Eczar', height: 1.5)),
+                    TextSpan(
+                      text: 'Madhyama Bhakti (Middle-Level Bhakti):',
+                      style: TextStyle(
+                          fontFamily: 'Eczar',
+                          height: 1.5,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    TextSpan(
+                        text: '\nLove for God as the ultimate goal of life.'
+                            '\nGod is seen as a representation of peace, happiness, and security.'
+                            'Devotion is more mature and intense than Manda Bhakti.\n\n',
+                        style: TextStyle(fontFamily: 'Eczar', height: 1.5)),
+                    TextSpan(
+                      text: 'Uttama Bhakti (Supreme Bhakti):',
+                      style: TextStyle(
+                          fontFamily: 'Eczar',
+                          height: 1.5,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    TextSpan(
+                        text: '\nLove for God as non-different from oneself.'
+                            'Recognizes the oneness of the individual self and God.'
+                            'This highest form of devotion equates love for God with self-love.',
+                        style: TextStyle(fontFamily: 'Eczar', height: 1.5)),
+                  ],
+                ),
+              ),
+              const Text(
+                "\nBhakti is devotion or reverential love directed towards a higher principle, "
+                "which could be God or anything regarded as sacred, superior, or deserving of respect. "
+                "It represents love infused with reverence and is an essential concept in spiritual practice. "
+                "Bhakti can be expressed towards parents (Mātru Bhakti, Pitru Bhakti), a teacher (Guru Bhakti), "
+                "one’s country (Desha Bhakti), or God (Īshvara Bhakti). The scriptures analyze Bhakti in both its "
+                "general form (love) and its specific form (love of God).\n",
+                style: TextStyle(fontFamily: 'Eczar', height: 1.5),
+              ),
+              const Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "Śravaṇam (Hearing): ",
+                      style: TextStyle(
+                          fontFamily: 'Eczar',
+                          height: 1.5,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    TextSpan(
+                      text:
+                          "Listening to scriptures, stories, and teachings about God.\n",
+                      style: TextStyle(
+                          fontFamily: 'Eczar',
+                          height: 1.5,),
+                    ),
+                    TextSpan(
+                      text: "Kīrtanam (Chanting): ",
+                      style: TextStyle(
+                          fontFamily: 'Eczar',
+                          height: 1.5,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ),

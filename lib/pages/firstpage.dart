@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart' hide CarouselController;
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:iksha/colours.dart';
 import 'package:iksha/pages/Sadhana/Discrimination.dart';
 import 'package:iksha/pages/Sadhana/Non-attachment.dart';
 import 'package:iksha/pages/Sadhana/Six-virtues.dart';
@@ -17,6 +20,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
+import 'login.dart';
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -30,14 +35,20 @@ class _HomeState extends State<Home> {
   final firestore = FirebaseFirestore.instance;
   String? userName;
   String? profileurl;
+  final Random random = Random();
 
   int _current = 0; // Track the index of the current slide
+  String sanskritText = "";
+  String translationText = "";
+
+
 
   @override
   void initState() {
     super.initState();
     fetchUserName();
     fetchUserProfile();
+    fetchSubhashita();
   }
 
   Future<void> fetchUserName() async {
@@ -59,6 +70,33 @@ class _HomeState extends State<Home> {
     }
   }
 
+  void fetchSubhashita() async {
+    try {
+      // Fetch all documents from the 'subhashita' collection
+      final collection = FirebaseFirestore.instance.collection('subhashita');
+      final querySnapshot = await collection.get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        const int lowerBound = 0; // Inclusive lower bound
+        const int upperBound = 10; // Exclusive upper bound
+        final int randomIndex = lowerBound + Random().nextInt(upperBound - lowerBound);
+        // Select a random document
+        final data = querySnapshot.docs[randomIndex].data();
+
+        setState(() {
+          sanskritText = data['sanskrit'] ?? "Sanskrit text not available";
+          translationText = data['translation'] ?? "Translation not available";
+        });
+      }
+    } catch (e) {
+      print("Error fetching data: $e");
+      setState(() {
+        sanskritText = "हिमालयं समारभ्य यावत् इंदु सरोवरम् ।\nतं देवनिर्मितं देशं हिंदुस्थानं प्रचक्षते ॥";
+        translationText = "Starting from Himalayas and extending up to the Indu Lake (sarovaram), which borders on the Indian Ocean, is the nation which God created and which is known as 'Hindusthan'. ";
+      });
+    }
+  }
+
   Future<void> fetchUserProfile() async {
     try {
       final user = FirebaseAuth.instance.currentUser;
@@ -69,7 +107,8 @@ class _HomeState extends State<Home> {
             .get();
         if (snapshot.exists) {
           setState(() {
-            profileurl = snapshot['imageUrl'] ?? ''; // Safeguard against null values
+            profileurl =
+                snapshot['imageUrl'] ?? ''; // Safeguard against null values
           });
         } else {
           print('No user data found for UID: ${user.uid}');
@@ -103,7 +142,7 @@ class _HomeState extends State<Home> {
         elevation: 0,
         toolbarHeight: 60, // Slightly reduced height
         title: Padding(
-          padding: EdgeInsets.only(top: 10), // Adjusted padding
+          padding: const EdgeInsets.only(top: 10), // Adjusted padding
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -112,13 +151,13 @@ class _HomeState extends State<Home> {
                 children: [
                   Text(
                     "Hey, $userName👋",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
+                  const Text(
                     "Welcome to Iksha",
                     style: TextStyle(
                       color: Colors.grey,
@@ -131,17 +170,29 @@ class _HomeState extends State<Home> {
                 radius: 18,
                 backgroundImage: profileurl != null && profileurl!.isNotEmpty
                     ? NetworkImage(profileurl!)
-                    : AssetImage('assets/images/ach.jpg') as ImageProvider,
+                    : const AssetImage('assets/images/ach.jpg') as ImageProvider,
               ),
             ],
           ),
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.more_vert, color: Colors.black,size: 30,),
-            onPressed: () {
-              // Add your action here
-            },
+          PopupMenuButton(
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                onTap: () async {
+                  final auth = FirebaseAuth.instance;
+                  await auth.signOut();
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (_) => const LoginPage()),
+                      (route) => false);
+                },
+                child: const Text(
+                  'Logout',
+                  style: TextStyle(fontFamily: 'Eczar'),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -153,17 +204,49 @@ class _HomeState extends State<Home> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10),
-              Container(
-                height: 50,
-                child: TextField(
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.search),
-                    hintText: 'Search...',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+              // Container(
+              //   height: 50,
+              //   child: TextField(
+              //     decoration: InputDecoration(
+              //       prefixIcon: const Icon(Icons.search),
+              //       hintText: 'Search...',
+              //       border: OutlineInputBorder(
+              //         borderRadius: BorderRadius.circular(20),
+              //       ),
+              //       filled: true,
+              //       fillColor: Colors.grey[200],
+              //     ),
+              //   ),
+              // ),
+              GestureDetector(
+                onTap: (){
+                  fetchSubhashita();
+                  print("pressed");
+                },
+                child: Container(
+                  width: double.maxFinite,
+                  decoration: BoxDecoration(
+                    color: background,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child:  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 14,vertical: 8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          sanskritText.replaceAll("\\n", "\n"),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontFamily: "Yatra", fontSize: 12),
+                        ),
+                        const SizedBox(height: 5,),
+                        Text(
+                          //translation
+                            translationText,textAlign: TextAlign.center,
+                          style: TextStyle(fontFamily: "Eczar",fontSize: 14),
+                        ),
+                      ],
                     ),
-                    filled: true,
-                    fillColor: Colors.grey[200],
                   ),
                 ),
               ),
@@ -212,16 +295,13 @@ class _HomeState extends State<Home> {
                 'Sadhana Chatushtaya provides a foundation \nfor spiritual growth, '
                 'enabling seekers to discern \nreality, detach from worldly desires, '
                 'cultivate self-control, and intensely yearn for liberation,\nleading to Self-realization.',
-                style: TextStyle(
-                    fontFamily: 'Eczar',
-                height: 1.6),
-
+                style: TextStyle(fontFamily: 'Eczar', height: 1.6),
               ),
               buildHorizontalList([
-                buildSmallCard(context, "assets/images/viveka.jpg",
-                    r"{ddoH$", "DISCRIMINATION", const Viveka()),
-                buildSmallCard(context, "assets/images/vairagya.jpg",
-                    "d¡am½`", "DISPASSION", const Vairagya()),
+                buildSmallCard(context, "assets/images/viveka.jpg", r"{ddoH$",
+                    "DISCRIMINATION", const Viveka()),
+                buildSmallCard(context, "assets/images/vairagya.jpg", "d¡am½`",
+                    "DISPASSION", const Vairagya()),
                 buildSmallCard(context, "assets/images/shad sampatii.jpg",
                     "eX-g§nÎmr", "SHAD SAMPATI", const ShadSampati()),
                 buildSmallCard(context, "assets/images/mumukshatva.jpg",
@@ -357,10 +437,9 @@ class _HomeState extends State<Home> {
                 Text(
                   hindiText,
                   style: const TextStyle(
-                    fontSize: 30,
-                    color: Colors.black,
-                    fontFamily: 'DevaHead'
-                  ),
+                      fontSize: 30,
+                      color: Colors.black,
+                      fontFamily: 'DevaHead'),
                 ),
                 const SizedBox(height: 2),
                 Text(
@@ -410,12 +489,12 @@ class _HomeState extends State<Home> {
             Navigator.push(
               context,
               SwipeablePageRoute(
-                builder: (_) => const Books(), // Keep 'const' since the class is const
+                builder: (_) =>
+                    const Books(), // Keep 'const' since the class is const
               ),
             );
           },
         ),
-
 
         const SizedBox(height: 10), // Reduced space between cards
         buildExploreCard(
