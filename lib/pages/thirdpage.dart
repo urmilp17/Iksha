@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'dart:async';  // Import Timer for stopwatch
+import 'dart:async';
 
 class Articles extends StatefulWidget {
   const Articles({Key? key}) : super(key: key);
@@ -12,31 +12,34 @@ class Articles extends StatefulWidget {
 class _ArticlesState extends State<Articles> {
   int? expandedIndex;
   TextEditingController commentController = TextEditingController();
-  List<Map<String, dynamic>> comments = [];
-  Stopwatch stopwatch = Stopwatch();  // Stopwatch to track time
+  Stopwatch stopwatch = Stopwatch();
+
+  // Add individual comments list for each article
+  List<List<Map<String, dynamic>>> articleComments = List.generate(
+    articles.length,
+        (_) => [],
+  );
 
   static List<Map<String, dynamic>> articles = [
     {
       'imagePath': 'assets/images/article1.jpg',
       'title': 'Origin of Ganesha',
-      'content':
-      "Like all gods in the Hindu pantheon, Ganesh has a mythological origin. He is the son of Shiva and his consort Parvati, both of human form and yet he bears the head of an elephant...",
+      'content': "Like all gods in the Hindu pantheon, Ganesh has a mythological origin...",
       'date': '23 March 23',
-      'readTime': '2 sec read',  // Default read time in seconds
+      'readTime': '2 sec read',
       'views': 1,
       'likes': 0,
-      'isLiked': false, // Track like state
+      'isLiked': false,
     },
     {
       'imagePath': 'assets/images/article2.jpeg',
       'title': "What did Sage Narada preach to Prahlada",
-      'content':
-      "King Hiranyakashyap leaves to woods to do meditation for Lord Brahma, to attain mystical powers and for immortality...",
+      'content': "King Hiranyakashyap leaves to woods to do meditation for Lord Brahma...",
       'date': '26 July 24',
-      'readTime': '3 sec read',  // Default read time in seconds
+      'readTime': '3 sec read',
       'views': 12,
       'likes': 4,
-      'isLiked': false, // Track like state
+      'isLiked': false,
     },
     {
       'imagePath': 'assets/images/article3.jpg',
@@ -86,7 +89,6 @@ class _ArticlesState extends State<Articles> {
       'likes': 10,
       'isLiked': false, // Track like state
     },
-    // Add other articles...
   ];
 
   @override
@@ -99,7 +101,6 @@ class _ArticlesState extends State<Articles> {
           onPressed: () {
             setState(() {
               if (expandedIndex != null) {
-                // Stop the stopwatch and calculate read time
                 stopwatch.stop();
                 final seconds = stopwatch.elapsed.inSeconds;
                 String formattedTime;
@@ -120,9 +121,7 @@ class _ArticlesState extends State<Articles> {
           },
         )
             : null,
-        title: expandedIndex == null
-            ? const Text('Articles')
-            : null,
+        title: expandedIndex == null ? const Text('Articles') : null,
       ),
       body: expandedIndex == null
           ? ListView.builder(
@@ -134,7 +133,7 @@ class _ArticlesState extends State<Articles> {
               setState(() {
                 expandedIndex = index;
               });
-              stopwatch.start();  // Start stopwatch when article is expanded
+              stopwatch.start();
             },
             child: buildArticleCard(
               imagePath: articles[index]['imagePath']!,
@@ -144,13 +143,13 @@ class _ArticlesState extends State<Articles> {
               readTime: articles[index]['readTime']!,
               views: articles[index]['views'].toString(),
               likes: articles[index]['likes'].toString(),
-              isLiked: articles[index]['isLiked']!, // Pass like state
-              index: index,  // Pass the index to handle likes
+              isLiked: articles[index]['isLiked']!,
+              index: index,
             ),
           );
         },
       )
-          : buildExpandedView(articles[expandedIndex!]),
+          : buildExpandedView(articles[expandedIndex!], expandedIndex!),
     );
   }
 
@@ -227,10 +226,9 @@ class _ArticlesState extends State<Articles> {
                     readTime,
                     style: const TextStyle(fontSize: 12, color: Colors.grey),
                   ),
-
-                  const SizedBox(width: 16), // Spacing between readTime and views icon
+                  const SizedBox(width: 16),
                   const Icon(Icons.remove_red_eye, size: 16, color: Colors.grey),
-                  const SizedBox(width: 4), // Spacing between views icon and views count
+                  const SizedBox(width: 4),
                   Text(
                     views,
                     style: const TextStyle(fontSize: 12, color: Colors.grey),
@@ -243,15 +241,15 @@ class _ArticlesState extends State<Articles> {
                     icon: Icon(
                       Icons.thumb_up_alt_outlined,
                       size: 16,
-                      color: isLiked ? Colors.blue : Colors.grey, // Change color based on like state
+                      color: isLiked ? Colors.blue : Colors.grey,
                     ),
                     onPressed: () {
                       setState(() {
-                        articles[index]['isLiked'] = !isLiked;  // Toggle like state
+                        articles[index]['isLiked'] = !isLiked;
                         if (isLiked) {
-                          articles[index]['likes'] -= 1;  // Decrease like count if already liked
+                          articles[index]['likes'] -= 1;
                         } else {
-                          articles[index]['likes'] += 1;  // Increase like count
+                          articles[index]['likes'] += 1;
                         }
                       });
                     },
@@ -272,7 +270,7 @@ class _ArticlesState extends State<Articles> {
               const SizedBox(width: 8),
               GestureDetector(
                 onTap: () {
-                  _showCommentDialog(context);
+                  _showCommentDialog(context, index);
                 },
                 child: const Text(
                   'Comments',
@@ -289,7 +287,7 @@ class _ArticlesState extends State<Articles> {
     );
   }
 
-  Widget buildExpandedView(Map<String, dynamic> article) {
+  Widget buildExpandedView(Map<String, dynamic> article, int index) {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -299,7 +297,9 @@ class _ArticlesState extends State<Articles> {
               image: DecorationImage(
                 image: AssetImage(article['imagePath']!),
                 fit: BoxFit.cover,
+
               ),
+              borderRadius: BorderRadius.circular(12.0),
             ),
           ),
           const SizedBox(height: 16),
@@ -323,54 +323,61 @@ class _ArticlesState extends State<Articles> {
           ),
           const SizedBox(height: 24),
           const Divider(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const Icon(Icons.comment, size: 18, color: Colors.orange),
-              const SizedBox(width: 8),
-              GestureDetector(
-                onTap: () {
-                  _showCommentDialog(context);
-                },
-                child: const Text(
-                  'Comments',
-                  style: TextStyle(
-                    color: Colors.orange,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          buildCommentsSection(),
+          buildCommentsSection(index),
         ],
       ),
     );
   }
 
-  Widget buildCommentsSection() {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(), // Prevent scrolling for this section
-      itemCount: comments.length,
-      itemBuilder: (context, index) {
-        return buildCommentCard(comments[index]);
-      },
+  Widget buildCommentsSection(int articleIndex) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              'Comments',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.orange,
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: articleComments[articleIndex].length,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  buildCommentCard(articleComments[articleIndex][index]),
+                  const SizedBox(height: 8),
+                ],
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 
   Widget buildCommentCard(Map<String, dynamic> comment) {
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      elevation: 2,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(12),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CircleAvatar(
+            const CircleAvatar(
               radius: 20,
-              child: Text(comment['username']![0].toUpperCase()),
+              backgroundColor: Colors.orange,
+              child: Icon(Icons.person, size: 20, color: Colors.white),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -378,17 +385,21 @@ class _ArticlesState extends State<Articles> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    comment['username']!,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    comment['username'],
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
                   ),
-                  Text(comment['comment']!),
                   const SizedBox(height: 4),
                   Text(
-                    'Posted ${comment['timeAgo']} ago',
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey,
-                    ),
+                    comment['text'],
+                    style: const TextStyle(fontSize: 14, color: Colors.black87),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    DateFormat('MMM d, h:mm a').format(comment['time']),
+                    style: const TextStyle(color: Colors.grey, fontSize: 12),
                   ),
                 ],
               ),
@@ -399,17 +410,17 @@ class _ArticlesState extends State<Articles> {
     );
   }
 
-  _showCommentDialog(BuildContext context) {
+  void _showCommentDialog(BuildContext context, int articleIndex) {
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (context) {
         return AlertDialog(
           title: const Text('Add Comment'),
           content: TextField(
             controller: commentController,
             decoration: const InputDecoration(hintText: 'Enter your comment'),
           ),
-          actions: <Widget>[
+          actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
@@ -419,16 +430,16 @@ class _ArticlesState extends State<Articles> {
             TextButton(
               onPressed: () {
                 setState(() {
-                  comments.add({
-                    'username': 'User ${comments.length + 1}',
-                    'comment': commentController.text,
-                    'timeAgo': 'Just Now',  // Simplified, can use a timestamp library for real time diff
+                  articleComments[articleIndex].add({
+                    'username': 'User', // Placeholder for username
+                    'text': commentController.text,
+                    'time': DateTime.now(),
                   });
                   commentController.clear();
                 });
                 Navigator.pop(context);
               },
-              child: const Text('Post'),
+              child: const Text('Add'),
             ),
           ],
         );
