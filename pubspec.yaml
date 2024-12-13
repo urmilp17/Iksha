@@ -72,5 +72,8 @@ flutter:
         - asset: assets/fonts/Eczar-SemiBold.ttf
         - asset: assets/fonts/Eczar-Bold.ttf
         - asset: assets/fonts/Eczar-ExtraBold.ttf
+    - family: Yatra
+      fonts:
+        - asset: assets/fonts/YatraOne-Regular.ttf
 
 
