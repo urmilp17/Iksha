@@ -79,7 +79,21 @@ class _ArticlesState extends State<Articles> {
     {
       'imagePath': 'assets/images/article5.jpg',
       'title': 'Why is Lord Shiva also called Rudradev?',
-      'content': "According to Bhagavata Purana, Lord Brahma originated from Lord Narayana’s navel. Now, Lord Vishnu ordered Lord Brahma to do the task of creation. Brahma created four sons: Sanaka, Sanandana, Sanatsujaata, and Sanatkumaara. These four were the sons of Lord Brahma. Though the look of these four sons of Lord Brahma was like that of a child, they had profound and pure knowledge about the supreme Lord Vishnu. Now, Lord Brahma asked them to continue the task of creation. But, these four kumaras of Lord Brahma refused to do so and said that they didn’t want to fall in the samsara bandhana and wanted to do tapasya and please Lord Narayana.On seeing this, Lord Brahma got angry because his sons were not listening to him. His anger was uncontrollable. Suddenly, a baby emerged out of Lord Brahma’s forehead. The baby started crying aloud. It was crying so loud that the crying sound was unbearable for anyone. The baby was crying because he wanted a name. Now, Lord Brahma got even more angry and cursed the baby that he would be called Rudra. Rudra means ‘one who cries’. Because this baby cried loudly, he is called Rudra. Another meaning of Rudra is ‘one who drives away sorrows’. The etymological meaning of Rudra is ‘one who drives away evil and fear’. He is the ‘destroyer of sorrows and the one who removes",
+      'content': "According to Bhagavata Purana, Lord Brahma originated from Lord Narayana’s navel. "
+          "Now, Lord Vishnu ordered Lord Brahma to do the task of creation. Brahma created four sons: "
+          "Sanaka, Sanandana, Sanatsujaata, and Sanatkumaara. These four were the sons of Lord Brahma. "
+          "Though the look of these four sons of Lord Brahma was like that of a child, "
+          "they had profound and pure knowledge about the supreme Lord Vishnu. "
+          "Now, Lord Brahma asked them to continue the task of creation. "
+          "But, these four kumaras of Lord Brahma refused to do so and said that they didn’t want to "
+          "fall in the samsara bandhana and wanted to do tapasya and please Lord Narayana.On seeing this, "
+          "Lord Brahma got angry because his sons were not listening to him. His anger was uncontrollable. "
+          "Suddenly, a baby emerged out of Lord Brahma’s forehead. The baby started crying aloud. "
+          "It was crying so loud that the crying sound was unbearable for anyone. The baby was crying "
+          "because he wanted a name. Now, Lord Brahma got even more angry and cursed the baby that he would "
+          "be called Rudra. Rudra means ‘one who cries’. Because this baby cried loudly, he is called Rudra. "
+          "Another meaning of Rudra is ‘one who drives away sorrows’. The etymological meaning of Rudra is "
+          "‘one who drives away evil and fear’. He is the ‘destroyer of sorrows and the one who removes",
       'date': '26 July 2024',
       'readTime': '3 min read',  // Default read time in seconds
       'views': 5,

@@ -89,7 +89,6 @@ class _HomeState extends State<Home> {
         });
       }
     } catch (e) {
-      print("Error fetching data: $e");
       setState(() {
         sanskritText = "हिमालयं समारभ्य यावत् इंदु सरोवरम् ।\nतं देवनिर्मितं देशं हिंदुस्थानं प्रचक्षते ॥";
         translationText = "Starting from Himalayas and extending up to the Indu Lake (sarovaram), which borders on the Indian Ocean, is the nation which God created and which is known as 'Hindusthan'. ";
@@ -221,7 +220,6 @@ class _HomeState extends State<Home> {
               GestureDetector(
                 onTap: (){
                   fetchSubhashita();
-                  print("pressed");
                 },
                 child: Container(
                   width: double.maxFinite,
@@ -230,20 +228,20 @@ class _HomeState extends State<Home> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child:  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 14,vertical: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 14,vertical: 8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Text(
                           sanskritText.replaceAll("\\n", "\n"),
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontFamily: "Yatra", fontSize: 12),
+                          style: const TextStyle(fontFamily: "Yatra", fontSize: 12),
                         ),
                         const SizedBox(height: 5,),
                         Text(
                           //translation
                             translationText,textAlign: TextAlign.center,
-                          style: TextStyle(fontFamily: "Eczar",fontSize: 14),
+                          style: const TextStyle(fontFamily: "Eczar",fontSize: 14),
                         ),
                       ],
                     ),

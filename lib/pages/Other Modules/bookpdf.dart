@@ -6,7 +6,6 @@ class BookDetailsPage extends StatelessWidget {
     Book(
       title: 'Logo Design Love: A Guide to Creating Iconic Brand Identities',
       author: 'David Airey',
-      price: '\$9.99',
       image: 'assets/images/book2.jpg', // Replace with your image asset
       driveUrl: 'https://drive.google.com/file/d/1uftD6RdGaSRSWaH0HVQbTxrGIkO_nf7X/view?usp=sharing',
       pages: 216,
@@ -18,9 +17,8 @@ class BookDetailsPage extends StatelessWidget {
     Book(
       title: 'The Design of Everyday Things',
       author: 'Don Norman',
-      price: '\$12.99',
       image: 'assets/images/book1.jpg', // Replace with your image asset
-      driveUrl: 'https://drive.google.com/file/d/185uAUxDAmvBPMeQrX3XPDFFtRELv4Oyq/view?usp=sharing',
+      driveUrl: 'https://drive.google.com/uc?export=download&id=185uAUxDAmvBPMeQrX3XPDFFtRELv4Oyq',
       pages: 368,
       description:
       'A brilliant examination of everyday objects, uncovering why some designs work while others fail. '
@@ -92,25 +90,6 @@ class BookDetailsPage extends StatelessWidget {
                             ),
                             const SizedBox(height: 8.0),
                             Text(
-                              book.price,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18.0,
-                                color: Colors.black,
-                              ),
-                            ),
-                            const SizedBox(height: 4.0),
-                            Row(
-                              children: const [
-                                Icon(Icons.star, color: Colors.amber, size: 20.0),
-                                Icon(Icons.star, color: Colors.amber, size: 20.0),
-                                Icon(Icons.star, color: Colors.amber, size: 20.0),
-                                Icon(Icons.star, color: Colors.amber, size: 20.0),
-                                Icon(Icons.star_half, color: Colors.amber, size: 20.0),
-                              ],
-                            ),
-                            const SizedBox(height: 8.0),
-                            Text(
                               '${book.pages} pages',
                               style: const TextStyle(color: Colors.grey),
                             ),
@@ -158,7 +137,6 @@ class BookDetailsPage extends StatelessWidget {
 class Book {
   final String title;
   final String author;
-  final String price;
   final String image;
   final String driveUrl;
   final int pages;
@@ -167,7 +145,6 @@ class Book {
   Book({
     required this.title,
     required this.author,
-    required this.price,
     required this.image,
     required this.driveUrl,
     required this.pages,

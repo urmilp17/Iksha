@@ -142,25 +142,6 @@ class _BooksState extends State<Books> {
                             ),
                             const SizedBox(height: 8.0),
                             Text(
-                              book.price,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18.0,
-                                color: Colors.black,
-                              ),
-                            ),
-                            const SizedBox(height: 4.0),
-                            Row(
-                              children: const [
-                                Icon(Icons.star, color: Colors.amber, size: 20.0),
-                                Icon(Icons.star, color: Colors.amber, size: 20.0),
-                                Icon(Icons.star, color: Colors.amber, size: 20.0),
-                                Icon(Icons.star, color: Colors.amber, size: 20.0),
-                                Icon(Icons.star_half, color: Colors.amber, size: 20.0),
-                              ],
-                            ),
-                            const SizedBox(height: 8.0),
-                            Text(
                               '${book.pages} pages',
                               style: const TextStyle(color: Colors.grey),
                             ),
