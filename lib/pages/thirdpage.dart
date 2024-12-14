@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'dart:async';  // Import Timer for stopwatch
+import 'package:intl/intl.dart';
+import 'dart:async';
 
 class Articles extends StatefulWidget {
   const Articles({Key? key}) : super(key: key);
@@ -12,51 +12,54 @@ class Articles extends StatefulWidget {
 class _ArticlesState extends State<Articles> {
   int? expandedIndex;
   TextEditingController commentController = TextEditingController();
-  List<Map<String, dynamic>> comments = [];
-  Stopwatch stopwatch = Stopwatch();  // Stopwatch to track time
+  Stopwatch stopwatch = Stopwatch();
+
+  // Add individual comments list for each article
+  List<List<Map<String, dynamic>>> articleComments = List.generate(
+    articles.length,
+        (_) => [],
+  );
 
   static List<Map<String, dynamic>> articles = [
     {
       'imagePath': 'assets/images/article1.jpg',
       'title': 'Origin of Ganesha',
-      'content':
-      "Like all gods in the Hindu pantheon, Ganesh has a mythological origin. He is the son of Shiva and his consort Parvati, both of human form and yet he bears the head of an elephant...",
+      'content': "Like all gods in the Hindu pantheon, Ganesh has a mythological origin...",
       'date': '23 March 23',
-      'readTime': '2 sec read',  // Default read time in seconds
+      'readTime': '2 sec read',
       'views': 1,
       'likes': 0,
-      'isLiked': false, // Track like state
+      'isLiked': false,
     },
     {
       'imagePath': 'assets/images/article2.jpeg',
       'title': "What did Sage Narada preach to Prahlada",
-      'content':
-      "King Hiranyakashyap leaves to woods to do meditation for Lord Brahma, to attain mystical powers and for immortality...",
+      'content': "King Hiranyakashyap leaves to woods to do meditation for Lord Brahma...",
       'date': '26 July 24',
-      'readTime': '3 sec read',  // Default read time in seconds
+      'readTime': '3 sec read',
       'views': 12,
       'likes': 4,
-      'isLiked': false, // Track like state
+      'isLiked': false,
     },
     {
-    'imagePath': 'assets/images/article3.jpg',
-    'title': 'What makes goddess Lakshmi angry?',
-    'content': 'The following things make Goddess Lakshmi angry, and she (the epitome of prosperity, happiness, and potential) goes away from home:\n\n'
-    '1. Insulting others.\n'
-    '2. Insulting holy works, Lord Vishnu, and morals.\n'
-    '3. Disrespecting the weak and people with lower status.\n'
-    '4. Not keeping the house clean.\n'
-    '5. Offering her hot (chilly) or bitter food.\n'
-    '6. Disrespecting symbols of prosperity like Swastik, Sindoor, gold, basil, and holy pot.\n'
-    '7. Having ego about existing prosperity.\n'
-    '8. Not thanking her for gifts like prosperity, power, fortune, and knowledge which she gave you.\n\n'
-    'Results if she gets angry:\n\n'
-    '1. You will be affected by Alakshmi (the epitome of poverty, hunger, bad luck, laziness, and dirtiness).\n'
-    '2. Your luck and fortune will leave you.\n'
-    '3. Your prosperity, wealth, and self-confidence will be destroyed.\n'
-    '4. You can never achieve success.\n'
-    '5. You may have to live a poor life, lacking proper food, money, clothes, etc.',
-    'date': '26 July 2024',
+      'imagePath': 'assets/images/article3.jpg',
+      'title': 'What makes goddess Lakshmi angry?',
+      'content': 'The following things make Goddess Lakshmi angry, and she (the epitome of prosperity, happiness, and potential) goes away from home:\n\n'
+          '1. Insulting others.\n'
+          '2. Insulting holy works, Lord Vishnu, and morals.\n'
+          '3. Disrespecting the weak and people with lower status.\n'
+          '4. Not keeping the house clean.\n'
+          '5. Offering her hot (chilly) or bitter food.\n'
+          '6. Disrespecting symbols of prosperity like Swastik, Sindoor, gold, basil, and holy pot.\n'
+          '7. Having ego about existing prosperity.\n'
+          '8. Not thanking her for gifts like prosperity, power, fortune, and knowledge which she gave you.\n\n'
+          'Results if she gets angry:\n\n'
+          '1. You will be affected by Alakshmi (the epitome of poverty, hunger, bad luck, laziness, and dirtiness).\n'
+          '2. Your luck and fortune will leave you.\n'
+          '3. Your prosperity, wealth, and self-confidence will be destroyed.\n'
+          '4. You can never achieve success.\n'
+          '5. You may have to live a poor life, lacking proper food, money, clothes, etc.',
+      'date': '26 July 2024',
       'readTime': '4 sec read',  // Default read time in seconds
       'views': 10,
       'likes': 2,
@@ -112,7 +115,6 @@ class _ArticlesState extends State<Articles> {
           onPressed: () {
             setState(() {
               if (expandedIndex != null) {
-                // Stop the stopwatch and calculate read time
                 stopwatch.stop();
                 final seconds = stopwatch.elapsed.inSeconds;
                 String formattedTime;
@@ -133,9 +135,7 @@ class _ArticlesState extends State<Articles> {
           },
         )
             : null,
-        title: expandedIndex == null
-            ? const Text('Articles')
-            : null,
+        title: expandedIndex == null ? const Text('Articles') : null,
       ),
       body: expandedIndex == null
           ? ListView.builder(
@@ -147,7 +147,7 @@ class _ArticlesState extends State<Articles> {
               setState(() {
                 expandedIndex = index;
               });
-              stopwatch.start();  // Start stopwatch when article is expanded
+              stopwatch.start();
             },
             child: buildArticleCard(
               imagePath: articles[index]['imagePath']!,
@@ -157,13 +157,13 @@ class _ArticlesState extends State<Articles> {
               readTime: articles[index]['readTime']!,
               views: articles[index]['views'].toString(),
               likes: articles[index]['likes'].toString(),
-              isLiked: articles[index]['isLiked']!, // Pass like state
-              index: index,  // Pass the index to handle likes
+              isLiked: articles[index]['isLiked']!,
+              index: index,
             ),
           );
         },
       )
-          : buildExpandedView(articles[expandedIndex!]),
+          : buildExpandedView(articles[expandedIndex!], expandedIndex!),
     );
   }
 
@@ -240,35 +240,34 @@ class _ArticlesState extends State<Articles> {
                     readTime,
                     style: const TextStyle(fontSize: 12, color: Colors.grey),
                   ),
-                ],
-              ),
-              Row(
-                children: [
+                  const SizedBox(width: 16),
                   const Icon(Icons.remove_red_eye, size: 16, color: Colors.grey),
                   const SizedBox(width: 4),
                   Text(
                     views,
                     style: const TextStyle(fontSize: 12, color: Colors.grey),
                   ),
-                  const SizedBox(width: 12),
+                ],
+              ),
+              Row(
+                children: [
                   IconButton(
                     icon: Icon(
                       Icons.thumb_up_alt_outlined,
                       size: 16,
-                      color: isLiked ? Colors.blue : Colors.grey,  // Change color based on like state
+                      color: isLiked ? Colors.blue : Colors.grey,
                     ),
                     onPressed: () {
                       setState(() {
-                        articles[index]['isLiked'] = !isLiked;  // Toggle like state
+                        articles[index]['isLiked'] = !isLiked;
                         if (isLiked) {
-                          articles[index]['likes'] -= 1;  // Decrease like count if already liked
+                          articles[index]['likes'] -= 1;
                         } else {
-                          articles[index]['likes'] += 1;  // Increase like count
+                          articles[index]['likes'] += 1;
                         }
                       });
                     },
                   ),
-                  const SizedBox(width: 4),
                   Text(
                     likes,
                     style: const TextStyle(fontSize: 12, color: Colors.grey),
@@ -285,7 +284,7 @@ class _ArticlesState extends State<Articles> {
               const SizedBox(width: 8),
               GestureDetector(
                 onTap: () {
-                  _showCommentDialog(context);
+                  _showCommentDialog(context, index);
                 },
                 child: const Text(
                   'Comments',
@@ -302,7 +301,7 @@ class _ArticlesState extends State<Articles> {
     );
   }
 
-  Widget buildExpandedView(Map<String, dynamic> article) {
+  Widget buildExpandedView(Map<String, dynamic> article, int index) {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -312,7 +311,9 @@ class _ArticlesState extends State<Articles> {
               image: DecorationImage(
                 image: AssetImage(article['imagePath']!),
                 fit: BoxFit.cover,
+
               ),
+              borderRadius: BorderRadius.circular(12.0),
             ),
           ),
           const SizedBox(height: 16),
@@ -336,34 +337,97 @@ class _ArticlesState extends State<Articles> {
           ),
           const SizedBox(height: 24),
           const Divider(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const Icon(Icons.comment, size: 18, color: Colors.orange),
-              const SizedBox(width: 8),
-              GestureDetector(
-                onTap: () {
-                  _showCommentDialog(context);
-                },
-                child: const Text(
-                  'Comments',
-                  style: TextStyle(
-                    color: Colors.orange,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+          buildCommentsSection(index),
+        ],
+      ),
+    );
+  }
+
+  Widget buildCommentsSection(int articleIndex) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              'Comments',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.orange,
               ),
-            ],
+            ),
+          ),
+          const SizedBox(height: 10),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: articleComments[articleIndex].length,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  buildCommentCard(articleComments[articleIndex][index]),
+                  const SizedBox(height: 8),
+                ],
+              );
+            },
           ),
         ],
       ),
     );
   }
 
-  void _showCommentDialog(BuildContext context) {
+  Widget buildCommentCard(Map<String, dynamic> comment) {
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      elevation: 2,
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const CircleAvatar(
+              radius: 20,
+              backgroundColor: Colors.orange,
+              child: Icon(Icons.person, size: 20, color: Colors.white),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    comment['username'],
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    comment['text'],
+                    style: const TextStyle(fontSize: 14, color: Colors.black87),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    DateFormat('MMM d, h:mm a').format(comment['time']),
+                    style: const TextStyle(color: Colors.grey, fontSize: 12),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showCommentDialog(BuildContext context, int articleIndex) {
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (context) {
         return AlertDialog(
           title: const Text('Add Comment'),
           content: TextField(
@@ -372,24 +436,24 @@ class _ArticlesState extends State<Articles> {
           ),
           actions: [
             TextButton(
-              child: const Text('Cancel'),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.pop(context);
               },
+              child: const Text('Cancel'),
             ),
             TextButton(
-              child: const Text('Add'),
               onPressed: () {
-                if (commentController.text.isNotEmpty) {
-                  setState(() {
-                    comments.add({
-                      'text': commentController.text,
-
-                    });
-                    commentController.clear();
+                setState(() {
+                  articleComments[articleIndex].add({
+                    'username': 'User', // Placeholder for username
+                    'text': commentController.text,
+                    'time': DateTime.now(),
                   });
-                }
+                  commentController.clear();
+                });
+                Navigator.pop(context);
               },
+              child: const Text('Add'),
             ),
           ],
         );
