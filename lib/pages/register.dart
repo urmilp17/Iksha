@@ -1,12 +1,16 @@
+import 'dart:typed_data';
+
+import 'package:crop_your_image/crop_your_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:iksha/pages/login.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 import '../home.dart';
 
@@ -24,15 +28,31 @@ class _RegisterState extends State<Register> {
   final formKey = GlobalKey<FormState>();
   final auth = FirebaseAuth.instance;
   final firestore = FirebaseFirestore.instance;
+  final _controller = CropController();
 
   File? _selectedImage;
   String? _imageUrl;
   bool loading = false;
   final picker = ImagePicker();
+  final _imageDataList = <Uint8List>[];
+
+  var _currentImage = 0;
+  set currentImage(int value) {
+    setState(() {
+      _currentImage = value;
+    });
+    _controller.image = _imageDataList[_currentImage];
+  }
+
+  Future<Uint8List> _load(String assetName) async {
+    final assetData = await rootBundle.load(assetName);
+    return assetData.buffer.asUint8List();
+  }
 
 
   Future<void> selectImage(BuildContext context) async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
     setState(() {
       if (pickedFile != null) {
         _selectedImage = File(pickedFile.path);
@@ -45,6 +65,7 @@ class _RegisterState extends State<Register> {
           ),
         );
       }
+
     });
   }
 

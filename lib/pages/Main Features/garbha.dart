@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iksha/colours.dart';
+import 'package:iksha/pages/Main%20Features/garbhainfo/ginfo.dart';
 
 class Garbha extends StatelessWidget {
   const Garbha({super.key});
@@ -38,13 +39,13 @@ class Garbha extends StatelessWidget {
                 color: const Color(0xFFFDF5DF),
                 borderRadius: BorderRadius.circular(25.0),
               ),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
+                    const Text(
                       "Garbha Sanskar",
                       textAlign: TextAlign.left,
                       style: TextStyle(
@@ -52,10 +53,10 @@ class Garbha extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                           fontSize: 30),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 3,
                     ),
-                    Text(
+                    const Text(
                       "The Garbha Sanskar Guide offers"
                       "comprehensive prenatal education,"
                       "combining traditional Hindu practices "
@@ -67,7 +68,7 @@ class Garbha extends StatelessWidget {
                       textAlign: TextAlign.left,
                       style: TextStyle(fontFamily: 'Eczar',height: 1.7, fontSize: 13),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Card(
@@ -75,10 +76,21 @@ class Garbha extends StatelessWidget {
                       color: Color(0xDF644C00),
                       child: Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          "Explore",
-                          style:
-                              TextStyle(color: Colors.white, fontFamily: 'Eczar',fontWeight: FontWeight.bold,fontSize: 16),
+                        child: GestureDetector(
+                          onTap: (){
+                            print("pressed");
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const Ginfo(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            "Explore",
+                            style:
+                                TextStyle(color: Colors.white, fontFamily: 'Eczar',fontWeight: FontWeight.bold,fontSize: 16),
+                          ),
                         ),
                       ),
                     )
