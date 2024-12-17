@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:iksha/colours.dart';
 import 'articlemodal.dart';
 import 'articletile.dart';
 
@@ -35,7 +36,7 @@ class _ArticlesPageState extends State<ArticlesPage> {
     try {
       // Reference to the 'articles' collection in Firestore
       final QuerySnapshot snapshot =
-      await FirebaseFirestore.instance.collection('article').get();
+          await FirebaseFirestore.instance.collection('article').get();
 
       // Map the Firestore documents to a list of Article objects
       return snapshot.docs.map((doc) => Article.fromFirestore(doc)).toList();
@@ -67,22 +68,29 @@ class _ArticlesPageState extends State<ArticlesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Articles')),
+      appBar: AppBar(
+        backgroundColor: background,
+        title: const Text(
+          'Articles',
+          style: TextStyle(fontFamily: "Eczar",fontSize: 28,fontWeight: FontWeight.w500),
+        ),
+        centerTitle: true,
+      ),
       body: isLoading && displayedArticles.isEmpty
           ? const Center(child: CircularProgressIndicator())
           : RefreshIndicator(
-        onRefresh: _loadMoreArticles,
-        child: ListView.builder(
-          itemCount: displayedArticles.length + (isLoading ? 1 : 0),
-          itemBuilder: (context, index) {
-            if (index == displayedArticles.length) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            final article = displayedArticles[index];
-            return ArtiTitle(article: article);
-          },
-        ),
-      ),
+              onRefresh: _loadMoreArticles,
+              child: ListView.builder(
+                itemCount: displayedArticles.length + (isLoading ? 1 : 0),
+                itemBuilder: (context, index) {
+                  if (index == displayedArticles.length) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  final article = displayedArticles[index];
+                  return ArtiTitle(article: article);
+                },
+              ),
+            ),
     );
   }
 }
@@ -98,7 +106,8 @@ class ArticleTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Image.network(article.photoUrl, width: 50, height: 50, fit: BoxFit.cover),
+      leading: Image.network(article.photoUrl,
+          width: 50, height: 50, fit: BoxFit.cover),
       title: Text(article.title),
       subtitle: Text(article.date),
       onTap: () {
@@ -114,7 +123,10 @@ class ArticleTile extends StatelessWidget {
 }
 
 class ArtiTitle extends StatelessWidget {
-  const ArtiTitle({super.key, required this.article,});
+  const ArtiTitle({
+    super.key,
+    required this.article,
+  });
 
   final Article article;
 
@@ -122,8 +134,8 @@ class ArtiTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-
-        final articleRef = FirebaseFirestore.instance.collection('article').doc(article.id);
+        final articleRef =
+            FirebaseFirestore.instance.collection('article').doc(article.id);
         await articleRef.update({'views': FieldValue.increment(1)});
 
         Navigator.push(
@@ -165,15 +177,15 @@ class ArtiTitle extends StatelessWidget {
             Text(
               article.title,
               style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                fontFamily: "Eczar"
-              ),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: "Eczar"),
             ),
             const SizedBox(height: 8),
             Text(
               article.content,
-              style: const TextStyle(fontSize: 12, color: Colors.black87, fontFamily: "Eczar"),
+              style: const TextStyle(
+                  fontSize: 12, color: Colors.black87, fontFamily: "Eczar"),
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
             ),
@@ -183,17 +195,22 @@ class ArtiTitle extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.calendar_today, size: 14, color: Colors.grey),
+                    const Icon(Icons.calendar_today,
+                        size: 14, color: Colors.grey),
                     const SizedBox(width: 4),
                     Text(
                       article.date,
-                      style: const TextStyle(fontSize: 12, color: Colors.grey, fontFamily: "Eczar"),
+                      style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey,
+                          fontFamily: "Eczar"),
                     ),
                   ],
                 ),
                 Row(
                   children: [
-                    const Icon(Icons.remove_red_eye, size: 16, color: Colors.grey),
+                    const Icon(Icons.remove_red_eye,
+                        size: 16, color: Colors.grey),
                     const SizedBox(width: 4),
                     StreamBuilder<DocumentSnapshot>(
                       stream: FirebaseFirestore.instance
@@ -204,31 +221,49 @@ class ArtiTitle extends StatelessWidget {
                         if (snapshot.hasError) {
                           return Text(
                             'Error',
-                            style: const TextStyle(fontSize: 12, color: Colors.grey, fontFamily: "Eczar"),
+                            style: const TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey,
+                                fontFamily: "Eczar"),
                           );
                         }
 
-                        if (snapshot.connectionState == ConnectionState.waiting) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return Text(
                             article.views.toString(),
-                            style: const TextStyle(fontSize: 12, color: Colors.grey, fontFamily: "Eczar"),
+                            style: const TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey,
+                                fontFamily: "Eczar"),
                           );
                         }
 
-                        final updatedViews = snapshot.data?.get('views') ?? article.views;
+                        final updatedViews =
+                            snapshot.data?.get('views') ?? article.views;
 
                         return Text(
                           updatedViews.toString(),
-                          style: const TextStyle(fontSize: 12, color: Colors.grey, fontFamily: "Eczar"),
+                          style: const TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey,
+                              fontFamily: "Eczar"),
                         );
                       },
                     ),
                     const SizedBox(width: 12),
-                    const Icon(Icons.thumb_up, size: 16, color: Colors.grey, ),
+                    const Icon(
+                      Icons.thumb_up,
+                      size: 16,
+                      color: Colors.grey,
+                    ),
                     const SizedBox(width: 4),
                     Text(
                       article.likes.toString(),
-                      style: const TextStyle(fontSize: 12, color: Colors.grey,fontFamily: "Eczar"),
+                      style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey,
+                          fontFamily: "Eczar"),
                     ),
                   ],
                 ),
@@ -240,7 +275,6 @@ class ArtiTitle extends StatelessWidget {
     );
   }
 }
-
 
 Widget buildArticleCard({
   required String imagePath,
