@@ -149,11 +149,12 @@ class _HomeState extends State<Home> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Hey, $userName👋",
+                    "Hey, $userName 👋",
                     style: const TextStyle(
                       color: Colors.black,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
+                      fontFamily: "Eczar"
                     ),
                   ),
                   const Text(
@@ -161,6 +162,7 @@ class _HomeState extends State<Home> {
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: 14,
+                        fontFamily: "Eczar"
                     ),
                   ),
                 ],

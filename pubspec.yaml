@@ -36,6 +36,9 @@ dependencies:
   image_cropper: ^8.1.0
 
   http: any
+  flutter_dotenv: ^5.2.1
+  langchain: ^0.7.7+2
+  langchain_google: ^0.6.4+2
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -50,6 +53,7 @@ flutter:
   assets:
     - assets/images/
     - assets/fonts/
+    - .env
 
   fonts:
     - family: Deva
