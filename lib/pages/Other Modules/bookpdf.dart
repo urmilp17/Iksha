@@ -26,6 +26,8 @@ class BookDetailsPage extends StatelessWidget {
     ),
   ];
 
+  BookDetailsPage({super.key});
+
   Future<void> _launchDriveFolder(String url) async {
     final Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {

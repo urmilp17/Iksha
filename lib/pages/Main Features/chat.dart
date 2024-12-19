@@ -8,7 +8,7 @@ import 'package:animated_text_kit/animated_text_kit.dart'; // Import for animati
 import 'package:iksha/colours.dart';
 
 class AskQuestion extends StatefulWidget {
-  const AskQuestion({Key? key}) : super(key: key);
+  const AskQuestion({super.key});
 
   @override
   State<AskQuestion> createState() => _AskQuestionState();
@@ -76,7 +76,7 @@ class _AskQuestionState extends State<AskQuestion> {
   }
 
   Future<void> fetchAnswer(String question) async {
-    final String apiUrl = "http://192.168.0.102:8000/ask";
+    const String apiUrl = "http://192.168.0.102:8000/ask";
 
     setState(() {
       _isLoading = true;
@@ -197,7 +197,7 @@ class _AskQuestionState extends State<AskQuestion> {
               radius: 20,
               backgroundImage: profileurl != null && profileurl!.isNotEmpty
                   ? NetworkImage(profileurl!)
-                  : AssetImage('assets/images/ach.jpg') as ImageProvider,
+                  : const AssetImage('assets/images/ach.jpg') as ImageProvider,
             ),
           ),
       ],
@@ -247,9 +247,9 @@ class _AskQuestionState extends State<AskQuestion> {
                   color: background, borderRadius: BorderRadius.circular(32)),
               child: TextField(
                 controller: _questionController,
-                style: TextStyle(fontFamily: 'Eczar'),
+                style: const TextStyle(fontFamily: 'Eczar'),
                 decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(20),
+                  contentPadding: const EdgeInsets.all(20),
                   suffixIcon: GestureDetector(
                     onTap: () {
                       final question = _questionController.text.trim();
@@ -265,7 +265,7 @@ class _AskQuestionState extends State<AskQuestion> {
                     ),
                   ),
                   hintText: "Type your message...",
-                  hintStyle: TextStyle(fontFamily: 'Eczar'),
+                  hintStyle: const TextStyle(fontFamily: 'Eczar'),
                   border: InputBorder.none,
                 ),
               ),

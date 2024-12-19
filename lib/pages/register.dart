@@ -1,21 +1,19 @@
-import 'dart:typed_data';
-
-import 'package:crop_your_image/crop_your_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:iksha/colours.dart';
 import 'package:iksha/pages/login.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
+
 
 import '../home.dart';
 
 class Register extends StatefulWidget {
-  const Register({Key? key}) : super(key: key);
+  const Register({super.key});
 
   @override
   State<Register> createState() => _RegisterState();
@@ -28,45 +26,62 @@ class _RegisterState extends State<Register> {
   final formKey = GlobalKey<FormState>();
   final auth = FirebaseAuth.instance;
   final firestore = FirebaseFirestore.instance;
-  final _controller = CropController();
 
   File? _selectedImage;
   String? _imageUrl;
   bool loading = false;
   final picker = ImagePicker();
-  final _imageDataList = <Uint8List>[];
 
-  var _currentImage = 0;
-  set currentImage(int value) {
-    setState(() {
-      _currentImage = value;
-    });
-    _controller.image = _imageDataList[_currentImage];
-  }
-
-  Future<Uint8List> _load(String assetName) async {
-    final assetData = await rootBundle.load(assetName);
-    return assetData.buffer.asUint8List();
-  }
 
 
   Future<void> selectImage(BuildContext context) async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      File? croppedFile = await _cropImage(pickedFile.path);
+      setState(() {
+        if (croppedFile != null) {
+          _selectedImage = croppedFile;
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Image cropping cancelled.'),
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please upload a profile picture.'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+  }
 
-    setState(() {
-      if (pickedFile != null) {
-        _selectedImage = File(pickedFile.path);
-      } else {
-        // Show Snackbar if no file is picked
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Please upload a profile picture.'),
-            duration: Duration(seconds: 2),
-          ),
-        );
-      }
-
-    });
+  Future<File?> _cropImage(String imagePath) async {
+    CroppedFile? croppedFile = await ImageCropper().cropImage(
+      sourcePath: imagePath,
+      uiSettings: [
+        AndroidUiSettings(
+          aspectRatioPresets: [
+            CropAspectRatioPreset.original,
+            CropAspectRatioPreset.square,
+          ],
+          toolbarTitle: 'Crop Image',
+          toolbarColor: background,
+          backgroundColor: background,
+          toolbarWidgetColor: iconcolor,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false,
+        ),
+        IOSUiSettings(
+          title: 'Crop Image',
+        ),
+      ],
+    );
+    return croppedFile != null ? File(croppedFile.path) : null;
   }
 
 
@@ -148,6 +163,7 @@ class _RegisterState extends State<Register> {
                               if (value!.isEmpty) {
                                 return 'Please enter name';
                               }
+                              return null;
                             },
                           ),
                           const SizedBox(
@@ -166,6 +182,7 @@ class _RegisterState extends State<Register> {
                               if (value!.isEmpty) {
                                 return 'Please enter email';
                               }
+                              return null;
                             },
                           ),
                           const SizedBox(
@@ -183,6 +200,7 @@ class _RegisterState extends State<Register> {
                               if (value!.isEmpty) {
                                 return 'Please enter password';
                               }
+                              return null;
                             },
                           ),
                           const SizedBox(height: 15),
@@ -225,7 +243,7 @@ class _RegisterState extends State<Register> {
                                   Navigator.push(
                                     context,
                                     PageRouteBuilder(
-                                      pageBuilder: (context, animation, secondaryAnimation) => LoginPage(),
+                                      pageBuilder: (context, animation, secondaryAnimation) => const LoginPage(),
                                         transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                           const begin = Offset(2.5, 0.0);
                                           const end = Offset.zero;

@@ -23,7 +23,7 @@ import 'package:swipeable_page_route/swipeable_page_route.dart';
 import 'login.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();

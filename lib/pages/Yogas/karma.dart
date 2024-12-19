@@ -33,7 +33,7 @@ class _KarmaYogState extends State<KarmaYog> {
                         fit: BoxFit.cover,
                       ),
                     ),
-                  child: Text(""),
+                  child: const Text(""),
                 ),
               ),
               const Text(

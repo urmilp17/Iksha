@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iksha/pages/Other%20Modules/sattva.dart';
 import 'package:iksha/pages/Other%20Modules/tamas.dart';
-import 'package:swipeable_page_route/swipeable_page_route.dart';
 
 import '../../colours.dart';
 import 'rajas.dart';
@@ -67,7 +65,7 @@ class _TrigunasState extends State<Trigunas> with TickerProviderStateMixin {
           PageView(
             controller: _pageViewController,
             onPageChanged: _handlePageViewChanged,
-            children:  [
+            children:  const [
               SattvaPage(),
               RajasPage(),
               TamasPage()
@@ -78,8 +76,8 @@ class _TrigunasState extends State<Trigunas> with TickerProviderStateMixin {
             children: List.generate(
               3,
                   (index) => AnimatedContainer(
-                duration: Duration(milliseconds: 300),
-                margin: EdgeInsets.symmetric(horizontal: 5.0),
+                duration: const Duration(milliseconds: 300),
+                margin: const EdgeInsets.symmetric(horizontal: 5.0),
                 height: 10.0,
                 width: _currentPageIndex == index ? 20.0 : 10.0,
                 decoration: BoxDecoration(

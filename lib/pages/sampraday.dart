@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SampradayPage extends StatelessWidget {
+  const SampradayPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

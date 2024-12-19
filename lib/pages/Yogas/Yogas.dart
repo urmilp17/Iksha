@@ -33,7 +33,7 @@ class _YogasState extends State<Yogas> {
       // Example: Navigate to a Settings screen
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => YogaQuizScreen()),
+          MaterialPageRoute(builder: (context) => const YogaQuizScreen()),
         );
         break;
     }

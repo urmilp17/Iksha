@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:iksha/colours.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() {
@@ -110,6 +109,8 @@ class VideoPage extends StatelessWidget {
       "url": "https://www.youtube.com/watch?v=7wtfhZwyrcc"
     },
   ];
+
+  VideoPage({super.key});
 
   Future<void> _launchURL(String url) async {
     final Uri uri = Uri.parse(url);

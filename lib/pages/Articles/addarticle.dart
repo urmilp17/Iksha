@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 
+import '../../colours.dart';
+
 class AddArticlePage extends StatefulWidget {
+  const AddArticlePage({super.key});
+
   @override
   _AddArticlePageState createState() => _AddArticlePageState();
 }
@@ -16,16 +21,64 @@ class _AddArticlePageState extends State<AddArticlePage> {
   final _contentController = TextEditingController();
   File? _selectedImage;
   bool _isUploading = false;
+  final picker = ImagePicker();
 
   Future<void> _pickImage() async {
-    final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
     if (pickedFile != null) {
+      File? croppedFile = await _cropImage(pickedFile.path);
       setState(() {
-        _selectedImage = File(pickedFile.path);
+        if (croppedFile != null) {
+          _selectedImage = croppedFile;
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Image cropping cancelled.'),
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
       });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please upload a profile picture.'),
+          duration: Duration(seconds: 2),
+        ),
+      );
     }
+  }
+
+
+  // Future<void> _pickImage() async {
+  //   final picker = ImagePicker();
+  //   final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+  //
+  //   if (pickedFile != null) {
+  //     setState(() {
+  //       _selectedImage = File(pickedFile.path);
+  //     });
+  //   }
+  // }
+
+  Future<File?> _cropImage(String imagePath) async {
+    CroppedFile? croppedFile = await ImageCropper().cropImage(
+      sourcePath: imagePath,
+      aspectRatio: const CropAspectRatio(ratioX: 5, ratioY: 4),
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarTitle: 'Crop Image',
+          toolbarColor: iconcolor,
+          toolbarWidgetColor: background,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false,
+        ),
+        IOSUiSettings(
+          title: 'Crop Image',
+        ),
+      ],
+    );
+    return croppedFile != null ? File(croppedFile.path) : null;
   }
 
   Future<String?> _uploadImage(File image) async {
@@ -46,7 +99,7 @@ class _AddArticlePageState extends State<AddArticlePage> {
   Future<void> _addArticle() async {
     if (!_formKey.currentState!.validate() || _selectedImage == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please fill all fields and select an image.')),
+        const SnackBar(content: Text('Please fill all fields and select an image.')),
       );
       return;
     }
@@ -62,7 +115,7 @@ class _AddArticlePageState extends State<AddArticlePage> {
         _isUploading = false;
       });
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to upload image.')),
+        const SnackBar(content: Text('Failed to upload image.')),
       );
       return;
     }
@@ -79,13 +132,13 @@ class _AddArticlePageState extends State<AddArticlePage> {
     try {
       await FirebaseFirestore.instance.collection('article').add(article);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Article added successfully.')),
+        const SnackBar(content: Text('Article added successfully.')),
       );
       Navigator.pop(context);
     } catch (e) {
       print('Error adding article: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to add article.')),
+        const SnackBar(content: Text('Failed to add article.')),
       );
     } finally {
       setState(() {
@@ -97,9 +150,9 @@ class _AddArticlePageState extends State<AddArticlePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Add Article')),
+      appBar: AppBar(title: const Text('Add Article')),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Form(
             key: _formKey,
@@ -122,10 +175,10 @@ class _AddArticlePageState extends State<AddArticlePage> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 TextFormField(
                   controller: _titleController,
-                  decoration: InputDecoration(labelText: 'Title'),
+                  decoration: const InputDecoration(labelText: 'Title'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a title';
@@ -133,10 +186,10 @@ class _AddArticlePageState extends State<AddArticlePage> {
                     return null;
                   },
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 TextFormField(
                   controller: _dateController,
-                  decoration: InputDecoration(labelText: 'Date'),
+                  decoration: const InputDecoration(labelText: 'Date'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a date';
@@ -144,10 +197,10 @@ class _AddArticlePageState extends State<AddArticlePage> {
                     return null;
                   },
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 TextFormField(
                   controller: _contentController,
-                  decoration: InputDecoration(labelText: 'Content'),
+                  decoration: const InputDecoration(labelText: 'Content'),
                   maxLines: 5,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -156,12 +209,12 @@ class _AddArticlePageState extends State<AddArticlePage> {
                     return null;
                   },
                 ),
-                SizedBox(height: 32),
+                const SizedBox(height: 32),
                 _isUploading
-                    ? Center(child: CircularProgressIndicator())
+                    ? const Center(child: CircularProgressIndicator())
                     : ElevatedButton(
                   onPressed: _addArticle,
-                  child: Text('Add Article'),
+                  child: const Text('Add Article'),
                 ),
               ],
             ),

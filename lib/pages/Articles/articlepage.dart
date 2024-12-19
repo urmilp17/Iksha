@@ -5,6 +5,8 @@ import 'articlemodal.dart';
 import 'articletile.dart';
 
 class ArticlesPage extends StatefulWidget {
+  const ArticlesPage({super.key});
+
   @override
   _ArticlesPageState createState() => _ArticlesPageState();
 }
@@ -72,7 +74,8 @@ class _ArticlesPageState extends State<ArticlesPage> {
         backgroundColor: background,
         title: const Text(
           'Articles',
-          style: TextStyle(fontFamily: "Eczar",fontSize: 28,fontWeight: FontWeight.w500),
+          style: TextStyle(
+              fontFamily: "Eczar", fontSize: 28, fontWeight: FontWeight.w500),
         ),
         centerTitle: true,
       ),
@@ -219,9 +222,9 @@ class ArtiTitle extends StatelessWidget {
                           .snapshots(),
                       builder: (context, snapshot) {
                         if (snapshot.hasError) {
-                          return Text(
+                          return const Text(
                             'Error',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 12,
                                 color: Colors.grey,
                                 fontFamily: "Eczar"),

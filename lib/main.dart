@@ -1,9 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:iksha/pages/Articles/addarticle.dart';
-import 'package:iksha/pages/Articles/articlepage.dart';
-import 'package:iksha/pages/Splash.dart';
-import 'package:iksha/pages/firstpage.dart';
-import 'package:iksha/pages/login.dart';
 import 'package:iksha/pages/register.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +32,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         useMaterial3: true,
       ),
-      home: MyHomePage(),
+      home: const Register(),
     );
   }
 }

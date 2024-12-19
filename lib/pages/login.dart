@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -84,6 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                                 if (value!.isEmpty) {
                                   return 'Please enter email';
                                 }
+                                return null;
                               },
                             ),
                             const SizedBox(height: 7),
@@ -99,6 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                                 if (value!.isEmpty) {
                                   return 'Please enter password';
                                 }
+                                return null;
                               },
                             ),
                           ],

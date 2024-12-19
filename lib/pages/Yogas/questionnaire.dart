@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../../colours.dart';
 
 class YogaQuizScreen extends StatefulWidget {
+  const YogaQuizScreen({super.key});
+
   @override
   _YogaQuizScreenState createState() => _YogaQuizScreenState();
 }

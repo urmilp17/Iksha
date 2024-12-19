@@ -33,10 +33,9 @@ dependencies:
   permission_handler: ^11.3.1
   animated_text_kit: ^4.2.2
   easy_rich_text: ^2.2.0
-  image_cropper: ^8.0.2
-  crop_your_image: ^2.0.0
-  custom_image_crop: ^0.0.13
+  image_cropper: ^8.1.0
 
+  http: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

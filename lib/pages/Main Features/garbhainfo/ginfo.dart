@@ -136,7 +136,7 @@ class _GinfoState extends State<Ginfo> {
 class ToggleInfoWidget extends StatefulWidget {
   final String text;
 
-  const ToggleInfoWidget({Key? key, required this.text}) : super(key: key);
+  const ToggleInfoWidget({super.key, required this.text});
 
   @override
   _ToggleInfoWidgetState createState() => _ToggleInfoWidgetState();

@@ -26,11 +26,11 @@ class Mumukshatva extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Header section
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
-                    children: const [
+                    children: [
                       Icon(Icons.stars_outlined, color: Colors.black, size: 30),
                       SizedBox(width: 8),
                       Text(
@@ -43,7 +43,7 @@ class Mumukshatva extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const Icon(Icons.more_vert, color: Colors.black, size: 30),
+                  Icon(Icons.more_vert, color: Colors.black, size: 30),
                 ],
               ),
               const SizedBox(height: 10),
@@ -89,12 +89,12 @@ class Mumukshatva extends StatelessWidget {
               const SizedBox(height: 20),
 
               // Footer section
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // Views count
                   Row(
-                    children: const [
+                    children: [
                       SizedBox(width: 5),
                       Text(
                         '         ',
@@ -107,7 +107,7 @@ class Mumukshatva extends StatelessWidget {
                   ),
                   // Social icons (likes and comments)
                   Row(
-                    children: const [
+                    children: [
                       Icon(Icons.favorite_border, color: Colors.grey, size: 20),
                       SizedBox(width: 15),
                       Icon(Icons.share, color: Colors.grey, size: 20),

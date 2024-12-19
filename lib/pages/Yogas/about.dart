@@ -19,9 +19,9 @@ class _AboutYogaState extends State<AboutYoga> {
             fontWeight: FontWeight.w600
         ),
       ),
-      content: Container(
+      content: const SizedBox(
         height: 240,
-        child: const RawScrollbar(
+        child: RawScrollbar(
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
 

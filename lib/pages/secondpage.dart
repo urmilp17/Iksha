@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iksha/colours.dart';
 import 'package:iksha/pages/Main%20Features/Yoga.dart';
-import 'package:iksha/pages/Main%20Features/garbha.dart';
 import 'package:iksha/pages/Main%20Features/prashna.dart';
 
 class KeyFeatures extends StatefulWidget {
-  const KeyFeatures({Key? key}) : super(key: key);
+  const KeyFeatures({super.key});
 
   @override
   State<KeyFeatures> createState() => _KeyFeaturesState();
@@ -62,7 +61,7 @@ class _KeyFeaturesState extends State<KeyFeatures> with TickerProviderStateMixin
         PageView(
           controller: _pageViewController,
           onPageChanged: _handlePageViewChanged,
-          children: <Widget>[
+          children: const <Widget>[
             Prashna(),
             Yoga(),
           ],
@@ -72,8 +71,8 @@ class _KeyFeaturesState extends State<KeyFeatures> with TickerProviderStateMixin
           children: List.generate(
             2,
                 (index) => AnimatedContainer(
-              duration: Duration(milliseconds: 300),
-              margin: EdgeInsets.symmetric(horizontal: 5.0),
+              duration: const Duration(milliseconds: 300),
+              margin: const EdgeInsets.symmetric(horizontal: 5.0),
               height: 10.0,
               width: _currentPageIndex == index ? 20.0 : 10.0,
               decoration: BoxDecoration(

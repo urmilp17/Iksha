@@ -39,12 +39,12 @@ class Yoga extends StatelessWidget {
                 borderRadius: BorderRadius.circular(25.0),
               ),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
+                    const Text(
                       "Yoga Questionnaire",
                       textAlign: TextAlign.left,
                       style: TextStyle(
@@ -52,10 +52,10 @@ class Yoga extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                           fontSize: 30),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 3,
                     ),
-                    Text(
+                    const Text(
                       "The Questionnaire helps users identify "
                       "their spiritual path—Karma (action), "
                       "Bhakti (devotion), or Gyan (knowledge) "
@@ -67,7 +67,7 @@ class Yoga extends StatelessWidget {
                       style: TextStyle(
                           fontFamily: 'Eczar', height: 1.6, fontSize: 14),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     GestureDetector(
@@ -79,7 +79,7 @@ class Yoga extends StatelessWidget {
                           ),
                         );
                       },
-                      child: Card(
+                      child: const Card(
                         elevation: 8.0,
                         color: Color(0xDF644C00),
                         child: Padding(

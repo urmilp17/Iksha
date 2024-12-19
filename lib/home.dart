@@ -1,13 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iksha/colours.dart';
 import 'package:iksha/pages/Articles/articlepage.dart';
-import 'package:iksha/pages/Main%20Features/garbha.dart';
 import 'package:iksha/pages/fourthpage.dart';
-import 'package:iksha/pages/login.dart';
 import 'NavBar.dart';
 import 'pages/firstpage.dart';
-import 'pages/thirdpage.dart';
 import 'pages/secondpage.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -56,11 +52,11 @@ class _MyHomePageState extends State<MyHomePage> {
       // ),
       body: IndexedStack(
         index: currentPageIndex,
-        children: <Widget>[
-          const Home(),
-          const KeyFeatures(),
+        children: const <Widget>[
+          Home(),
+          KeyFeatures(),
           ArticlesPage(),
-          const GarbhaSanskar()
+          GarbhaSanskar()
         ],
       ),
       extendBody: true,

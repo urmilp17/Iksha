@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:iksha/colours.dart';
 import 'package:iksha/pages/Main%20Features/garbhainfo/ginfo.dart';
 
 class Garbha extends StatelessWidget {
@@ -73,9 +72,9 @@ class Garbha extends StatelessWidget {
                     ),
                     Card(
                       elevation: 8.0,
-                      color: Color(0xDF644C00),
+                      color: const Color(0xDF644C00),
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: GestureDetector(
                           onTap: (){
                             print("pressed");
@@ -86,7 +85,7 @@ class Garbha extends StatelessWidget {
                               ),
                             );
                           },
-                          child: Text(
+                          child: const Text(
                             "Explore",
                             style:
                                 TextStyle(color: Colors.white, fontFamily: 'Eczar',fontWeight: FontWeight.bold,fontSize: 16),

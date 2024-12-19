@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Sampradaya1 extends StatelessWidget {
-  const Sampradaya1({Key? key}) : super(key: key);
+  const Sampradaya1({super.key});
 
   @override
   Widget build(BuildContext context) {

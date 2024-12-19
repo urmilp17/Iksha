@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../colours.dart';
 
 class SattvaPage extends StatefulWidget {
   const SattvaPage({super.key});
@@ -36,7 +35,7 @@ class _SattvaPageState extends State<SattvaPage> {
                 style: TextStyle(fontFamily: "Deva", fontSize: 45),
               ),
               
-              Text(
+              const Text(
                 " The word means “light”,“goodness” and “purity” in Sanskrit.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -45,9 +44,9 @@ class _SattvaPageState extends State<SattvaPage> {
                 ),
               ),
               const SizedBox(height: 5,),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: const Text(
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Text(
                   "One of the aspects of Sattva guna is cleanliness, and taking good care of oneself. Keep your body clean, but also – keep your home clean.\nLiving in a tidy home has a positive impact on our mood. Also, the act of cleaning itself can help us get rid of not only physical but also mental clutter.",
                   style: TextStyle(
                       color: Colors.black,

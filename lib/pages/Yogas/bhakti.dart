@@ -1,4 +1,3 @@
-import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:flutter/material.dart';
 
 class BhaktiYog extends StatefulWidget {
@@ -56,7 +55,7 @@ class _BhaktiYogState extends State<BhaktiYog> {
                             fontFamily: 'Eczar',
                             height: 1.5,
                             fontWeight: FontWeight.w500)),
-                    const TextSpan(
+                    TextSpan(
                         text:
                             '\nLove for God as a means to achieve worldly desires or goals.'
                             'Conditional and dependent on God fulfilling specific wishes.'

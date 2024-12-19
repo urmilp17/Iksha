@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'dart:async';
 
 class Articles extends StatefulWidget {
-  const Articles({Key? key}) : super(key: key);
+  const Articles({super.key});
 
   @override
   _ArticlesState createState() => _ArticlesState();
@@ -121,7 +120,7 @@ class _ArticlesState extends State<Articles> {
                 if (seconds >= 60) {
                   final minutes = (seconds / 60).floor();
                   final remainingSeconds = seconds % 60;
-                  formattedTime = '$minutes min ${remainingSeconds} sec read';
+                  formattedTime = '$minutes min $remainingSeconds sec read';
                 } else {
                   formattedTime = '$seconds sec read';
                 }
@@ -184,11 +183,11 @@ class _ArticlesState extends State<Articles> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.black26,
             blurRadius: 5,
-            offset: const Offset(0, 2),
+            offset: Offset(0, 2),
           ),
         ],
       ),

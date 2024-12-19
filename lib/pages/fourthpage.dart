@@ -18,7 +18,7 @@ class _GarbhaSanskarState extends State<GarbhaSanskar> {
           Column(
             children: [
               Container(
-                margin: EdgeInsets.only(top: 25),
+                margin: const EdgeInsets.only(top: 25),
                 height: 500,
                 width: double.maxFinite,
                 decoration: const BoxDecoration(
@@ -81,7 +81,7 @@ class _GarbhaSanskarState extends State<GarbhaSanskar> {
                           ),
                         );
                       },
-                      child: Card(
+                      child: const Card(
                         elevation: 8.0,
                         color: Color(0xDF644C00),
                         child: Padding(

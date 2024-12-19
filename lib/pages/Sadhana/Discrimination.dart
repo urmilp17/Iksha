@@ -17,7 +17,7 @@ class Viveka extends StatelessWidget {
             borderRadius: BorderRadius.circular(20.0),
             boxShadow: const [
               BoxShadow(
-                color: const Color(0xFFFDF5DF),
+                color: Color(0xFFFDF5DF),
                 blurRadius: 10.0,
                 offset: Offset(0, 5),
               ),
@@ -79,9 +79,9 @@ class Viveka extends StatelessWidget {
               const SizedBox(height: 10),
 
               // Content
-              Container(
+              const SizedBox(
                 height: 500,
-                child: const RawScrollbar(
+                child: RawScrollbar(
                   child: SingleChildScrollView(
                     child: Text(
                       'What is meant by Nitya-anitya-vastu-viveka? Nitya vastu, is eternal, an infinite vastu; everything else is ephemeral (timebound), so anitya is something that is temporary, empirical, and finite. What is nitya is a real entity, rest of everything else is all temporal.'

@@ -5,12 +5,12 @@ import 'articlemodal.dart';
 class ArticleDetailPage extends StatelessWidget {
   final Article article;
 
-  const ArticleDetailPage({required this.article});
+  const ArticleDetailPage({super.key, required this.article});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(" ")),
+      appBar: AppBar(title: const Text(" ")),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -24,39 +24,39 @@ class ArticleDetailPage extends StatelessWidget {
                   width: double.infinity,
                   height: 200,
                   fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) => Icon(Icons.broken_image, size: 200),
+                  errorBuilder: (context, error, stackTrace) => const Icon(Icons.broken_image, size: 200),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(
                 article.title,
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500, fontFamily: "Eczar"),
+                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500, fontFamily: "Eczar"),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     article.date,
-                    style: TextStyle(color: Colors.grey, fontSize: 14, fontFamily: "Eczar"),
+                    style: const TextStyle(color: Colors.grey, fontSize: 14, fontFamily: "Eczar"),
                   ),
                   Row(
                     children: [
-                      Icon(Icons.visibility, size: 16, color: Colors.grey),
-                      SizedBox(width: 4),
-                      Text('${article.views} views', style: TextStyle(color: Colors.grey, fontSize: 14, fontFamily: "Eczar")),
-                      SizedBox(width: 16),
-                      Icon(Icons.thumb_up, size: 16, color: Colors.grey),
-                      SizedBox(width: 4),
-                      Text('${article.likes} likes', style: TextStyle(color: Colors.grey, fontSize: 14, fontFamily: "Eczar")),
+                      const Icon(Icons.visibility, size: 16, color: Colors.grey),
+                      const SizedBox(width: 4),
+                      Text('${article.views} views', style: const TextStyle(color: Colors.grey, fontSize: 14, fontFamily: "Eczar")),
+                      const SizedBox(width: 16),
+                      const Icon(Icons.thumb_up, size: 16, color: Colors.grey),
+                      const SizedBox(width: 4),
+                      Text('${article.likes} likes', style: const TextStyle(color: Colors.grey, fontSize: 14, fontFamily: "Eczar")),
                     ],
                   ),
                 ],
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(
                 article.content.replaceAll("\\n", "\n"),
-                style: TextStyle(fontSize: 16, fontFamily: "Eczar",height: 1.5),
+                style: const TextStyle(fontSize: 16, fontFamily: "Eczar",height: 1.5),
               ),
             ],
           ),
