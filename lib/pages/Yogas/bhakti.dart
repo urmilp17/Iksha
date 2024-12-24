@@ -10,6 +10,50 @@ class BhaktiYog extends StatefulWidget {
 class _BhaktiYogState extends State<BhaktiYog> {
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, String>> bhaktiForms = [
+      {
+        "title": "Śravaṇam (Hearing): ",
+        "description":
+            "Listening to scriptures, stories, and teachings about God."
+      },
+      {
+        "title": "Kīrtanam (Chanting): ",
+        "description":
+            "Singing or reciting God’s names, attributes, and glories."
+      },
+      {
+        "title": "Smaranam (Recollecting): ",
+        "description": "Remembering God’s name, majesty, and presence."
+      },
+      {
+        "title": "Pādasevanam (Imbibing): ",
+        "description": "Following the Guru’s path and embodying Dharma."
+      },
+      {
+        "title": "Archanam (Worshiping): ",
+        "description":
+            "Offering devotion through union of mind, word, and action."
+      },
+      {
+        "title": "Vandanam (Prayer): ",
+        "description": "Prostration and invocation of God."
+      },
+      {
+        "title": "Dāsyam (Service): ",
+        "description":
+            "Serving God with humility, seeing oneself as God’s servant."
+      },
+      {
+        "title": "Sakhyam (Friendship): ",
+        "description": "Loving and treating God as a close friend."
+      },
+      {
+        "title": "Ātmanivedanam (Offering): ",
+        "description":
+            "Surrendering everything, including body, mind, and soul, to God."
+      },
+    ];
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -97,33 +141,33 @@ class _BhaktiYogState extends State<BhaktiYog> {
                 "general form (love) and its specific form (love of God).\n",
                 style: TextStyle(fontFamily: 'Eczar', height: 1.5),
               ),
-              const Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: "Śravaṇam (Hearing): ",
-                      style: TextStyle(
+              const Text(
+                "The nine forms of Bhakti are different ways to \nexpress devotion to God, each emphasizing a unique aspect of love:",
+                style: TextStyle(fontFamily: 'Eczar', height: 1.5),
+              ),
+                Column(children: bhaktiForms.map((form){
+                return Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: form["title"],
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'Eczar',
+                        ),
+                      ),
+                      TextSpan(
+                        text: form["description"],
+                        style: const TextStyle(
                           fontFamily: 'Eczar',
                           height: 1.5,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    TextSpan(
-                      text:
-                          "Listening to scriptures, stories, and teachings about God.\n",
-                      style: TextStyle(
-                          fontFamily: 'Eczar',
-                          height: 1.5,),
-                    ),
-                    TextSpan(
-                      text: "Kīrtanam (Chanting): ",
-                      style: TextStyle(
-                          fontFamily: 'Eczar',
-                          height: 1.5,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ],
-                ),
-              )
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }).toList(),
+        )
             ],
           ),
         ),
