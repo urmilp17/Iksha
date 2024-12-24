@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iksha/colours.dart';
 
 import 'articlemodal.dart';
 
@@ -49,6 +50,7 @@ class ArticleDetailPage extends StatelessWidget {
                       const Icon(Icons.thumb_up, size: 16, color: Colors.grey),
                       const SizedBox(width: 4),
                       Text('${article.likes} likes', style: const TextStyle(color: Colors.grey, fontSize: 14, fontFamily: "Eczar")),
+                      
                     ],
                   ),
                 ],
