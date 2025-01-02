@@ -4,11 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:convert';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:iksha/colours.dart';
+import 'package:iksha/colours.dart'; // Ensure this file exists and contains the required color definitions.
 
-import '../../functions/rag.dart';
-
- // Import your LangchainIntegration class
+// Mock function for userInput. Replace this with your actual API or logic.
+Future<String> userInput(String question) async {
+  // Replace with your API call or logic to fetch the AI response.
+  await Future.delayed(const Duration(seconds: 2)); // Simulating a delay.
+  return "This is a response to: $question";
+}
 
 class AskQuestion extends StatefulWidget {
   const AskQuestion({super.key});
@@ -19,15 +22,13 @@ class AskQuestion extends StatefulWidget {
 
 class _AskQuestionState extends State<AskQuestion> {
   final TextEditingController _questionController = TextEditingController();
-  final auth = FirebaseAuth.instance;
-  final firestore = FirebaseFirestore.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
   String? userName;
   String? profileurl;
   final List<Map<String, dynamic>> _messages = [];
   bool _isLoading = false;
   int _animatedIndex = -1;
-
-  // Instance of LangchainIntegration
 
   @override
   void initState() {
@@ -38,21 +39,15 @@ class _AskQuestionState extends State<AskQuestion> {
 
   Future<void> fetchUserProfile() async {
     try {
-      final user = FirebaseAuth.instance.currentUser;
+      final user = auth.currentUser;
       if (user != null) {
-        final snapshot = await FirebaseFirestore.instance
-            .collection('users')
-            .doc(user.uid)
-            .get();
+        final snapshot =
+        await firestore.collection('users').doc(user.uid).get();
         if (snapshot.exists) {
           setState(() {
             profileurl = snapshot['imageUrl'] ?? '';
           });
-        } else {
-          print('No user data found for UID: ${user.uid}');
         }
-      } else {
-        print('No user logged in.');
       }
     } catch (e) {
       print("Error fetching user profile: $e");
@@ -61,12 +56,10 @@ class _AskQuestionState extends State<AskQuestion> {
 
   Future<void> fetchUserName() async {
     try {
-      final user = FirebaseAuth.instance.currentUser;
+      final user = auth.currentUser;
       if (user != null) {
-        final snapshot = await FirebaseFirestore.instance
-            .collection('users')
-            .doc(user.uid)
-            .get();
+        final snapshot =
+        await firestore.collection('users').doc(user.uid).get();
         if (snapshot.exists) {
           setState(() {
             userName = snapshot['name'];
@@ -92,7 +85,7 @@ class _AskQuestionState extends State<AskQuestion> {
           "message": response,
           "isAnimated": true,
         });
-        _animatedIndex = _messages.length - 1; // Set index for animation
+        _animatedIndex = _messages.length - 1;
       });
     } catch (e) {
       setState(() {
@@ -109,7 +102,8 @@ class _AskQuestionState extends State<AskQuestion> {
     }
   }
 
-  Widget _buildMessageBubble(String message, bool isUser, bool isAnimated, int index) {
+  Widget _buildMessageBubble(
+      String message, bool isUser, bool isAnimated, int index) {
     final shouldAnimate = isAnimated && index == _animatedIndex;
 
     return Row(
@@ -134,12 +128,10 @@ class _AskQuestionState extends State<AskQuestion> {
               borderRadius: BorderRadius.only(
                 topLeft: const Radius.circular(12),
                 topRight: const Radius.circular(12),
-                bottomLeft: isUser
-                    ? const Radius.circular(12)
-                    : const Radius.circular(0),
-                bottomRight: isUser
-                    ? const Radius.circular(0)
-                    : const Radius.circular(12),
+                bottomLeft:
+                isUser ? const Radius.circular(12) : const Radius.circular(0),
+                bottomRight:
+                isUser ? const Radius.circular(0) : const Radius.circular(12),
               ),
             ),
             child: shouldAnimate
@@ -158,7 +150,8 @@ class _AskQuestionState extends State<AskQuestion> {
               isRepeatingAnimation: false,
               onFinished: () {
                 setState(() {
-                  _messages[_messages.length - 1 - index]['isAnimated'] = false;
+                  _messages[_messages.length - 1 - index]['isAnimated'] =
+                  false;
                   _animatedIndex = _animatedIndex - 1;
                 });
               },
@@ -219,7 +212,8 @@ class _AskQuestionState extends State<AskQuestion> {
           if (_isLoading)
             const Padding(
               padding: EdgeInsets.all(8.0),
-              child: Text("AI is typing...", style: TextStyle(color: Colors.grey, fontFamily: 'Eczar')),
+              child: Text("AI is typing...",
+                  style: TextStyle(color: Colors.grey, fontFamily: 'Eczar')),
             ),
           Padding(
             padding: const EdgeInsets.all(8.0),

@@ -1,5 +1,4 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:iksha/pages/Articles/addarticle.dart';
 import 'package:iksha/pages/register.dart';
 import 'firebase_options.dart';
@@ -9,10 +8,11 @@ import 'package:iksha/home.dart';
 
 
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
-  await dotenv.load(fileName: ".env");
+  //await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 
