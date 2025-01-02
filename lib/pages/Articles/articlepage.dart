@@ -8,7 +8,6 @@ import 'comment.dart'; // Import the comment page created earlier
 
 class ArticlesPage extends StatefulWidget {
   const ArticlesPage({super.key});
-
   @override
   _ArticlesPageState createState() => _ArticlesPageState();
 }
