@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart' hide CarouselController;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:iksha/colours.dart';
+import 'package:iksha/pages/Other%20Modules/bookpdf.dart';
 import 'package:iksha/pages/Sadhana/Discrimination.dart';
 import 'package:iksha/pages/Sadhana/Non-attachment.dart';
 import 'package:iksha/pages/Sadhana/Six-virtues.dart';
@@ -15,11 +16,16 @@ import 'package:iksha/pages/sampradayas/sampradaya2.dart';
 import 'package:iksha/pages/sampradayas/sampradaya3.dart';
 import 'package:iksha/pages/sampradayas/sampradaya4.dart';
 import 'package:iksha/pages/sampradayas/sampradaya5.dart';
+//import 'package:iksha/lib/generated/l10n.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:iksha/pages/Other%20Modules/videofile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
+
 
 import 'package:swipeable_page_route/swipeable_page_route.dart';
 
+import '../localeprovider.dart';
 import 'login.dart';
 
 class Home extends StatefulWidget {
@@ -36,6 +42,7 @@ class _HomeState extends State<Home> {
   String? userName;
   String? profileurl;
   final Random random = Random();
+
 
   int _current = 0; // Track the index of the current slide
   String sanskritText = "";
@@ -120,8 +127,16 @@ class _HomeState extends State<Home> {
     }
   }
 
+  void _changeLanguage(BuildContext context, Locale locale) {
+    final localeProvider = Provider.of<LocaleProvider>(context, listen: false);
+    localeProvider.setLocale(locale);
+    Navigator.pop(context); // Close the dialog after selection
+  }
+
+
   @override
   Widget build(BuildContext context) {
+
     final List<Widget> imageSliders = [
       buildCarouselItem(
           'assets/images/sp1.jpg', 'Shaivism', context, const Sampradaya1()),
@@ -184,18 +199,61 @@ class _HomeState extends State<Home> {
                   final auth = FirebaseAuth.instance;
                   await auth.signOut();
                   Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (_) => const LoginPage()),
-                      (route) => false);
+                    context,
+                    MaterialPageRoute(builder: (_) => const LoginPage()),
+                        (route) => false,
+                  );
                 },
                 child: const Text(
                   'Logout',
                   style: TextStyle(fontFamily: 'Eczar'),
                 ),
               ),
+              PopupMenuItem(
+                onTap: () {
+                  Future.delayed(const Duration(milliseconds: 100), () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: const Text('Select Language'),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              ListTile(
+                                title: const Text('English'),
+                                onTap: () {
+                                  _changeLanguage(context, const Locale('en'));
+                                },
+                              ),
+                              ListTile(
+                                title: const Text('हिंदी (Hindi)'),
+                                onTap: () {
+                                  _changeLanguage(context, const Locale('hi'));
+                                },
+                              ),
+                              ListTile(
+                                title: const Text('मराठी (Marathi)'),
+                                onTap: () {
+                                  _changeLanguage(context, const Locale('mr'));
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  });
+                },
+                child: const Text(
+                  'Switch Language',
+                  style: TextStyle(fontFamily: 'Eczar'),
+                ),
+              ),
             ],
           ),
         ],
+
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(
@@ -205,20 +263,6 @@ class _HomeState extends State<Home> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10),
-              // Container(
-              //   height: 50,
-              //   child: TextField(
-              //     decoration: InputDecoration(
-              //       prefixIcon: const Icon(Icons.search),
-              //       hintText: 'Search...',
-              //       border: OutlineInputBorder(
-              //         borderRadius: BorderRadius.circular(20),
-              //       ),
-              //       filled: true,
-              //       fillColor: Colors.grey[200],
-              //     ),
-              //   ),
-              // ),
               GestureDetector(
                 onTap: (){
                   fetchSubhashita();
@@ -250,7 +294,13 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              const SizedBox(height: 15), // Reduced space
+              const SizedBox(height: 15),
+              buildSectionTitle("Sampradayas"),
+              const Text(
+                "According to Gita 4.2, Sampradayas (spiritual lineages) preserve and transmit sacred knowledge, ensuring its authenticity and continuity, thereby guiding seekers on the path to self-realization.",
+                style: TextStyle(fontFamily: 'Eczar', height: 1.6),
+              ),
+              const SizedBox(height: 10),// Reduced space
               CarouselSlider(
                 items: imageSliders,
                 carouselController: buttonCarouselController,
@@ -490,7 +540,7 @@ class _HomeState extends State<Home> {
               context,
               SwipeablePageRoute(
                 builder: (_) =>
-                    const Books(), // Keep 'const' since the class is const
+                    BookDetailsPage(), // Keep 'const' since the class is const
               ),
             );
           },

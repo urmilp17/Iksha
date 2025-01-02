@@ -5,15 +5,25 @@ import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:iksha/colours.dart';
 import 'package:iksha/home.dart';
-
-
+import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'generated/l10n.dart';
+import 'localeprovider.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   //await dotenv.load(fileName: ".env");
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => LocaleProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -21,16 +31,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localeProvider = Provider.of<LocaleProvider>(context);
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      locale: localeProvider.locale,
+      supportedLocales: const [
+        Locale('en'),
+        Locale('hi'),
+        Locale('mr'),
+      ],
       theme: ThemeData(
         elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: background,
-              padding: const EdgeInsets.all(15)
-          )
-        ),
+            style: ElevatedButton.styleFrom(
+                backgroundColor: background,
+                padding: const EdgeInsets.all(15))),
         scaffoldBackgroundColor: Colors.white,
         useMaterial3: true,
       ),
@@ -38,5 +59,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-

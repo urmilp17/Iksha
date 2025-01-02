@@ -1,0 +1,39 @@
+{
+  "@@locale": "hi",
+  "hey_user": "नमस्ते, {userName} 👋",
+  "@hey_user": {
+    "description": "उपयोगकर्ता के लिए अभिवादन",
+    "placeholders": {
+      "userName": {
+        "example": "जॉन"
+      }
+    }
+  },
+  "welcome_message": "इक्षा में आपका स्वागत है",
+  "logout": "लॉगआउट",
+  "search_placeholder": "खोजें...",
+  "sampradayas_title": "सम्प्रदाय",
+  "sampradayas_description": "गीता 4.2 के अनुसार, सम्प्रदाय (आध्यात्मिक परंपराएँ) पवित्र ज्ञान को संरक्षित और प्रसारित करते हैं, इसकी प्रामाणिकता और निरंतरता सुनिश्चित करते हुए साधकों को आत्म-साक्षात्कार के मार्ग पर मार्गदर्शन करते हैं।",
+  "sadhana_title": "साधना चतुष्टय",
+  "sadhana_description": "साधना चतुष्टय आत्म-वास्तविकता की ओर ले जाते हुए, साधकों को वास्तविकता का विवेक करने, सांसारिक इच्छाओं से विमुख होने, आत्म-नियंत्रण को बढ़ाने, और मुक्ति की तीव्र इच्छा रखने के लिए प्रेरित करता है।",
+  "discrimination": "विवेक",
+  "dispassion": "वैराग्य",
+  "shad_sampati": "षड संपत्ति",
+  "mumukshutva": "मुमुक्षुत्व",
+  "explore": "अन्वेषण करें",
+  "video_recommendation": "वीडियो अनुशंसा",
+  "video_recommendation_description": "विभिन्न विषयों पर चयनित वीडियो का अन्वेषण करें।",
+  "books_to_read": "पढ़ने की पुस्तकें",
+  "books_to_read_description": "आपकी प्रगति के लिए अनुशंसित पठन सामग्री।",
+  "trigunas": "त्रिगुण",
+  "trigunas_description": "दैनिक जीवन में तीन गुणों को समझना।",
+  "fetch_error_message": "उपयोगकर्ता नाम प्राप्त करने में त्रुटि: {error}",
+  "@fetch_error_message": {
+    "description": "उपयोगकर्ता नाम प्राप्त करने में विफल होने पर प्रदर्शित त्रुटि संदेश।",
+    "placeholders": {
+      "error": {
+        "example": "FirebaseError"
+      }
+    }
+  }
+}
