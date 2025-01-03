@@ -5,7 +5,7 @@ import 'package:iksha/colours.dart';
 import 'articlemodal.dart';
 import 'articletile.dart';
 import 'comment.dart'; // Import the comment page created earlier
-
+import 'commentmodal.dart';
 class ArticlesPage extends StatefulWidget {
   const ArticlesPage({super.key});
   @override
