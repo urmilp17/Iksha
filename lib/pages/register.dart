@@ -9,7 +9,6 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
-
 import '../home.dart';
 
 class Register extends StatefulWidget {
@@ -32,12 +31,10 @@ class _RegisterState extends State<Register> {
   bool loading = false;
   final picker = ImagePicker();
 
-
-
   Future<void> selectImage(BuildContext context) async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      File? croppedFile = await _cropImage(pickedFile.path);
+      File? croppedFile = await _cropImage(File(pickedFile.path));
       setState(() {
         if (croppedFile != null) {
           _selectedImage = croppedFile;
@@ -60,21 +57,17 @@ class _RegisterState extends State<Register> {
     }
   }
 
-  Future<File?> _cropImage(String imagePath) async {
-    CroppedFile? croppedFile = await ImageCropper().cropImage(
-      sourcePath: imagePath,
+  Future<File?> _cropImage(File imageFile) async {
+    final croppedFile = await ImageCropper().cropImage(
+      sourcePath: imageFile.path,
+      aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
       uiSettings: [
         AndroidUiSettings(
-          aspectRatioPresets: [
-            CropAspectRatioPreset.original,
-            CropAspectRatioPreset.square,
-          ],
           toolbarTitle: 'Crop Image',
           toolbarColor: background,
-          backgroundColor: background,
           toolbarWidgetColor: iconcolor,
-          initAspectRatio: CropAspectRatioPreset.original,
-          lockAspectRatio: false,
+          backgroundColor: background,
+          lockAspectRatio: true,
         ),
         IOSUiSettings(
           title: 'Crop Image',
@@ -84,35 +77,32 @@ class _RegisterState extends State<Register> {
     return croppedFile != null ? File(croppedFile.path) : null;
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Container(
-      decoration: const BoxDecoration(
-        color: Colors.white
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 18),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            const SizedBox(height: 90,),
-            Container(
-              width: 140,
-              height: 140,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/Logo.png'),
-                  fit: BoxFit.fill,
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        decoration: const BoxDecoration(color: Colors.white),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 18),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              const SizedBox(height: 90),
+              Container(
+                width: 140,
+                height: 140,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/Logo.png'),
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 25,),
-            Container(
-              decoration: BoxDecoration(
+              const SizedBox(height: 25),
+              Container(
+                decoration: BoxDecoration(
                   boxShadow: const [
                     BoxShadow(
                       color: Color(0x6B000000),
@@ -120,166 +110,139 @@ class _RegisterState extends State<Register> {
                     ),
                   ],
                   color: const Color(0xFFFFF9F2),
-                  borderRadius: BorderRadius.circular(25.0)),
-              child: Form(
-                key: formKey,
-                child: Column(
-                  children: [
-                    const SizedBox(height: 10),
-                    const Text("Register",
-                        style: TextStyle(fontFamily: 'Eczar', fontSize: 45)),
-                    const SizedBox(height: 7),
-                    GestureDetector(
-                      onTap: () => selectImage(context),
-                      child: CircleAvatar(
-                        radius: 40,
-                        backgroundColor: Colors.white,
-                        backgroundImage:
-                        _selectedImage != null ? FileImage(_selectedImage!) : null,
-                        child: _selectedImage == null
-                            ? const Icon(Icons.add_a_photo, size: 20)
-                            : null,
+                  borderRadius: BorderRadius.circular(25.0),
+                ),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 10),
+                      const Text(
+                        "Register",
+                        style: TextStyle(fontFamily: 'Eczar', fontSize: 45),
                       ),
-                    )
-                    ,
-                    // const Text(
-                    //   'Please enter name, email and password to get started.',
-                    //   style: TextStyle(fontFamily: 'Eczar',fontSize: 13),
-                    // ),
-                    const SizedBox(height: 7),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Column(
-                        children: [
-                          TextFormField(
-                            textAlign: TextAlign.center,
-                            controller: name,
-                            keyboardType: TextInputType.text,
-                            decoration: const InputDecoration(
-                                hintText: 'Enter your name',
-                                hintStyle: TextStyle(fontFamily: 'Eczar'),
-                                errorStyle: TextStyle(fontFamily: 'Eczar')),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter name';
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(
-                            height: 7,
-                          ),
-                          TextFormField(
-                            textAlign: TextAlign.center,
-                            controller: email,
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: const InputDecoration(
-                                hintStyle: TextStyle(fontFamily: 'Eczar'),
-                                hintText: 'Enter your email',
-                                counterStyle: TextStyle(fontFamily: 'Eczar'),
-                                errorStyle: TextStyle(fontFamily: 'Eczar')),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter email';
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(
-                            height: 7,
-                          ),
-                          TextFormField(
-                            textAlign: TextAlign.center,
-                            controller: password,
-                            obscureText: true,
-                            decoration: const InputDecoration(
-                                hintText: 'Enter your password',
-                                hintStyle: TextStyle(fontFamily: 'Eczar'),
-                                errorStyle: TextStyle(fontFamily: 'Eczar')),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter password';
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(height: 15),
-                          loading
-                              ? const Center(
-                                  child: CircularProgressIndicator(),
-                                )
-                              : ElevatedButton(
-                                  onPressed: () {
-                                    if (formKey.currentState!.validate()) {
-                                      setState(() {
-                                        loading = true;
-                                      });
-                                      register();
-                                    }
-                                  },
-                                  style: const ButtonStyle(
-                                    backgroundColor:
-                                        WidgetStatePropertyAll<Color>(
-                                            Colors.white),
-                                  ),
-                                  child: const Text(
-                                    "Register",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: 'Eczar'),
-                                  ),
-                                ),
-                          const SizedBox(height: 10),
-                          RichText(
-                            text: TextSpan(
-                              text: 'Already Registered ? Login',
-                              style: const TextStyle(
-                                  fontFamily: 'Eczar',
-                                  fontSize: 15,
-                                  decoration: TextDecoration.underline,
-                                  color: Colors.black),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  Navigator.push(
-                                    context,
-                                    PageRouteBuilder(
-                                      pageBuilder: (context, animation, secondaryAnimation) => const LoginPage(),
-                                        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                          const begin = Offset(2.5, 0.0);
-                                          const end = Offset.zero;
-                                          const curve = Curves.ease;
-
-                                          var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-                                          return SlideTransition(
-                                            position: animation.drive(tween),
-                                            child: child,
-                                          );
-                                        },
-                                    ),
-                                  );
-                                },
+                      const SizedBox(height: 7),
+                      GestureDetector(
+                        onTap: () => selectImage(context),
+                        child: CircleAvatar(
+                          radius: 40,
+                          backgroundColor: Colors.white,
+                          backgroundImage: _selectedImage != null
+                              ? FileImage(_selectedImage!)
+                              : null,
+                          child: _selectedImage == null
+                              ? const Icon(Icons.add_a_photo, size: 20)
+                              : null,
+                        ),
+                      ),
+                      const SizedBox(height: 7),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Column(
+                          children: [
+                            TextFormField(
+                              textAlign: TextAlign.center,
+                              controller: name,
+                              keyboardType: TextInputType.text,
+                              decoration: const InputDecoration(
+                                  hintText: 'Enter your name',
+                                  hintStyle: TextStyle(fontFamily: 'Eczar'),
+                                  errorStyle: TextStyle(fontFamily: 'Eczar')),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter name';
+                                }
+                                return null;
+                              },
                             ),
-                          ),
-                          const SizedBox(height: 10),
-                        ],
+                            const SizedBox(height: 7),
+                            TextFormField(
+                              textAlign: TextAlign.center,
+                              controller: email,
+                              keyboardType: TextInputType.emailAddress,
+                              decoration: const InputDecoration(
+                                  hintText: 'Enter your email',
+                                  hintStyle: TextStyle(fontFamily: 'Eczar'),
+                                  errorStyle: TextStyle(fontFamily: 'Eczar')),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter email';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: 7),
+                            TextFormField(
+                              textAlign: TextAlign.center,
+                              controller: password,
+                              obscureText: true,
+                              decoration: const InputDecoration(
+                                  hintText: 'Enter your password',
+                                  hintStyle: TextStyle(fontFamily: 'Eczar'),
+                                  errorStyle: TextStyle(fontFamily: 'Eczar')),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter password';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: 15),
+                            loading
+                                ? const Center(
+                              child: CircularProgressIndicator(),
+                            )
+                                : ElevatedButton(
+                              onPressed: () {
+                                if (formKey.currentState!.validate()) {
+                                  setState(() {
+                                    loading = true;
+                                  });
+                                  register();
+                                }
+                              },
+                              child: const Text(
+                                "Register",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Eczar'),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            RichText(
+                              text: TextSpan(
+                                text: 'Already Registered? Login',
+                                style: const TextStyle(
+                                    fontFamily: 'Eczar',
+                                    fontSize: 15,
+                                    decoration: TextDecoration.underline,
+                                    color: Colors.black),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                        const LoginPage(),
+                                      ),
+                                    );
+                                  },
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    ));
+    );
   }
-
-
-
-
-
-
 
   Future<void> upload() async {
     if (_selectedImage == null) {
@@ -288,11 +251,12 @@ class _RegisterState extends State<Register> {
     }
 
     try {
-      firebase_storage.FirebaseStorage storage = firebase_storage.FirebaseStorage.instance;
-      firebase_storage.Reference ref = storage.ref().child("user_avatar/${email.text}"); // Correct path
+      firebase_storage.FirebaseStorage storage =
+          firebase_storage.FirebaseStorage.instance;
+      firebase_storage.Reference ref =
+      storage.ref().child("user_avatar/${email.text}");
       firebase_storage.UploadTask uploadTask = ref.putFile(_selectedImage!);
 
-      // Wait for the upload task to complete
       await uploadTask.whenComplete(() async {
         final url = await ref.getDownloadURL();
         setState(() {
@@ -305,10 +269,10 @@ class _RegisterState extends State<Register> {
     }
   }
 
-  register() async {
+  Future<void> register() async {
     try {
       await upload();
-          final result = await auth.createUserWithEmailAndPassword(
+      final result = await auth.createUserWithEmailAndPassword(
           email: email.text, password: password.text);
       await firestore.collection('users').doc(result.user?.uid).set({
         'name': name.text,
@@ -319,24 +283,10 @@ class _RegisterState extends State<Register> {
         loading = false;
       });
       Navigator.pushAndRemoveUntil(
-          context,
-          PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) => const MyHomePage(),
-            transitionDuration: const Duration(milliseconds: 1000),
-            transitionsBuilder: (context, animation, secondaryAnimation, child) {
-              const begin = Offset(2.5, 0.0);
-              const end = Offset.zero;
-              const curve = Curves.ease;
-
-              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-              return SlideTransition(
-                position: animation.drive(tween),
-                child: child,
-              );
-            },
-          ),
-          (route) => false);
+        context,
+        MaterialPageRoute(builder: (context) => const MyHomePage()),
+            (route) => false,
+      );
     } on FirebaseAuthException catch (e) {
       setState(() {
         loading = false;

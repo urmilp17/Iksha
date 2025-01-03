@@ -1,0 +1,39 @@
+{
+  "@@locale": "en",
+  "hey_user": "Hey, {userName} 👋",
+  "@hey_user": {
+    "description": "Greeting for the user",
+    "placeholders": {
+      "userName": {
+        "example": "John"
+      }
+    }
+  },
+  "welcome_message": "Welcome to Iksha",
+  "logout": "Logout",
+  "search_placeholder": "Search...",
+  "sampradayas_title": "Sampradayas",
+  "sampradayas_description": "According to Gita 4.2, Sampradayas (spiritual lineages) preserve and transmit sacred knowledge, ensuring its authenticity and continuity, thereby guiding seekers on the path to self-realization.",
+  "sadhana_title": "Sadhana Chatusthaya",
+  "sadhana_description": "Sadhana Chatushtaya provides a foundation for spiritual growth, enabling seekers to discern reality, detach from worldly desires, cultivate self-control, and intensely yearn for liberation, leading to Self-realization.",
+  "discrimination": "DISCRIMINATION",
+  "dispassion": "DISPASSION",
+  "shad_sampati": "SHAD SAMPATI",
+  "mumukshutva": "MUMUKSHUTVA",
+  "explore": "Explore",
+  "video_recommendation": "Video Recommendation",
+  "video_recommendation_description": "Explore a curated selection of videos on various topics.",
+  "books_to_read": "Books to Read",
+  "books_to_read_description": "Recommended reading materials for your growth.",
+  "trigunas": "Trigunas",
+  "trigunas_description": "Understanding the three gunas in daily life.",
+  "fetch_error_message": "Error fetching user name: {error}",
+  "@fetch_error_message": {
+    "description": "Error message displayed when username fetching fails.",
+    "placeholders": {
+      "error": {
+        "example": "FirebaseError"
+      }
+    }
+  }
+}
