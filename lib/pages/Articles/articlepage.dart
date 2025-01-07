@@ -277,7 +277,7 @@ class ArtiTitle extends StatelessWidget {
                         if (!snapshot.hasData || user == null) {
                           return Row(
                             children: [
-                              Icon(Icons.thumb_up,
+                              const Icon(Icons.thumb_up,
                                   size: 16, color: Colors.grey),
                               const SizedBox(width: 4),
                               Text(

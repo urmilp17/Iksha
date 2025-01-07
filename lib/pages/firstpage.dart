@@ -9,22 +9,17 @@ import 'package:iksha/pages/Sadhana/Non-attachment.dart';
 import 'package:iksha/pages/Sadhana/Six-virtues.dart';
 import 'package:iksha/pages/Sadhana/Longing.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:iksha/pages/Other%20Modules/books.dart';
 import 'package:iksha/pages/Other%20Modules/trigunas.dart';
 import 'package:iksha/pages/sampradayas/sampradaya1.dart';
 import 'package:iksha/pages/sampradayas/sampradaya2.dart';
 import 'package:iksha/pages/sampradayas/sampradaya3.dart';
 import 'package:iksha/pages/sampradayas/sampradaya4.dart';
 import 'package:iksha/pages/sampradayas/sampradaya5.dart';
-//import 'package:iksha/lib/generated/l10n.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:iksha/pages/Other%20Modules/videofile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
-
-
 import 'package:swipeable_page_route/swipeable_page_route.dart';
-
 import '../localeprovider.dart';
 import 'login.dart';
 
@@ -43,12 +38,9 @@ class _HomeState extends State<Home> {
   String? profileurl;
   final Random random = Random();
 
-
   int _current = 0; // Track the index of the current slide
   String sanskritText = "";
   String translationText = "";
-
-
 
   @override
   void initState() {
@@ -86,7 +78,8 @@ class _HomeState extends State<Home> {
       if (querySnapshot.docs.isNotEmpty) {
         const int lowerBound = 0; // Inclusive lower bound
         const int upperBound = 10; // Exclusive upper bound
-        final int randomIndex = lowerBound + Random().nextInt(upperBound - lowerBound);
+        final int randomIndex =
+            lowerBound + Random().nextInt(upperBound - lowerBound);
         // Select a random document
         final data = querySnapshot.docs[randomIndex].data();
 
@@ -97,8 +90,10 @@ class _HomeState extends State<Home> {
       }
     } catch (e) {
       setState(() {
-        sanskritText = "हिमालयं समारभ्य यावत् इंदु सरोवरम् ।\nतं देवनिर्मितं देशं हिंदुस्थानं प्रचक्षते ॥";
-        translationText = "Starting from Himalayas and extending up to the Indu Lake (sarovaram), which borders on the Indian Ocean, is the nation which God created and which is known as 'Hindusthan'. ";
+        sanskritText =
+            "हिमालयं समारभ्य यावत् इंदु सरोवरम् ।\nतं देवनिर्मितं देशं हिंदुस्थानं प्रचक्षते ॥";
+        translationText =
+            "Starting from Himalayas and extending up to the Indu Lake (sarovaram), which borders on the Indian Ocean, is the nation which God created and which is known as 'Hindusthan'. ";
       });
     }
   }
@@ -133,23 +128,24 @@ class _HomeState extends State<Home> {
     Navigator.pop(context); // Close the dialog after selection
   }
 
-
   @override
   Widget build(BuildContext context) {
-
+    final localizations = AppLocalizations.of(context);
     final List<Widget> imageSliders = [
       buildCarouselItem(
-          'assets/images/sp1.jpg', 'Shaivism', context, const Sampradaya1()),
+          'assets/images/sp1.jpg',localizations?.shaivism??'Shaivism', context, const Sampradaya1()),
       buildCarouselItem(
-          'assets/images/sp2.jpg', 'Shaktism', context, const Sampradaya2()),
+          'assets/images/sp2.jpg', localizations?.shaktism??'Shaktism', context, const Sampradaya2()),
       buildCarouselItem(
-          'assets/images/sp3.jpg', 'Vaishnavism', context, const Sampradaya3()),
+          'assets/images/sp3.jpg', localizations?.vaishnav?? 'Vaishnavism', context, const Sampradaya3()),
       buildCarouselItem(
-          'assets/images/sp4.jpg', 'Ganpatya', context, const Sampradaya4()),
+          'assets/images/sp4.jpg', localizations?.ganpatya ??'Ganpatya', context, const Sampradaya4()),
       buildCarouselItem(
-          'assets/images/sp5.jpg', 'Smarthism', context, const Sampradaya5()),
+          'assets/images/sp5.jpg', localizations?.smarthism ??'Smarthism', context, const Sampradaya5()),
     ];
 
+
+    final displayName = userName ?? "User";
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -164,21 +160,17 @@ class _HomeState extends State<Home> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Hey, $userName 👋",
+                    localizations?.hey_user(displayName) ?? "Hey, $userName 👋",
                     style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Eczar"
-                    ),
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Eczar"),
                   ),
-                  const Text(
-                    "Welcome to Iksha",
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
-                        fontFamily: "Eczar"
-                    ),
+                  Text(
+                    localizations?.welcome_message ?? "Welcome to Iksha",
+                    style: const TextStyle(
+                        color: Colors.grey, fontSize: 14, fontFamily: "Eczar"),
                   ),
                 ],
               ),
@@ -186,7 +178,8 @@ class _HomeState extends State<Home> {
                 radius: 18,
                 backgroundImage: profileurl != null && profileurl!.isNotEmpty
                     ? NetworkImage(profileurl!)
-                    : const AssetImage('assets/images/ach.jpg') as ImageProvider,
+                    : const AssetImage('assets/images/ach.jpg')
+                        as ImageProvider,
               ),
             ],
           ),
@@ -201,11 +194,11 @@ class _HomeState extends State<Home> {
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(builder: (_) => const LoginPage()),
-                        (route) => false,
+                    (route) => false,
                   );
                 },
-                child: const Text(
-                  'Logout',
+                child: Text(
+                  localizations?.logout ?? 'Logout',
                   style: TextStyle(fontFamily: 'Eczar'),
                 ),
               ),
@@ -253,7 +246,6 @@ class _HomeState extends State<Home> {
             ],
           ),
         ],
-
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(
@@ -264,7 +256,7 @@ class _HomeState extends State<Home> {
             children: [
               const SizedBox(height: 10),
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   fetchSubhashita();
                 },
                 child: Container(
@@ -273,21 +265,26 @@ class _HomeState extends State<Home> {
                     color: background,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child:  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 14,vertical: 8),
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Text(
                           sanskritText.replaceAll("\\n", "\n"),
                           textAlign: TextAlign.center,
-                          style: const TextStyle(fontFamily: "Yatra", fontSize: 12),
+                          style: const TextStyle(
+                              fontFamily: "Yatra", fontSize: 12),
                         ),
-                        const SizedBox(height: 5,),
+                        const SizedBox(
+                          height: 5,
+                        ),
                         Text(
                           //translation
-                            translationText,textAlign: TextAlign.center,
-                          style: const TextStyle(fontFamily: "Eczar",fontSize: 14),
+                          translationText, textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontFamily: "Eczar", fontSize: 14),
                         ),
                       ],
                     ),
@@ -295,12 +292,15 @@ class _HomeState extends State<Home> {
                 ),
               ),
               const SizedBox(height: 15),
-              buildSectionTitle("Sampradayas"),
-              const Text(
-                "According to Gita 4.2, Sampradayas (spiritual lineages) preserve and transmit sacred knowledge, ensuring its authenticity and continuity, thereby guiding seekers on the path to self-realization.",
-                style: TextStyle(fontFamily: 'Eczar', height: 1.6),
+              buildSectionTitle(
+                  localizations?.sampradayas_title ?? "Sampradayas"),
+              Text(
+                localizations?.sampradayas_description ??
+                    "According to Gita 4.2, Sampradayas (spiritual lineages) preserve and transmit sacred knowledge, "
+                        "ensuring its authenticity and continuity, thereby guiding seekers on the path to self-realization.",
+                style: const TextStyle(fontFamily: 'Eczar', height: 1.6),
               ),
-              const SizedBox(height: 10),// Reduced space
+              const SizedBox(height: 10), // Reduced space
               CarouselSlider(
                 items: imageSliders,
                 carouselController: buttonCarouselController,
@@ -340,22 +340,24 @@ class _HomeState extends State<Home> {
                 }).toList(),
               ),
               const SizedBox(height: 20),
-              buildSectionTitle("Sadhana Chatusthaya"),
-              const Text(
-                'Sadhana Chatushtaya provides a foundation \nfor spiritual growth, '
-                'enabling seekers to discern \nreality, detach from worldly desires, '
-                'cultivate self-control, and intensely yearn for liberation,\nleading to Self-realization.',
-                style: TextStyle(fontFamily: 'Eczar', height: 1.6),
+              buildSectionTitle(
+                  localizations?.sadhana_title ?? "Sadhana Chatusthaya"),
+              Text(
+                localizations?.sadhana_description ??
+                    'Sadhana Chatushtaya provides a foundation \nfor spiritual growth, '
+                        'enabling seekers to discern \nreality, detach from worldly desires, '
+                        'cultivate self-control, and intensely yearn for liberation,\nleading to Self-realization.',
+                style: const TextStyle(fontFamily: 'Eczar', height: 1.6),
               ),
               buildHorizontalList([
                 buildSmallCard(context, "assets/images/viveka.jpg", r"{ddoH$",
-                    "DISCRIMINATION", const Viveka()),
+                    localizations?.discrimination ?? "DISCRIMINATION", const Viveka()),
                 buildSmallCard(context, "assets/images/vairagya.jpg", "d¡am½`",
-                    "DISPASSION", const Vairagya()),
+                    localizations?.dispassion ?? "DISPASSION", const Vairagya()),
                 buildSmallCard(context, "assets/images/shad sampatii.jpg",
-                    "eX-g§nÎmr", "SHAD SAMPATI", const ShadSampati()),
+                    "eX-g§nÎmr",localizations?.shad_sampati ?? "SHAD SAMPATI", const ShadSampati()),
                 buildSmallCard(context, "assets/images/mumukshatva.jpg",
-                    "_w_wjwËd§", "MUMUKSHUTVA", const Mumukshatva()),
+                    "_w_wjwËd§",localizations?.mumukshutva ?? "MUMUKSHUTVA", const Mumukshatva()),
               ]),
               const SizedBox(height: 20),
               buildExploreSection(context), // Updated Explore section
@@ -503,21 +505,23 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-        ));
+        ),
+    );
   }
 
   Widget buildExploreSection(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        buildSectionTitle("Explore"),
+        buildSectionTitle(localizations?.explore ??"Explore"),
         const SizedBox(height: 15),
         buildExploreCard(
           context,
           icon: Icons.play_circle_filled,
-          title: "Video Recommendation",
+          title: localizations?.video_recommendation ?? "Video Recommendation",
           description:
-              "Explore a curated selection of videos on various topics.",
+          localizations?.video_recommendation_description ?? "Explore a curated selection \nof videos on various topics.",
           color: Colors.amberAccent,
           onTap: () {
             Navigator.push(
@@ -532,8 +536,8 @@ class _HomeState extends State<Home> {
         buildExploreCard(
           context,
           icon: Icons.auto_stories,
-          title: "Books to Read",
-          description: "Recommended reading materials for your growth.",
+          title: localizations?.books_to_read ?? "Books to Read",
+          description: localizations?.books_to_read_description ??"Recommended reading materials for your growth.",
           color: Colors.greenAccent,
           onTap: () {
             Navigator.push(
@@ -550,8 +554,8 @@ class _HomeState extends State<Home> {
         buildExploreCard(
           context,
           icon: Icons.book,
-          title: "Trigunas",
-          description: "Understanding the three gunas in daily life.",
+          title: localizations?.trigunas ?? "Trigunas",
+          description: localizations?.trigunas_description ?? "Understanding the three gunas in daily life.",
           color: Colors.lightBlueAccent,
           onTap: () {
             Navigator.push(
@@ -609,6 +613,7 @@ class _HomeState extends State<Home> {
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
+                      fontFamily: "Eczar"
                     ),
                   ),
                   const SizedBox(height: 5),
@@ -617,6 +622,7 @@ class _HomeState extends State<Home> {
                     style: const TextStyle(
                       fontSize: 14,
                       color: Colors.grey,
+                        fontFamily: "Eczar"
                     ),
                   ),
                 ],

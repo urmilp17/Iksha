@@ -40,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "sampradayas_title" : MessageLookupByLibrary.simpleMessage("सम्प्रदाय"),
     "search_placeholder" : MessageLookupByLibrary.simpleMessage("खोजें..."),
     "shad_sampati" : MessageLookupByLibrary.simpleMessage("षड संपत्ति"),
+    "shaivism" : MessageLookupByLibrary.simpleMessage("शैव"),
     "trigunas" : MessageLookupByLibrary.simpleMessage("त्रिगुण"),
     "trigunas_description" : MessageLookupByLibrary.simpleMessage("दैनिक जीवन में तीन गुणों को समझना।"),
     "video_recommendation" : MessageLookupByLibrary.simpleMessage("वीडियो अनुशंसा"),

@@ -187,10 +187,10 @@ class S {
     );
   }
 
-  /// `Explore a curated selection of videos on various topics.`
+  /// `Explore a curated selection \nof videos on various topics.`
   String get video_recommendation_description {
     return Intl.message(
-      'Explore a curated selection of videos on various topics.',
+      'Explore a curated selection \nof videos on various topics.',
       name: 'video_recommendation_description',
       desc: '',
       args: [],
@@ -227,10 +227,10 @@ class S {
     );
   }
 
-  /// `Understanding the three gunas in daily life.`
+  /// `Understanding the three gunas \nin daily life.`
   String get trigunas_description {
     return Intl.message(
-      'Understanding the three gunas in daily life.',
+      'Understanding the three gunas \nin daily life.',
       name: 'trigunas_description',
       desc: '',
       args: [],
@@ -244,6 +244,16 @@ class S {
       name: 'fetch_error_message',
       desc: 'Error message displayed when username fetching fails.',
       args: [error],
+    );
+  }
+
+  /// `Shaivism`
+  String get shaivism {
+    return Intl.message(
+      'Shaivism',
+      name: 'shaivism',
+      desc: '',
+      args: [],
     );
   }
 }

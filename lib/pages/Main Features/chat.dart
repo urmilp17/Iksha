@@ -244,7 +244,7 @@ class _AskQuestionState extends State<AskQuestion> {
             padding: const EdgeInsets.all(8.0),
             child: Container(
               decoration: BoxDecoration(
-                  color: background, borderRadius: BorderRadius.circular(32)),
+                  color: background, borderRadius: BorderRadius.circular(32),),
               child: TextField(
                 controller: _questionController,
                 style: const TextStyle(fontFamily: 'Eczar'),

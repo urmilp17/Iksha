@@ -40,10 +40,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "sampradayas_title" : MessageLookupByLibrary.simpleMessage("Sampradayas"),
     "search_placeholder" : MessageLookupByLibrary.simpleMessage("Search..."),
     "shad_sampati" : MessageLookupByLibrary.simpleMessage("SHAD SAMPATI"),
+    "shaivism" : MessageLookupByLibrary.simpleMessage("Shaivism"),
     "trigunas" : MessageLookupByLibrary.simpleMessage("Trigunas"),
-    "trigunas_description" : MessageLookupByLibrary.simpleMessage("Understanding the three gunas in daily life."),
+    "trigunas_description" : MessageLookupByLibrary.simpleMessage("Understanding the three gunas \nin daily life."),
     "video_recommendation" : MessageLookupByLibrary.simpleMessage("Video Recommendation"),
-    "video_recommendation_description" : MessageLookupByLibrary.simpleMessage("Explore a curated selection of videos on various topics."),
+    "video_recommendation_description" : MessageLookupByLibrary.simpleMessage("Explore a curated selection \nof videos on various topics."),
     "welcome_message" : MessageLookupByLibrary.simpleMessage("Welcome to Iksha")
   };
 }

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class Sampradaya1 extends StatelessWidget {
   const Sampradaya1({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -50,9 +51,9 @@ class Sampradaya1 extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const Text(
-                    'Shaivism',
-                    style: TextStyle(
+                   Text(
+                     localizations?.shaivism ?? "Shaivism",
+                    style: const TextStyle(
                       fontFamily: 'Eczar',
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -60,9 +61,14 @@ class Sampradaya1 extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  const Text(
-                    'Shaivism is one of the major Hindu traditions, which worships Shiva as the Supreme Being. One of the largest Hindu denominations, it incorporates many sub-traditions ranging from devotional dualistic theism such as Shaiva Siddhanta to yoga-orientated monistic non-theism such as Kashmiri Shaivism.\nIt considers both the Vedas and the Agama texts as important sources of theology. According to a 2010 estimate by Johnson and Grim, Shaivism is the second-largest Hindu sect, constituting about 252 million or 26.6% of Hindus.',
-                    style: TextStyle(
+                  Text(
+                    localizations?.shaiv_info ??'Shaivism is one of the major Hindu traditions, which worships Shiva as the Supreme Being. '
+                        'One of the largest Hindu denominations, it incorporates many sub-traditions ranging '
+                        'from devotional dualistic theism such as Shaiva Siddhanta to yoga-orientated monistic '
+                        'non-theism such as Kashmiri Shaivism.\nIt considers both the Vedas and the Agama '
+                        'texts as important sources of theology. According to a 2010 estimate by Johnson and Grim, '
+                        'Shaivism is the second-largest Hindu sect, constituting about 252 million or 26.6% of Hindus.',
+                    style: const TextStyle(
                       fontFamily: 'Eczar',
                       fontSize: 17,
                       height: 1.6,

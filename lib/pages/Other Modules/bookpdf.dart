@@ -246,7 +246,7 @@ class BookDetailsPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: background,
         title: const Text(
-          'Design Books',
+          'Books',
           style: TextStyle(color: Colors.black, fontFamily: "LibreBaskerville"),
         ),
         centerTitle: true,
