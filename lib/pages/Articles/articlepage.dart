@@ -4,10 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:iksha/colours.dart';
 import 'articlemodal.dart';
 import 'articletile.dart';
-
+import 'comment.dart'; // Import the comment page created earlier
+import 'commentmodal.dart';
 class ArticlesPage extends StatefulWidget {
   const ArticlesPage({super.key});
-
   @override
   _ArticlesPageState createState() => _ArticlesPageState();
 }
@@ -238,6 +238,7 @@ class ArtiTitle extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 12),
+            // First Row: Date, Views, Likes
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -321,6 +322,38 @@ class ArtiTitle extends StatelessWidget {
                   ],
                 ),
               ],
+            ),
+            const SizedBox(height: 8),
+            // Divider (Horizontal Line)
+            const Divider(
+              color: Colors.grey,
+              thickness: 1,
+              height: 20,
+            ),
+            
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CommentPage(),
+                  ),
+                );
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: const [
+                  Icon(Icons.comment, size: 16, color: Colors.orange),
+                  SizedBox(width: 4),
+                  Text(
+                    "Comments",
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.orange,
+                        fontFamily: "Eczar"),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
