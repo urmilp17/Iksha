@@ -8,7 +8,7 @@ import 'package:timeago/timeago.dart' as timeago;
 class CommentsPage extends StatefulWidget {
   final Article article;
 
-  CommentsPage({required this.article});
+  const CommentsPage({super.key, required this.article});
 
   @override
   _CommentsPageState createState() => _CommentsPageState();

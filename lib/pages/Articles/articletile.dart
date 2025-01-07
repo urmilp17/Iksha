@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iksha/colours.dart';
-import 'package:iksha/pages/Articles/articles1.dart';
+import 'package:iksha/pages/Articles/comments.dart';
 import 'articlemodal.dart';
 
 class ArticleDetailPage extends StatelessWidget {

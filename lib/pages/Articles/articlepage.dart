@@ -323,38 +323,6 @@ class ArtiTitle extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 8),
-            // Divider (Horizontal Line)
-            const Divider(
-              color: Colors.grey,
-              thickness: 1,
-              height: 20,
-            ),
-            
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CommentPage(),
-                  ),
-                );
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  Icon(Icons.comment, size: 16, color: Colors.orange),
-                  SizedBox(width: 4),
-                  Text(
-                    "Comments",
-                    style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.orange,
-                        fontFamily: "Eczar"),
-                  ),
-                ],
-              ),
-            ),
           ],
         ),
       ),
