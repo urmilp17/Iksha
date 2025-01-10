@@ -20,47 +20,33 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int currentPageIndex = 0;
 
+  void _checkUserLoggedIn() {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        // User is not logged in, redirect to login page
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (_) => const LoginPage()),
+              (route) => false,
+        );
+      }
+    });
+  }
+  @override
+  void initState() {
+    super.initState();
+    _checkUserLoggedIn();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: background,
-      //   centerTitle: true,
-      //   title: const Text(
-      //     "IKSHA",
-      //      textAlign: TextAlign.center,
-      //      style: TextStyle(
-      //          fontFamily: 'LibreBaskerville', fontWeight: FontWeight.bold),
-      //   ),
-      //   actions: [
-      //     PopupMenuButton(
-      //         itemBuilder: (context) => [
-      //               PopupMenuItem(
-      //                 onTap: () async {
-      //                   final auth = FirebaseAuth.instance;
-      //                   await auth.signOut();
-      //                   Navigator.pushAndRemoveUntil(
-      //                       context,
-      //                       MaterialPageRoute(
-      //                           builder: (_) => const LoginPage()),
-      //                       (route) => false);
-      //                 },
-      //                 child: Text(
-      //                   'Logout',
-      //                   style: TextStyle(fontFamily: 'Eczar'),
-      //                 ),
-      //               ),
-      //             ],),
-      //   ],
-      //   elevation: 0,
-      // ),
       body: IndexedStack(
         index: currentPageIndex,
-        children: <Widget>[
-          const Home(),
-          const KeyFeatures(),
+        children: const <Widget>[
+          Home(),
+          KeyFeatures(),
           ArticlesPage(),
-          const GarbhaSanskar()
+          GarbhaSanskar()
         ],
       ),
       extendBody: true,
