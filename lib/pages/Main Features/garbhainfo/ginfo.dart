@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iksha/colours.dart';
 import 'package:audioplayers/audioplayers.dart';
 
+
 class Ginfo extends StatefulWidget {
   const Ginfo({super.key});
 
@@ -10,7 +11,7 @@ class Ginfo extends StatefulWidget {
 }
 
 class _GinfoState extends State<Ginfo> {
-  late AudioPlayer _audioPlayer;
+  late AudioPlayer _audioPlayers;
   bool _isPlaying = false;
   Duration _currentPosition = Duration.zero;
   Duration _totalDuration = Duration.zero;
@@ -20,20 +21,20 @@ class _GinfoState extends State<Ginfo> {
   @override
   void initState() {
     super.initState();
-    _audioPlayer = AudioPlayer();
-    _audioPlayer.onPositionChanged.listen((position) {
+    _audioPlayers = AudioPlayer();
+    _audioPlayers.onPositionChanged.listen((position) {
       setState(() {
         _currentPosition = position;
       });
     });
 
-    _audioPlayer.onDurationChanged.listen((duration) {
+    _audioPlayers.onDurationChanged.listen((duration) {
       setState(() {
         _totalDuration = duration;
       });
     });
 
-    _audioPlayer.onPlayerComplete.listen((_) {
+    _audioPlayers.onPlayerComplete.listen((_) {
       setState(() {
         _isPlaying = false;
         _currentPosition = Duration.zero;
@@ -43,15 +44,15 @@ class _GinfoState extends State<Ginfo> {
 
   @override
   void dispose() {
-    _audioPlayer.dispose();
+    _audioPlayers.dispose();
     super.dispose();
   }
 
   void _togglePlayPause() async {
     if (_isPlaying) {
-      await _audioPlayer.pause();
+      await _audioPlayers.pause();
     } else {
-      await _audioPlayer.play(UrlSource(_audioUrl));
+      await _audioPlayers.play(UrlSource(_audioUrl));
     }
     setState(() {
       _isPlaying = !_isPlaying;
@@ -60,14 +61,14 @@ class _GinfoState extends State<Ginfo> {
 
   void _seekAudio(double value) {
     final position = Duration(seconds: value.toInt());
-    _audioPlayer.seek(position);
+    _audioPlayers.seek(position);
   }
 
   void _changePlaybackSpeed(double speed) {
     setState(() {
       _playbackSpeed = speed;
     });
-    _audioPlayer.setPlaybackRate(speed);
+    _audioPlayers.setPlaybackRate(speed);
   }
 
   @override
