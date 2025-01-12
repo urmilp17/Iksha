@@ -34,6 +34,15 @@
   "vaishnav": "Vaishnavism",
   "ganpatya": "Ganpatya",
   "smarthism": "Smarthism",
+  "yoga_questionnaire_title": "Yoga Questionnaire",
+  "yoga_questionnaire_description": "The Questionnaire helps users identify their spiritual path—Karma (action), Bhakti (devotion), or Gyan (knowledge) through a series of introspective questions, providing personalized guidance based on their responses to enhance their spiritual journey.",
+  "find_button": "Find",
+  "prashna_uttari_title": "Prashna Uttari",
+  "prashna_uttari_description": "The Question Answer Vector Model uses advanced AI to analyze user questions and provide answers based on Hindu scriptures. It helps users explore Dharma, spiritual paths, and philosophical concepts by delivering accurate, and insightful responses.",
+  "ask_prashnas_button": "Ask Prashnas",
+  "garbha_sanskar_title": "Garbha Sanskar",
+  "garbha_sanskar_description": "The Garbha Sanskar Guide offers comprehensive prenatal education, combining traditional Hindu practices and modern knowledge to enhance the well-being of both mother and child. It includes rituals, dietary music, recommendations, and meditative techniques for a healthy pregnancy.",
+  "explore_button": "Explore",
   "@fetch_error_message": {
     "description": "Error message displayed when username fetching fails.",
     "placeholders": {

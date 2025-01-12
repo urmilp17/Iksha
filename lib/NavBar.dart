@@ -27,7 +27,7 @@ List<Widget> destinations() {
     ),
     NavigationDestination(
       selectedIcon: Icon(Icons.female, color: iconcolor,size: 35,),
-      tooltip: "Articles",
+      tooltip: "GarbhaSankar",
       icon: Icon(Icons.female_outlined, color: iconcolor,size: 30,),
       label: '',
     ),

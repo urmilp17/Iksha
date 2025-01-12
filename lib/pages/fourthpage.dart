@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'Main Features/garbhainfo/ginfo.dart';
 
 class GarbhaSanskar extends StatefulWidget {
@@ -12,17 +12,22 @@ class GarbhaSanskar extends StatefulWidget {
 class _GarbhaSanskarState extends State<GarbhaSanskar> {
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+    final currentLocale = Localizations.localeOf(context).languageCode;
+    double getFontSize(String locale, double defaultSize, double hindiSize) {
+      return locale == 'hi' ? hindiSize : defaultSize;
+    }
+
     return Scaffold(
       body: Stack(
         children: [
           Column(
             children: [
               Container(
-                margin: const EdgeInsets.only(top: 25),
+                margin: const EdgeInsets.only(top: 30),
                 height: 500,
                 width: double.maxFinite,
                 decoration: const BoxDecoration(
-
                   image: DecorationImage(
                       image: AssetImage('assets/images/garbha.jpg'),
                       fit: BoxFit.cover),
@@ -36,9 +41,12 @@ class _GarbhaSanskarState extends State<GarbhaSanskar> {
               width: double.maxFinite,
               alignment: Alignment.bottomCenter,
               height: 280,
-              decoration: BoxDecoration(
-                color: const Color(0xFFFDF5DF),
-                borderRadius: BorderRadius.circular(25.0),
+              decoration: const BoxDecoration(
+                color: Color(0xFFFDF5DF),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25.0),
+                  topRight: Radius.circular(25.0),
+                ),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -46,10 +54,10 @@ class _GarbhaSanskarState extends State<GarbhaSanskar> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Text(
-                      "Garbha Sanskar",
+                    Text(
+                      localizations?.garbha_sanskar_title ?? "Garbha Sanskar",
                       textAlign: TextAlign.left,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontFamily: 'Eczar',
                           fontWeight: FontWeight.w600,
                           fontSize: 30),
@@ -57,23 +65,27 @@ class _GarbhaSanskarState extends State<GarbhaSanskar> {
                     const SizedBox(
                       height: 3,
                     ),
-                    const Text(
-                      "The Garbha Sanskar Guide offers"
-                          "comprehensive prenatal education,"
-                          "combining traditional Hindu practices "
-                          "and modern knowledge to enhance the "
-                          "well-being of both mother and child."
-                          "It includes rituals, dietary music, "
-                          "recommendations, and meditative "
-                          "techniques for a healthy pregnancy.",
+                    Text(
+                      localizations?.garbha_sanskar_description ??
+                          "The Garbha Sanskar Guide offers"
+                              "comprehensive prenatal education,"
+                              "combining traditional Hindu practices "
+                              "and modern knowledge to enhance the "
+                              "well-being of both mother and child."
+                              "It includes rituals, dietary music, "
+                              "recommendations, and meditative "
+                              "techniques for a healthy pregnancy.",
                       textAlign: TextAlign.left,
-                      style: TextStyle(fontFamily: 'Eczar',height: 1.7, fontSize: 13),
+                      style: TextStyle(
+                          fontFamily: 'Eczar',
+                          height: 1.7,
+                          fontSize: getFontSize(currentLocale, 13, 16)),
                     ),
                     const SizedBox(
                       height: 5,
                     ),
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -81,15 +93,18 @@ class _GarbhaSanskarState extends State<GarbhaSanskar> {
                           ),
                         );
                       },
-                      child: const Card(
+                      child: Card(
                         elevation: 8.0,
-                        color: Color(0xDF644C00),
+                        color: const Color(0xDF644C00),
                         child: Padding(
                           padding: EdgeInsets.all(8.0),
                           child: Text(
-                            "Explore",
-                            style:
-                            TextStyle(color: Colors.white, fontFamily: 'Eczar',fontWeight: FontWeight.bold,fontSize: 16),
+                            localizations?.explore_button ?? "Explore",
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Eczar',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
                           ),
                         ),
                       ),

@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:iksha/pages/Main%20Features/chat.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Prashna extends StatelessWidget {
   const Prashna({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+    final currentLocale = Localizations.localeOf(context).languageCode;
+    double getFontSize(String locale, double defaultSize, double hindiSize) {
+      return locale == 'hi' ? hindiSize : defaultSize;
+    }
     return Scaffold(
       body: Stack(
         children: [
           Column(
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(16.5, 38, 16.5, 0),
+                padding: const EdgeInsets.fromLTRB(16.5, 16, 16.5, 0),
                 child: Container(
                   height: 500,
                   width: double.maxFinite,
@@ -30,7 +36,7 @@ class Prashna extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(16.3, 430, 16.3, 0),
+            padding: const EdgeInsets.fromLTRB(16.3, 393, 16.3, 0),
             child: Container(
               alignment: Alignment.bottomCenter,
               height: 270,
@@ -44,10 +50,10 @@ class Prashna extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Text(
-                      "Prashna Uttari",
+                     Text(
+                      localizations?.prashna_uttari_title ??"Prashna Uttari",
                       textAlign: TextAlign.left,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontFamily: 'Eczar',
                           fontWeight: FontWeight.w600,
                           fontSize: 30),
@@ -55,8 +61,8 @@ class Prashna extends StatelessWidget {
                     const SizedBox(
                       height: 3,
                     ),
-                    const Text(
-                      "The Question Answer Vector Model "
+                     Text(
+                      localizations?.prashna_uttari_description ?? "The Question Answer Vector Model "
                       "uses advanced AI to analyze user "
                       "questions and provide answers based on "
                       "Hindu scriptures. It helps users explore "
@@ -64,8 +70,8 @@ class Prashna extends StatelessWidget {
                       "philosophical concepts by delivering "
                       "accurate, and insightful responses.",
                       textAlign: TextAlign.left,
-                      style: TextStyle(
-                          fontFamily: 'Eczar', height: 1.6, fontSize: 14),
+                      style:  TextStyle(
+                          fontFamily: 'Eczar', height: 1.6, fontSize: getFontSize(currentLocale, 13, 15)),
                     ),
                     const SizedBox(
                       height: 5,
@@ -79,14 +85,14 @@ class Prashna extends StatelessWidget {
                           ),
                         );
                       },
-                      child: const Card(
+                      child: Card(
                         elevation: 8.0,
-                        color: Color(0xDF644C00),
+                        color: const Color(0xDF644C00),
                         child: Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            "Ask Prashnas",
-                            style: TextStyle(
+                            localizations?.ask_prashnas_button ??"Ask Prashnas",
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontFamily: 'Eczar',
                                 fontWeight: FontWeight.bold,

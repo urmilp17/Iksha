@@ -76,7 +76,7 @@ class _AskQuestionState extends State<AskQuestion> {
   }
 
   Future<void> fetchAnswer(String question) async {
-    const String apiUrl = "http://192.168.0.102:8000/ask";
+    const String apiUrl = "https://iksha-prashna-uttari.onrender.com/ask";
 
     setState(() {
       _isLoading = true;

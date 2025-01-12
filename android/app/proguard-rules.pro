@@ -9,3 +9,5 @@
 -dontwarn org.xmlpull.v1.XmlSerializer
 -keep class org.xmlpull.v1.* {*;}
 -keep class androidx.appcompat.** { *; }
+-dontwarn io.flutter.embedding.**
+ -ignorewarnings

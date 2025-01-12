@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:iksha/pages/Yogas/Yogas.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Yoga extends StatelessWidget {
   const Yoga({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
     return Scaffold(
       body: Stack(
         children: [
           Column(
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(16.5, 38, 16.5, 0),
+                padding: const EdgeInsets.fromLTRB(16.5, 16, 16.5, 0),
                 child: Container(
                   height: 500,
                   width: double.maxFinite,
@@ -30,7 +32,7 @@ class Yoga extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(16.3, 430, 16.3, 0),
+            padding: const EdgeInsets.fromLTRB(16.3, 393, 16.3, 0),
             child: Container(
               alignment: Alignment.bottomCenter,
               height: 270,
@@ -44,10 +46,10 @@ class Yoga extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Text(
-                      "Yoga Questionnaire",
+                     Text(
+                      localizations?.yoga_questionnaire_title ??"Yoga Questionnaire",
                       textAlign: TextAlign.left,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontFamily: 'Eczar',
                           fontWeight: FontWeight.w600,
                           fontSize: 30),
@@ -55,8 +57,8 @@ class Yoga extends StatelessWidget {
                     const SizedBox(
                       height: 3,
                     ),
-                    const Text(
-                      "The Questionnaire helps users identify "
+                     Text(
+                      localizations?.yoga_questionnaire_description ??"The Questionnaire helps users identify "
                       "their spiritual path—Karma (action), "
                       "Bhakti (devotion), or Gyan (knowledge) "
                       "through a series of introspective "
@@ -64,7 +66,7 @@ class Yoga extends StatelessWidget {
                       "guidance based on their responses "
                       "to enhance their spiritual journey.",
                       textAlign: TextAlign.left,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontFamily: 'Eczar', height: 1.6, fontSize: 14),
                     ),
                     const SizedBox(
@@ -79,14 +81,14 @@ class Yoga extends StatelessWidget {
                           ),
                         );
                       },
-                      child: const Card(
+                      child:  Card(
                         elevation: 8.0,
-                        color: Color(0xDF644C00),
+                        color: const Color(0xDF644C00),
                         child: Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            " Find ",
-                            style: TextStyle(
+                            localizations?.find_button??" Find ",
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontFamily: 'Eczar',
                                 fontWeight: FontWeight.bold,

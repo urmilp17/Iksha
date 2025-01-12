@@ -225,12 +225,6 @@ class _HomeState extends State<Home> {
                                   _changeLanguage(context, const Locale('hi'));
                                 },
                               ),
-                              ListTile(
-                                title: const Text('मराठी (Marathi)'),
-                                onTap: () {
-                                  _changeLanguage(context, const Locale('mr'));
-                                },
-                              ),
                             ],
                           ),
                         );
