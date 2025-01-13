@@ -44,6 +44,7 @@ dependencies:
   flutter_localization: ^0.3.0
   timeago: ^3.7.0
   audioplayers_android: ^5.0.0
+  audioplayers: ^6.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
