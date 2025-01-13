@@ -17,6 +17,7 @@ dependencies:
   path_provider: ^2.0.13
 
 
+
   carousel_slider:
     git:
       url: https://github.com/sampaio96/flutter_carousel_slider.git
@@ -42,7 +43,7 @@ dependencies:
   provider: ^6.1.2
   flutter_localization: ^0.3.0
   timeago: ^3.7.0
-  audioplayers: ^6.1.0
+  audioplayers_android: ^5.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
