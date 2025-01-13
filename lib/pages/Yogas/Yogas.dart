@@ -5,6 +5,7 @@ import 'package:iksha/pages/Yogas/bhakti.dart';
 import 'package:iksha/pages/Yogas/dnyan.dart';
 import 'package:iksha/pages/Yogas/karma.dart';
 import 'package:iksha/pages/Yogas/questionnaire.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Yogas extends StatefulWidget {
   const Yogas({super.key});
@@ -41,6 +42,7 @@ class _YogasState extends State<Yogas> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
     return DefaultTabController(
       initialIndex: 0,
       length: _tabs.length,
@@ -48,15 +50,15 @@ class _YogasState extends State<Yogas> {
         appBar: AppBar(
           backgroundColor: background,
           centerTitle: true,
-          title: const Text(
-            "Yoga",
+          title:  Text(
+            localizations?.yoga_title ?? "Yoga",
             textAlign: TextAlign.center,
-            style: TextStyle(
-                fontFamily: 'LibreBaskerville', fontWeight: FontWeight.bold),
+            style: const TextStyle(
+                fontFamily: 'Eczar', fontWeight: FontWeight.w500),
           ),
-          bottom: const TabBar(
+          bottom: TabBar(
             tabs: [
-              Tab(text: 'Karma'),
+              Tab(text: localizations?.karmaYoga_title ?? 'Karma'),
               Tab(text: 'Bhakti'),
               Tab(text: 'Dnyan'),
             ],

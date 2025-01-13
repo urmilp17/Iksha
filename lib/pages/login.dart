@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iksha/home.dart';
 import 'package:iksha/pages/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 
 class LoginPage extends StatefulWidget {
@@ -12,9 +13,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final email = TextEditingController();
+  final name = TextEditingController();
   final password = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  final firestore = FirebaseFirestore.instance;
   final auth = FirebaseAuth.instance;
   bool loading = false;
 
@@ -74,15 +76,14 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             TextFormField(
                               textAlign: TextAlign.center,
-                              controller: email,
-                              keyboardType: TextInputType.emailAddress,
+                              controller: name,
                               decoration: const InputDecoration(
                                 hintStyle: TextStyle(fontFamily: 'Eczar'),
-                                hintText: 'Enter your email',
+                                hintText: 'Enter your username',
                               ),
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Please enter email';
+                                  return 'Please enter username';
                                 }
                                 return null;
                               },
@@ -93,9 +94,10 @@ class _LoginPageState extends State<LoginPage> {
                               controller: password,
                               obscureText: true,
                               decoration: const InputDecoration(
-                                  hintStyle: TextStyle(fontFamily: 'Eczar'),
-                                  hintText: 'Enter your password',
-                                  errorStyle: TextStyle(fontFamily: 'Eczar')),
+                                hintStyle: TextStyle(fontFamily: 'Eczar'),
+                                hintText: 'Enter your password',
+                                errorStyle: TextStyle(fontFamily: 'Eczar'),
+                              ),
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return 'Please enter password';
@@ -181,8 +183,23 @@ class _LoginPageState extends State<LoginPage> {
 
   startLogin() async {
     try {
+      final userSnapshot = await firestore
+          .collection('users')
+          .where('name', isEqualTo: name.text)
+          .get();
+
+      if (userSnapshot.docs.isEmpty) {
+        throw FirebaseAuthException(
+            message: 'Username does not exist',
+            code: 'username-not-found');
+      }
+
+      final email = userSnapshot.docs.first['email'];
       await auth.signInWithEmailAndPassword(
-          email: email.text, password: password.text);
+        email: email,
+        password: password.text,
+      );
+
       setState(() {
         loading = false;
       });

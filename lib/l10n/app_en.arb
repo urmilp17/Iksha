@@ -43,7 +43,25 @@
   "garbha_sanskar_title": "Garbha Sanskar",
   "garbha_sanskar_description": "The Garbha Sanskar Guide offers comprehensive prenatal education, combining traditional Hindu practices and modern knowledge to enhance the well-being of both mother and child. It includes rituals, dietary music, recommendations, and meditative techniques for a healthy pregnancy.",
   "explore_button": "Explore",
-  "@fetch_error_message": {
+  "yoga_title": "Yoga",
+  "karmaYoga_title": "Karma",
+  "karmaYoga_intro": "Karma Yoga consists of two words. It is a compound word consisting of two words – Karma and Yogaha. The word Karma in this context refers to proper action or appropriate action. The word Yoga means proper attitude or appropriate attitude – in Sanskrit Bhāvanā.",
+  "karmaYoga_description": "In simple language Karma Yoga is nothing but proper action with proper attitude. Now we have to understand what is meant by proper action. All the human actions possible for us, are broadly classified into three types by the scriptures. This is based on their spiritual influence on the human beings.\n\nThis is because, the scriptures consider the spiritual personality and the spiritual goal as the most important thing which we cannot ignore and therefore they categorise actions not based on their materialistic benefits and influence. But actions are categorised based on their spiritual influence on you.",
+  "karmaYoga_laws": "The four major laws of Karma Yoga are described in Shrimad Bhagvad Gita as follows:",
+  "karmaYoga_law1": "i. Work with a sense of duty.",
+  "karmaYoga_law2": "ii. Work without getting intensely attached (focused attention) to the work.",
+  "karmaYoga_law3": "iii. Never allow the anxieties about the results to interfere with your mind during the currency of the job and",
+  "karmaYoga_law4": "iv. Accept failure and success with equanimity.",
+  "karma_types_title": "Types of Karma According to Bhagwadgita:",
+  "karma_types_description": "The way we do actions depends on our personality. In other words all our actions are guided by three tendencies mamely Sattva (सत्त्व), Rajas (रजस्) and Tamas (तमस).\n\nAny action which is undertaken from delusion, without heed to consequence, loss, injury and ability is declared to be Tamasika Karma (तामसिक कर्म).\n\nAction which is done by one craving for desires, or again with egoism or with much effort, is declared to be Rajasika karma (राजसिक कर्म).\n\nHe who is free from all material attachments and false ego, who is enthusiastic and resolute and who is indifferent to success or failure, is a Sattvika karma (सात्विक कर्म) performer of deeds in the righteous path.\n\n",
+  "karmaYoga_goal": "The goal of life is to reach highest happiness which is the state of total self- satisfaction. It is a state of pure consciousness, a state from where all actions emerge. This is Nishkamya Karma (निष्काम कर्म) the total non-action/ desireless actions. Though this ultimate goal of life, is total non-action we cannot reach that stated by surrendering action.\n\nThe essence of converting Kamya Karma (काम्य कर्म) into Karma Yoga (कर्मयोग) is in cutting out the strong attachment to fruits of action, which continuously lead us to uncessing work. Asanga (असंग), non-attachment is the key. Unattached work is the process. It is this detachment that counts in Karma Yoga. \nIt is that special attitude, skill that converts \nKamya Karma to Karma Yoga.\n\n",
+  "karmaYoga_secrets": "Secrets of Karma Yoga:",
+  "karmaYoga_secret_description": "It is necessary to discriminate action, forbidden action and inaction. The secrets of Karma Yoga are...",
+  "karmaYoga_secret": "Perform action.\nBeing fixed in Yoga.\nRenouncing attachments and \nEven minded in success and failure.\n\n",
+  "karmaYoga_gita": "Gita doesn't define that Karma is work done to perfection is verily Yoga (Samatva Buddhi, (समत्व बुद्धि). But it advocates that Yoga is dexterity in performing actions. Yogah karmasu kausalam, when you perform an aciton with an equianimous attidtude (Yoga), then such an action does not bind a man into bondage, even though the nature of karma is is to bind.\n",
+  "karmaYoga_verse_translation": "He who sees action of Jivatma (जीवात्मा) in inaction and Parmatma's (परमात्मा) inaction in action, he is wise among men, he is a Yogi/Yukta (one who performs actions with equanimous attitude) and accomplisher of everything. In such accomplished men, all impressions of actions are burnt by the fire of knowledge. \nOne who performs actions with this knowledge, attains Jnana and in this fire of knowledge all impressions of actions are burnt\n",
+
+"@fetch_error_message": {
     "description": "Error message displayed when username fetching fails.",
     "placeholders": {
       "error": {

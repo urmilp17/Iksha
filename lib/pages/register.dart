@@ -77,6 +77,15 @@ class _RegisterState extends State<Register> {
     return croppedFile != null ? File(croppedFile.path) : null;
   }
 
+  Future<bool> isUsernameUnique(String username) async {
+    final userDoc = await firestore
+        .collection('users')
+        .where('name', isEqualTo: username)
+        .get();
+
+    return userDoc.docs.isEmpty;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,14 +153,30 @@ class _RegisterState extends State<Register> {
                               textAlign: TextAlign.center,
                               controller: name,
                               keyboardType: TextInputType.text,
+                              style: const TextStyle(fontFamily: 'Eczar'),
                               decoration: const InputDecoration(
                                   hintText: 'Enter your name',
                                   hintStyle: TextStyle(fontFamily: 'Eczar'),
                                   errorStyle: TextStyle(fontFamily: 'Eczar')),
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Please enter name';
+                                  return 'Please enter a username';
                                 }
+                                if (value.contains(' ')) {
+                                  return 'Username must not have space';
+                                }
+                                if (value.startsWith('.') ||
+                                    value.endsWith('.') ||
+                                    value.startsWith('!') ||
+                                    value.startsWith('/') ||
+                                    value.startsWith(r'\') ||
+                                    value.startsWith(r'$')) {
+                                  return 'Username cannot start or end with a period';
+                                }
+                                if (value.contains(RegExp(r'[A-Z]'))) {
+                                  return 'Username must not contain uppercase letters';
+                                }
+
                                 return null;
                               },
                             ),
@@ -160,6 +185,7 @@ class _RegisterState extends State<Register> {
                               textAlign: TextAlign.center,
                               controller: email,
                               keyboardType: TextInputType.emailAddress,
+                              style: const TextStyle(fontFamily: 'Eczar'),
                               decoration: const InputDecoration(
                                   hintText: 'Enter your email',
                                   hintStyle: TextStyle(fontFamily: 'Eczar'),
@@ -176,6 +202,7 @@ class _RegisterState extends State<Register> {
                               textAlign: TextAlign.center,
                               controller: password,
                               obscureText: true,
+                              style: const TextStyle(fontFamily: 'Eczar'),
                               decoration: const InputDecoration(
                                   hintText: 'Enter your password',
                                   hintStyle: TextStyle(fontFamily: 'Eczar'),
@@ -190,24 +217,40 @@ class _RegisterState extends State<Register> {
                             const SizedBox(height: 15),
                             loading
                                 ? const Center(
-                              child: CircularProgressIndicator(),
-                            )
+                                    child: CircularProgressIndicator(),
+                                  )
                                 : ElevatedButton(
-                              onPressed: () {
-                                if (formKey.currentState!.validate()) {
-                                  setState(() {
-                                    loading = true;
-                                  });
-                                  register();
-                                }
-                              },
-                              child: const Text(
-                                "Register",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: 'Eczar'),
-                              ),
-                            ),
+                                    onPressed: () async {
+                                      if (formKey.currentState!.validate()) {
+                                        setState(() {
+                                          loading = true;
+                                        });
+
+                                        bool isUnique =
+                                            await isUsernameUnique(name.text);
+                                        if (!isUnique) {
+                                          setState(() {
+                                            loading = false;
+                                          });
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                                content: Text(
+                                                    'Username already exists')),
+                                          );
+                                          return;
+                                        }
+
+                                        register();
+                                      }
+                                    },
+                                    child: const Text(
+                                      "Register",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontFamily: 'Eczar'),
+                                    ),
+                                  ),
                             const SizedBox(height: 10),
                             RichText(
                               text: TextSpan(
@@ -222,8 +265,7 @@ class _RegisterState extends State<Register> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) =>
-                                        const LoginPage(),
+                                        builder: (context) => const LoginPage(),
                                       ),
                                     );
                                   },
@@ -254,7 +296,7 @@ class _RegisterState extends State<Register> {
       firebase_storage.FirebaseStorage storage =
           firebase_storage.FirebaseStorage.instance;
       firebase_storage.Reference ref =
-      storage.ref().child("user_avatar/${email.text}");
+          storage.ref().child("user_avatar/${email.text}");
       firebase_storage.UploadTask uploadTask = ref.putFile(_selectedImage!);
 
       await uploadTask.whenComplete(() async {
@@ -285,7 +327,7 @@ class _RegisterState extends State<Register> {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => const MyHomePage()),
-            (route) => false,
+        (route) => false,
       );
     } on FirebaseAuthException catch (e) {
       setState(() {
