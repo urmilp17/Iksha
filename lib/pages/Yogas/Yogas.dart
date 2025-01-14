@@ -59,13 +59,13 @@ class _YogasState extends State<Yogas> {
           bottom: TabBar(
             tabs: [
               Tab(text: localizations?.karmaYoga_title ?? 'Karma'),
-              Tab(text: 'Bhakti'),
-              Tab(text: 'Dnyan'),
+              Tab(text: localizations?.bhaktiYoga_title ?? 'Bhakti'),
+              Tab(text: localizations?.jnana_title ??'Dnyan'),
             ],
-            labelStyle: TextStyle(
+            labelStyle: const TextStyle(
                 fontFamily: 'Eczar', fontSize: 17, fontWeight: FontWeight.w600),
-            indicatorColor: Color(0xDF644C00),
-            labelColor: Color(0xDF644C00),
+            indicatorColor: const Color(0xDF644C00),
+            labelColor: const Color(0xDF644C00),
           ),
           actions: [
             PopupMenuButton<String>(
