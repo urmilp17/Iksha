@@ -71,7 +71,7 @@ class Prashna extends StatelessWidget {
                       "accurate, and insightful responses.",
                       textAlign: TextAlign.left,
                       style:  TextStyle(
-                          fontFamily: 'Eczar', height: 1.6, fontSize: getFontSize(currentLocale, 13, 15)),
+                          fontFamily: 'Eczar', height: 1.6, fontSize: getFontSize(currentLocale, 14, 15)),
                     ),
                     const SizedBox(
                       height: 5,

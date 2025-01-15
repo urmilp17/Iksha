@@ -1,6 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 import '../../colours.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class YogaQuizScreen extends StatefulWidget {
   const YogaQuizScreen({super.key});
@@ -10,6 +11,7 @@ class YogaQuizScreen extends StatefulWidget {
 }
 
 class _YogaQuizScreenState extends State<YogaQuizScreen> {
+
   final List<String> questions = [
     "What kind of practices resonate most with you?",
     "What type of strength do you value the most?",
@@ -86,80 +88,115 @@ class _YogaQuizScreenState extends State<YogaQuizScreen> {
 
   // To store user's selected answers
   List<String?> selectedAnswers = List<String?>.filled(12, null);
+  List<String?> previousSelections = List<String?>.filled(12, null);
 
-  void calculateYogaPath() {
-    Map<String, int> pathCount = {"Jnana": 0, "Karma": 0, "Bhakti": 0};
+  // Firestore reference
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final String yogaCollection = "yogacounts";
 
-    for (var answer in selectedAnswers) {
-      if (answer != null) {
-        if (options.any((q) => q.contains(answer))) {
-          if (options[0][0] == answer ||
-              options[1][0] == answer ||
-              options[2][0] == answer) {
-            pathCount["Jnana"] = pathCount["Jnana"]! + 1;
-          }
-          if (options[0][1] == answer ||
-              options[1][1] == answer ||
-              options[2][1] == answer) {
-            pathCount["Karma"] = pathCount["Karma"]! + 1;
-          }
-          if (options[0][2] == answer ||
-              options[1][2] == answer ||
-              options[2][2] == answer) {
-            pathCount["Bhakti"] = pathCount["Bhakti"]! + 1;
-          }
-        }
+  Future<void> updateYogaCount(String path, int delta) async {
+    try {
+      await _firestore.collection(yogaCollection).doc("counts").update({
+        path: FieldValue.increment(delta),
+      });
+    } catch (e) {
+      print("Error updating count: $e");
+    }
+  }
+
+  void handleOptionChange(int questionIndex, String newAnswer) {
+    String? previousAnswer = previousSelections[questionIndex];
+    if (previousAnswer != null) {
+      // Decrement the count for the previous selection
+      if (options[questionIndex][0] == previousAnswer) {
+        updateYogaCount("Jnana", -1);
+      } else if (options[questionIndex][1] == previousAnswer) {
+        updateYogaCount("Karma", -1);
+      } else if (options[questionIndex][2] == previousAnswer) {
+        updateYogaCount("Bhakti", -1);
       }
     }
+
+    // Increment the count for the new selection
+    if (options[questionIndex][0] == newAnswer) {
+      updateYogaCount("Jnana", 1);
+    } else if (options[questionIndex][1] == newAnswer) {
+      updateYogaCount("Karma", 1);
+    } else if (options[questionIndex][2] == newAnswer) {
+      updateYogaCount("Bhakti", 1);
+    }
+
+    // Update the previousSelections and selectedAnswers
+    setState(() {
+      previousSelections[questionIndex] = newAnswer;
+      selectedAnswers[questionIndex] = newAnswer;
+    });
+  }
+
+  void calculateYogaPath() async {
+    DocumentSnapshot<Map<String, dynamic>> snapshot =
+    await _firestore.collection(yogaCollection).doc("counts").get();
+
+    if (!snapshot.exists || snapshot.data() == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Error: Counts not found in Firestore.")),
+      );
+      return;
+    }
+
+    Map<String, int> pathCount = {
+      "Jnana": snapshot.data()!["Jnana"] ?? 0,
+      "Karma": snapshot.data()!["Karma"] ?? 0,
+      "Bhakti": snapshot.data()!["Bhakti"] ?? 0,
+    };
+
     var sortedPaths = pathCount.entries.toList()
       ..sort((a, b) => b.value.compareTo(a.value));
-    // Determine the Yoga path with the highest count
     String resultMessage;
 
     if (sortedPaths[0].value == sortedPaths[1].value &&
         sortedPaths[0].value != sortedPaths[2].value) {
-      // If top two paths have the same count
       resultMessage =
       "You can go with either ${sortedPaths[0].key} or ${sortedPaths[1].key} Yoga.";
     } else if (sortedPaths[0].value == sortedPaths[1].value &&
         sortedPaths[1].value == sortedPaths[2].value) {
-      // If all three paths have the same count
       resultMessage =
       "You are a beginner for this, just cultivate faith for the Lord and listen to the vachanas of Saints.";
     } else {
-      // Default case: One path has the highest count
-      resultMessage = "Based on your answers, your path is: ${sortedPaths[0].key} Yoga.";
+      resultMessage =
+      "Based on your answers, your path is: ${sortedPaths[0].key} Yoga.";
     }
 
-    // Show result as a dialog
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text("Your Recommended Yoga Path",
-            style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Eczar')),
-        content: Text("Based on your answers, your path is: $resultMessage",
-            style: const TextStyle(
-                fontSize: 14,
-                fontFamily: 'Eczar')
+        title: const Text(
+          "Your Recommended Yoga Path",
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+        ),
+        content: Text(
+          resultMessage,
+          style: const TextStyle(fontSize: 14),
         ),
         actions: [
           TextButton(
-            onPressed: () {
+            onPressed: () async {
+              // Reset Firestore counts
+              await _firestore
+                  .collection(yogaCollection)
+                  .doc("counts")
+                  .set({"Jnana": 0, "Karma": 0, "Bhakti": 0});
+
+              // Clear user's previous selections and selected answers
               setState(() {
-                // Clear all selected answers
                 selectedAnswers = List<String?>.filled(12, null);
+                previousSelections = List<String?>.filled(12, null);
               });
+
+              // Close the dialog
               Navigator.of(context).pop();
             },
-            child: const Text("OK",
-            style: TextStyle(
-                fontSize: 14,
-                fontFamily: 'Eczar'
-            ),
-            ),
+            child: const Text("OK"),
           ),
         ],
       ),
@@ -168,6 +205,10 @@ class _YogaQuizScreenState extends State<YogaQuizScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+    final currentLocale = Localizations.localeOf(context).languageCode;
+
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: background,
@@ -183,17 +224,6 @@ class _YogaQuizScreenState extends State<YogaQuizScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text("\nThis quiz offers an engaging and interactive way for users "
-                  "to explore their recommended path of Yoga based on their preferences "
-                  "and values. \n\nBy answering a series of thoughtfully crafted questions, "
-                  "users receive a personalized result highlighting the Yoga path\nJnana, "
-                  "Karma, or Bhakti\nthat resonates most with their choices.\n",
-
-              style: TextStyle(
-                fontFamily: 'Eczar',
-                fontSize: 15,
-                height: 1.5
-              ),),
               for (int i = 0; i < questions.length; i++)
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -201,23 +231,20 @@ class _YogaQuizScreenState extends State<YogaQuizScreen> {
                     Text(
                       "Q${i + 1}. ${questions[i]}",
                       style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Eczar'),
+                          fontSize: 15, fontWeight: FontWeight.bold),
                     ),
                     for (int j = 0; j < options[i].length; j++)
                       RadioListTile<String>(
                         title: Text(
                           options[i][j],
-                          style: const TextStyle(
-                              fontFamily: 'Eczar', fontSize: 15),
+                          style: const TextStyle(fontSize: 15),
                         ),
                         value: options[i][j],
                         groupValue: selectedAnswers[i],
                         onChanged: (value) {
-                          setState(() {
-                            selectedAnswers[i] = value;
-                          });
+                          if (value != null) {
+                            handleOptionChange(i, value);
+                          }
                         },
                       ),
                   ],
@@ -235,11 +262,9 @@ class _YogaQuizScreenState extends State<YogaQuizScreen> {
                       calculateYogaPath();
                     }
                   },
-
                   child: const Text("Submit"),
                 ),
               ),
-
             ],
           ),
         ),

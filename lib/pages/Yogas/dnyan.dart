@@ -14,9 +14,7 @@ class _DnyanYogState extends State<DnyanYog> {
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
     final currentLocale = Localizations.localeOf(context).languageCode;
-    double getFontSize(String locale, double defaultSize, double hindiSize) {
-      return locale == 'hi' ? hindiSize : defaultSize;
-    }
+
 
     double getFontHeight(String locale, double defaultSize, double hindiSize) {
       return locale == 'hi' ? hindiSize : defaultSize;
