@@ -175,57 +175,12 @@ class BookDetailsPage extends StatelessWidget {
     Book(
       title: 'Advaita Buddhism Hindu Studies',
       author: 'Richard King',
-      image: 'assets/images/book1.jpg', // Replace with your image asset
+      image: 'assets/images/book16.png', // Replace with your image asset
       driveUrl:
           'https://drive.google.com/file/d/1lGeUfzpZ6yxTaVy92obJ3I9aUBDxli51/view?usp=sharing',
       pages: 18,
       description:
           'Advaita Buddhism Hindu Studies explores the intersection of Advaita Vedanta, Buddhism, and Hinduism, examining their shared roots and differing views on concepts like the self, liberation, and ultimate reality. The study offers comparative insights into non-duality, the nature of existence, and the paths to spiritual awakening across these philosophical traditions.',
-    ),
-    //17th book
-    Book(
-      title: 'The Design of Everyday Things',
-      author: 'Don Norman',
-      image: 'assets/images/book1.jpg', // Replace with your image asset
-      driveUrl:
-          'https://drive.google.com/uc?export=download&id=185uAUxDAmvBPMeQrX3XPDFFtRELv4Oyq',
-      pages: 368,
-      description:
-          'A brilliant examination of everyday objects, uncovering why some designs work while others fail. '
-          'Don Norman explains how intuitive design impacts our daily lives and what we can learn from it.',
-    ),
-    Book(
-      title: 'The Design of Everyday Things',
-      author: 'Don Norman',
-      image: 'assets/images/book1.jpg', // Replace with your image asset
-      driveUrl:
-          'https://drive.google.com/uc?export=download&id=185uAUxDAmvBPMeQrX3XPDFFtRELv4Oyq',
-      pages: 368,
-      description:
-          'A brilliant examination of everyday objects, uncovering why some designs work while others fail. '
-          'Don Norman explains how intuitive design impacts our daily lives and what we can learn from it.',
-    ),
-    Book(
-      title: 'The Design of Everyday Things',
-      author: 'Don Norman',
-      image: 'assets/images/book1.jpg', // Replace with your image asset
-      driveUrl:
-          'https://drive.google.com/uc?export=download&id=185uAUxDAmvBPMeQrX3XPDFFtRELv4Oyq',
-      pages: 368,
-      description:
-          'A brilliant examination of everyday objects, uncovering why some designs work while others fail. '
-          'Don Norman explains how intuitive design impacts our daily lives and what we can learn from it.',
-    ),
-    Book(
-      title: 'The Design of Everyday Things',
-      author: 'Don Norman',
-      image: 'assets/images/book1.jpg', // Replace with your image asset
-      driveUrl:
-          'https://drive.google.com/uc?export=download&id=185uAUxDAmvBPMeQrX3XPDFFtRELv4Oyq',
-      pages: 368,
-      description:
-          'A brilliant examination of everyday objects, uncovering why some designs work while others fail. '
-          'Don Norman explains how intuitive design impacts our daily lives and what we can learn from it.',
     ),
   ];
 
