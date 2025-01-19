@@ -147,39 +147,88 @@ class ArticleDetailPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 14),
-              StreamBuilder<DocumentSnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('article')
-                    .doc(article.id)
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  if (!snapshot.hasData || snapshot.data == null) {
-                    return const Text(
-                      'Content not available',
-                      style: TextStyle(fontSize: 16, fontFamily: "Eczar", height: 1.5),
-                    );
-                  }
+        StreamBuilder<DocumentSnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('article')
+              .doc(article.id)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (!snapshot.hasData || snapshot.data == null) {
+              return const Text(
+                'Content not available',
+                style: TextStyle(fontSize: 16, fontFamily: "Eczar", height: 1.5),
+              );
+            }
 
-                  final data = snapshot.data!.data() as Map<String, dynamic>;
-                  final content = data['content']?.replaceAll("\\n", "\n") ?? '';
+            final data = snapshot.data!.data() as Map<String, dynamic>;
+            final content = data['content']?.replaceAll("\\n", "\n") ?? '';
 
-                  return Text(
-                    content,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontFamily: "Eczar",
-                      height: 1.5,
-                    ),
-                  );
-                },
-              ),
+            return ReadMoreText(content: content);
+          },
+        ),
+        
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class ReadMoreText extends StatefulWidget {
+  final String content;
+
+  const ReadMoreText({super.key, required this.content});
+
+  @override
+  _ReadMoreTextState createState() => _ReadMoreTextState();
+}
+
+class _ReadMoreTextState extends State<ReadMoreText> {
+  bool _isExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final words = widget.content.split(' ');
+    final isLongContent = words.length > 150;
+
+    // Show only the first 200 words if not expanded
+    final displayedContent = _isExpanded
+        ? widget.content
+        : words.take(150).join(' ') + (isLongContent ? '...' : '');
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          displayedContent,
+          style: const TextStyle(
+            fontSize: 16,
+            fontFamily: "Eczar",
+            height: 1.5,
+          ),
+        ),
+        if (isLongContent)
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _isExpanded = !_isExpanded;
+              });
+            },
+            child: Text(
+              _isExpanded ? 'Read Less' : 'Read More',
+              style: const TextStyle(
+                fontSize: 14,
+                fontFamily: "Eczar",
+                color: Colors.blue,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+      ],
     );
   }
 }
