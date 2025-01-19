@@ -31,7 +31,6 @@ class Mumukshatva extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.stars_outlined, color: Colors.black, size: 30),
                       SizedBox(width: 8),
                       Text(
                         'What is Mumukshatva?',
@@ -39,29 +38,19 @@ class Mumukshatva extends StatelessWidget {
                           color: Colors.black,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
+                            fontFamily: 'Eczar'
                         ),
                       ),
                     ],
                   ),
-                  Icon(Icons.more_vert, color: Colors.black, size: 30),
                 ],
-              ),
-              const SizedBox(height: 10),
-
-              // Date
-              const Text(
-                '         ',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                ),
               ),
               const SizedBox(height: 10),
 
               // Title
               const Text(
-                'मुमुक्षुत्वं किम् ? '
-                    'मोक्षो मे भूयाद् इति इच्छा ।',
+                ' मुमुक्षुत्वं किम् ? '
+                    ' मोक्षो मे भूयाद् इति इच्छा ।',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 24,
@@ -106,13 +95,7 @@ class Mumukshatva extends StatelessWidget {
                     ],
                   ),
                   // Social icons (likes and comments)
-                  Row(
-                    children: [
-                      Icon(Icons.favorite_border, color: Colors.grey, size: 20),
-                      SizedBox(width: 15),
-                      Icon(Icons.share, color: Colors.grey, size: 20),
-                    ],
-                  ),
+
                 ],
               ),
             ],

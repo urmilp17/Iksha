@@ -31,7 +31,6 @@ class ShadSampati extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.stars_outlined, color: Colors.black, size: 30),
                       SizedBox(width: 8),
                       Text(
                         'What is Shat-sampatti?',
@@ -39,29 +38,20 @@ class ShadSampati extends StatelessWidget {
                           color: Colors.black,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
+                            fontFamily: 'Eczar'
                         ),
                       ),
                     ],
                   ),
-                  Icon(Icons.more_vert, color: Colors.black, size: 30),
                 ],
               ),
               const SizedBox(height: 10),
 
-              // Date
-              const Text(
-                '         ',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                ),
-              ),
-              const SizedBox(height: 10),
 
               // Title
               const Text(
-                'शमादिसाधनसम्पत्तिः का ? '
-                    'शमो दम उपरमस्तितिक्षा श्रद्धा समाधानं च इति ।',
+                ' शमादिसाधनसम्पत्तिः का ? '
+                    ' शमो दम उपरमस्तितिक्षा श्रद्धा समाधानं च इति ।',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 24,
@@ -110,9 +100,6 @@ class ShadSampati extends StatelessWidget {
                   // Social icons (likes and comments)
                   Row(
                     children: [
-                      Icon(Icons.favorite_border, color: Colors.grey, size: 20),
-                      SizedBox(width: 15),
-                      Icon(Icons.share, color: Colors.grey, size: 20),
                     ],
                   ),
                 ],
