@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iksha/colours.dart';
 import 'package:audioplayers/audioplayers.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Ginfo extends StatefulWidget {
   const Ginfo({super.key});
@@ -16,8 +16,10 @@ class _GinfoState extends State<Ginfo> {
   Duration _currentPosition = Duration.zero;
   Duration _totalDuration = Duration.zero;
   double _playbackSpeed = 1.0;
-  final String _audioUrl =
+  final String _audioUrleng =
       'https://firebasestorage.googleapis.com/v0/b/iksha-324658.firebasestorage.app/o/Other%2Fgarbha1.MP3?alt=media&token=b9343e28-7cfb-4f69-8119-6de32360ffab';
+  final String _audioUrlhi =
+      "https://firebasestorage.googleapis.com/v0/b/iksha-324658.firebasestorage.app/o/Other%2Fgarbha_hi.MP3?alt=media&token=cd6f1181-3c67-4f13-a041-3fa668097ab3";
   @override
   void initState() {
     super.initState();
@@ -48,17 +50,6 @@ class _GinfoState extends State<Ginfo> {
     super.dispose();
   }
 
-  void _togglePlayPause() async {
-    if (_isPlaying) {
-      await _audioPlayers.pause();
-    } else {
-      await _audioPlayers.play(UrlSource(_audioUrl));
-    }
-    setState(() {
-      _isPlaying = !_isPlaying;
-    });
-  }
-
   void _seekAudio(double value) {
     final position = Duration(seconds: value.toInt());
     _audioPlayers.seek(position);
@@ -73,6 +64,29 @@ class _GinfoState extends State<Ginfo> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+    final currentLocale = Localizations.localeOf(context).languageCode;
+    String getAudio(String locale, String engAudio, String hinAudio) {
+      return locale == 'hi' ? hinAudio : engAudio;
+    }
+
+    String getText(String locale, String engText, String hinText) {
+      return locale == 'hi' ? hinText : engText;
+    }
+
+    final _audioUrl = getAudio(currentLocale, _audioUrleng, _audioUrlhi);
+
+    void _togglePlayPause() async {
+      if (_isPlaying) {
+        await _audioPlayers.pause();
+      } else {
+        await _audioPlayers.play(UrlSource(_audioUrl));
+      }
+      setState(() {
+        _isPlaying = !_isPlaying;
+      });
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -94,16 +108,17 @@ class _GinfoState extends State<Ginfo> {
               padding: const EdgeInsets.fromLTRB(14, 10, 12, 8),
               child: Row(
                 children: <Widget>[
-                  const Expanded(
+                  Expanded(
                     flex: 1,
                     child: Text(
-                      "The term Garbhsanskar is often heard these days, "
-                          "but most people only have a superficial understanding of it. "
-                          "\nLiterally, it means the sanskars (values or influences) "
-                          "imparted to the fetus in the womb. However, what kind of "
-                          "sanskars can be imparted to the fetus, and how? What is their significance, "
-                          "and why are they necessary? It's essential to understand these aspects.",
-                      style: TextStyle(fontFamily: "Eczar", fontSize: 15),
+                      localizations?.garbha_desc ??
+                          "The term Garbhsanskar is often heard these days, "
+                              "but most people only have a superficial understanding of it. "
+                              "\nLiterally, it means the sanskars (values or influences) "
+                              "imparted to the fetus in the womb. However, what kind of "
+                              "sanskars can be imparted to the fetus, and how? What is their significance, "
+                              "and why are they necessary? It's essential to understand these aspects.",
+                      style: const TextStyle(fontFamily: "Eczar", fontSize: 15),
                     ),
                   ),
                   Expanded(
@@ -131,7 +146,7 @@ class _GinfoState extends State<Ginfo> {
                 ),
                 child: Center(
                   child: Text(
-                    "Ritualistic Perspective",
+                    localizations?.ritual ?? "Ritualistic Perspective",
                     style: TextStyle(
                         fontFamily: "Eczar",
                         color: iconcolor,
@@ -141,53 +156,80 @@ class _GinfoState extends State<Ginfo> {
                 ),
               ),
             ),
-            const Center(
+            Center(
               child: Text(
-                "\"Pumān sūyate yasmāt iti puṁsavanam\"",
-                style: TextStyle(
+                localizations?.ritual_1_title ??
+                    "\"Pumān sūyate yasmāt iti puṁsavanam\"",
+                style: const TextStyle(
                     fontFamily: "Eczar",
                     fontStyle: FontStyle.italic,
                     fontSize: 15,
                     fontWeight: FontWeight.w500),
               ),
             ),
-            const Text(
-              "The process through which a \"pumān\" (a valiant and \nvirtuous progeny) is born is called Puṁsavana.",
+            Text(
+              localizations?.ritual_1_trans ??
+                  "The process through which a \"pumān\" (a valiant and \nvirtuous progeny) is born is called Puṁsavana.",
               textAlign: TextAlign.center,
-              style: TextStyle(fontFamily: "Eczar", fontSize: 12),
+              style: const TextStyle(fontFamily: "Eczar", fontSize: 12),
             ),
-            const ToggleInfoWidget(
-                text:
-                "In practice and Ayurveda, this samskāra is described as a ritual for achieving the desired gender of the child. "
-                    "It is performed to determine whether the unborn child should be male or female. However, the Vedas suggest that "
-                    "this samskāra should be performed for everyone with the intention of obtaining a virtuous and radiant child. "
-                    "\nHence, it is advised that this ritual be performed in the second, fourth, sixth, or eighth month of pregnancy."
-                    "\n\nAccording to Ayurveda, the gender of the fetus is determined two months after conception. "
-                    "This means that within one or one and a half months after the cessation of menstruation, "
-                    "it can be inferred whether the fetus will be male or female. It is believed that prior to this stage, "
-                    "the gender of the fetus can be influenced or altered. However, if the ritual were solely for altering the gender, "
-                    "there would be no recommendation to perform Puṁsavana in the fourth, sixth, or eighth month."),
-            const Center(
+            ToggleInfoWidget(
+                text: localizations?.rirual_1_desc ??
+                    "In practice and Ayurveda, this samskāra is described as a ritual for achieving the desired gender of the child. "
+                        "It is performed to determine whether the unborn child should be male or female. However, the Vedas suggest that "
+                        "this samskāra should be performed for everyone with the intention of obtaining a virtuous and radiant child. "
+                        "\nHence, it is advised that this ritual be performed in the second, fourth, sixth, or eighth month of pregnancy."
+                        "\n\nAccording to Ayurveda, the gender of the fetus is determined two months after conception. "
+                        "This means that within one or one and a half months after the cessation of menstruation, "
+                        "it can be inferred whether the fetus will be male or female. It is believed that prior to this stage, "
+                        "the gender of the fetus can be influenced or altered. However, if the ritual were solely for altering the gender, "
+                        "there would be no recommendation to perform Puṁsavana in the fourth, sixth, or eighth month."),
+            Center(
               child: Text(
-                "\"Avyaktaḥ prathame māsi saptāhāt kalalī bhavet।\n Garbhaḥ puṁsavānānyaya pūrva vyakte prayojayet॥\"",
-                style: TextStyle(
+                localizations?.ritual_2_title ??
+                    "\"Avyaktaḥ prathame māsi saptāhāt kalalī bhavet।\n Garbhaḥ puṁsavānānyaya pūrva vyakte prayojayet॥\"",
+                style: const TextStyle(
                     fontFamily: "Eczar",
                     fontStyle: FontStyle.italic,
                     fontSize: 12,
                     fontWeight: FontWeight.w500),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 14),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14),
               child: Text(
-                "In the first month, the fetus remains undifferentiated in terms of gender. In the second month, the differentiation starts becoming apparent. Hence, the Puṁsavana samskāra should ideally be performed before the gender of the fetus becomes evident",
+                localizations?.ritual_2_trans ??
+                    "In the first month, the fetus remains undifferentiated in terms of gender. In the second month, the differentiation starts becoming apparent. Hence, the Puṁsavana samskāra should ideally be performed before the gender of the fetus becomes evident",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontFamily: "Eczar", fontSize: 12),
+                style: const TextStyle(fontFamily: "Eczar", fontSize: 12),
               ),
             ),
-            const ToggleInfoWidget(
-                text:
-                "The ancient sciences revealed that the gender of the fetus could be influenced, making this knowledge accessible to all.In today's society, the ratio of males to females has become imbalanced. The number of females is decreasing rapidly, creating a serious concern for the future.In ancient times, the number of females was greater than males. Boys were given more importance, partly because males frequently lost their lives in wars or during long journeys. However, in the current scenario, there is no necessity to perform Puṁsavana purely for ensuring a male child.That said, Puṁsavana is not limited to altering gender; it has greater benefits, such as ensuring the radiance, virtues, and well-being of the fetus. It also helps prevent genetic defects (genetic disorders) and protects the fetus."),
+            ToggleInfoWidget(
+                text: localizations?.ritual_2_desc ??
+                    "The ancient sciences revealed that the gender of the fetus could be influenced, making this knowledge accessible to all.In today's society, the ratio of males to females has become imbalanced. The number of females is decreasing rapidly, creating a serious concern for the future.In ancient times, the number of females was greater than males. Boys were given more importance, partly because males frequently lost their lives in wars or during long journeys. However, in the current scenario, there is no necessity to perform Puṁsavana purely for ensuring a male child.That said, Puṁsavana is not limited to altering gender; it has greater benefits, such as ensuring the radiance, virtues, and well-being of the fetus. It also helps prevent genetic defects (genetic disorders) and protects the fetus."),
+            Center(
+              child: Text(
+                  localizations?.ritual_3_title ??
+                      "\"Mamā bhāryāyām utpattyasya - mānsya garbhasya vāyika - \ngārbhika doṣa - parihārārthaṃ puṃ rūpatā jñānodaya \npratirodha parihāra dvārā Śrīparameśvara prītyarthaṃ puṃsavanākhyam karma āhaṃ kariṣye.\nTadaṅgatvena Gaṇapati pūjanam, svasti vācanam, \nMātṛkā pūjanam, Nāndīśrāddham ca kariṣye\"",
+                  style: const TextStyle(
+                      fontFamily: "Eczar",
+                      fontStyle: FontStyle.italic,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500),
+                  textAlign: TextAlign.center),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14),
+              child: Text(
+                localizations?.ritual_3_desc ??
+                    "Sankalp means – express the purpose for which this sanskar is being performed. The statement of the aim while performing this sanskar is called Sankalp Karna. Sankalp is done while performing any sanskar, work or ritual.",
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontFamily: "Eczar", fontSize: 12),
+              ),
+            ),
+            ToggleInfoWidget(
+                text: localizations?.ritual_3_trans ??
+                    "For the sake of my wife's pregnancy, to prevent mental and physical defects in the fetus, and to promote the birth of a male child with good intellect and character, I shall perform the Pumsavana ritual to please Lord Parameshwara.\nAs part of this ritual, I shall perform the worship of Lord Ganesha, recite auspicious verses, worship \nthe goddess Matruka, and offer oblations to the ancestors."),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -199,7 +241,7 @@ class _GinfoState extends State<Ginfo> {
                 ),
                 child: Center(
                   child: Text(
-                    "Philosophy",
+                    localizations?.philosophy ?? "Philosophy",
                     style: TextStyle(
                         fontFamily: "Eczar",
                         color: iconcolor,
@@ -209,19 +251,28 @@ class _GinfoState extends State<Ginfo> {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14),
+              child: Text(
+                localizations?.philosophy_desc ??
+                    "Listening to Atmagyan (self-knowledge) during \npregnancy is crucial as it calms the mind, reduces \nstress and anxiety, and promotes emotional well-being.\n\nThis positivity is transmitted to the fetus, \nshaping its personality and intellect. It also \nprepares the expectant mother for \na mindful and joyful parenthood experience.\n\nThis soothing audio excerpt from Swami Sarvapriyananda's enlightening lecture on 'Our Real Nature', where he explains the profound concept of Atmagyan in a simple and accessible manner, delivered in his calming and serene voice.",
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontFamily: "Eczar", fontSize: 12),
+              ),
+            ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 _audioUrl.isNotEmpty
                     ? IconButton(
-                  icon: Icon(
-                    _isPlaying ? Icons.pause_circle : Icons.play_circle,
-                    size: 50,
-                    color: iconcolor,
-                  ),
-                  onPressed: _togglePlayPause,
-                )
+                        icon: Icon(
+                          _isPlaying ? Icons.pause_circle : Icons.play_circle,
+                          size: 50,
+                          color: iconcolor,
+                        ),
+                        onPressed: _togglePlayPause,
+                      )
                     : const CircularProgressIndicator(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -243,20 +294,51 @@ class _GinfoState extends State<Ginfo> {
                           child: Text(
                             '${_formatDuration(_currentPosition)} / ${_formatDuration(_totalDuration)}',
                             style: const TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.w500,fontFamily: "Eczar"),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: "Eczar"),
                           ),
                         ),
-                        const SizedBox(width: 25,),
+                        const SizedBox(
+                          width: 25,
+                        ),
                         Row(
                           children: [
-                            const Text("Speed: ", style: TextStyle(fontSize: 16,fontFamily: "Eczar")),
+                            Text(getText(currentLocale, "Speed: ", "गति: "),
+                                //"Speed: ",
+                                style: const TextStyle(
+                                    fontSize: 16, fontFamily: "Eczar")),
                             DropdownButton<double>(
                               value: _playbackSpeed,
-                              items: const [
-                                DropdownMenuItem(value: 0.5, child: Text("0.5x",style: TextStyle(fontFamily: "Eczar"),),),
-                                DropdownMenuItem(value: 1.0, child: Text("1.0x",style: TextStyle(fontFamily: "Eczar"),),),
-                                DropdownMenuItem(value: 1.5, child: Text("1.5x",style: TextStyle(fontFamily: "Eczar"),),),
-                                DropdownMenuItem(value: 2.0, child: Text("2.0x",style: TextStyle(fontFamily: "Eczar"),),),
+                              items: [
+                                DropdownMenuItem(
+                                  value: 0.5,
+                                  child: Text(
+                                    getText(currentLocale, "0.5x", "०.५x"),
+                                    style: const TextStyle(fontFamily: "Eczar"),
+                                  ),
+                                ),
+                                DropdownMenuItem(
+                                  value: 1.0,
+                                  child: Text(
+                                    getText(currentLocale, "1.0x", "१.०x"),
+                                    style: const TextStyle(fontFamily: "Eczar"),
+                                  ),
+                                ),
+                                DropdownMenuItem(
+                                  value: 1.5,
+                                  child: Text(
+                                    getText(currentLocale, "1.5x", "१.५x"),
+                                    style: const TextStyle(fontFamily: "Eczar"),
+                                  ),
+                                ),
+                                DropdownMenuItem(
+                                  value: 2.0,
+                                  child: Text(
+                                    getText(currentLocale, "2.0x", "२.०x"),
+                                    style: const TextStyle(fontFamily: "Eczar"),
+                                  ),
+                                ),
                               ],
                               onChanged: (value) {
                                 if (value != null) _changePlaybackSpeed(value);
@@ -270,7 +352,27 @@ class _GinfoState extends State<Ginfo> {
                 ),
               ],
             ),
-
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                width: double.maxFinite,
+                height: 32,
+                decoration: BoxDecoration(
+                  color: background,
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                child: Center(
+                  child: Text(
+                    localizations?.philosophy ?? "Devotion",
+                    style: TextStyle(
+                        fontFamily: "Eczar",
+                        color: iconcolor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -338,12 +440,3 @@ class _ToggleInfoWidgetState extends State<ToggleInfoWidget> {
     );
   }
 }
-
-// child: Text(
-// widget.text,
-// textAlign: TextAlign.center,
-// style: const TextStyle(
-// fontFamily: "Eczar",
-// fontSize: 13,
-// ),
-// ),
