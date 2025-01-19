@@ -66,7 +66,7 @@ class Sampradaya2 extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
                   const Text(
-                    'Shaktism is one of the major Hindu traditions, which worships Shiva as the Supreme Being. One of the largest Hindu denominations, it incorporates many sub-traditions ranging from devotional dualistic theism such as Shaiva Siddhanta to yoga-orientated monistic non-theism such as Kashmiri Shaivism.\nIt considers both the Vedas and the Agama texts as important sources of theology. According to a 2010 estimate by Johnson and Grim, Shaivism is the second-largest Hindu sect, constituting about 252 million or 26.6% of Hindus.',
+                    'Shaktism involves a galaxy of goddesses, all being regarded as different aspects, manifestations, or personifications of the divine feminine energy called Shakti. It includes various modes of worship, ranging from those focused on the most worshipped Durga, to gracious Parvati, and the fierce Kali. After the decline of Buddhism in India, various Hindu and Buddhist goddesses were combined to form the Mahavidya, a pantheon of ten goddesses. The most common forms of the Mahadevi worshipped in Shaktism include: Durga, Kali, Saraswati, Lakshmi, Parvati, and Tripurasundari. Also worshipped are the various Gramadevatas across the Indian villages.',
                     style: TextStyle(
                       fontFamily: 'Eczar',
                       fontSize: 16,
@@ -88,19 +88,18 @@ class Sampradaya2 extends StatelessWidget {
                   _buildCard(
                     title: 'Origins and history',
                     subtitle:
-                    'The origins of Shaktism are unclear and a matter of debate among scholars, as it is an amalgam of pre-Vedic cults and traditions and Vedic culture',
+                    'The earliest archaeological evidence of what appears to be an Upper Paleolithic shrine for Shakti worship were discovered in the terminal upper paleolithic site of Baghor I (Baghor stone) in Sidhi district of Madhya Pradesh, India.',
                     imagePath: 'assets/images/testimonial1.jpg',
                   ),
                   _buildCard(
                     title: 'Beliefs and practices',
                     subtitle:
-                    'Shaktism, organized worship of the Indian god Shiva and, with Vaishnavism and Shaktism, one of the three principal forms of modern Hinduism. Shaivism includes such diverse movements as the highly philosophical Shaiva-siddhanta, the socially distinctive Lingayat, ascetics such as the dashnami sannyasin s, and innumerable folk variants.',
-                    imagePath: 'assets/images/testimonial2.jpg',
+                    'Shaktism believes in Shakti, the divine feminine power, as the ultimate reality and source of all creation. Its practices include goddess worship, tantric rituals, and celebrations like Durga Puja to honor manifestations of Shakti such as Durga, Kali, and Lakshmi.',                    imagePath: 'assets/images/testimonial2.jpg',
                   ),
                   _buildCard(
                     title: 'Traditions',
                     subtitle:
-                    'Shaktism is ancient, and over time it developed many sub-traditions. These broadly existed and are studied in three groups: theistic dualism, nontheistic monism, and those that combine features or practices of the two.',
+                    'Shaktism is a major Hindu tradition that reveres Shakti, the divine feminine energy, as the ultimate reality and cosmic power behind creation, sustenance, and destruction. It encompasses devotional worship, tantric practices, and festivals like Navaratri and Durga Puja, celebrating goddesses such as Durga, Kali, and Lalita Tripura Sundari as manifestations of supreme divinity.',
                     imagePath: 'assets/images/testimonial2.jpg',
                   ),
                   const SizedBox(height: 25),

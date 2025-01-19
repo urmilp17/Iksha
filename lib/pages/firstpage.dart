@@ -1,4 +1,4 @@
-import 'dart:math';
+import  'dart:math';
 
 import 'package:flutter/material.dart' hide CarouselController;
 import 'package:carousel_slider/carousel_slider.dart';
@@ -29,7 +29,7 @@ class Home extends StatefulWidget {
   @override
   State<Home> createState() => _HomeState();
 }
-
+//swallow you whole
 class _HomeState extends State<Home> {
   CarouselController buttonCarouselController = CarouselController();
   final auth = FirebaseAuth.instance;

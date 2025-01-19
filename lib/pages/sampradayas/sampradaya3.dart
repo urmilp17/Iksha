@@ -66,7 +66,8 @@ class Sampradaya3 extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
                   const Text(
-                    'Vaishnavism is one of the major Hindu traditions, which worships Shiva as the Supreme Being. One of the largest Hindu denominations, it incorporates many sub-traditions ranging from devotional dualistic theism such as Shaiva Siddhanta to yoga-orientated monistic non-theism such as Kashmiri Shaivism.\nIt considers both the Vedas and the Agama texts as important sources of theology. According to a 2010 estimate by Johnson and Grim, Shaivism is the second-largest Hindu sect, constituting about 252 million or 26.6% of Hindus.',
+                    'one of the major Hindu denominations along with Shaivism, Shaktism, and Smartism. It is also called Vishnuism since it considers Vishnu as the sole supreme being leading all other Hindu deities, that is, Mahavishnu. Its followers are called Vaishnavites or Vaishnavas , and it includes sub-sects like Krishnaism and Ramaism, which consider Krishna and Rama as the supreme beings respectively. According to a 2020 estimate by The World Religion Database (WRD), hosted at Boston University’s Institute on Culture, Religion and World Affairs (CURA), Vaishnavism is the largest Hindu sect, constituting about 399 million Hindus.',
+
                     style: TextStyle(
                       fontFamily: 'Eczar',
                       fontSize: 16,
@@ -88,19 +89,19 @@ class Sampradaya3 extends StatelessWidget {
                   _buildCard(
                     title: 'Origins and history',
                     subtitle:
-                    'The origins of Vaishnavism are unclear and a matter of debate among scholars, as it is an amalgam of pre-Vedic cults and traditions and Vedic culture',
+                        'The ancient emergence of Vaishnavism is unclear, the evidence inconsistent and scanty. Syncretism of various traditions resulted in Vaishnavism. Although Vishnu was a Vedic solar deity, he is mentioned less often compared to Agni, Indra, and other Vedic deities, thereby suggesting that he had a minor position in the Vedic religion.',
                     imagePath: 'assets/images/testimonial1.jpg',
                   ),
                   _buildCard(
-                    title: 'Beliefs and practices',
+                    title: 'Beliefs',
                     subtitle:
-                    'Vaishnavism, organized worship of the Indian god Shiva and, with Vaishnavism and Shaktism, one of the three principal forms of modern Hinduism. Shaivism includes such diverse movements as the highly philosophical Shaiva-siddhanta, the socially distinctive Lingayat, ascetics such as the dashnami sannyasin s, and innumerable folk variants.',
+                        'Vaishnavism is centred on the devotion of Vishnu and his avatars. According to Schweig, it is a "polymorphic monotheism, i.e. a theology that recognises many forms (ananta rupa) of the one, single unitary divinity," since there are many forms of one original deity, with Vishnu taking many forms.',
                     imagePath: 'assets/images/testimonial2.jpg',
                   ),
                   _buildCard(
                     title: 'Traditions',
                     subtitle:
-                    'Vaishnavism is ancient, and over time it developed many sub-traditions. These broadly existed and are studied in three groups: theistic dualism, nontheistic monism, and those that combine features or practices of the two.',
+                        'The Vaishnavism traditions may be grouped within four sampradayas, each exemplified by a specific Vedic personality. They have been associated with a specific founder, providing the following scheme: Sri Sampradaya (Ramanuja), Brahma Sampradaya (Madhvacharya), Rudra Sampradaya (Vishnuswami, Vallabhacharya), Kumaras Sampradaya (Nimbarka). These four sampradayas emerged in early centuries of the 2nd millennium CE, by the 14th century, influencing and sanctioning the Bhakti movement.',
                     imagePath: 'assets/images/testimonial2.jpg',
                   ),
                   const SizedBox(height: 25),

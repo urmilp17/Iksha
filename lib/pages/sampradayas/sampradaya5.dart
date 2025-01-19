@@ -66,7 +66,7 @@ class Sampradaya5 extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
                   const Text(
-                    'Smarthism is one of the major Hindu traditions, which worships Shiva as the Supreme Being. One of the largest Hindu denominations, it incorporates many sub-traditions ranging from devotional dualistic theism such as Shaiva Siddhanta to yoga-orientated monistic non-theism such as Kashmiri Shaivism.\nIt considers both the Vedas and the Agama texts as important sources of theology. According to a 2010 estimate by Johnson and Grim, Shaivism is the second-largest Hindu sect, constituting about 252 million or 26.6% of Hindus.',
+                    'The Smarta tradition (Sanskrit: स्मार्त), also called Smartism, is a movement in Hinduism that developed and expanded with the Puranas genre of literature. It reflects a synthesis of four philosophical strands, namely Uttara Mīmāṃsā, Advaita, Yoga, and theism. The Smarta tradition rejects theistic sectarianism, and is notable for the domestic worship of five shrines with five deities, all treated as equal – Ganesha, Shiva, Shakti, Vishnu and Surya. The Smarta tradition contrasted with the older Shrauta tradition, which was based on elaborate rituals and rites. There has been a considerable overlap in the ideas and practices of the Smarta tradition with other significant historic movements within Hinduism, namely Shaivism, Brahmanism, Vaishnavism, and Shaktism.',
                     style: TextStyle(
                       fontFamily: 'Eczar',
                       fontSize: 16,
@@ -88,19 +88,19 @@ class Sampradaya5 extends StatelessWidget {
                   _buildCard(
                     title: 'Origins and history',
                     subtitle:
-                    'The origins of Smarthism are unclear and a matter of debate among scholars, as it is an amalgam of pre-Vedic cults and traditions and Vedic culture',
+                        'The smriti texts of the period between 200 BCE and 100 CE proclaim the authority of the Vedas, and "nonrejection of the Vedas comes to be one of the most important touchstones for defining Hinduism over and against the heterodoxies, which rejected the Vedas." The Smriti texts interpret the Vedas in a number of ways, which gave rise to six darsanas (orthodox schools) of Hindu philosophy.',
                     imagePath: 'assets/images/testimonial1.jpg',
                   ),
                   _buildCard(
                     title: 'Beliefs and practices',
                     subtitle:
-                    'Smarthism, organized worship of the Indian god Shiva and, with Vaishnavism and Shaktism, one of the three principal forms of modern Hinduism. Shaivism includes such diverse movements as the highly philosophical Shaiva-siddhanta, the socially distinctive Lingayat, ascetics such as the dashnami sannyasin s, and innumerable folk variants.',
+                        'The Smartas evolved a kind of worship which is known as Panchayatana puja. In this Puja, one or more of the five Hindu Deities (Surya, Shiva, Vishnu, Ganesha and Adi Shakti) are the objects of veneration. The five symbols of the major Gods are placed on a round open metal dish called Panchayatana, the symbol of the deity preferred by the worshiper being in the center.',
                     imagePath: 'assets/images/testimonial2.jpg',
                   ),
                   _buildCard(
                     title: 'Traditions',
                     subtitle:
-                    'Smarthism is ancient, and over time it developed many sub-traditions. These broadly existed and are studied in three groups: theistic dualism, nontheistic monism, and those that combine features or practices of the two.',
+                        'Smarta tradition emerged initially as a synthesis movement to unify Hinduism into a nonsectarian form based on the Vedic heritage. It accepted varnasrama-dharma, states Bruce Sullivan, which reflected an acceptance of Varna (caste/class) and ashrama (four stages of human life) as a form of social and religious duty. In the later second half of the 1st millennium, Adi Shankara reformed and brought ideas to the movement in the form of the Advaita Vedanta philosophy.',
                     imagePath: 'assets/images/testimonial2.jpg',
                   ),
                   const SizedBox(height: 25),

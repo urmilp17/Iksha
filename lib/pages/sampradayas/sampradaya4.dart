@@ -53,27 +53,74 @@ class Sampradaya4 extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
               child: Column(
-                // Add New Widgets here
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const Text(
                     'Ganpatya',
                     style: TextStyle(
                       fontFamily: 'Eczar',
-                      fontSize: 27,
+                      fontSize: 28,
                       fontWeight: FontWeight.bold,
+                      color: Colors.black87,
                     ),
                   ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 10),
+                  _buildStyledText(
+                    'अधर्मोपचयो धर्मापचयोहि यदा भवेत् !\n'
+                        'साधून्संरक्षितुं दुष्टास्तानत्तुं संभवाम्यहम् !',
+                    isHighlight: true,
+                  ),
+                  const SizedBox(height: 15),
                   const Text(
-                    'Ganpatya is one of the major Hindu traditions, which worships Shiva as the Supreme Being. One of the largest Hindu denominations, it incorporates many sub-traditions ranging from devotional dualistic theism such as Shaiva Siddhanta to yoga-orientated monistic non-theism such as Kashmiri Shaivism.\nIt considers both the Vedas and the Agama texts as important sources of theology. According to a 2010 estimate by Johnson and Grim, Shaivism is the second-largest Hindu sect, constituting about 252 million or 26.6% of Hindus.',
+                    'When Lord Ganesha says in his Gita, the atrocities of the demons increase, '
+                        'and at that time, the Lord Himself takes the form of Sagun-Sakar incarnation, performing war-like pastimes. '
+                        'But in the present Kali Yuga, or in the history of the world, there are often no such direct demons on earth. '
+                        'The gods are in heaven, and the demons are in Patala, performing their duties peacefully.',
                     style: TextStyle(
                       fontFamily: 'Eczar',
                       fontSize: 16,
                       height: 1.5,
                     ),
                   ),
-
+                  const SizedBox(height: 10),
+                  _buildStyledText(
+                    'Therefore, the Lord does not need to take such an incarnation. However, even when the gods and demons are peaceful in their respective places, a third component, the human, behaves strangely. '
+                        'Some humans try to become god-like through their good deeds, while others behave more horribly than demons. '
+                        'At such times, there is no need to kill them physically. The task is to transform their distorted thoughts into good ones. '
+                        'Therefore, when the Lord takes a human incarnation at such times, it is called "Shri Guru".',
+                  ),
+                  const SizedBox(height: 20),
+                  _buildBulletSection(
+                    title: 'According to the Ganapatya tradition:',
+                    items: [
+                      'Pasha/Ganesh - incarnated as Shri Guru Ganakacharya',
+                      'Kamala/Brahma - incarnated as Shri Guru Bhrigu',
+                      'Ankush/Vishnu - incarnated as Shri Guru Vyas',
+                      'Mudgara/Surya - incarnated as Shri Guru Mudgalacharya',
+                      'Parasu/Shiva - incarnated as Shri Guru Shukacharya',
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'The incarnations of Guru Panchaka in Kali Yuga:',
+                    style: TextStyle(
+                      fontFamily: 'Eczar',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  _buildBulletSection(
+                    title: '',
+                    items: [
+                      'Shri Guru Ganakacharya - incarnated as Gaudapadacharya',
+                      'Shri Guru Mudgalacharya - incarnated as Ganeshyogindra',
+                      'Shri Guru Shukacharya - incarnated as Shankaracharya',
+                      'Shri Guru Vyas - incarnated as Girijasuta',
+                      'Shri Guru Bhrigu - incarnated as Brahmananda',
+                    ],
+                  ),
                   const SizedBox(height: 25),
                   const Text(
                     'Part of a series of Ganpatya',
@@ -94,14 +141,14 @@ class Sampradaya4 extends StatelessWidget {
                   _buildCard(
                     title: 'Beliefs and practices',
                     subtitle:
-                    'Ganpatya, organized worship of the Indian god Shiva and, with Vaishnavism and Shaktism, one of the three principal forms of modern Hinduism. Shaivism includes such diverse movements as the highly philosophical Shaiva-siddhanta, the socially distinctive Lingayat, ascetics such as the dashnami sannyasin s, and innumerable folk variants.',
+                    'Ganpatya includes organized worship of Ganesha and deep philosophical traditions, rooted in Hinduism.',
                     imagePath: 'assets/images/testimonial2.jpg',
                   ),
                   _buildCard(
                     title: 'Traditions',
                     subtitle:
-                    'Ganpatya is ancient, and over time it developed many sub-traditions. These broadly existed and are studied in three groups: theistic dualism, nontheistic monism, and those that combine features or practices of the two.',
-                    imagePath: 'assets/images/testimonial2.jpg',
+                    'Ganpatya is ancient and evolved into multiple traditions over time, blending dualism and monism practices.',
+                    imagePath: 'assets/images/testimonial3.jpg',
                   ),
                   const SizedBox(height: 25),
                   Center(
@@ -117,14 +164,16 @@ class Sampradaya4 extends StatelessWidget {
                           throw 'Could not launch $url';
                         }
                       },
-                      icon: const Icon(Icons.info, color: Colors.deepPurpleAccent),
+                      icon: const Icon(Icons.info, color: Colors.black87),
                       label: const Text('Instagram'),
                       style: OutlinedButton.styleFrom(
-                        foregroundColor: Colors.deepPurpleAccent,
+                        foregroundColor: Colors.black87,
                         textStyle: const TextStyle(fontFamily: 'Eczar'),
-                        side: const BorderSide(color: Colors.deepPurpleAccent),
+                        side: const BorderSide(color: Colors.black87),
                         padding: const EdgeInsets.symmetric(
-                            vertical: 12, horizontal: 35),
+                          vertical: 12,
+                          horizontal: 35,
+                        ),
                       ),
                     ),
                   ),
@@ -134,6 +183,50 @@ class Sampradaya4 extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildStyledText(String text, {bool isHighlight = false}) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontFamily: 'Eczar',
+        fontSize: isHighlight ? 18 : 16,
+        fontWeight: isHighlight ? FontWeight.bold : FontWeight.normal,
+        color: isHighlight ? Colors.black87 : Colors.black87,
+        height: 1.5,
+      ),
+    );
+  }
+
+  Widget _buildBulletSection({required String title, required List<String> items}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (title.isNotEmpty)
+          Text(
+            title,
+            style: const TextStyle(
+              fontFamily: 'Eczar',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
+          ),
+        const SizedBox(height: 10),
+        ...items.map((item) => Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5.0),
+          child: Text(
+            '• $item',
+            style: const TextStyle(
+              fontFamily: 'Eczar',
+              fontSize: 16,
+              height: 1.4,
+              color: Colors.black87,
+            ),
+          ),
+        )),
+      ],
     );
   }
 

@@ -7,8 +7,6 @@ import 'package:iksha/colours.dart';
 import 'package:iksha/home.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'localeprovider.dart';
 
 
@@ -35,8 +33,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      localizationsDelegates:  const [
-        AppLocalizations.delegate,
+      localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -45,6 +42,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: const [
         Locale('en'),
         Locale('hi'),
+        Locale('mr'),
       ],
       theme: ThemeData(
         elevatedButtonTheme: ElevatedButtonThemeData(
