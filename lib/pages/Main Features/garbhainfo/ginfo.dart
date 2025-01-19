@@ -98,11 +98,11 @@ class _GinfoState extends State<Ginfo> {
                     flex: 1,
                     child: Text(
                       "The term Garbhsanskar is often heard these days, "
-                      "but most people only have a superficial understanding of it. "
-                      "\nLiterally, it means the sanskars (values or influences) "
-                      "imparted to the fetus in the womb. However, what kind of "
-                      "sanskars can be imparted to the fetus, and how? What is their significance, "
-                      "and why are they necessary? It's essential to understand these aspects.",
+                          "but most people only have a superficial understanding of it. "
+                          "\nLiterally, it means the sanskars (values or influences) "
+                          "imparted to the fetus in the womb. However, what kind of "
+                          "sanskars can be imparted to the fetus, and how? What is their significance, "
+                          "and why are they necessary? It's essential to understand these aspects.",
                       style: TextStyle(fontFamily: "Eczar", fontSize: 15),
                     ),
                   ),
@@ -158,7 +158,7 @@ class _GinfoState extends State<Ginfo> {
             ),
             const ToggleInfoWidget(
                 text:
-                    "In practice and Ayurveda, this samskāra is described as a ritual for achieving the desired gender of the child. "
+                "In practice and Ayurveda, this samskāra is described as a ritual for achieving the desired gender of the child. "
                     "It is performed to determine whether the unborn child should be male or female. However, the Vedas suggest that "
                     "this samskāra should be performed for everyone with the intention of obtaining a virtuous and radiant child. "
                     "\nHence, it is advised that this ritual be performed in the second, fourth, sixth, or eighth month of pregnancy."
@@ -187,7 +187,7 @@ class _GinfoState extends State<Ginfo> {
             ),
             const ToggleInfoWidget(
                 text:
-                    "The ancient sciences revealed that the gender of the fetus could be influenced, making this knowledge accessible to all.In today's society, the ratio of males to females has become imbalanced. The number of females is decreasing rapidly, creating a serious concern for the future.In ancient times, the number of females was greater than males. Boys were given more importance, partly because males frequently lost their lives in wars or during long journeys. However, in the current scenario, there is no necessity to perform Puṁsavana purely for ensuring a male child.That said, Puṁsavana is not limited to altering gender; it has greater benefits, such as ensuring the radiance, virtues, and well-being of the fetus. It also helps prevent genetic defects (genetic disorders) and protects the fetus."),
+                "The ancient sciences revealed that the gender of the fetus could be influenced, making this knowledge accessible to all.In today's society, the ratio of males to females has become imbalanced. The number of females is decreasing rapidly, creating a serious concern for the future.In ancient times, the number of females was greater than males. Boys were given more importance, partly because males frequently lost their lives in wars or during long journeys. However, in the current scenario, there is no necessity to perform Puṁsavana purely for ensuring a male child.That said, Puṁsavana is not limited to altering gender; it has greater benefits, such as ensuring the radiance, virtues, and well-being of the fetus. It also helps prevent genetic defects (genetic disorders) and protects the fetus."),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -215,13 +215,13 @@ class _GinfoState extends State<Ginfo> {
               children: <Widget>[
                 _audioUrl.isNotEmpty
                     ? IconButton(
-                        icon: Icon(
-                          _isPlaying ? Icons.pause_circle : Icons.play_circle,
-                          size: 50,
-                          color: iconcolor,
-                        ),
-                        onPressed: _togglePlayPause,
-                      )
+                  icon: Icon(
+                    _isPlaying ? Icons.pause_circle : Icons.play_circle,
+                    size: 50,
+                    color: iconcolor,
+                  ),
+                  onPressed: _togglePlayPause,
+                )
                     : const CircularProgressIndicator(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

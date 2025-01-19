@@ -167,6 +167,9 @@
   "option_12_1": "Achieving self-realization",
   "option_12_2": "Making the world a better place",
   "option_12_3": "Union with God",
+  "quiz": "Quiz",
+  "yoga_quiz_title" :"Yoga Path Quiz",
+  "yoga_quiz_desc" : "\nThis quiz offers an engaging and interactive way for users to explore their recommended path of Yoga based on their preferences and values.\n\nBy answering a series of houghtfully crafted questions, users receive a personalized result highlighting the Yoga path\nJnana, Karma, or Bhakti\nthat resonates most with their choices.\n",
 
 "@fetch_error_message": {
     "description": "Error message displayed when username fetching fails.",

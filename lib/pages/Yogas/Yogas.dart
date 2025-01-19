@@ -24,14 +24,13 @@ class _YogasState extends State<Yogas> {
   void handleClick(BuildContext context, String value) {
     switch (value) {
       case 'About Yoga':
-      // Example: Navigate to a Logout confirmation screen
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const AboutYoga()),
         );
         break;
       case 'Quiz':
-      // Example: Navigate to a Settings screen
+        // Example: Navigate to a Settings screen
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const YogaQuizScreen()),
@@ -50,7 +49,7 @@ class _YogasState extends State<Yogas> {
         appBar: AppBar(
           backgroundColor: background,
           centerTitle: true,
-          title:  Text(
+          title: Text(
             localizations?.yoga_title ?? "Yoga",
             textAlign: TextAlign.center,
             style: const TextStyle(
@@ -60,7 +59,7 @@ class _YogasState extends State<Yogas> {
             tabs: [
               Tab(text: localizations?.karmaYoga_title ?? 'Karma'),
               Tab(text: localizations?.bhaktiYoga_title ?? 'Bhakti'),
-              Tab(text: localizations?.jnana_title ??'Dnyan'),
+              Tab(text: localizations?.jnana_title ?? 'Dnyan'),
             ],
             labelStyle: const TextStyle(
                 fontFamily: 'Eczar', fontSize: 17, fontWeight: FontWeight.w600),
@@ -71,24 +70,32 @@ class _YogasState extends State<Yogas> {
             PopupMenuButton<String>(
               onSelected: (value) => handleClick(context, value),
               itemBuilder: (BuildContext context) {
+                final localizations = AppLocalizations.of(context);
                 return [
-                  const PopupMenuItem<String>(
+                  PopupMenuItem<String>(
                     value: 'About Yoga',
                     child: Row(
                       children: [
-                        Icon(Icons.info_outline, color: Colors.black54),
-                        SizedBox(width: 8),
-                        Text('About Yoga'),
+                        const Icon(Icons.info_outline, color: Colors.black54),
+                        const SizedBox(width: 8),
+                        Text(
+                          localizations?.yoga_title ?? 'About Yoga',
+                          style: const TextStyle(fontFamily: "Eczar"),
+                        ),
                       ],
                     ),
                   ),
-                  const PopupMenuItem<String>(
+                  PopupMenuItem<String>(
                     value: 'Quiz',
                     child: Row(
                       children: [
-                        Icon(Icons.question_mark_sharp, color: Colors.black54),
-                        SizedBox(width: 8),
-                        Text('Quiz'),
+                        const Icon(Icons.question_mark_sharp,
+                            color: Colors.black54),
+                        const SizedBox(width: 8),
+                        Text(
+                          localizations?.quiz ?? 'Quiz',
+                          style: const TextStyle(fontFamily: "Eczar"),
+                        ),
                       ],
                     ),
                   ),

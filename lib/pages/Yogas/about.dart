@@ -13,6 +13,9 @@ class _AboutYogaState extends State<AboutYoga> {
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
     final currentLocale = Localizations.localeOf(context).languageCode;
+    String getText(String locale, String defaultText, String hindiText) {
+      return locale == 'hi' ? hindiText : defaultText;
+    }
     return AlertDialog(
       title:  Text(
         localizations?.what_is_yoga?? 'What is Yoga ?',
@@ -34,12 +37,12 @@ class _AboutYogaState extends State<AboutYoga> {
                   '\n\nAnd once we accomplish the Sādhyam, we will be become Siddhāhā. So, Sādhaka through Sādhanā should attain Sādhyam and thus become Siddha. Sādhaka to Siddha is the journey of life. Siddha is not related to miraculous powers. Siddha is one who is totally at home with himself. '
                   '\n\nAnd this entire course of Sādhanā is broadly classified or divided into three levels or segments for the convenience of understanding and practice. Each level being called a Yogaha.'
                   '\n\nThe very word Yoga meant that which links the Sādhaka and the Sādhyam – the seeker and the sought. Yoga is derived from the root Yuj – to combine or unite. Unite the Sādhaka and Sādhyam.\n',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: 'Eczar',
                     fontSize: 14,
                   ),
                 ),
-                Text(
+                const Text(
                     "युज्यते साध्येन सह \nसाधकः येन सह साधना",
                     style: TextStyle(
                       fontFamily: 'Eczar',
@@ -54,7 +57,7 @@ class _AboutYogaState extends State<AboutYoga> {
       actions: <Widget>[
         TextButton(
           onPressed: () => Navigator.pop(context, 'OK'),
-          child: const Text('OK'),
+          child:  Text(getText(currentLocale, "OK", "ठीक है"),style: const TextStyle(fontFamily: 'Eczar'),),
         ),
       ],
     );
