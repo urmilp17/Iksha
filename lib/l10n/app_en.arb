@@ -183,7 +183,11 @@
   "ritual_3_desc":"Sankalp means – express the purpose for which this sanskar is being performed. The statement of the aim while performing this sanskar is called Sankalp Karna. Sankalp is done while performing any sanskar, work or ritual.",
   "philosophy":"Philosphy",
   "philosophy_desc":"Listening to Atmagyan (self-knowledge) during \npregnancy is crucial as it calms the mind, reduces \nstress and anxiety, and promotes emotional well-being.\n\nThis positivity is transmitted to the fetus, \nshaping its personality and intellect. It also \nprepares the expectant mother for \na mindful and joyful parenthood experience.\n\nThis soothing audio excerpt from Swami Sarvapriyananda's enlightening lecture on 'Our Real Nature', where he explains the profound concept of Atmagyan in a simple and accessible manner, delivered in his calming and serene voice.",
-"@fetch_error_message": {
+  "devotional":"During pregnancy, devotion plays a vital role in nurturing a positive and calm environment. It helps the expectant mother connect with the divine, reducing stress and anxiety. A devoted mindset fosters emotional well-being, benefiting both the mother and the unborn child's spiritual growth.\n\nNurture Your Spirit: A Guiding Resource \nfor Devotion During Pregnancy.\n\nDownload this insightful PDF guide, specially designed to support expectant mothers on their spiritual journey. Discover practical tips and inspiration to cultivate devotion, inner peace, and a deeper connection with yourself and your unborn child.\n",
+  "download": "Download",
+  "ayurvedic": "Ayurvedic",
+  "ayurvedic_desc": "During pregnancy, following an Ayurvedic diet is crucial for a healthy mother and baby. It helps maintain digestive balance, boosts immunity, and ensures optimal nutrient absorption. \n\nA customized Ayurvedic diet also alleviates pregnancy-related discomforts, promoting a smooth and joyful gestation period. \nDownload Your Free PDF Guide: Ayurvedic Nutrition & Precautions for a Healthy Pregnancy, Month by Month\n",
+  "@fetch_error_message": {
     "description": "Error message displayed when username fetching fails.",
     "placeholders": {
       "error": {
