@@ -100,14 +100,19 @@ class RajasPage extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Text(
-                  "- Restlessness and constant activity.\n"
                       "- Desire for material success and recognition.\n"
-                      "- High energy and ambition.\n"
-                      "- Anxiety and dissatisfaction when goals are unmet.",
+                      "- Anxiety and dissatisfaction when goals are unmet.\n"
+                      "- Inability to focus or calm the mind, constantly jumping between thoughts.\n"
+                      "- A constant drive to achieve more, often leading to burnout.\n"
+                      "- Getting easily frustrated or upset by setbacks.\n"
+                      "- An overwhelming urge to speak without pause, often due to anxiety or excitement.\n"
+                      "- An unending desire for external validation.\n"
+                      "- Making decisions quickly without considering the long-term consequences.\n"
+                      "- Over-prioritizing material success and wealth.\n",
                   style: TextStyle(
                     fontSize: 16,
                     fontFamily: "Eczar",
-                    height: 1.5,
+                    height: 1.7,
                     color: Colors.black,
                   ),
                 ),

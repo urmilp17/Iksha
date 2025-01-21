@@ -24,45 +24,126 @@ class TamasPage extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(height: 16),
               // Title
               const Text(
-                "V_",
-                style: TextStyle(fontFamily: "Deva", fontSize: 45,
+                "Tamas (Inertia and Ignorance)",
+                style: TextStyle(
+                  fontFamily: "Eczar",
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              // Description
+              const SizedBox(height: 16),
+              // Introduction
               const Text(
-                "The word means “light”, “goodness” and “purity” in Sanskrit.",
+                "Tamas is the guna of darkness, inertia, and ignorance. It brings lethargy, confusion, and resistance to change, leading to stagnation and delusion.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 18,
                   fontFamily: "Eczar",
+                  height: 1.5,
                 ),
               ),
-              // const SizedBox(height: 16),
-              // Detailed Information
+              const SizedBox(height: 16),
+              // Shlok
+              const Text(
+                "Shlok",
+                style: TextStyle(
+                  fontFamily: "Eczar",
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                '"Tamah pramade sanjayatyuta" \n(Bhagavad Gita 14.9)',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontFamily: "Eczar",
+                  fontStyle: FontStyle.italic,
+                  color: Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 16),
+              // Meaning
+              const Text(
+                "Meaning",
+                style: TextStyle(
+                  fontFamily: "Eczar",
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                "Tamas binds one to ignorance and delusion. It clouds judgment, causing lethargy, confusion, and indulgence in destructive habits.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontFamily: "Eczar",
+                  height: 1.5,
+                ),
+              ),
+              const SizedBox(height: 16),
+              // Symptoms
+              const Text(
+                "Symptoms",
+                style: TextStyle(
+                  fontFamily: "Eczar",
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 8),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Text(
-                  "One of the aspects of Sattva guna is cleanliness, and taking good care of oneself. Keep your body clean, but also – keep your home clean.\nLiving in a tidy home has a positive impact on our mood. Also, the act of cleaning itself can help us get rid of not only physical but also mental clutter.",
+                      "- Attraction to destructive or harmful behaviors.\n"
+                      "- Attraction to destructive or harmful behaviors.\n"
+                      "- Lack of motivation and apathy towards personal goals.\n"
+                      "- Difficulty focusing or comprehending simple tasks (mental fog).\n"
+                      "- Avoidance of responsibility or decision-making.\n"
+                      "- Tendency to dwell on negative thoughts without clear reason.\n"
+                      "- Extreme fear or resistance to change or new experiences.\n"
+                      "- Seeking distractions or addictions to avoid facing reality.\n"
+                      "- Feelings of depression or hopelessness about the future.\n",
                   style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: "Eczar",
                     fontSize: 16,
+                    fontFamily: "Eczar",
                     height: 1.5,
+                    color: Colors.black,
                   ),
                 ),
               ),
               const SizedBox(height: 16),
-              // Example Section
+              // How to Overcome Tamas
               const Text(
-                "Example",
+                "How to Overcome Tamas",
                 style: TextStyle(
                   fontFamily: "Eczar",
-                  fontSize: 18,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              const SizedBox(height: 8),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Text(
+                  "1. Engage in regular physical activity to break inertia.\n"
+                      "2. Consume fresh and healthy food; avoid processed or stale food.\n"
+                      "3. Practice meditation to develop mental clarity.\n"
+                      "4. Surround yourself with positive and inspiring individuals.",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: "Eczar",
+                    height: 1.5,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
             ],
           ),
         ),
@@ -70,6 +151,7 @@ class TamasPage extends StatelessWidget {
     );
   }
 }
+
 void main() {
   runApp(const MaterialApp(
     home: TamasPage(),
