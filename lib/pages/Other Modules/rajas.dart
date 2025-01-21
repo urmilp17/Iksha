@@ -24,49 +24,121 @@ class RajasPage extends StatelessWidget {
                   ),
                 ),
               ),
-              // const SizedBox(height: 16),
               // Title
+              const SizedBox(height: 16),
               const Text(
-                "aO",
+                "Rajas (Activity and Passion)",
                 style: TextStyle(
-                  fontFamily: "Deva",
-                  fontSize: 45,
+                  fontFamily: "Eczar",
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              // const SizedBox(height: 16),
-              // Description
+              const SizedBox(height: 16),
+              // Introduction
               const Text(
-                "The word means “light”, “goodness” and “purity” in Sanskrit.",
+                "Rajas represents energy, passion, and activity. It drives ambition, effort, and desires, but can lead to restlessness and attachment to outcomes.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 18,
                   fontFamily: "Eczar",
+                  height: 1.5,
                 ),
               ),
-              // const SizedBox(height: 16),
-              // Detailed Information
+              const SizedBox(height: 16),
+              // Shlok
+              const Text(
+                "Shlok",
+                style: TextStyle(
+                  fontFamily: "Eczar",
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                '"Rajah karmani bharata" \n(Bhagavad Gita 14.9)',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontFamily: "Eczar",
+                  fontStyle: FontStyle.italic,
+                  color: Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 16),
+              // Meaning
+              const Text(
+                "Meaning",
+                style: TextStyle(
+                  fontFamily: "Eczar",
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                "Rajas binds one to activity and desires. It fuels ambition and dynamism but can result in agitation and dissatisfaction due to unfulfilled cravings.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontFamily: "Eczar",
+                  height: 1.5,
+                ),
+              ),
+              const SizedBox(height: 16),
+              // Symptoms
+              const Text(
+                "Symptoms",
+                style: TextStyle(
+                  fontFamily: "Eczar",
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 8),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Text(
-                  "One of the aspects of Sattva guna is cleanliness, and taking good care of oneself. Keep your body clean, but also – keep your home clean.\nLiving in a tidy home has a positive impact on our mood. Also, the act of cleaning itself can help us get rid of not only physical but also mental clutter.",
+                  "- Restlessness and constant activity.\n"
+                      "- Desire for material success and recognition.\n"
+                      "- High energy and ambition.\n"
+                      "- Anxiety and dissatisfaction when goals are unmet.",
                   style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: "Eczar",
                     fontSize: 16,
+                    fontFamily: "Eczar",
                     height: 1.5,
+                    color: Colors.black,
                   ),
                 ),
               ),
               const SizedBox(height: 16),
-              // Example Section
+              // How to Balance Rajas
               const Text(
-                "Example",
+                "How to Balance Rajas",
                 style: TextStyle(
                   fontFamily: "Eczar",
-                  fontSize: 18,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              const SizedBox(height: 8),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Text(
+                  "1. Practice yoga and pranayama to calm the mind.\n"
+                      "2. Avoid overstimulation and excessive desires.\n"
+                      "3. Focus on detaching from the results of actions.\n"
+                      "4. Meditate regularly to cultivate inner peace.",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: "Eczar",
+                    height: 1.5,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
             ],
           ),
         ),
