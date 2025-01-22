@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:iksha/colours.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:url_launcher/url_launcher.dart';
+// import 'package:file_picker/file_picker.dart';
+// import 'package:path_provider/path_provider.dart';
+// import 'package:dio/dio.dart';
+// import 'package:permission_handler/permission_handler.dart';
 
 class Ginfo extends StatefulWidget {
   const Ginfo({super.key});
@@ -20,6 +25,9 @@ class _GinfoState extends State<Ginfo> {
       'https://firebasestorage.googleapis.com/v0/b/iksha-324658.firebasestorage.app/o/Other%2Fgarbha1.MP3?alt=media&token=b9343e28-7cfb-4f69-8119-6de32360ffab';
   final String _audioUrlhi =
       "https://firebasestorage.googleapis.com/v0/b/iksha-324658.firebasestorage.app/o/Other%2Fgarbha_hi.MP3?alt=media&token=cd6f1181-3c67-4f13-a041-3fa668097ab3";
+  final String fileUrl =
+      "https://firebasestorage.googleapis.com/v0/b/iksha-324658.firebasestorage.app/o/Other%2FGarbha_Spritual.pdf?alt=media&token=656c501c-d060-4e1f-b31a-606deba0717e";
+
   @override
   void initState() {
     super.initState();
@@ -363,7 +371,7 @@ class _GinfoState extends State<Ginfo> {
                 ),
                 child: Center(
                   child: Text(
-                    localizations?.philosophy ?? "Devotion",
+                    localizations?.bhaktiYoga_title ?? "Devotion",
                     style: TextStyle(
                         fontFamily: "Eczar",
                         color: iconcolor,
@@ -373,6 +381,131 @@ class _GinfoState extends State<Ginfo> {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14),
+              child: Text(
+                localizations?.devotional ??
+                    "During pregnancy, devotion plays a vital role in nurturing a positive and calm environment. It helps the expectant mother connect with the divine, reducing stress and anxiety. A devoted mindset fosters emotional well-being, benefiting both the mother and the unborn child's spiritual growth.\n\nNurture Your Spirit: A Guiding Resource \nfor Devotion During Pregnancy.\n\nDownload this insightful PDF guide, specially designed to support expectant mothers on their spiritual journey. Discover practical tips and inspiration to cultivate devotion, inner peace, and a deeper connection with yourself and your unborn child.\n",
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontFamily: "Eczar", fontSize: 12),
+              ),
+            ),
+            Center(
+              child: GestureDetector(
+                onTap: () async {
+                  final dwload = getText(
+                      currentLocale,
+                      'https://firebasestorage.googleapis.com/v0/b/iksha-324658.firebasestorage.app/o/Other%2FGarbha_Spritual.pdf?alt=media&token=656c501c-d060-4e1f-b31a-606deba0717e',
+                      'https://firebasestorage.googleapis.com/v0/b/iksha-324658.firebasestorage.app/o/Other%2FGarbha_Spritual_Hi.pdf?alt=media&token=5d86e6e2-f03c-4a01-8db3-2ae60a69504d');
+
+                  final Uri uri = Uri.parse(dwload);
+
+                  if (await launchUrl(uri)) {
+                    try {
+                      await launchUrl(
+                        uri,
+                        mode: LaunchMode
+                            .externalApplication, // Try other modes if this fails
+                      );
+                      print('Successfully launched $dwload');
+                    } catch (e) {
+                      print('Error while launching: $e');
+                    }
+                  } else {
+                    print('No application available to handle $dwload');
+                    throw 'Could not launch $dwload';
+                  }
+                },
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: iconcolor,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    localizations?.download ?? "Download",
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: "Eczar"),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10,),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                width: double.maxFinite,
+                height: 32,
+                decoration: BoxDecoration(
+                  color: background,
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                child: Center(
+                  child: Text(
+                    localizations?.ayurvedic ??"Ayurvedic",
+                    style: TextStyle(
+                        fontFamily: "Eczar",
+                        color: iconcolor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ),
+            ),
+             Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14),
+              child: Text(
+                localizations?.ayurvedic_desc ??"During pregnancy, following an Ayurvedic diet is crucial for a healthy mother and baby. It helps maintain digestive balance, boosts immunity, and ensures optimal nutrient absorption. \n\nA customized Ayurvedic diet also alleviates pregnancy-related discomforts, promoting a smooth and joyful gestation period. \nDownload Your Free PDF Guide: Ayurvedic Nutrition & Precautions for a Healthy Pregnancy, Month by Month\n",
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontFamily: "Eczar", fontSize: 12),
+              ),
+            ),
+            Center(
+              child: GestureDetector(
+                onTap: () async {
+                  final dwload = getText(
+                      currentLocale,
+                      'https://firebasestorage.googleapis.com/v0/b/iksha-324658.firebasestorage.app/o/Other%2FGarbha.pdf?alt=media&token=99810252-25e2-4906-83f9-5dec19da44a4',
+                      'https://firebasestorage.googleapis.com/v0/b/iksha-324658.firebasestorage.app/o/Other%2FGarbha-Hi..pdf?alt=media&token=0b54e54c-9354-4db5-b964-75ef8d6e71ef');
+                  final Uri uri = Uri.parse(dwload);
+
+                  if (await launchUrl(uri)) {
+                    try {
+                      await launchUrl(
+                        uri,
+                        mode: LaunchMode
+                            .externalApplication, // Try other modes if this fails
+                      );
+                      print('Successfully launched $dwload');
+                    } catch (e) {
+                      print('Error while launching: $e');
+                    }
+                  } else {
+                    print('No application available to handle $dwload');
+                    throw 'Could not launch $dwload';
+                  }
+                },
+                child: Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: iconcolor,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    localizations?.download ?? "Download",
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: "Eczar"),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10,),
           ],
         ),
       ),

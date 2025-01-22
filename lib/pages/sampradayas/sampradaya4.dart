@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../colours.dart';
+
+import '../../colours.dart';
 
 class Sampradaya4 extends StatelessWidget {
   const Sampradaya4({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
     return Scaffold(
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -55,9 +61,9 @@ class Sampradaya4 extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const Text(
-                    'Ganpatya',
-                    style: TextStyle(
+                   Text(
+                    localizations?.ganpatya ??'Ganpatya',
+                    style: const TextStyle(
                       fontFamily: 'Eczar',
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -71,12 +77,12 @@ class Sampradaya4 extends StatelessWidget {
                     isHighlight: true,
                   ),
                   const SizedBox(height: 15),
-                  const Text(
-                    'When Lord Ganesha says in his Gita, the atrocities of the demons increase, '
+                  Text(
+                    localizations?.gan_info_1 ??'When Lord Ganesha says in his Gita, the atrocities of the demons increase, '
                         'and at that time, the Lord Himself takes the form of Sagun-Sakar incarnation, performing war-like pastimes. '
                         'But in the present Kali Yuga, or in the history of the world, there are often no such direct demons on earth. '
                         'The gods are in heaven, and the demons are in Patala, performing their duties peacefully.',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: 'Eczar',
                       fontSize: 16,
                       height: 1.5,
@@ -84,26 +90,26 @@ class Sampradaya4 extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   _buildStyledText(
-                    'Therefore, the Lord does not need to take such an incarnation. However, even when the gods and demons are peaceful in their respective places, a third component, the human, behaves strangely. '
+                    localizations?.gan_info_2 ??'Therefore, the Lord does not need to take such an incarnation. However, even when the gods and demons are peaceful in their respective places, a third component, the human, behaves strangely. '
                         'Some humans try to become god-like through their good deeds, while others behave more horribly than demons. '
                         'At such times, there is no need to kill them physically. The task is to transform their distorted thoughts into good ones. '
                         'Therefore, when the Lord takes a human incarnation at such times, it is called "Shri Guru".',
                   ),
                   const SizedBox(height: 20),
                   _buildBulletSection(
-                    title: 'According to the Ganapatya tradition:',
+                    title: localizations?.gan_info_title ??'According to the Ganapatya tradition:',
                     items: [
-                      'Pasha/Ganesh - incarnated as Shri Guru Ganakacharya',
-                      'Kamala/Brahma - incarnated as Shri Guru Bhrigu',
-                      'Ankush/Vishnu - incarnated as Shri Guru Vyas',
-                      'Mudgara/Surya - incarnated as Shri Guru Mudgalacharya',
-                      'Parasu/Shiva - incarnated as Shri Guru Shukacharya',
+                      localizations?.gan_info_title_1 ??'Pasha/Ganesh - incarnated as Shri Guru Ganakacharya',
+                      localizations?.gan_info_title_2 ??'Kamala/Brahma - incarnated as Shri Guru Bhrigu',
+                      localizations?.gan_info_title_3 ??'Ankush/Vishnu - incarnated as Shri Guru Vyas',
+                      localizations?.gan_info_title_4 ??'Mudgara/Surya - incarnated as Shri Guru Mudgalacharya',
+                      localizations?.gan_info_title_5 ??'Parasu/Shiva - incarnated as Shri Guru Shukacharya',
                     ],
                   ),
                   const SizedBox(height: 20),
-                  const Text(
-                    'The incarnations of Guru Panchaka in Kali Yuga:',
-                    style: TextStyle(
+                   Text(
+                    localizations?.gan_info_title_1_ ??'The incarnations of Guru Panchaka in Kali Yuga:',
+                    style: const TextStyle(
                       fontFamily: 'Eczar',
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -114,17 +120,17 @@ class Sampradaya4 extends StatelessWidget {
                   _buildBulletSection(
                     title: '',
                     items: [
-                      'Shri Guru Ganakacharya - incarnated as Gaudapadacharya',
-                      'Shri Guru Mudgalacharya - incarnated as Ganeshyogindra',
-                      'Shri Guru Shukacharya - incarnated as Shankaracharya',
-                      'Shri Guru Vyas - incarnated as Girijasuta',
-                      'Shri Guru Bhrigu - incarnated as Brahmananda',
+                      localizations?.gan_info_title_1_1 ??'Shri Guru Ganakacharya - incarnated as Gaudapadacharya',
+                      localizations?.gan_info_title_1_2 ??'Shri Guru Mudgalacharya - incarnated as Ganeshyogindra',
+                      localizations?.gan_info_title_1_3 ??'Shri Guru Shukacharya - incarnated as Shankaracharya',
+                      localizations?.gan_info_title_1_4 ??'Shri Guru Vyas - incarnated as Girijasuta',
+                      localizations?.gan_info_title_1_5 ??'Shri Guru Bhrigu - incarnated as Brahmananda',
                     ],
                   ),
                   const SizedBox(height: 25),
-                  const Text(
-                    'Part of a series of Ganpatya',
-                    style: TextStyle(
+                   Text(
+                    localizations?.gan_head ??'Part of a series of Ganpatya',
+                    style: const TextStyle(
                       fontFamily: 'Eczar',
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
@@ -133,21 +139,21 @@ class Sampradaya4 extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
                   _buildCard(
-                    title: 'Origins and history',
+                    title: localizations?.sampradayas_1??'Origins and history',
                     subtitle:
-                    'The origins of Ganpatya are unclear and a matter of debate among scholars, as it is an amalgam of pre-Vedic cults and traditions and Vedic culture',
+                    localizations?.gan_1 ??'The origins of Ganpatya are unclear and a matter of debate among scholars, as it is an amalgam of pre-Vedic cults and traditions and Vedic culture',
                     imagePath: 'assets/images/testimonial1.jpg',
                   ),
                   _buildCard(
-                    title: 'Beliefs and practices',
+                    title: localizations?.sampradayas_2??'Beliefs and practices',
                     subtitle:
-                    'Ganpatya includes organized worship of Ganesha and deep philosophical traditions, rooted in Hinduism.',
+                    localizations?.gan_2 ??'Ganpatya includes organized worship of Ganesha and deep philosophical traditions, rooted in Hinduism.',
                     imagePath: 'assets/images/testimonial2.jpg',
                   ),
                   _buildCard(
-                    title: 'Traditions',
+                    title: localizations?.sampradayas_3??'Traditions',
                     subtitle:
-                    'Ganpatya is ancient and evolved into multiple traditions over time, blending dualism and monism practices.',
+                    localizations?.gan_3 ??'Ganpatya is ancient and evolved into multiple traditions over time, blending dualism and monism practices. Currently, Mayureshwar Parampara from Morgao,Pune is spreading knowledge and devtion of Ganesha.',
                     imagePath: 'assets/images/testimonial3.jpg',
                   ),
                   const SizedBox(height: 25),
@@ -164,12 +170,12 @@ class Sampradaya4 extends StatelessWidget {
                           throw 'Could not launch $url';
                         }
                       },
-                      icon: const Icon(Icons.info, color: Colors.black87),
+                      icon: Icon(Icons.info, color: iconcolor),
                       label: const Text('Instagram'),
                       style: OutlinedButton.styleFrom(
-                        foregroundColor: Colors.black87,
+                        foregroundColor: iconcolor,
                         textStyle: const TextStyle(fontFamily: 'Eczar'),
-                        side: const BorderSide(color: Colors.black87),
+                        side: BorderSide(color: iconcolor),
                         padding: const EdgeInsets.symmetric(
                           vertical: 12,
                           horizontal: 35,
