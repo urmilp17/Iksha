@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../colours.dart';
 
 class Sampradaya3 extends StatelessWidget {
   const Sampradaya3({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
     return Scaffold(
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -56,18 +60,17 @@ class Sampradaya3 extends StatelessWidget {
                 // Add New Widgets here
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const Text(
-                    'Vaishnavism',
-                    style: TextStyle(
+                  Text(
+                    localizations?.vaishnav ??'Vaishnavism',
+                    style: const TextStyle(
                       fontFamily: 'Eczar',
                       fontSize: 27,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 5),
-                  const Text(
-                    'one of the major Hindu denominations along with Shaivism, Shaktism, and Smartism. It is also called Vishnuism since it considers Vishnu as the sole supreme being leading all other Hindu deities, that is, Mahavishnu. Its followers are called Vaishnavites or Vaishnavas , and it includes sub-sects like Krishnaism and Ramaism, which consider Krishna and Rama as the supreme beings respectively. According to a 2020 estimate by The World Religion Database (WRD), hosted at Boston University’s Institute on Culture, Religion and World Affairs (CURA), Vaishnavism is the largest Hindu sect, constituting about 399 million Hindus.',
-
+                   Text(
+                    localizations?.vaishnav_info ??'One of the major Hindu denominations along with Shaivism, Shaktism, and Smartism. It is also called Vishnuism since it considers Vishnu as the sole supreme being leading all other Hindu deities, that is, Mahavishnu. Its followers are called Vaishnavites or Vaishnavas , and it includes sub-sects like Krishnaism and Ramaism, which consider Krishna and Rama as the supreme beings respectively. According to a 2020 estimate by The World Religion Database (WRD), hosted at Boston University’s Institute on Culture, Religion and World Affairs (CURA), Vaishnavism is the largest Hindu sect, constituting about 399 million Hindus.',
                     style: TextStyle(
                       fontFamily: 'Eczar',
                       fontSize: 16,
@@ -76,9 +79,9 @@ class Sampradaya3 extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 25),
-                  const Text(
-                    'Part of a series of Vaishnavism',
-                    style: TextStyle(
+                   Text(
+                     localizations?.vaishnav_head ??'Part of a series of Vaishnavism',
+                    style: const TextStyle(
                       fontFamily: 'Eczar',
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
@@ -87,21 +90,21 @@ class Sampradaya3 extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
                   _buildCard(
-                    title: 'Origins and history',
+                    title:localizations?.sampradayas_1??'Origins and history',
                     subtitle:
-                        'The ancient emergence of Vaishnavism is unclear, the evidence inconsistent and scanty. Syncretism of various traditions resulted in Vaishnavism. Although Vishnu was a Vedic solar deity, he is mentioned less often compared to Agni, Indra, and other Vedic deities, thereby suggesting that he had a minor position in the Vedic religion.',
+                    localizations?.vaishnav_1 ??'The ancient emergence of Vaishnavism is unclear, the evidence inconsistent and scanty. Syncretism of various traditions resulted in Vaishnavism. Although Vishnu was a Vedic solar deity, he is mentioned less often compared to Agni, Indra, and other Vedic deities, thereby suggesting that he had a minor position in the Vedic religion.',
                     imagePath: 'assets/images/testimonial1.jpg',
                   ),
                   _buildCard(
-                    title: 'Beliefs',
+                    title: localizations?.sampradayas_2??'Beliefs',
                     subtitle:
-                        'Vaishnavism is centred on the devotion of Vishnu and his avatars. According to Schweig, it is a "polymorphic monotheism, i.e. a theology that recognises many forms (ananta rupa) of the one, single unitary divinity," since there are many forms of one original deity, with Vishnu taking many forms.',
+                    localizations?.vaishnav_2 ??'Vaishnavism is centred on the devotion of Vishnu and his avatars. According to Schweig, it is a "polymorphic monotheism, i.e. a theology that recognises many forms (ananta rupa) of the one, single unitary divinity," since there are many forms of one original deity, with Vishnu taking many forms.',
                     imagePath: 'assets/images/testimonial2.jpg',
                   ),
                   _buildCard(
-                    title: 'Traditions',
+                    title: localizations?.sampradayas_3??'Traditions',
                     subtitle:
-                        'The Vaishnavism traditions may be grouped within four sampradayas, each exemplified by a specific Vedic personality. They have been associated with a specific founder, providing the following scheme: Sri Sampradaya (Ramanuja), Brahma Sampradaya (Madhvacharya), Rudra Sampradaya (Vishnuswami, Vallabhacharya), Kumaras Sampradaya (Nimbarka). These four sampradayas emerged in early centuries of the 2nd millennium CE, by the 14th century, influencing and sanctioning the Bhakti movement.',
+                    localizations?.vaishnav_3 ??'The Vaishnavism traditions may be grouped within four sampradayas, each exemplified by a specific Vedic personality. They have been associated with a specific founder, providing the following scheme: Sri Sampradaya (Ramanuja), Brahma Sampradaya (Madhvacharya), Rudra Sampradaya (Vishnuswami, Vallabhacharya), Kumaras Sampradaya (Nimbarka). These four sampradayas emerged in early centuries of the 2nd millennium CE, by the 14th century, influencing and sanctioning the Bhakti movement.',
                     imagePath: 'assets/images/testimonial2.jpg',
                   ),
                   const SizedBox(height: 25),
@@ -111,19 +114,18 @@ class Sampradaya3 extends StatelessWidget {
                         const url =
                             'https://www.instagram.com/ishaivite?igsh=MXIycTB3c3oxMDF1MA==';
                         final Uri uri = Uri.parse(url);
-
                         if (await canLaunchUrl(uri)) {
                           await launchUrl(uri, mode: LaunchMode.externalApplication);
                         } else {
                           throw 'Could not launch $url';
                         }
                       },
-                      icon: const Icon(Icons.info, color: Colors.deepPurpleAccent),
+                      icon: Icon(Icons.info, color: iconcolor),
                       label: const Text('Instagram'),
                       style: OutlinedButton.styleFrom(
-                        foregroundColor: Colors.deepPurpleAccent,
+                        foregroundColor: iconcolor,
                         textStyle: const TextStyle(fontFamily: 'Eczar'),
-                        side: const BorderSide(color: Colors.deepPurpleAccent),
+                        side: BorderSide(color: iconcolor),
                         padding: const EdgeInsets.symmetric(
                             vertical: 12, horizontal: 35),
                       ),
