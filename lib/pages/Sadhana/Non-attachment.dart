@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:iksha/colours.dart';
 class Vairagya extends StatelessWidget {
   const Vairagya({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
     return Scaffold(
       body: Center(
         child: Container(
@@ -26,15 +28,14 @@ class Vairagya extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Header section
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
-                      SizedBox(width: 8),
                       Text(
-                        'What is Vairagya?',
-                        style: TextStyle(
+                        localizations?.what_is_vairagya ??'What is Vairagya?',
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -45,64 +46,42 @@ class Vairagya extends StatelessWidget {
                   ),
                 ],
               ),
-
-              const SizedBox(height: 10),
-
-              // Title
+              const SizedBox(height: 3),
               const Text(
-                ' वैराग्यम् किम् ? '
-                    ' इहस्वर्गभोगेषु इच्छाराहित्यम् ।',
+                'd¡am½`_² [H\$_² ? \nBhñdJ©^moJofw BÀNmam[hË`_² &',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 24,
-                  fontWeight: FontWeight.bold,
+                  fontFamily: "DevaHead"
                 ),
               ),
               const SizedBox(height: 10),
-
-              // Divider (Blue line)
               Container(
                 height: 3,
                 width: 60,
-                color: Colors.blueAccent,
+                color: iconcolor,
               ),
               const SizedBox(height: 10),
-
-              // Content
-              const Text(
-                'What is meant by Vairagya? Vairagya means indifference or disinterest, absence of raaga. Raaga means longing for something, an attachment to it believing that its presence will solve the problem. Vairagya is the absence of such attachment to worldly things, with the false notion that such a thing is required to make one happy. This freedom from raaga, or attachment, is directed towards Kartrtva and Bhoktrtva bhavas of a person. Raaga and desires motivate one towards performing more and more Karma, generating positive and negative karmaphalas. Karmaphala (in a positive sense of punya) must be enjoyed and this leads to the concept of Bhoga. However, while everyone performs karma with an intention of procuring benefits (punya), many times it leads to undesirable phala (papa) which must also be endured and experienced.',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
+              SizedBox(
+                height: 500,
+                child: RawScrollbar(
+                  thumbColor: iconcolor,
+                  thumbVisibility: true,
+                  radius: const Radius.circular(10.0),
+                  child: SingleChildScrollView(
+                    child: Text(
+                      localizations?.vairagya_info??'What is meant by Vairagya? Vairagya means indifference or disinterest, absence of raaga. Raaga means longing for something, an attachment to it believing that its presence will solve the problem. Vairagya is the absence of such attachment to worldly things, with the false notion that such a thing is required to make one happy. This freedom from raaga, or attachment, is directed towards Kartrtva and Bhoktrtva bhavas of a person. Raaga and desires motivate one towards performing more and more Karma, generating positive and negative karmaphalas. Karmaphala (in a positive sense of punya) must be enjoyed and this leads to the concept of Bhoga. However, while everyone performs karma with an intention of procuring benefits (punya), many times it leads to undesirable phala (papa) which must also be endured and experienced.',
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontFamily: "Eczar",
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
                 ),
               ),
-              const SizedBox(height: 20),
 
               // Footer section
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Views count
-                  Row(
-                    children: [
-                      SizedBox(width: 5),
-                      Text(
-                        '         ',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ],
-                  ),
-                  // Social icons (likes and comments)
-                  Row(
-                    children: [
-
-                    ],
-                  ),
-                ],
-              ),
             ],
           ),
         ),

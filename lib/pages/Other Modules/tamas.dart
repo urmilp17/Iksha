@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class TamasPage extends StatelessWidget {
   const TamasPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -27,7 +28,8 @@ class TamasPage extends StatelessWidget {
               const SizedBox(height: 16),
               // Title
               const Text(
-                "Tamas (Inertia and Ignorance)",
+                "Tamas \n(Inertia and Ignorance)",
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: "Eczar",
                   fontSize: 28,
@@ -120,7 +122,7 @@ class TamasPage extends StatelessWidget {
               const SizedBox(height: 16),
               // How to Overcome Tamas
               const Text(
-                "How to Overcome Tamas",
+                "How to Overcome Tamas ?",
                 style: TextStyle(
                   fontFamily: "Eczar",
                   fontSize: 20,

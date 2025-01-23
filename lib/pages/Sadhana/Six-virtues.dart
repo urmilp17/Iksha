@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:iksha/colours.dart';
 
 class ShadSampati extends StatelessWidget {
   const ShadSampati({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
     return Scaffold(
       body: Center(
         child: Container(
-          width: 350, // Adjust width based on your preference
+          width: 350,
           padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
             color: const Color(0xFFFDF5DF),
@@ -26,15 +29,14 @@ class ShadSampati extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Header section
-              const Row(
+               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
-                      SizedBox(width: 8),
                       Text(
-                        'What is Shat-sampatti?',
-                        style: TextStyle(
+                        localizations?.what_is_shad??'What is Shat-sampatti?',
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -45,64 +47,43 @@ class ShadSampati extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
-
-
-              // Title
+              const SizedBox(height: 3),
               const Text(
-                ' शमादिसाधनसम्पत्तिः का ? '
-                    ' शमो दम उपरमस्तितिक्षा श्रद्धा समाधानं च इति ।',
+                'e_m[XgmYZgån[Îm… H\$m ?\ne_mo X_ Cna_pñV[Vjm lÕm g_mYmZ§ M B[V &',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 24,
-                  fontWeight: FontWeight.bold,
+                  fontFamily: "DevaHead"
                 ),
               ),
               const SizedBox(height: 10),
-
               // Divider (Blue line)
               Container(
                 height: 3,
                 width: 60,
-                color: Colors.blueAccent,
+                color: iconcolor,
               ),
               const SizedBox(height: 10),
-
               // Content
-              const Text(
-                'Meaning: What are the Shama etc., six-fold virtues constituting the inner wealth? They are Shama, Dama, Uparama, Titiksha, Shraddha, and Samadhana.'
-                    'These six virtues shape the character of a person. Having these virtues indicates the capability of a Sadhaka to endure, control the mind and senses, concentrate, and finally have unswerving faith in achieving his goal. The six attributes are taken as one unit because they pertain to the various psychological aspects involved in bringing about mental control and discipline.'
-                    'After discrimination dawns on a person, he has awakened to the real purpose of his existence. It moves internally to drive the person to seek more than what he sees in the transient world. However, he has his old traits that distract him. Then comes Vairagya which prompts as an inner restraining voice at every passing appearance.',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                ),
-              ),
-              const SizedBox(height: 20),
-
-              // Footer section
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Views count
-                  Row(
-                    children: [
-                      SizedBox(width: 5),
-                      Text(
-                        '         ',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                        ),
+              SizedBox(
+                height: 500,
+                child: RawScrollbar(
+                  thumbColor: iconcolor,
+                  thumbVisibility: true,
+                  radius: const Radius.circular(10.0),
+                  child: SingleChildScrollView(
+                    child: Text(
+                      localizations?.shad_info ??'Meaning: What are the Shama etc., six-fold virtues constituting the inner wealth? They are Shama, Dama, Uparama, Titiksha, Shraddha, and Samadhana.'
+                          'These six virtues shape the character of a person. Having these virtues indicates the capability of a Sadhaka to endure, control the mind and senses, concentrate, and finally have unswerving faith in achieving his goal. The six attributes are taken as one unit because they pertain to the various psychological aspects involved in bringing about mental control and discipline.'
+                          'After discrimination dawns on a person, he has awakened to the real purpose of his existence. It moves internally to drive the person to seek more than what he sees in the transient world. However, he has his old traits that distract him. Then comes Vairagya which prompts as an inner restraining voice at every passing appearance.',
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontFamily: 'Eczar'
                       ),
-                    ],
+                    ),
                   ),
-                  // Social icons (likes and comments)
-                  Row(
-                    children: [
-                    ],
-                  ),
-                ],
+                ),
               ),
             ],
           ),
@@ -110,11 +91,4 @@ class ShadSampati extends StatelessWidget {
       ),
     );
   }
-}
-
-void main() {
-  runApp(const MaterialApp(
-    home: ShadSampati(),
-    debugShowCheckedModeBanner: false,
-  ));
 }

@@ -27,7 +27,8 @@ class RajasPage extends StatelessWidget {
               // Title
               const SizedBox(height: 16),
               const Text(
-                "Rajas (Activity and Passion)",
+                "Rajas \n(Activity and Passion)",
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: "Eczar",
                   fontSize: 28,
@@ -120,7 +121,7 @@ class RajasPage extends StatelessWidget {
               const SizedBox(height: 16),
               // How to Balance Rajas
               const Text(
-                "How to Balance Rajas",
+                "How to Balance Rajas ?",
                 style: TextStyle(
                   fontFamily: "Eczar",
                   fontSize: 20,
