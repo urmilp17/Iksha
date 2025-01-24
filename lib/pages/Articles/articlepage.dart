@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:iksha/colours.dart';
+import 'package:iksha/internet_service.dart';
+import 'package:open_settings_plus/core/open_settings_plus.dart';
+import 'package:provider/provider.dart';
 import 'articlemodal.dart';
 import 'articletile.dart';
 import 'comment.dart'; // Import the comment page created earlier
@@ -68,7 +71,9 @@ class _ArticlesPageState extends State<ArticlesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final isConnectedToInternet =
+        Provider.of<InternetConnectionService>(context).isConnectedToInternet;
+    return isConnectedToInternet ? Scaffold(
       appBar: AppBar(
         backgroundColor: background,
         title: const Text(
@@ -91,6 +96,64 @@ class _ArticlesPageState extends State<ArticlesPage> {
             final article = displayedArticles[index];
             return ArtiTitle(article: article);
           },
+        ),
+      ),
+    ):Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.wifi_off, // No connection icon
+              size: 80,
+              color: Colors.grey,
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'No Wifi or Cellular Data',
+              style: TextStyle(
+                fontFamily: 'Eczar',
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 10),
+            const Text(
+              'Unable to load articles.\nPlease check your connection and try again.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'Eczar',
+                fontSize: 16,
+                color: Colors.grey,
+              ),
+            ),
+            const SizedBox(height: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    final settings = OpenSettingsPlus.shared;
+                    if (settings is OpenSettingsPlusAndroid) {
+                      settings.wifi();
+                    } else if (settings is OpenSettingsPlusIOS) {
+                      settings.wifi();
+                    } else {
+                      throw Exception('Platform not supported');
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  ), // Exits the app
+                  child: const Text(
+                    'Settings',
+                    style: TextStyle(fontFamily: 'Eczar'),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

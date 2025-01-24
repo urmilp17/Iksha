@@ -8,6 +8,7 @@ import 'package:iksha/colours.dart';
 import 'package:iksha/home.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:iksha/internet_service.dart';
 import 'localeprovider.dart';
 
 
@@ -18,8 +19,11 @@ void main() async {
   );
   //await dotenv.load(fileName: ".env");
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => LocaleProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => LocaleProvider()),
+        ChangeNotifierProvider(create: (_) => InternetConnectionService()),
+      ],
       child: const MyApp(),
     ),
   );

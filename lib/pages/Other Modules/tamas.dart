@@ -27,10 +27,10 @@ class TamasPage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               // Title
-              const Text(
-                "Tamas \n(Inertia and Ignorance)",
+               Text(
+                localizations?.tamas_title??"Tamas \n(Inertia and Ignorance)",
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: "Eczar",
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
@@ -38,10 +38,10 @@ class TamasPage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               // Introduction
-              const Text(
-                "Tamas is the guna of darkness, inertia, and ignorance. It brings lethargy, confusion, and resistance to change, leading to stagnation and delusion.",
+               Text(
+                 localizations?.tamas_desc??"Tamas is the guna of darkness, inertia, and ignorance. It brings lethargy, confusion, and resistance to change, leading to stagnation and delusion.",
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                   fontFamily: "Eczar",
                   height: 1.5,
@@ -49,19 +49,19 @@ class TamasPage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               // Shlok
-              const Text(
-                "Shlok",
-                style: TextStyle(
+               Text(
+                 localizations?.shlok??"Shlok",
+                style: const TextStyle(
                   fontFamily: "Eczar",
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 8),
-              const Text(
-                '"Tamah pramade sanjayatyuta" \n(Bhagavad Gita 14.9)',
+               Text(
+                 localizations?.shlok_t??'"Tamah pramade sanjayatyuta" \n(Bhagavad Gita 14.9)',
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                   fontFamily: "Eczar",
                   fontStyle: FontStyle.italic,
@@ -70,19 +70,19 @@ class TamasPage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               // Meaning
-              const Text(
-                "Meaning",
-                style: TextStyle(
+              Text(
+                localizations?.meaning??"Meaning",
+                style: const TextStyle(
                   fontFamily: "Eczar",
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 8),
-              const Text(
-                "Tamas binds one to ignorance and delusion. It clouds judgment, causing lethargy, confusion, and indulgence in destructive habits.",
+               Text(
+                localizations?.shlok_tm??"Tamas binds one to ignorance and delusion. It clouds judgment, causing lethargy, confusion, and indulgence in destructive habits.",
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                   fontFamily: "Eczar",
                   height: 1.5,
@@ -90,19 +90,19 @@ class TamasPage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               // Symptoms
-              const Text(
-                "Symptoms",
-                style: TextStyle(
+               Text(
+                 localizations?.symptoms??"Symptoms",
+                style: const TextStyle(
                   fontFamily: "Eczar",
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 8),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+               Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Text(
-                      "- Attraction to destructive or harmful behaviors.\n"
+                  localizations?.tamas_sym??"- Attraction to destructive or harmful behaviors.\n"
                       "- Attraction to destructive or harmful behaviors.\n"
                       "- Lack of motivation and apathy towards personal goals.\n"
                       "- Difficulty focusing or comprehending simple tasks (mental fog).\n"
@@ -111,7 +111,7 @@ class TamasPage extends StatelessWidget {
                       "- Extreme fear or resistance to change or new experiences.\n"
                       "- Seeking distractions or addictions to avoid facing reality.\n"
                       "- Feelings of depression or hopelessness about the future.\n",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontFamily: "Eczar",
                     height: 1.5,
@@ -121,23 +121,23 @@ class TamasPage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               // How to Overcome Tamas
-              const Text(
-                "How to Overcome Tamas ?",
-                style: TextStyle(
+               Text(
+                 localizations?.tamas_how??"How to Overcome Tamas ?",
+                style: const TextStyle(
                   fontFamily: "Eczar",
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 8),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+               Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Text(
-                  "1. Engage in regular physical activity to break inertia.\n"
+                  localizations?.tamas_how_??"1. Engage in regular physical activity to break inertia.\n"
                       "2. Consume fresh and healthy food; avoid processed or stale food.\n"
                       "3. Practice meditation to develop mental clarity.\n"
                       "4. Surround yourself with positive and inspiring individuals.",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontFamily: "Eczar",
                     height: 1.5,

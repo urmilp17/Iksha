@@ -1,25 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:iksha/colours.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: Colors.blueAccent,
-        fontFamily: 'Roboto',
-      ),
-      home: VideoPage(),
-    );
-  }
-}
 
 class VideoPage extends StatelessWidget {
   final List<Map<String, String>> videos = [
@@ -108,9 +89,10 @@ class VideoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: background,
       appBar: AppBar(
-        title: const Text("Video Gallery"),
-        backgroundColor: Colors.white,
+        title: const Text("Video Gallery",style: TextStyle(color: Colors.black, fontFamily: "LibreBaskerville")),
+        backgroundColor: background,
       ),
       body: ListView.builder(
         itemCount: videos.length,
@@ -135,6 +117,7 @@ class VideoPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
               ),
               elevation: 5,
+              color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Row(
@@ -172,6 +155,7 @@ class VideoPage extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
+                              fontFamily: "Eczar",
                               color: Colors.black87,
                             ),
                             maxLines: 2,
@@ -183,6 +167,7 @@ class VideoPage extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 12,
                               color: Colors.black54,
+                              fontFamily: "Eczar",
                             ),
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis,
@@ -192,11 +177,6 @@ class VideoPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    // Icon(
-                    //   Icons.play_arrow,
-                    //   color: iconcolor,
-                    //   size: 30,
-                    // ),
                   ],
                 ),
               ),

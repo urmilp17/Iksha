@@ -1,7 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../colours.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:iksha/internet_service.dart';
+
+import '../nointernet.dart';
+import '../nointernethi.dart';
 
 class YogaQuizScreen extends StatefulWidget {
   const YogaQuizScreen({super.key});
@@ -207,7 +212,10 @@ class _YogaQuizScreenState extends State<YogaQuizScreen> {
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
     final currentLocale = Localizations.localeOf(context).languageCode;
-
+    final isConnectedToInternet = Provider.of<InternetConnectionService>(context).isConnectedToInternet;
+    Widget getPage(String locale, Widget engPage, Widget hinPage) {
+      return locale == 'hi' ? hinPage : engPage;
+    }
 
     String getText(String locale, String defaultText, String hindiText) {
       return locale == 'hi' ? hindiText : defaultText;
@@ -245,7 +253,7 @@ class _YogaQuizScreenState extends State<YogaQuizScreen> {
       });
     }
 
-    return Scaffold(
+    return isConnectedToInternet ? Scaffold(
       appBar: AppBar(
         backgroundColor: background,
         centerTitle: true,
@@ -333,6 +341,6 @@ class _YogaQuizScreenState extends State<YogaQuizScreen> {
           ),
         ),
       ),
-    );
+    ): getPage(currentLocale, NoConnectionPage(), NoConnectionPageHi());
   }
 }

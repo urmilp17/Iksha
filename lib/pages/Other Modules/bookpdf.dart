@@ -5,21 +5,19 @@ import 'package:url_launcher/url_launcher.dart';
 class BookDetailsPage extends StatelessWidget {
   final List<Book> books = [
     Book(
-      title: 'Microsoft Word History of Vaisnavism',
-      author: 'David Airey',
-      image: 'assets/images/book2.jpg', // Replace with your image asset
+      title: 'History of Vaisnavism',
+      author: 'Research Paper',
+      image: 'assets/images/book17.jpg', // Replace with your image asset
       driveUrl:
           'https://drive.google.com/file/d/1uftD6RdGaSRSWaH0HVQbTxrGIkO_nf7X/view?usp=sharing',
       pages: 17,
       description:
-          'In Logo Design Love, David shows you how to develop an iconic brand identity from start to finish, '
-          'using client case studies from renowned designers. In the process, he reveals how designers create '
-          'effective briefs, generate ideas, charge for their work, and collaborate with clients.',
+          'The "History of Vaishnavism" explores the origins, evolution, and influence of Vaishnavism, a major Hindu tradition centered on the worship of Lord Vishnu and his avatars. It highlights the contributions of saints, scriptures, and devotional movements that shaped its theology, rituals, and cultural significance.',
     ),
     Book(
-      title: 'The Design of Everyday Things',
-      author: 'Don Norman',
-      image: 'assets/images/book1.jpg', // Replace with your image asset
+      title: 'Introduction to Smartha Tradition',
+      author: 'Research Paper',
+      image: 'assets/images/book2.jpg', // Replace with your image asset
       driveUrl:
           'https://drive.google.com/uc?export=download&id=185uAUxDAmvBPMeQrX3XPDFFtRELv4Oyq',
       pages: 10,
@@ -36,7 +34,7 @@ class BookDetailsPage extends StatelessWidget {
           'https://drive.google.com/file/d/1f7-iTgw_fnhjYIWrsBOGInBfIsiMzGap/view?usp=sharing',
       pages: 269,
       description:
-          'The "History of Vaishnavism" explores the origins, evolution, and influence of Vaishnavism, a major Hindu tradition centered on the worship of Lord Vishnu and his avatars. It highlights the contributions of saints, scriptures, and devotional movements that shaped its theology, rituals, and cultural significance.',
+          'Vivekachudamani is a renowned Advaita Vedanta text written by Adi Shankaracharya. Comprising 580 verses, it guides seekers on the path to Self-realization, discernment (viveka), detachment (vairagya), and liberation (moksha), offering profound insights into the nature of reality and the ultimate goal of human existence.',
     ),
     //4th book
     Book(
@@ -152,7 +150,7 @@ class BookDetailsPage extends StatelessWidget {
     Book(
       title: 'AN ANALYSIS OF THE BRAHMA SUTRA',
       author: 'S. Radhakrishnan',
-      image: 'assets/images/book12.png', // Replace with your image asset
+      image: 'assets/images/book18.jpeg', // Replace with your image asset
       driveUrl:
           'https://drive.google.com/file/d/1GWHCSUfgskaQrL1cQegydCTQ9sMaoZ-x/view?usp=sharing',
       pages: 97,
@@ -175,7 +173,7 @@ class BookDetailsPage extends StatelessWidget {
     Book(
       title: 'Advaita Buddhism Hindu Studies',
       author: 'Richard King',
-      image: 'assets/images/book16.png', // Replace with your image asset
+      image: 'assets/images/book19.jpeg', // Replace with your image asset
       driveUrl:
           'https://drive.google.com/file/d/1lGeUfzpZ6yxTaVy92obJ3I9aUBDxli51/view?usp=sharing',
       pages: 18,

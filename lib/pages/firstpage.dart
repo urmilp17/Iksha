@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:math';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart' hide CarouselController;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:iksha/colours.dart';
@@ -18,11 +20,13 @@ import 'package:iksha/pages/sampradayas/sampradaya5.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:iksha/pages/Other%20Modules/videofile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
+import '../internet_service.dart';
 import '../localeprovider.dart';
 import 'login.dart';
-import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -38,13 +42,13 @@ class _HomeState extends State<Home> {
   final firestore = FirebaseFirestore.instance;
   String? userName;
   String? profileurl;
+  File? _selectedImage;
   final Random random = Random();
+  final picker = ImagePicker();
 
   int _current = 0; // Track the index of the current slide
   String sanskritText = "";
   String translationText = "";
-  StreamSubscription? _internetConnectionStreamSubscription;
-  bool isConnectedToInternet = false;
 
   @override
   void initState() {
@@ -52,33 +56,6 @@ class _HomeState extends State<Home> {
     fetchUserName();
     fetchUserProfile();
     fetchSubhashita();
-    _internetConnectionStreamSubscription =
-        InternetConnection().onStatusChange.listen((event) {
-      print(event);
-      switch (event) {
-        case InternetStatus.connected:
-          setState(() {
-            isConnectedToInternet = true;
-          });
-          break;
-        case InternetStatus.disconnected:
-          setState(() {
-            isConnectedToInternet = false;
-          });
-          break;
-        default:
-          setState(() {
-            isConnectedToInternet = false;
-          });
-          break;
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _internetConnectionStreamSubscription?.cancel();
-    super.dispose();
   }
 
   Future<void> fetchUserName() async {
@@ -153,6 +130,213 @@ class _HomeState extends State<Home> {
     }
   }
 
+  Future<File?> _cropImage(File imageFile) async {
+    final croppedFile = await ImageCropper().cropImage(
+      sourcePath: imageFile.path,
+      aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarTitle: 'Crop Image',
+          toolbarColor: background,
+          toolbarWidgetColor: iconcolor,
+          backgroundColor: background,
+          lockAspectRatio: true,
+        ),
+        IOSUiSettings(
+          title: 'Crop Image',
+        ),
+      ],
+    );
+    return croppedFile != null ? File(croppedFile.path) : null;
+  }
+
+  Future<bool> isUsernameUnique(String username) async {
+    final userDoc = await firestore
+        .collection('users')
+        .where('name', isEqualTo: username)
+        .get();
+
+    return userDoc.docs.isEmpty;
+  }
+
+  Future<void> selectImage(BuildContext context) async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      File? croppedFile = await _cropImage(File(pickedFile.path));
+      setState(() {
+        if (croppedFile != null) {
+          _selectedImage = croppedFile;
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Image cropping cancelled.'),
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please upload a profile picture.'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+  }
+
+  bool loading = false;
+
+  void showUpdateProfileDialog(BuildContext context,
+      TextEditingController nameController, String profileUrl) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          contentPadding: const EdgeInsets.all(20),
+          content: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Profile Image
+                    GestureDetector(
+                      onTap: () async {
+                        await selectImage(context);
+                        setState(
+                            () {}); // Update state to reflect the new image
+                      },
+                      child: CircleAvatar(
+                        radius: 50,
+                        backgroundImage: _selectedImage != null
+                            ? FileImage(_selectedImage!)
+                            : (profileUrl.isNotEmpty
+                                ? NetworkImage(profileUrl)
+                                : const AssetImage(
+                                    "assets/images/Logo.png")) as ImageProvider,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      "Update Profile Photo",
+                      style: TextStyle(fontFamily: 'Eczar', fontSize: 16),
+                    ),
+                    const SizedBox(height: 20),
+
+                    // Username Field
+                    TextFormField(
+                      controller: nameController,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontFamily: 'Eczar'),
+                      decoration: const InputDecoration(
+                        hintText: 'Enter new username',
+                        hintStyle: TextStyle(fontFamily: 'Eczar'),
+                        errorStyle: TextStyle(fontFamily: 'Eczar'),
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter a username';
+                        }
+                        if (value.contains(' ')) {
+                          return 'Username must not have space';
+                        }
+                        if (value.startsWith('.') ||
+                            value.endsWith('.') ||
+                            value.startsWith('!') ||
+                            value.startsWith('/') ||
+                            value.startsWith(r'\') ||
+                            value.startsWith(r'$')) {
+                          return 'Username cannot start or end with a period';
+                        }
+                        if (value.contains(RegExp(r'[A-Z]'))) {
+                          return 'Username must not contain uppercase letters';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+
+                    // Save Button
+                    ElevatedButton(
+                      onPressed: () async {
+                        if (nameController.text.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Username cannot be empty')),
+                          );
+                          return;
+                        }
+
+                        // Check if username is unique
+                        bool isUnique =
+                            await isUsernameUnique(nameController.text);
+                        if (!isUnique) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Username already exists')),
+                          );
+                          return;
+                        }
+
+                        // Update profile in Firebase
+                        setState(() => loading = true);
+                        try {
+                          String? imageUrl = profileUrl;
+
+                          if (_selectedImage != null) {
+                            // Upload image to Cloud Storage
+                            final storageRef = FirebaseStorage.instance.ref().child(
+                                'user_avatar/${FirebaseAuth.instance.currentUser!.email}');
+                            await storageRef.putFile(_selectedImage!);
+                            imageUrl = await storageRef.getDownloadURL();
+                          }
+
+                          // Update user document in Firestore
+                          await FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(FirebaseAuth.instance.currentUser!.uid)
+                              .update({
+                            'name': nameController.text,
+                            'imageUrl': imageUrl,
+                          });
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Profile updated successfully')),
+                          );
+
+                          Navigator.pop(context);
+                        } catch (error) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                                content:
+                                    Text('Failed to update profile: $error')),
+                          );
+                        } finally {
+                          setState(() => loading = false);
+                        }
+                      },
+                      child: loading
+                          ? const CircularProgressIndicator(color: Colors.white)
+                          : const Text(
+                              "Save",
+                              style: TextStyle(
+                                  fontFamily: 'Eczar', color: Colors.black),
+                            ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+
   void _changeLanguage(BuildContext context, Locale locale) {
     final localeProvider = Provider.of<LocaleProvider>(context, listen: false);
     localeProvider.setLocale(locale);
@@ -162,6 +346,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
+    final isConnectedToInternet =
+        Provider.of<InternetConnectionService>(context).isConnectedToInternet;
     final List<Widget> imageSliders = [
       buildCarouselItem('assets/images/sp1.jpg',
           localizations?.shaivism ?? 'Shaivism', context, const Sampradaya1()),
@@ -189,40 +375,66 @@ class _HomeState extends State<Home> {
         toolbarHeight: 60, // Slightly reduced height
         title: Padding(
           padding: const EdgeInsets.only(top: 10), // Adjusted padding
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    localizations?.hey_user(displayName) ??
-                        "Hey, $userName 👋",
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "Eczar"),
-                  ),
-                  Text(
-                    localizations?.welcome_message ?? "Welcome to Iksha",
-                    style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                        fontFamily: "Eczar"),
-                  ),
-                ],
-              ),
-              CircleAvatar(
-                radius: 18,
-                backgroundImage: profileurl != null &&
-                    profileurl!.isNotEmpty
-                    ? NetworkImage(profileurl!)
-                    : const AssetImage("assets/images/Logo.png")
-                as ImageProvider,
-              ),
-            ],
-          ),
+          child: isConnectedToInternet
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          localizations?.hey_user(displayName) ??
+                              "Hey, $userName 👋",
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "Eczar"),
+                        ),
+                        Text(
+                          localizations?.welcome_message ?? "Welcome to Iksha",
+                          style: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 14,
+                              fontFamily: "Eczar"),
+                        ),
+                      ],
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        TextEditingController nameController =
+                            TextEditingController(text: userName);
+                        showUpdateProfileDialog(
+                          context,
+                          nameController,
+                          profileurl ?? "",
+                        );
+                      },
+                      child: CircleAvatar(
+                        radius: 18,
+                        backgroundImage:
+                            profileurl != null && profileurl!.isNotEmpty
+                                ? NetworkImage(profileurl!)
+                                : const AssetImage("assets/images/Logo.png")
+                                    as ImageProvider,
+                      ),
+                    ),
+                  ],
+                )
+              : Row(
+                  children: [
+                    Icon(
+                      Icons.warning,
+                      size: 18,
+                      color: iconcolor,
+                    ),
+                    SizedBox(width: 10,),
+                    const Text(
+                      "No Internet",
+                      style: TextStyle(fontFamily: "Eczar"),
+                    ),
+                  ],
+                ),
         ),
         actions: [
           PopupMenuButton(
@@ -302,7 +514,7 @@ class _HomeState extends State<Home> {
                   child: Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                    child: Column(
+                    child: isConnectedToInternet ? Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Text(
@@ -315,10 +527,25 @@ class _HomeState extends State<Home> {
                           height: 5,
                         ),
                         Text(
-
-                          translationText, textAlign: TextAlign.center,
+                          translationText,
+                          textAlign: TextAlign.center,
                           style: const TextStyle(
                               fontFamily: "Eczar", fontSize: 14),
+                        ),
+                      ],
+                    ):Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.warning,
+                          size: 18,
+                          color: iconcolor,
+                        ),
+                        SizedBox(width: 10,),
+                        const Text(
+                          "No Internet",
+                          style: TextStyle(fontFamily: "Eczar"),
                         ),
                       ],
                     ),

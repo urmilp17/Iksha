@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'dart:convert';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:iksha/colours.dart'; // Ensure this file exists and contains the required color definitions.
 

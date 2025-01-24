@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:iksha/colours.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../../internet_service.dart';
 // import 'package:file_picker/file_picker.dart';
 // import 'package:path_provider/path_provider.dart';
 // import 'package:dio/dio.dart';
@@ -72,6 +75,8 @@ class _GinfoState extends State<Ginfo> {
 
   @override
   Widget build(BuildContext context) {
+    final isConnectedToInternet =
+        Provider.of<InternetConnectionService>(context).isConnectedToInternet;
     final localizations = AppLocalizations.of(context);
     final currentLocale = Localizations.localeOf(context).languageCode;
     String getAudio(String locale, String engAudio, String hinAudio) {
@@ -131,14 +136,30 @@ class _GinfoState extends State<Ginfo> {
                   ),
                   Expanded(
                     flex: 1,
-                    child: Container(
-                      height: 270,
-                      width: double.maxFinite,
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image: NetworkImage(
-                                  "https://firebasestorage.googleapis.com/v0/b/iksha-324658.firebasestorage.app/o/Other%2Fpreg.png?alt=media&token=1805a3a8-c673-4c44-952a-7e465c9899e1"))),
-                    ),
+                    child: isConnectedToInternet
+                        ? Container(
+                            height: 270,
+                            width: double.maxFinite,
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                    "https://firebasestorage.googleapis.com/v0/b/iksha-324658.firebasestorage.app/o/Other%2Fpreg.png?alt=media&token=1805a3a8-c673-4c44-952a-7e465c9899e1"),
+                              ),
+                            ),
+                          )
+                        : Column(
+                            children: <Widget>[
+                              Icon(
+                                Icons.warning_rounded,
+                                size: 50,
+                                color: iconcolor,
+                              ),
+                              const Text(
+                                "No Internet",
+                                style: TextStyle(fontFamily: "Eczar"),
+                              ),
+                            ],
+                          ),
                   )
                 ],
               ),
@@ -268,98 +289,134 @@ class _GinfoState extends State<Ginfo> {
                 style: const TextStyle(fontFamily: "Eczar", fontSize: 12),
               ),
             ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                _audioUrl.isNotEmpty
-                    ? IconButton(
-                        icon: Icon(
-                          _isPlaying ? Icons.pause_circle : Icons.play_circle,
-                          size: 50,
+            isConnectedToInternet
+                ? Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      _audioUrl.isNotEmpty
+                          ? IconButton(
+                              icon: Icon(
+                                _isPlaying
+                                    ? Icons.pause_circle
+                                    : Icons.play_circle,
+                                size: 50,
+                                color: iconcolor,
+                              ),
+                              onPressed: _togglePlayPause,
+                            )
+                          : const CircularProgressIndicator(),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Slider(
+                            value: _currentPosition.inSeconds.toDouble(),
+                            max: _totalDuration.inSeconds.toDouble(),
+                            onChanged: (value) {
+                              _seekAudio(value);
+                            },
+                            activeColor: iconcolor,
+                            inactiveColor: Colors.grey,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(16, 5, 0, 5),
+                                child: Text(
+                                  '${_formatDuration(_currentPosition)} / ${_formatDuration(_totalDuration)}',
+                                  style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: "Eczar"),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 25,
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                      getText(
+                                          currentLocale, "Speed: ", "गति: "),
+                                      //"Speed: ",
+                                      style: const TextStyle(
+                                          fontSize: 16, fontFamily: "Eczar")),
+                                  DropdownButton<double>(
+                                    value: _playbackSpeed,
+                                    items: [
+                                      DropdownMenuItem(
+                                        value: 0.5,
+                                        child: Text(
+                                          getText(
+                                              currentLocale, "0.5x", "०.५x"),
+                                          style: const TextStyle(
+                                              fontFamily: "Eczar"),
+                                        ),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 1.0,
+                                        child: Text(
+                                          getText(
+                                              currentLocale, "1.0x", "१.०x"),
+                                          style: const TextStyle(
+                                              fontFamily: "Eczar"),
+                                        ),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 1.5,
+                                        child: Text(
+                                          getText(
+                                              currentLocale, "1.5x", "१.५x"),
+                                          style: const TextStyle(
+                                              fontFamily: "Eczar"),
+                                        ),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 2.0,
+                                        child: Text(
+                                          getText(
+                                              currentLocale, "2.0x", "२.०x"),
+                                          style: const TextStyle(
+                                              fontFamily: "Eczar"),
+                                        ),
+                                      ),
+                                    ],
+                                    onChanged: (value) {
+                                      if (value != null) {
+                                        _changePlaybackSpeed(value);
+                                      }
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
+                : Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.warning,
+                          size: 40,
                           color: iconcolor,
                         ),
-                        onPressed: _togglePlayPause,
-                      )
-                    : const CircularProgressIndicator(),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Slider(
-                      value: _currentPosition.inSeconds.toDouble(),
-                      max: _totalDuration.inSeconds.toDouble(),
-                      onChanged: (value) {
-                        _seekAudio(value);
-                      },
-                      activeColor: iconcolor,
-                      inactiveColor: Colors.grey,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(16, 5, 0, 5),
-                          child: Text(
-                            '${_formatDuration(_currentPosition)} / ${_formatDuration(_totalDuration)}',
-                            style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: "Eczar"),
-                          ),
-                        ),
                         const SizedBox(
-                          width: 25,
+                          width: 10,
                         ),
-                        Row(
-                          children: [
-                            Text(getText(currentLocale, "Speed: ", "गति: "),
-                                //"Speed: ",
-                                style: const TextStyle(
-                                    fontSize: 16, fontFamily: "Eczar")),
-                            DropdownButton<double>(
-                              value: _playbackSpeed,
-                              items: [
-                                DropdownMenuItem(
-                                  value: 0.5,
-                                  child: Text(
-                                    getText(currentLocale, "0.5x", "०.५x"),
-                                    style: const TextStyle(fontFamily: "Eczar"),
-                                  ),
-                                ),
-                                DropdownMenuItem(
-                                  value: 1.0,
-                                  child: Text(
-                                    getText(currentLocale, "1.0x", "१.०x"),
-                                    style: const TextStyle(fontFamily: "Eczar"),
-                                  ),
-                                ),
-                                DropdownMenuItem(
-                                  value: 1.5,
-                                  child: Text(
-                                    getText(currentLocale, "1.5x", "१.५x"),
-                                    style: const TextStyle(fontFamily: "Eczar"),
-                                  ),
-                                ),
-                                DropdownMenuItem(
-                                  value: 2.0,
-                                  child: Text(
-                                    getText(currentLocale, "2.0x", "२.०x"),
-                                    style: const TextStyle(fontFamily: "Eczar"),
-                                  ),
-                                ),
-                              ],
-                              onChanged: (value) {
-                                if (value != null) _changePlaybackSpeed(value);
-                              },
-                            ),
-                          ],
+                        const Text(
+                          "No Internet",
+                          style: TextStyle(fontFamily: "Eczar", fontSize: 40),
                         ),
                       ],
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -390,50 +447,74 @@ class _GinfoState extends State<Ginfo> {
                 style: const TextStyle(fontFamily: "Eczar", fontSize: 12),
               ),
             ),
-            Center(
-              child: GestureDetector(
-                onTap: () async {
-                  final dwload = getText(
-                      currentLocale,
-                      'https://firebasestorage.googleapis.com/v0/b/iksha-324658.firebasestorage.app/o/Other%2FGarbha_Spritual.pdf?alt=media&token=656c501c-d060-4e1f-b31a-606deba0717e',
-                      'https://firebasestorage.googleapis.com/v0/b/iksha-324658.firebasestorage.app/o/Other%2FGarbha_Spritual_Hi.pdf?alt=media&token=5d86e6e2-f03c-4a01-8db3-2ae60a69504d');
+            isConnectedToInternet
+                ? Center(
+                    child: GestureDetector(
+                      onTap: () async {
+                        final dwload = getText(
+                            currentLocale,
+                            'https://firebasestorage.googleapis.com/v0/b/iksha-324658.firebasestorage.app/o/Other%2FGarbha_Spritual.pdf?alt=media&token=656c501c-d060-4e1f-b31a-606deba0717e',
+                            'https://firebasestorage.googleapis.com/v0/b/iksha-324658.firebasestorage.app/o/Other%2FGarbha_Spritual_Hi.pdf?alt=media&token=5d86e6e2-f03c-4a01-8db3-2ae60a69504d');
 
-                  final Uri uri = Uri.parse(dwload);
+                        final Uri uri = Uri.parse(dwload);
 
-                  if (await launchUrl(uri)) {
-                    try {
-                      await launchUrl(
-                        uri,
-                        mode: LaunchMode
-                            .externalApplication, // Try other modes if this fails
-                      );
-                      print('Successfully launched $dwload');
-                    } catch (e) {
-                      print('Error while launching: $e');
-                    }
-                  } else {
-                    print('No application available to handle $dwload');
-                    throw 'Could not launch $dwload';
-                  }
-                },
-                child: Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: iconcolor,
-                    borderRadius: BorderRadius.circular(8),
+                        if (await launchUrl(uri)) {
+                          try {
+                            await launchUrl(
+                              uri,
+                              mode: LaunchMode
+                                  .externalApplication, // Try other modes if this fails
+                            );
+                            print('Successfully launched $dwload');
+                          } catch (e) {
+                            print('Error while launching: $e');
+                          }
+                        } else {
+                          print('No application available to handle $dwload');
+                          throw 'Could not launch $dwload';
+                        }
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: iconcolor,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          localizations?.download ?? "Download",
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: "Eczar"),
+                        ),
+                      ),
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.warning,
+                          size: 40,
+                          color: iconcolor,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        const Text(
+                          "No Internet",
+                          style: TextStyle(fontFamily: "Eczar", fontSize: 40),
+                        ),
+                      ],
+                    ),
                   ),
-                  child: Text(
-                    localizations?.download ?? "Download",
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: "Eczar"),
-                  ),
-                ),
-              ),
+            const SizedBox(
+              height: 10,
             ),
-            const SizedBox(height: 10,),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -445,7 +526,7 @@ class _GinfoState extends State<Ginfo> {
                 ),
                 child: Center(
                   child: Text(
-                    localizations?.ayurvedic ??"Ayurvedic",
+                    localizations?.ayurvedic ?? "Ayurvedic",
                     style: TextStyle(
                         fontFamily: "Eczar",
                         color: iconcolor,
@@ -455,15 +536,16 @@ class _GinfoState extends State<Ginfo> {
                 ),
               ),
             ),
-             Padding(
+            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 14),
               child: Text(
-                localizations?.ayurvedic_desc ??"During pregnancy, following an Ayurvedic diet is crucial for a healthy mother and baby. It helps maintain digestive balance, boosts immunity, and ensures optimal nutrient absorption. \n\nA customized Ayurvedic diet also alleviates pregnancy-related discomforts, promoting a smooth and joyful gestation period. \nDownload Your Free PDF Guide: Ayurvedic Nutrition & Precautions for a Healthy Pregnancy, Month by Month\n",
+                localizations?.ayurvedic_desc ??
+                    "During pregnancy, following an Ayurvedic diet is crucial for a healthy mother and baby. It helps maintain digestive balance, boosts immunity, and ensures optimal nutrient absorption. \n\nA customized Ayurvedic diet also alleviates pregnancy-related discomforts, promoting a smooth and joyful gestation period. \nDownload Your Free PDF Guide: Ayurvedic Nutrition & Precautions for a Healthy Pregnancy, Month by Month\n",
                 textAlign: TextAlign.center,
                 style: const TextStyle(fontFamily: "Eczar", fontSize: 12),
               ),
             ),
-            Center(
+            isConnectedToInternet ? Center(
               child: GestureDetector(
                 onTap: () async {
                   final dwload = getText(
@@ -489,7 +571,7 @@ class _GinfoState extends State<Ginfo> {
                   }
                 },
                 child: Container(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     color: iconcolor,
                     borderRadius: BorderRadius.circular(8),
@@ -504,8 +586,28 @@ class _GinfoState extends State<Ginfo> {
                   ),
                 ),
               ),
+            ):Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.warning,
+                    size: 40,
+                    color: iconcolor,
+                  ),
+                  const SizedBox(width: 10,),
+                  const Text(
+                    "No Internet",
+                    style: TextStyle(fontFamily: "Eczar",fontSize: 40),
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
           ],
         ),
       ),

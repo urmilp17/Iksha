@@ -10,9 +10,10 @@ import 'package:iksha/pages/nointernet.dart';
 import 'package:iksha/pages/nointernethi.dart';
 import 'NavBar.dart';
 import 'pages/firstpage.dart';
-import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+
 import 'pages/secondpage.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -24,33 +25,14 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int currentPageIndex = 0;
 
-  final GlobalKey<ScaffoldMessengerState> _scaffoldMessengerKey =
-      GlobalKey<ScaffoldMessengerState>();
-  StreamSubscription? _internetConnectionStreamSubscription;
+  late final StreamSubscription _internetConnectionStreamSubscription;
 
-  bool isConnectedToInternet = false;
 
-  void _monitorConnectivity() {
-    if (isConnectedToInternet == false) {
-      _showNoInternetSnackbar();
-    } else {
-      _hideSnackbar();
-    }
+  @override
+  void initState() {
+    super.initState();
+    _checkUserLoggedIn();
   }
-
-  void _showNoInternetSnackbar() {
-    _scaffoldMessengerKey.currentState?.showSnackBar(
-      const SnackBar(
-        content: Text('No internet connection. Please reconnect.'),
-        duration: Duration(days: 1), // Long duration for persistence
-      ),
-    );
-  }
-
-  void _hideSnackbar() {
-    _scaffoldMessengerKey.currentState?.hideCurrentSnackBar();
-  }
-
   void _checkUserLoggedIn() {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
@@ -58,40 +40,11 @@ class _MyHomePageState extends State<MyHomePage> {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (_) => const LoginPage()),
-          (route) => false,
+              (route) => false,
         );
       }
     });
   }
-
-  @override
-  void initState() {
-    super.initState();
-    _checkUserLoggedIn();
-    _monitorConnectivity();
-    _internetConnectionStreamSubscription =
-        InternetConnection().onStatusChange.listen((event) {
-      print(event);
-      switch (event) {
-        case InternetStatus.connected:
-          setState(() {
-            isConnectedToInternet = true;
-          });
-          break;
-        case InternetStatus.disconnected:
-          setState(() {
-            isConnectedToInternet = false;
-          });
-          break;
-        default:
-          setState(() {
-            isConnectedToInternet = false;
-          });
-          break;
-      }
-    });
-  }
-
   @override
   void dispose() {
     _internetConnectionStreamSubscription?.cancel();
@@ -106,51 +59,47 @@ class _MyHomePageState extends State<MyHomePage> {
       return locale == 'hi' ? hinPage : engPage;
     }
 
-    return isConnectedToInternet
-        ? Scaffold(
-            key: _scaffoldMessengerKey,
-            body: IndexedStack(
-              index: currentPageIndex,
-              children: const <Widget>[
-                Home(),
-                KeyFeatures(),
-                ArticlesPage(),
-                GarbhaSanskar()
-              ],
+    return Scaffold(
+      body: IndexedStack(
+        index: currentPageIndex,
+        children: const <Widget>[
+          Home(),
+          KeyFeatures(),
+          ArticlesPage(),
+          GarbhaSanskar()
+        ],
+      ),
+      extendBody: true,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Container(
+        width: 340,
+        height: 70,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(80.0), color: background),
+        clipBehavior: Clip
+            .antiAlias, // This ensures the content inside the container is clipped by the border radius
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: NavigationBar(
+            onDestinationSelected: (int index) {
+              setState(() {
+                currentPageIndex = index;
+              });
+            },
+            height: 70,
+            labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+            backgroundColor: Colors
+                .transparent, // Use transparent since the color is set in the container
+            indicatorColor: Colors.amber,
+            selectedIndex: currentPageIndex,
+            indicatorShape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                  100), // Increase the radius for a larger indicator
             ),
-            extendBody: true,
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerFloat,
-            floatingActionButton: Container(
-              width: 340,
-              height: 70,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(80.0), color: background),
-              clipBehavior: Clip
-                  .antiAlias, // This ensures the content inside the container is clipped by the border radius
-              child: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: NavigationBar(
-                  onDestinationSelected: (int index) {
-                    setState(() {
-                      currentPageIndex = index;
-                    });
-                  },
-                  height: 70,
-                  labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-                  backgroundColor: Colors
-                      .transparent, // Use transparent since the color is set in the container
-                  indicatorColor: Colors.amber,
-                  selectedIndex: currentPageIndex,
-                  indicatorShape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                        100), // Increase the radius for a larger indicator
-                  ),
-                  destinations: destinations(),
-                ),
-              ),
-            ),
-          )
-        : getPage(currentLocale, NoConnectionPage(), NoConnectionPageHi());
+            destinations: destinations(),
+          ),
+        ),
+      ),
+    );
   }
 }
