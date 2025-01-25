@@ -184,6 +184,7 @@ class BookDetailsPage extends StatelessWidget {
           'Advaita Buddhism Hindu Studies explores the intersection of Advaita Vedanta, Buddhism, and Hinduism, examining their shared roots and differing views on concepts like the self, liberation, and ultimate reality. The study offers comparative insights into non-duality, the nature of existence, and the paths to spiritual awakening across these philosophical traditions.',
     ),
   ];
+  final List<Book> hindbooks = [];
 
   BookDetailsPage({super.key});
 
@@ -200,13 +201,155 @@ class BookDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final isConnectedToInternet =
         Provider.of<InternetConnectionService>(context).isConnectedToInternet;
+    final currentLocale = Localizations.localeOf(context).languageCode;
+    List<Book> getList(String locale,
+        List<Book> engList, List<Book> hinList) {
+      return locale == 'hi' ? hinList : engList;
+    }
+
+    Scaffold getWarning(String locale, Scaffold engWarn, Scaffold hindWarn) {
+      return locale == 'hi' ? hindWarn : engWarn;
+    }
+    Text getAppBarText(String locale, Text engText, Text hindText) {
+      return locale == 'hi' ? hindText : engText;
+    }
+
+    Text appbarText = getAppBarText(currentLocale, const Text("Books",
+      style:
+      TextStyle(color: Colors.black, fontFamily: "LibreBaskerville"),), const Text("पुस्तकें",
+      style:
+      TextStyle(color: Colors.black, fontFamily: "Eczar"),));
+
+    Scaffold warningInternet = getWarning(
+        currentLocale,
+        Scaffold(
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.wifi_off, // No connection icon
+                  size: 80,
+                  color: Colors.grey,
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  'No Wifi or Cellular Data',
+                  style: TextStyle(
+                    fontFamily: 'Eczar',
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  'Unable to load books.\nPlease check your connection and try again.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Eczar',
+                    fontSize: 16,
+                    color: Colors.grey,
+                  ),
+                ),
+                const SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        final settings = OpenSettingsPlus.shared;
+                        if (settings is OpenSettingsPlusAndroid) {
+                          settings.wifi();
+                        } else if (settings is OpenSettingsPlusIOS) {
+                          settings.wifi();
+                        } else {
+                          throw Exception('Platform not supported');
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 40, vertical: 15),
+                      ), // Exits the app
+                      child: const Text(
+                        'Settings',
+                        style: TextStyle(fontFamily: 'Eczar'),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        Scaffold(
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.wifi_off, // No connection icon
+                  size: 80,
+                  color: Colors.grey,
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  'वाईफ़ाई या मोबाइल डेटा नहीं है',
+                  style: TextStyle(
+                    fontFamily: 'Eczar',
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  'पुस्तकें लोड नहीं हो पा रहे हैं.\nकृपया अपना कनेक्शन जाँचें और पुनः प्रयास करें।',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Eczar',
+                    fontSize: 16,
+                    color: Colors.grey,
+                  ),
+                ),
+                const SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        final settings = OpenSettingsPlus.shared;
+                        if (settings is OpenSettingsPlusAndroid) {
+                          settings.wifi();
+                        } else if (settings is OpenSettingsPlusIOS) {
+                          settings.wifi();
+                        } else {
+                          throw Exception('Platform not supported');
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 40, vertical: 15),
+                      ), // Exits the app
+                      child: const Text(
+                        'सेटिंग्स',
+                        style: TextStyle(fontFamily: 'Eczar'),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ));
+
+    List<Book> mainList =
+    getList(currentLocale, books, hindbooks);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: background,
-        title: const Text(
-          'Books',
-          style: TextStyle(color: Colors.black, fontFamily: "LibreBaskerville"),
-        ),
+        title: appbarText,
         centerTitle: true,
       ),
       body: isConnectedToInternet ?RawScrollbar(
@@ -215,9 +358,12 @@ class BookDetailsPage extends StatelessWidget {
         radius: const Radius.circular(10.0),
         child: ListView.builder(
           padding: const EdgeInsets.all(16.0),
-          itemCount: books.length,
+          itemCount: mainList.length,
           itemBuilder: (context, index) {
-            final book = books[index];
+            final book = mainList[index];
+            String getText(String locale, String engText, String hindText) {
+              return locale == 'hi' ? hindText : engText;
+            }
             return Card(
               elevation: 4.0,
               margin: const EdgeInsets.symmetric(vertical: 8.0),
@@ -253,13 +399,13 @@ class BookDetailsPage extends StatelessWidget {
                               ),
                               const SizedBox(height: 8.0),
                               Text(
-                                'by ${book.author}',
+                                getText(currentLocale, 'by ${book.author}', '${book.author} द्वारा'),
                                 style: const TextStyle(
                                     color: Colors.grey, fontFamily: "Eczar"),
                               ),
                               const SizedBox(height: 8.0),
                               Text(
-                                '${book.pages} pages',
+                                getText(currentLocale, '${book.pages} pages', '${book.pages} पन्ने'),
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontFamily: "Eczar",
@@ -282,19 +428,14 @@ class BookDetailsPage extends StatelessWidget {
                             ),
                           ),
                           onPressed: () => _launchDriveFolder(book.driveUrl),
-                          child: const Text(
-                            'READ NOW',
-                            style: TextStyle(
+                          child:  Text(
+                            getText(currentLocale, 'READ NOW', "अभी पढे"),
+                            style:const TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontFamily: "Eczar",
                                 color: Colors.white),
                           ),
                         ),
-                        // IconButton(
-                        //   icon: const Icon(Icons.favorite_border),
-                        //   color: Colors.pink,
-                        //   onPressed: () {},
-                        // ),
                       ],
                     ),
                     const SizedBox(height: 16.0),
@@ -308,65 +449,7 @@ class BookDetailsPage extends StatelessWidget {
             );
           },
         ),
-      ):Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(
-                Icons.wifi_off, // No connection icon
-                size: 80,
-                color: Colors.grey,
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'No Wifi or Cellular Data',
-                style: TextStyle(
-                  fontFamily: 'Eczar',
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Unable to load books.\nPlease check your connection and try again.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Eczar',
-                  fontSize: 16,
-                  color: Colors.grey,
-                ),
-              ),
-              const SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      final settings = OpenSettingsPlus.shared;
-                      if (settings is OpenSettingsPlusAndroid) {
-                        settings.wifi();
-                      } else if (settings is OpenSettingsPlusIOS) {
-                        settings.wifi();
-                      } else {
-                        throw Exception('Platform not supported');
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                    ), // Exits the app
-                    child: const Text(
-                      'Settings',
-                      style: TextStyle(fontFamily: 'Eczar'),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
+      ):warningInternet,
     );
   }
 }
