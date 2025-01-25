@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:iksha/internet_service.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -9,6 +11,8 @@ class Sampradaya5 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isConnectedToInternet =
+        Provider.of<InternetConnectionService>(context).isConnectedToInternet;
     final localizations = AppLocalizations.of(context);
     return Scaffold(
       body: SingleChildScrollView(
@@ -71,7 +75,7 @@ class Sampradaya5 extends StatelessWidget {
                   const SizedBox(height: 5),
                   Text(
                     localizations?.smarth_info ??'The Smarta tradition (Sanskrit: स्मार्त), also called Smartism, is a movement in Hinduism that developed and expanded with the Puranas genre of literature. It reflects a synthesis of four philosophical strands, namely Uttara Mīmāṃsā, Advaita, Yoga, and theism. The Smarta tradition rejects theistic sectarianism, and is notable for the domestic worship of five shrines with five deities, all treated as equal – Ganesha, Shiva, Shakti, Vishnu and Surya. The Smarta tradition contrasted with the older Shrauta tradition, which was based on elaborate rituals and rites. There has been a considerable overlap in the ideas and practices of the Smarta tradition with other significant historic movements within Hinduism, namely Shaivism, Brahmanism, Vaishnavism, and Shaktism.',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: 'Eczar',
                       fontSize: 16,
                       height: 1.5,
@@ -81,7 +85,7 @@ class Sampradaya5 extends StatelessWidget {
                   const SizedBox(height: 25),
                    Text(
                      localizations?.smarth_head ??'Part of a series of Smarthism',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: 'Eczar',
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
@@ -109,10 +113,10 @@ class Sampradaya5 extends StatelessWidget {
                   ),
                   const SizedBox(height: 25),
                   Center(
-                    child: OutlinedButton.icon(
+                    child: isConnectedToInternet ? OutlinedButton.icon(
                       onPressed: () async {
                         const url =
-                            'https://www.instagram.com/ishaivite?igsh=MXIycTB3c3oxMDF1MA==';
+                            'https://www.instagram.com/vedatells?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==';
                         final Uri uri = Uri.parse(url);
 
                         if (await canLaunchUrl(uri)) {
@@ -130,6 +134,23 @@ class Sampradaya5 extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             vertical: 12, horizontal: 35),
                       ),
+                    ):Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.warning,
+                          size: 18,
+                          color: iconcolor,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          localizations?.internet ?? "No Internet",
+                          style: const TextStyle(fontFamily: "Eczar"),
+                        ),
+                      ],
                     ),
                   ),
                 ],

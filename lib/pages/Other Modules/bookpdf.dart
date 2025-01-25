@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iksha/colours.dart';
+import 'package:iksha/internet_service.dart';
+import 'package:open_settings_plus/open_settings_plus.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BookDetailsPage extends StatelessWidget {
@@ -195,6 +198,8 @@ class BookDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isConnectedToInternet =
+        Provider.of<InternetConnectionService>(context).isConnectedToInternet;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: background,
@@ -204,7 +209,7 @@ class BookDetailsPage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: RawScrollbar(
+      body: isConnectedToInternet ?RawScrollbar(
         thumbColor: iconcolor,
         thumbVisibility: true,
         radius: const Radius.circular(10.0),
@@ -302,6 +307,64 @@ class BookDetailsPage extends StatelessWidget {
               ),
             );
           },
+        ),
+      ):Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(
+                Icons.wifi_off, // No connection icon
+                size: 80,
+                color: Colors.grey,
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'No Wifi or Cellular Data',
+                style: TextStyle(
+                  fontFamily: 'Eczar',
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                'Unable to load books.\nPlease check your connection and try again.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Eczar',
+                  fontSize: 16,
+                  color: Colors.grey,
+                ),
+              ),
+              const SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      final settings = OpenSettingsPlus.shared;
+                      if (settings is OpenSettingsPlusAndroid) {
+                        settings.wifi();
+                      } else if (settings is OpenSettingsPlusIOS) {
+                        settings.wifi();
+                      } else {
+                        throw Exception('Platform not supported');
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                    ), // Exits the app
+                    child: const Text(
+                      'Settings',
+                      style: TextStyle(fontFamily: 'Eczar'),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

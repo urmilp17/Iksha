@@ -53,29 +53,29 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    fetchUserName();
+    // fetchUserName();
     fetchUserProfile();
     fetchSubhashita();
   }
 
-  Future<void> fetchUserName() async {
-    try {
-      final user = FirebaseAuth.instance.currentUser;
-      if (user != null) {
-        final snapshot = await FirebaseFirestore.instance
-            .collection('users')
-            .doc(user.uid)
-            .get();
-        if (snapshot.exists) {
-          setState(() {
-            userName = snapshot['name'];
-          });
-        }
-      }
-    } catch (e) {
-      print("Error fetching user name: $e");
-    }
-  }
+  // Future<void> fetchUserName() async {
+  //   try {
+  //     final user = FirebaseAuth.instance.currentUser;
+  //     if (user != null) {
+  //       final snapshot = await FirebaseFirestore.instance
+  //           .collection('users')
+  //           .doc(user.uid)
+  //           .get();
+  //       if (snapshot.exists) {
+  //         setState(() {
+  //           userName = snapshot['name'];
+  //         });
+  //       }
+  //     }
+  //   } catch (e) {
+  //     print("Error fetching user name: $e");
+  //   }
+  // }
 
   void fetchSubhashita() async {
     try {
@@ -346,6 +346,11 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
+    final user = FirebaseAuth.instance.currentUser;
+    Stream<DocumentSnapshot> userStream = FirebaseFirestore.instance
+        .collection('users')
+        .doc(user?.uid ?? "")
+        .snapshots();
     final isConnectedToInternet =
         Provider.of<InternetConnectionService>(context).isConnectedToInternet;
     final List<Widget> imageSliders = [
@@ -367,7 +372,6 @@ class _HomeState extends State<Home> {
           const Sampradaya5()),
     ];
 
-    final displayName = userName ?? "User";
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -376,50 +380,68 @@ class _HomeState extends State<Home> {
         title: Padding(
           padding: const EdgeInsets.only(top: 10), // Adjusted padding
           child: isConnectedToInternet
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          localizations?.hey_user(displayName) ??
-                              "Hey, $userName 👋",
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: "Eczar"),
+              ? StreamBuilder<DocumentSnapshot>(
+                  stream: userStream,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData || !snapshot.data!.exists) {
+                      return const Center(
+                        child: Text(
+                          "User not found",
+                          style: TextStyle(fontFamily: "Eczar"),
                         ),
-                        Text(
-                          localizations?.welcome_message ?? "Welcome to Iksha",
-                          style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 14,
-                              fontFamily: "Eczar"),
+                      );
+                    }
+
+                    var userData = snapshot.data!;
+                    String userName = userData['name'] ?? 'Unknown';
+                    String profileUrl = userData['imageUrl'] ?? '';
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              localizations?.hey_user(userName) ??
+                                  "Hey, $userName 👋",
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "Eczar"),
+                            ),
+                            Text(
+                              localizations?.welcome_message ??
+                                  "Welcome to Iksha",
+                              style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14,
+                                  fontFamily: "Eczar"),
+                            ),
+                          ],
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            TextEditingController nameController =
+                                TextEditingController(text: userName);
+                            showUpdateProfileDialog(
+                              context,
+                              nameController,
+                              profileUrl,
+                            );
+                          },
+                          child: CircleAvatar(
+                            radius: 18,
+                            backgroundImage:
+                                profileUrl.isNotEmpty
+                                    ? NetworkImage(profileUrl)
+                                    : const AssetImage("assets/images/Logo.png")
+                                        as ImageProvider,
+                          ),
                         ),
                       ],
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        TextEditingController nameController =
-                            TextEditingController(text: userName);
-                        showUpdateProfileDialog(
-                          context,
-                          nameController,
-                          profileurl ?? "",
-                        );
-                      },
-                      child: CircleAvatar(
-                        radius: 18,
-                        backgroundImage:
-                            profileurl != null && profileurl!.isNotEmpty
-                                ? NetworkImage(profileurl!)
-                                : const AssetImage("assets/images/Logo.png")
-                                    as ImageProvider,
-                      ),
-                    ),
-                  ],
+                    );
+                  },
                 )
               : Row(
                   children: [
@@ -428,7 +450,9 @@ class _HomeState extends State<Home> {
                       size: 18,
                       color: iconcolor,
                     ),
-                    SizedBox(width: 10,),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     const Text(
                       "No Internet",
                       style: TextStyle(fontFamily: "Eczar"),
@@ -514,41 +538,45 @@ class _HomeState extends State<Home> {
                   child: Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                    child: isConnectedToInternet ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          sanskritText.replaceAll("\\n", "\n"),
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              fontFamily: "Yatra", fontSize: 12),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          translationText,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              fontFamily: "Eczar", fontSize: 14),
-                        ),
-                      ],
-                    ):Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.warning,
-                          size: 18,
-                          color: iconcolor,
-                        ),
-                        SizedBox(width: 10,),
-                        const Text(
-                          "No Internet",
-                          style: TextStyle(fontFamily: "Eczar"),
-                        ),
-                      ],
-                    ),
+                    child: isConnectedToInternet
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                sanskritText.replaceAll("\\n", "\n"),
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                    fontFamily: "Yatra", fontSize: 12),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                translationText,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                    fontFamily: "Eczar", fontSize: 14),
+                              ),
+                            ],
+                          )
+                        : Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.warning,
+                                size: 18,
+                                color: iconcolor,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              const Text(
+                                "No Internet",
+                                style: TextStyle(fontFamily: "Eczar"),
+                              ),
+                            ],
+                          ),
                   ),
                 ),
               ),

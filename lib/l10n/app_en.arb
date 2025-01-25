@@ -259,6 +259,7 @@
   "download": "Download",
   "ayurvedic": "Ayurvedic",
   "ayurvedic_desc": "During pregnancy, following an Ayurvedic diet is crucial for a healthy mother and baby. It helps maintain digestive balance, boosts immunity, and ensures optimal nutrient absorption. \n\nA customized Ayurvedic diet also alleviates pregnancy-related discomforts, promoting a smooth and joyful gestation period. \nDownload Your Free PDF Guide: Ayurvedic Nutrition & Precautions for a Healthy Pregnancy, Month by Month\n",
+  "internet": "No Internet",
   "@fetch_error_message": {
     "description": "Error message displayed when username fetching fails.",
     "placeholders": {
