@@ -6,7 +6,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:convert';
 import 'package:iksha/pages/nointernet.dart';
-import 'package:iksha/home.dart';
 import 'package:iksha/pages/nointernethi.dart';
 import 'package:animated_text_kit/animated_text_kit.dart'; // Import for animations
 import 'package:flutter/services.dart'; // For Clipboard
@@ -14,7 +13,6 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart'; // For sharing
 import 'package:iksha/colours.dart';
 import 'package:iksha/internet_service.dart';
-import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 
 class AskQuestion extends StatefulWidget {
@@ -32,7 +30,7 @@ class _AskQuestionState extends State<AskQuestion> {
   String? profileurl;
   String? quest;
   bool _hasAskedQuestion = false;
-  StreamSubscription? _internetConnectionStreamSubscription;
+
 
 
   final List<Map<String, dynamic>> _messages =
@@ -269,15 +267,25 @@ class _AskQuestionState extends State<AskQuestion> {
                         fontWeight: FontWeight.w500,
                         fontSize: 14),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      "Om, From Unreality, make me go towards the Reality,"
-                      "\nFrom the Darkness, make me go towards the Light,"
-                      "\nFrom Mortality, make me go towards \nthe World of Immortality (of Self-Realization),"
-                      "\nOm, Peace, Peace, Peace",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontFamily: "Eczar", fontSize: 14),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        const Text(
+                          "Om, From Unreality, make me go towards the Reality,"
+                          "\nFrom the Darkness, make me go towards the Light,"
+                          "\nFrom Mortality, make me go towards \nthe World of Immortality (of Self-Realization),"
+                          "\nOm, Peace, Peace, Peace",
+                          textAlign: TextAlign.center,style: TextStyle(fontFamily: "Eczar", fontSize: 14),
+                        ),
+                        if(currentLocale == "hi")
+                        const Column(
+                          children: [
+                            SizedBox(height: 8,),
+                            Text("कृपया अंग्रेजी में प्रश्न पूछें",textAlign: TextAlign.center,style: TextStyle(fontFamily: "Eczar", fontSize: 18),),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ],

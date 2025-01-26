@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iksha/colours.dart';
+import 'package:iksha/localeprovider.dart';
 import 'package:iksha/pages/login.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:io';
@@ -8,8 +9,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:open_settings_plus/open_settings_plus.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../home.dart';
+import '../internet_service.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -25,10 +29,11 @@ class _RegisterState extends State<Register> {
   final formKey = GlobalKey<FormState>();
   final auth = FirebaseAuth.instance;
   final firestore = FirebaseFirestore.instance;
-
+  final FocusNode passwordFocusNode = FocusNode();
+  bool hideLogo = false;
+  bool loading = false;
   File? _selectedImage;
   String? _imageUrl;
-  bool loading = false;
   final picker = ImagePicker();
 
   Future<void> selectImage(BuildContext context) async {
@@ -86,19 +91,228 @@ class _RegisterState extends State<Register> {
     return userDoc.docs.isEmpty;
   }
 
+  Future<bool> isEmailUnique(String email) async {
+    final userDoc = await firestore
+        .collection('users')
+        .where('email', isEqualTo: email)
+        .get();
+
+    return userDoc.docs.isEmpty;
+  }
+
+  void _changeLanguage(BuildContext context, Locale locale) {
+    final localeProvider = Provider.of<LocaleProvider>(context, listen: false);
+    localeProvider.setLocale(locale);
+    Navigator.pop(context); // Close the dialog after selection
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    passwordFocusNode.addListener(() {
+      setState(() {
+        hideLogo = true;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    passwordFocusNode.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Container(
-        decoration: const BoxDecoration(color: Colors.white),
+    final localizations = AppLocalizations.of(context);
+    final isConnectedToInternet =
+        Provider.of<InternetConnectionService>(context).isConnectedToInternet;
+    Scaffold getWarning(String locale, Scaffold engWarn, Scaffold hindWarn) {
+      return locale == 'hi' ? hindWarn : engWarn;
+    }
+    final currentLocale = Localizations.localeOf(context).languageCode;
+    Scaffold warningInternet = getWarning(
+        currentLocale,
+        Scaffold(
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.wifi_off, // No connection icon
+                  size: 80,
+                  color: Colors.grey,
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  'No Wifi or Cellular Data',
+                  style: TextStyle(
+                    fontFamily: 'Eczar',
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  'Please check your connection and try again.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Eczar',
+                    fontSize: 16,
+                    color: Colors.grey,
+                  ),
+                ),
+                const SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        final settings = OpenSettingsPlus.shared;
+                        if (settings is OpenSettingsPlusAndroid) {
+                          settings.wifi();
+                        } else if (settings is OpenSettingsPlusIOS) {
+                          settings.wifi();
+                        } else {
+                          throw Exception('Platform not supported');
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 40, vertical: 15),
+                      ), // Exits the app
+                      child: const Text(
+                        'Settings',
+                        style: TextStyle(fontFamily: 'Eczar'),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        Scaffold(
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.wifi_off, // No connection icon
+                  size: 80,
+                  color: Colors.grey,
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  'वाईफ़ाई या मोबाइल डेटा नहीं है',
+                  style: TextStyle(
+                    fontFamily: 'Eczar',
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  'कृपया अपना कनेक्शन जाँचें और पुनः प्रयास करें।',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Eczar',
+                    fontSize: 16,
+                    color: Colors.grey,
+                  ),
+                ),
+                const SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        final settings = OpenSettingsPlus.shared;
+                        if (settings is OpenSettingsPlusAndroid) {
+                          settings.wifi();
+                        } else if (settings is OpenSettingsPlusIOS) {
+                          settings.wifi();
+                        } else {
+                          throw Exception('Platform not supported');
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 40, vertical: 15),
+                      ), // Exits the app
+                      child: const Text(
+                        'सेटिंग्स',
+                        style: TextStyle(fontFamily: 'Eczar'),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ));
+    return isConnectedToInternet ? Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 18),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              const SizedBox(height: 90),
+              const SizedBox(height: 30),
+              Align(
+                alignment: Alignment.centerRight,
+                child: GestureDetector(
+                  onTap: () {
+                    Future.delayed(const Duration(milliseconds: 100), () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text(
+                              localizations?.select_lang ??'Select Language',
+                              style: const TextStyle(fontFamily: "Eczar"),
+                            ),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                ListTile(
+                                  title: const Text(
+                                    'English',
+                                    style: TextStyle(fontFamily: "Eczar"),
+                                  ),
+                                  onTap: () {
+                                    _changeLanguage(
+                                        context, const Locale('en'));
+                                  },
+                                ),
+                                ListTile(
+                                  title: const Text(
+                                    'हिंदी (Hindi)',
+                                    style: TextStyle(fontFamily: "Eczar"),
+                                  ),
+                                  onTap: () {
+                                    _changeLanguage(
+                                        context, const Locale('hi'));
+                                  },
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    });
+                  },
+                  child: Text(
+                    localizations?.swtich_language ??'Switch Language',
+                    style: const TextStyle(fontFamily: 'Eczar',decoration: TextDecoration.underline),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 40),
               Container(
                 width: 140,
                 height: 140,
@@ -126,9 +340,10 @@ class _RegisterState extends State<Register> {
                   child: Column(
                     children: [
                       const SizedBox(height: 10),
-                      const Text(
-                        "Register",
-                        style: TextStyle(fontFamily: 'Eczar', fontSize: 45),
+                      Text(
+                        localizations?.register ?? "Register",
+                        style:
+                            const TextStyle(fontFamily: 'Eczar', fontSize: 45),
                       ),
                       const SizedBox(height: 7),
                       GestureDetector(
@@ -154,27 +369,38 @@ class _RegisterState extends State<Register> {
                               controller: name,
                               keyboardType: TextInputType.text,
                               style: const TextStyle(fontFamily: 'Eczar'),
-                              decoration: const InputDecoration(
-                                  hintText: 'Enter your name',
-                                  hintStyle: TextStyle(fontFamily: 'Eczar'),
-                                  errorStyle: TextStyle(fontFamily: 'Eczar')),
+                              decoration: InputDecoration(
+                                  hintText:
+                                      localizations?.name ?? 'Enter your name',
+                                  hintStyle:
+                                      const TextStyle(fontFamily: 'Eczar'),
+                                  errorStyle:
+                                      const TextStyle(fontFamily: 'Eczar')),
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Please enter a username';
+                                  return localizations?.pls_uname ??
+                                      'Please enter a username';
                                 }
                                 if (value.contains(' ')) {
-                                  return 'Username must not have space';
+                                  return localizations?.uname_w_1 ??
+                                      'Username must not have space';
                                 }
                                 if (value.startsWith('.') ||
                                     value.endsWith('.') ||
                                     value.startsWith('!') ||
                                     value.startsWith('/') ||
                                     value.startsWith(r'\') ||
-                                    value.startsWith(r'$')) {
-                                  return 'Username cannot start or end with a period';
+                                    value.startsWith(r'$') ||
+                                    value.startsWith(r'%') ||
+                                    value.startsWith(r'^') ||
+                                    value.startsWith(r'&') ||
+                                    value.startsWith(r'*') || value.startsWith(r'$')) {
+                                  return localizations?.uname_w_2 ??
+                                      'Username cannot start or end with a symbols';
                                 }
                                 if (value.contains(RegExp(r'[A-Z]'))) {
-                                  return 'Username must not contain uppercase letters';
+                                  return localizations?.uname_w_3 ??
+                                      'Username must not contain uppercase letters';
                                 }
 
                                 return null;
@@ -186,13 +412,18 @@ class _RegisterState extends State<Register> {
                               controller: email,
                               keyboardType: TextInputType.emailAddress,
                               style: const TextStyle(fontFamily: 'Eczar'),
-                              decoration: const InputDecoration(
-                                  hintText: 'Enter your email',
-                                  hintStyle: TextStyle(fontFamily: 'Eczar'),
-                                  errorStyle: TextStyle(fontFamily: 'Eczar')),
+                              decoration: InputDecoration(
+                                  hintText: localizations?.email ??
+                                      'Enter your email',
+                                  hintStyle:
+                                      const TextStyle(fontFamily: 'Eczar'),
+                                  errorStyle:
+                                      const TextStyle(fontFamily: 'Eczar')),
                               validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter email';
+                                if (value == null || value.isEmpty) {
+                                  return localizations?.pls_email ?? 'Please enter your email';
+                                } else if (!RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(value)) {
+                                  return localizations?.vld_email ?? 'Please enter a valid email';
                                 }
                                 return null;
                               },
@@ -202,14 +433,18 @@ class _RegisterState extends State<Register> {
                               textAlign: TextAlign.center,
                               controller: password,
                               obscureText: true,
+                              focusNode: passwordFocusNode,
                               style: const TextStyle(fontFamily: 'Eczar'),
-                              decoration: const InputDecoration(
-                                  hintText: 'Enter your password',
-                                  hintStyle: TextStyle(fontFamily: 'Eczar'),
-                                  errorStyle: TextStyle(fontFamily: 'Eczar')),
+                              decoration: InputDecoration(
+                                  hintText: localizations?.password ??
+                                      'Enter your password',
+                                  hintStyle:
+                                      const TextStyle(fontFamily: 'Eczar'),
+                                  errorStyle:
+                                      const TextStyle(fontFamily: 'Eczar')),
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Please enter password';
+                                  return localizations?.pls_password ??'Please enter password';
                                 }
                                 return null;
                               },
@@ -228,15 +463,30 @@ class _RegisterState extends State<Register> {
 
                                         bool isUnique =
                                             await isUsernameUnique(name.text);
+                                        bool isEmailunique =
+                                            await isEmailUnique(email.text);
                                         if (!isUnique) {
                                           setState(() {
                                             loading = false;
                                           });
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
-                                            const SnackBar(
+                                             SnackBar(
                                                 content: Text(
-                                                    'Username already exists')),
+                                                    localizations?.uname_exists ??'Username already exists')),
+                                          );
+                                          return;
+                                        }
+
+                                        if (!isEmailunique) {
+                                          setState(() {
+                                            loading = false;
+                                          });
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                                content: Text(
+                                                    localizations?.email_exists ??'Email already exists')),
                                           );
                                           return;
                                         }
@@ -244,9 +494,9 @@ class _RegisterState extends State<Register> {
                                         register();
                                       }
                                     },
-                                    child: const Text(
-                                      "Register",
-                                      style: TextStyle(
+                                    child: Text(
+                                      localizations?.register ?? "Register",
+                                      style: const TextStyle(
                                           color: Colors.black,
                                           fontFamily: 'Eczar'),
                                     ),
@@ -254,7 +504,8 @@ class _RegisterState extends State<Register> {
                             const SizedBox(height: 10),
                             RichText(
                               text: TextSpan(
-                                text: 'Already Registered? Login',
+                                text: localizations?.al_registered ??
+                                    'Already Registered? Login',
                                 style: const TextStyle(
                                     fontFamily: 'Eczar',
                                     fontSize: 15,
@@ -283,12 +534,18 @@ class _RegisterState extends State<Register> {
           ),
         ),
       ),
-    );
+    ):warningInternet;
   }
 
   Future<void> upload() async {
+    final localizations = AppLocalizations.of(context);
     if (_selectedImage == null) {
-      print('No image selected');
+       SnackBar(
+        content: Text(
+          localizations?.no_img ??"No Image Selected",
+          style: const TextStyle(fontFamily: "Eczar"),
+        ),
+      );
       return;
     }
 

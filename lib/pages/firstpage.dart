@@ -189,15 +189,18 @@ class _HomeState extends State<Home> {
 
   void showUpdateProfileDialog(BuildContext context,
       TextEditingController nameController, String profileUrl) {
+
     showDialog(
       context: context,
       builder: (context) {
+        final localizations = AppLocalizations.of(context);
         return AlertDialog(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           contentPadding: const EdgeInsets.all(20),
           content: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
+
               return SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -220,9 +223,9 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    const Text(
-                      "Update Profile Photo",
-                      style: TextStyle(fontFamily: 'Eczar', fontSize: 16),
+                    Text(
+                      localizations?.pfp??"Update Profile Photo",
+                      style: const TextStyle(fontFamily: 'Eczar', fontSize: 16),
                     ),
                     const SizedBox(height: 20),
 
@@ -231,28 +234,28 @@ class _HomeState extends State<Home> {
                       controller: nameController,
                       textAlign: TextAlign.center,
                       style: const TextStyle(fontFamily: 'Eczar'),
-                      decoration: const InputDecoration(
-                        hintText: 'Enter new username',
-                        hintStyle: TextStyle(fontFamily: 'Eczar'),
-                        errorStyle: TextStyle(fontFamily: 'Eczar'),
+                      decoration:  InputDecoration(
+                        hintText: localizations?.name ??'Enter new username',
+                        hintStyle: const TextStyle(fontFamily: 'Eczar'),
+                        errorStyle: const TextStyle(fontFamily: 'Eczar'),
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Please enter a username';
+                          return localizations?.pls_uname ??'Please enter a username';
                         }
                         if (value.contains(' ')) {
-                          return 'Username must not have space';
+                          return localizations?.uname_w_1 ??'Username must not have space';
                         }
                         if (value.startsWith('.') ||
-                            value.endsWith('.') ||
                             value.startsWith('!') ||
                             value.startsWith('/') ||
                             value.startsWith(r'\') ||
-                            value.startsWith(r'$')) {
-                          return 'Username cannot start or end with a period';
+                            value.startsWith(r'$') ||
+                            RegExp(r'[!@#$%^&*()_+\-=\[\]{};:"\\|,.<>/?~`]$').hasMatch(value)) {
+                          return localizations?.uname_w_2 ??'Username cannot start or end with a symbol.';
                         }
                         if (value.contains(RegExp(r'[A-Z]'))) {
-                          return 'Username must not contain uppercase letters';
+                          return localizations?.uname_w_3 ??'Username must not contain uppercase letters';
                         }
                         return null;
                       },
@@ -264,8 +267,8 @@ class _HomeState extends State<Home> {
                       onPressed: () async {
                         if (nameController.text.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Username cannot be empty')),
+                             SnackBar(
+                                content: Text(localizations?.pls_uname ??'Username cannot be empty')),
                           );
                           return;
                         }
@@ -275,8 +278,8 @@ class _HomeState extends State<Home> {
                             await isUsernameUnique(nameController.text);
                         if (!isUnique) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Username already exists')),
+                             SnackBar(
+                                content: Text(localizations?.uname_exists ??'Username already exists')),
                           );
                           return;
                         }
@@ -304,8 +307,8 @@ class _HomeState extends State<Home> {
                           });
 
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Profile updated successfully')),
+                             SnackBar(
+                                content: Text(localizations?.pfp_updated ??'Profile updated successfully')),
                           );
 
                           Navigator.pop(context);
@@ -321,9 +324,9 @@ class _HomeState extends State<Home> {
                       },
                       child: loading
                           ? const CircularProgressIndicator(color: Colors.white)
-                          : const Text(
-                              "Save",
-                              style: TextStyle(
+                          :  Text(
+                        localizations?.save ??"Save",
+                              style: const TextStyle(
                                   fontFamily: 'Eczar', color: Colors.black),
                             ),
                     ),
@@ -432,11 +435,10 @@ class _HomeState extends State<Home> {
                           },
                           child: CircleAvatar(
                             radius: 18,
-                            backgroundImage:
-                                profileUrl.isNotEmpty
-                                    ? NetworkImage(profileUrl)
-                                    : const AssetImage("assets/images/Logo.png")
-                                        as ImageProvider,
+                            backgroundImage: profileUrl.isNotEmpty
+                                ? NetworkImage(profileUrl)
+                                : const AssetImage("assets/images/Logo.png")
+                                    as ImageProvider,
                           ),
                         ),
                       ],
@@ -453,9 +455,9 @@ class _HomeState extends State<Home> {
                     const SizedBox(
                       width: 10,
                     ),
-                    const Text(
-                      "No Internet",
-                      style: TextStyle(fontFamily: "Eczar"),
+                     Text(
+                      localizations?.internet ??"No Internet",
+                      style: const TextStyle(fontFamily: "Eczar"),
                     ),
                   ],
                 ),
@@ -475,7 +477,7 @@ class _HomeState extends State<Home> {
                 },
                 child: Text(
                   localizations?.logout ?? 'Logout',
-                  style: TextStyle(fontFamily: 'Eczar'),
+                  style: const TextStyle(fontFamily: 'Eczar'),
                 ),
               ),
               PopupMenuItem(
@@ -485,18 +487,27 @@ class _HomeState extends State<Home> {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          title: const Text('Select Language'),
+                          title: Text(
+                            localizations?.select_lang ?? 'Select Language',
+                            style: const TextStyle(fontFamily: "Eczar"),
+                          ),
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               ListTile(
-                                title: const Text('English'),
+                                title: const Text(
+                                  'English',
+                                  style: TextStyle(fontFamily: "Eczar"),
+                                ),
                                 onTap: () {
                                   _changeLanguage(context, const Locale('en'));
                                 },
                               ),
                               ListTile(
-                                title: const Text('हिंदी (Hindi)'),
+                                title: const Text(
+                                  'हिंदी (Hindi)',
+                                  style: TextStyle(fontFamily: "Eczar"),
+                                ),
                                 onTap: () {
                                   _changeLanguage(context, const Locale('hi'));
                                 },
@@ -508,9 +519,9 @@ class _HomeState extends State<Home> {
                     );
                   });
                 },
-                child: const Text(
-                  'Switch Language',
-                  style: TextStyle(fontFamily: 'Eczar'),
+                child: Text(
+                  localizations?.swtich_language ?? 'Switch Language',
+                  style: const TextStyle(fontFamily: 'Eczar'),
                 ),
               ),
             ],
@@ -568,12 +579,12 @@ class _HomeState extends State<Home> {
                                 size: 18,
                                 color: iconcolor,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
-                              const Text(
-                                "No Internet",
-                                style: TextStyle(fontFamily: "Eczar"),
+                              Text(
+                                localizations?.internet ??"No Internet",
+                                style: const TextStyle(fontFamily: "Eczar"),
                               ),
                             ],
                           ),

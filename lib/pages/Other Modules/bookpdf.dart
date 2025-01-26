@@ -184,7 +184,9 @@ class BookDetailsPage extends StatelessWidget {
           'Advaita Buddhism Hindu Studies explores the intersection of Advaita Vedanta, Buddhism, and Hinduism, examining their shared roots and differing views on concepts like the self, liberation, and ultimate reality. The study offers comparative insights into non-duality, the nature of existence, and the paths to spiritual awakening across these philosophical traditions.',
     ),
   ];
-  final List<Book> hindbooks = [];
+  final List<Book> hindbooks = [
+
+  ];
 
   BookDetailsPage({super.key});
 
