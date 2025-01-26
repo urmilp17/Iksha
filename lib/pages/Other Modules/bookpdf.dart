@@ -28,7 +28,7 @@ class BookDetailsPage extends StatelessWidget {
           'A brilliant examination of everyday objects, uncovering why some designs work while others fail. '
           'Don Norman explains how intuitive design impacts our daily lives and what we can learn from it.',
     ),
-    //////////////////////////////////////adding new books
+    //adding new books
     Book(
       title: 'VivekaChudamani of Sri-Shankaracharya',
       author: 'Hemchandra Raychaudhuri',
@@ -184,7 +184,97 @@ class BookDetailsPage extends StatelessWidget {
           'Advaita Buddhism Hindu Studies explores the intersection of Advaita Vedanta, Buddhism, and Hinduism, examining their shared roots and differing views on concepts like the self, liberation, and ultimate reality. The study offers comparative insights into non-duality, the nature of existence, and the paths to spiritual awakening across these philosophical traditions.',
     ),
   ];
+
+  //hindi books
   final List<Book> hindbooks = [
+    Book(
+      title: 'गीता संक्षेप (गीता प्रेस)',
+      author: 'स्वामी रामसुखदास',
+      image: 'assets/images/h1.png', // Replace with your image asset
+      driveUrl:
+      'https://drive.google.com/file/d/1YawoAu0e_1yKao5Q4yo-qPTjYwojQOss/view?usp=sharing',
+      pages: 675,
+      description:
+      'यह पुस्तक भगवद गीता का संक्षिप्त सार प्रदान करती है, जिसमें इसके मुख्य उपदेशों को सरल और समझने योग्य रूप में प्रस्तुत किया गया है। यह आत्म-साक्षात्कार और धर्मपूर्ण जीवन के लिए एक आध्यात्मिक मार्गदर्शिका है।',
+    ),
+
+    Book(
+      title: 'गीता शंकरभाष्य (गीता प्रेस)',
+      author: 'आदि शंकराचार्य',
+      image: 'assets/images/h2.png', // Replace with your image asset
+      driveUrl:
+      'https://drive.google.com/file/d/1aQncC4uEskWSLx5CnEUpaA9zE9CSOnVV/view?usp=sharing',
+      pages: 512,
+      description:
+      'यह पुस्तक भगवद गीता पर आदि शंकराचार्य की व्याख्या प्रस्तुत करती है, जो अद्वैत वेदांत दर्शन पर केंद्रित है। यह गीता के गहन उपदेशों को हिंदी पाठकों के लिए स्पष्ट और सुलभ रूप में समझाती है।',
+    ),
+
+    Book(
+      title: 'ईश्वर गीता',
+      author: 'दतिया स्वामी',
+      image: 'assets/images/h3.png', // Replace with your image asset
+      driveUrl:
+      'https://drive.google.com/file/d/1guOlhgm5P1LvHSUDAMYb9zbbvmnuL1uL/view?usp=sharing',
+      pages: 130,
+      description:
+      'यह पुस्तक भगवान शिव के गहन उपदेशों को प्रस्तुत करती है, जो आध्यात्मिक ज्ञान और आत्म-साक्षात्कार के मार्ग पर केंद्रित है। यह शैव दर्शन और हिंदू धर्म के साधकों के लिए एक प्रतिष्ठित ग्रंथ है।',
+    ),
+
+
+    Book(
+      title: 'विदुर नीति',
+      author: 'महर्षि वेद व्यास',
+      image: 'assets/images/h4.png', // Replace with your image asset
+      driveUrl:
+      'https://drive.google.com/file/d/1kcSmcLftQqGYPUROytv2KXAL5csdrn5V/view?usp=sharing',
+      pages: 147,
+      description:
+      '"विदुर नीति" में विदुर के द्वारा साझा किए गए बुद्धिमान उपदेश और नैतिक सिद्धांत हैं, जो नैतिकता, शासन और धर्मपूर्ण जीवन के मार्ग पर केंद्रित हैं। यह व्यक्तिगत और सामाजिक कल्याण के लिए एक शाश्वत मार्गदर्शिका है।',
+    ),
+
+    Book(
+      title: 'विवेक चूड़ामणि',
+      author: 'आदि शंकराचार्य',
+      image: 'assets/images/h5.png', // Replace with your image asset
+      driveUrl:
+      'https://drive.google.com/file/d/1_aHp6yGy0FCjXTJ0uTcYLaK88_SBbHEL/view?usp=sharing',
+      pages: 160,
+      description:
+      '"विवेक चूड़ामणि" एक गहन अद्वैत वेदांत ग्रंथ है जो विवेक, वैराग्य और ज्ञान के माध्यम से आत्म-साक्षात्कार के मार्ग को स्पष्ट करता है। यह आत्मनिर्वाण के लिए आध्यात्मिक साधकों के लिए एक अमूल्य खजाना है।',
+    ),
+
+    Book(
+      title: 'यम नियम',
+      author: 'आदि शंकराचार्य',
+      image: 'assets/images/h6.png', // Replace with your image asset
+      driveUrl:
+      'https://drive.google.com/file/d/1T-shfPHzTSYUS54I7yGVN7YzlkZKYinv/view?usp=sharing',
+      pages: 130,
+      description:
+      'यम और नियम योग दर्शन के महत्वपूर्ण अंग हैं, जिन्हें पतंजलि ने अपने योगसूत्रों में वर्णित किया है। ये आत्म-अनुशासन और सामाजिक सदाचार के लिए मार्गदर्शक सिद्धांत हैं।',
+    ),
+
+    Book(
+      title: 'योग दर्शन',
+      author: 'महर्षि पतंजलि',
+      image: 'assets/images/h7.png', // Replace with your image asset
+      driveUrl:
+      'https://drive.google.com/file/d/1BhVcWq1LaGJmoctZ97X8pIOkAVHFPwkW/view?usp=sharing',
+      pages: 146,
+      description:
+      'यह पुस्तक महर्षि पतंजलि द्वारा रचित योग सूत्रों की व्याख्या प्रस्तुत करती है। इसमें योग के अष्टांग मार्ग और आत्म-साक्षात्कार के लिए आवश्यक शारीरिक, मानसिक और आध्यात्मिक अनुशासन का विवरण है। यह योग के साधकों के लिए एक अमूल्य ग्रंथ है।',
+    ),
+
+    Book(
+      title: 'ईशादि नौ उपनिषद',
+      author: 'विभिन्न ऋषियों द्वारा रचित',
+      image: 'assets/images/h8.png', // Replace with your image asset`
+      driveUrl:
+      'https://drive.google.com/file/d/1dGyxNe-0soeRPVZBwZVFKZwqTx3QC_fJ/view?usp=sharing',
+      pages: 146,
+      description:
+      'यह पुस्तक ईशोपनिषद से लेकर नौ महत्वपूर्ण उपनिषदों का संग्रह है, जिसमें आध्यात्मिक ज्ञान और आत्मा के सत्य स्वरूप का विवरण है। सरल हिंदी व्याख्या के साथ यह ग्रंथ वेदांत दर्शन और भारतीय संस्कृति को समझने के लिए अनमोल मार्गदर्शिका है।',
+    ),
 
   ];
 

@@ -110,7 +110,7 @@ class RajasPage extends StatelessWidget {
                       "- An overwhelming urge to speak without pause, often due to anxiety or excitement.\n"
                       "- An unending desire for external validation.\n"
                       "- Making decisions quickly without considering the long-term consequences.\n"
-                      "- Over-prioritizing material success and wealth.\n",
+                      "- Over-prioritizing material success and wealth. \n",
                   style: const TextStyle(
                     fontSize: 16,
                     fontFamily: "Eczar",
