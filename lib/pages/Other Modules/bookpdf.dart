@@ -201,7 +201,7 @@ class BookDetailsPage extends StatelessWidget {
     Book(
       title: 'गीता शंकरभाष्य (गीता प्रेस)',
       author: 'आदि शंकराचार्य',
-      image: 'assets/images/h2.png', // Replace with your image asset
+      image: 'assets/images/h2.jpeg', // Replace with your image asset
       driveUrl:
       'https://drive.google.com/file/d/1aQncC4uEskWSLx5CnEUpaA9zE9CSOnVV/view?usp=sharing',
       pages: 512,

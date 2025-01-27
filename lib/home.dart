@@ -6,8 +6,8 @@ import 'package:iksha/pages/Articles/addarticle.dart';
 import 'package:iksha/pages/Articles/articlepage.dart';
 import 'package:iksha/pages/fourthpage.dart';
 import 'package:iksha/pages/login.dart';
-import 'package:iksha/pages/nointernet.dart';
-import 'package:iksha/pages/nointernethi.dart';
+// import 'package:iksha/pages/nointernet.dart';
+// import 'package:iksha/pages/nointernethi.dart';
 import 'NavBar.dart';
 import 'pages/firstpage.dart';
 
@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
   @override
   void dispose() {
-    _internetConnectionStreamSubscription?.cancel();
+    _internetConnectionStreamSubscription.cancel();
     super.dispose();
   }
 

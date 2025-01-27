@@ -191,7 +191,7 @@ class Sampradaya4 extends StatelessWidget {
                               }
                             },
                             icon: Icon(Icons.info, color: iconcolor),
-                            label: const Text('Instagram'),
+                            label: Text(localizations?.insta ??'Instagram'),
                             style: OutlinedButton.styleFrom(
                               foregroundColor: iconcolor,
                               textStyle: const TextStyle(fontFamily: 'Eczar'),

@@ -9,6 +9,7 @@ class Article {
   final int likes;
   final String id;
   final int commentsCount;
+  final int articleNo;
 
   Article({
     required this.photoUrl,
@@ -18,7 +19,8 @@ class Article {
     required this.views,
     required this.likes,
     required this.id,
-    required this.commentsCount
+    required this.commentsCount,
+    required this.articleNo
   });
 
   factory Article.fromFirestore(DocumentSnapshot doc) {
@@ -31,6 +33,7 @@ class Article {
       views: data['views'] ?? 0,
       likes: data['likes'] ?? 0,
       commentsCount: data['commentsCount'] ?? 0,
+      articleNo: data['articleNo'] ?? 0,
       id: doc.id,
     );
   }

@@ -7,8 +7,7 @@ import 'package:open_settings_plus/core/open_settings_plus.dart';
 import 'package:provider/provider.dart';
 import 'articlemodal.dart';
 import 'articletile.dart';
-import 'comment.dart'; // Import the comment page created earlier
-import 'commentmodal.dart';
+
 class ArticlesPage extends StatefulWidget {
   const ArticlesPage({super.key});
   @override
@@ -18,6 +17,7 @@ class ArticlesPage extends StatefulWidget {
 class _ArticlesPageState extends State<ArticlesPage> {
   final int itemsPerPage = 10;
   int currentPage = 1;
+  bool hasLoopedToFirstPage = false; // Tracks whether we looped back to the first page
   List<Article> displayedArticles = [];
   bool isLoading = false;
 
@@ -27,21 +27,59 @@ class _ArticlesPageState extends State<ArticlesPage> {
     _loadInitialArticles();
   }
 
+  Future<List<Article>> fetchPaginatedArticles({required int startAfter}) async {
+    try {
+      final QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('article')
+          .orderBy('articleNo') // Order by the articleNo field
+          .startAfter([startAfter]) // Start fetching after the last article number
+          .limit(itemsPerPage) // Limit the number of articles fetched
+          .get();
+
+      return snapshot.docs.map((doc) => Article.fromFirestore(doc)).toList();
+    } catch (e) {
+      print('Error fetching paginated articles: $e');
+      return [];
+    }
+  }
+
+
+
   Future<void> _loadInitialArticles() async {
     setState(() {
       isLoading = true;
     });
-    final articles = await fetchArticles();
-    setState(() {
-      displayedArticles = articles.take(itemsPerPage).toList();
-      isLoading = false;
-    });
+
+    try {
+      final QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('article')
+          .orderBy('articleNo') // Order by articleNo
+          .limit(itemsPerPage) // Limit to the first 10 articles
+          .get();
+
+      setState(() {
+        displayedArticles = snapshot.docs
+            .map((doc) => Article.fromFirestore(doc))
+            .toList();
+        currentPage = 1; // Reset page count
+      });
+    } catch (e) {
+      print('Error loading initial articles: $e');
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
+
+
 
   Future<List<Article>> fetchArticles() async {
     try {
-      final QuerySnapshot snapshot =
-      await FirebaseFirestore.instance.collection('article').get();
+      final QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('article')
+          .limit(itemsPerPage)
+          .get();
 
       return snapshot.docs.map((doc) => Article.fromFirestore(doc)).toList();
     } catch (e) {
@@ -50,24 +88,56 @@ class _ArticlesPageState extends State<ArticlesPage> {
     }
   }
 
+
   Future<void> _loadMoreArticles() async {
-    if (isLoading) return;
+    if (isLoading) return; // Prevent simultaneous requests
 
     setState(() {
       isLoading = true;
     });
 
-    await Future.delayed(const Duration(seconds: 1));
-    final articles = await fetchArticles();
+    try {
+      if (hasLoopedToFirstPage) {
+        // If we've already looped, reset to the first 10 articles
+        await _loadInitialArticles();
+        setState(() {
+          hasLoopedToFirstPage = false; // Reset the loop flag
+        });
+        return;
+      }
 
-    setState(() {
-      final startIndex = displayedArticles.length;
-      final endIndex = startIndex + itemsPerPage;
-      displayedArticles = articles.take(endIndex).toList();
-      currentPage++;
-      isLoading = false;
-    });
+      // Get the `articleNo` of the last loaded article
+      final int lastArticleNo = displayedArticles.isNotEmpty
+          ? displayedArticles.last.articleNo
+          : 0; // Use 0 if it's the first load
+
+      // Fetch the next set of articles
+      final nextArticles = await fetchPaginatedArticles(startAfter: lastArticleNo);
+
+      if (nextArticles.isEmpty) {
+        // If no more articles to load, set the loop flag
+        setState(() {
+          hasLoopedToFirstPage = true;
+        });
+        print('No more articles to load. Will reset to first 10 on next Load More.');
+      } else {
+        // Replace displayed articles with the next set
+        setState(() {
+          displayedArticles = nextArticles;
+          currentPage++; // Increment the page count
+        });
+      }
+    } catch (e) {
+      print('Error loading more articles: $e');
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -294,7 +364,7 @@ class ArtiTitle extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              article.content,
+              article.content.replaceAll("\\n", "\n"),
               style: const TextStyle(
                   fontSize: 12, color: Colors.black87, fontFamily: "Eczar"),
               maxLines: 3,

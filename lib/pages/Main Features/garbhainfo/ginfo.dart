@@ -154,9 +154,9 @@ class _GinfoState extends State<Ginfo> {
                                 size: 50,
                                 color: iconcolor,
                               ),
-                              const Text(
-                                "No Internet",
-                                style: TextStyle(fontFamily: "Eczar"),
+                               Text(
+                                 localizations?.internet ?? "No Internet",
+                                style: const TextStyle(fontFamily: "Eczar"),
                               ),
                             ],
                           ),
@@ -410,9 +410,9 @@ class _GinfoState extends State<Ginfo> {
                         const SizedBox(
                           width: 10,
                         ),
-                        const Text(
-                          "No Internet",
-                          style: TextStyle(fontFamily: "Eczar", fontSize: 40),
+                        Text(
+                          localizations?.internet ??"No Internet",
+                          style: const TextStyle(fontFamily: "Eczar", fontSize: 40),
                         ),
                       ],
                     ),
@@ -505,9 +505,9 @@ class _GinfoState extends State<Ginfo> {
                         const SizedBox(
                           width: 10,
                         ),
-                        const Text(
-                          "No Internet",
-                          style: TextStyle(fontFamily: "Eczar", fontSize: 40),
+                         Text(
+                          localizations?.internet ??"No Internet",
+                          style: const TextStyle(fontFamily: "Eczar", fontSize: 40),
                         ),
                       ],
                     ),
@@ -598,9 +598,9 @@ class _GinfoState extends State<Ginfo> {
                     color: iconcolor,
                   ),
                   const SizedBox(width: 10,),
-                  const Text(
-                    "No Internet",
-                    style: TextStyle(fontFamily: "Eczar",fontSize: 40),
+                   Text(
+                     localizations?.internet ??"No Internet",
+                    style: const TextStyle(fontFamily: "Eczar",fontSize: 40),
                   ),
                 ],
               ),

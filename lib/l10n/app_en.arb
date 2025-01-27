@@ -288,6 +288,7 @@
   "pfp": "Update Profile Photo",
   "save": "Save",
   "pfp_updated": "Profile updated successfully",
+  "insta": "Instagram",
   "@fetch_error_message": {
     "description": "Error message displayed when username fetching fails.",
     "placeholders": {
