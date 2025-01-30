@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 import '../../colours.dart';
+import '../../internet_service.dart';
 
 class KarmaYog extends StatefulWidget {
   const KarmaYog({super.key});
@@ -14,17 +16,13 @@ class _KarmaYogState extends State<KarmaYog> {
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
+    final isConnectedToInternet =
+        Provider.of<InternetConnectionService>(context).isConnectedToInternet;
     final currentLocale = Localizations.localeOf(context).languageCode;
-    double getFontSize(String locale, double defaultSize, double hindiSize) {
-      return locale == 'hi' ? hindiSize : defaultSize;
-    }
-
+    
     double getFontHeight(String locale, double defaultSize, double hindiSize) {
       return locale == 'hi' ? hindiSize : defaultSize;
     }
-
-
-
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -43,7 +41,7 @@ class _KarmaYogState extends State<KarmaYog> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
-                  child: Container(
+                  child: isConnectedToInternet ? Container(
                     width: double.maxFinite,
                     height: 270,
                     decoration: BoxDecoration(
@@ -55,7 +53,19 @@ class _KarmaYogState extends State<KarmaYog> {
                       ),
                     ),
                     child: const Text(""),
-                  ),
+                  ):Column(
+                children: <Widget>[
+                Icon(
+                  Icons.warning_rounded,
+                  size: 50,
+                  color: iconcolor,
+                ),
+                Text(
+                  localizations?.internet ?? "No Internet",
+                  style: const TextStyle(fontFamily: "Eczar"),
+                ),
+              ],
+            ),
                 ),
                 Text(
                   localizations?.karmaYoga_description ??'In simple language Karma Yoga is nothing but proper action with proper attitude. Now we have to understand what is meant by proper action. All the human actions possible for us, are broadly classified into three types by the scriptures. This is based on their spiritual influence on the human beings.'
@@ -116,7 +126,7 @@ class _KarmaYogState extends State<KarmaYog> {
                             "\n\nHe who is free from all material attachments and false ego, who "
                             "is enthusiastic and resolute and who is indifferent to success or "
                             "failure, is a Sattvika karma (सात्विक कर्म) performer of deeds in the righteous path.\n\n",
-                        style: TextStyle(fontFamily: 'Eczar', height: 1.7,fontSize: 16, fontWeight: FontWeight.w500),
+                        style: const TextStyle(fontFamily: 'Eczar', height: 1.7,fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                       TextSpan(
                         text: localizations?.karmaYoga_goal ?? "The goal of life is to reach highest happiness which is the state of total self- satisfaction. It is a state of pure consciousness, a state from where all actions emerge. This is Nishkamya Karma (निष्काम कर्म) the total non-action/ desireless actions. Though this ultimate goal of life, is total non-action we cannot reach that stated by surrendering action.\n\nThe essence of converting Kamya Karma (काम्य कर्म) into Karma Yoga (कर्मयोग) is in cutting out the strong attachment to fruits of action, which continuously lead us to uncessing work. Asanga (असंग), non-attachment is the key. Unattached work is the process. It is this detachment that counts in Karma Yoga. \nIt is that special attitude, skill that converts \nKamya Karma to Karma Yoga.\n\n",
@@ -164,7 +174,7 @@ class _KarmaYogState extends State<KarmaYog> {
                       "burnt by the fire of knowledge. \nOne who performs actions with this knowledge, attains "
                       "Jnana and in this fire of knowledge all impressions of actions are burnt\n",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontFamily: 'Eczar', height: 1.5),
+                  style: const TextStyle(fontFamily: 'Eczar', height: 1.5),
                 ),
               ],
             ),

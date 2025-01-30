@@ -243,6 +243,9 @@ class _HomeState extends State<Home> {
                         if (value!.isEmpty) {
                           return localizations?.pls_uname ??'Please enter a username';
                         }
+                        if (value.length > 10) {
+                          return localizations?.uname_len ?? 'Username must not exceed 10 characters';
+                        }
                         if (value.contains(' ')) {
                           return localizations?.uname_w_1 ??'Username must not have space';
                         }
@@ -666,13 +669,13 @@ class _HomeState extends State<Home> {
                     context,
                     "assets/images/shad sampatii.jpg",
                     "eX-g§nÎmr",
-                    localizations?.shad_sampati ?? "SHAD SAMPATI",
+                    localizations?.shad_sampati ?? "SIX VIRTUES",
                     const ShadSampati()),
                 buildSmallCard(
                     context,
                     "assets/images/mumukshatva.jpg",
                     "_w_wjwËd§",
-                    localizations?.mumukshutva ?? "MUMUKSHUTVA",
+                    localizations?.mumukshutva ?? "LONGING",
                     const Mumukshatva()),
               ]),
               const SizedBox(height: 20),

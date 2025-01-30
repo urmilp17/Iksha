@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 import '../../colours.dart';
+import '../../internet_service.dart';
 
 class BhaktiYog extends StatefulWidget {
   const BhaktiYog({super.key});
@@ -12,11 +14,10 @@ class BhaktiYog extends StatefulWidget {
 class _BhaktiYogState extends State<BhaktiYog> {
   @override
   Widget build(BuildContext context) {
+    final isConnectedToInternet =
+        Provider.of<InternetConnectionService>(context).isConnectedToInternet;
     final localizations = AppLocalizations.of(context);
     final currentLocale = Localizations.localeOf(context).languageCode;
-    double getFontSize(String locale, double defaultSize, double hindiSize) {
-      return locale == 'hi' ? hindiSize : defaultSize;
-    }
 
     double getFontHeight(String locale, double defaultSize, double hindiSize) {
       return locale == 'hi' ? hindiSize : defaultSize;
@@ -103,7 +104,7 @@ class _BhaktiYogState extends State<BhaktiYog> {
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 2, vertical: 7),
-                  child: Container(
+                  child: isConnectedToInternet ? Container(
                     width: double.maxFinite,
                     height: 270,
                     decoration: BoxDecoration(
@@ -115,6 +116,18 @@ class _BhaktiYogState extends State<BhaktiYog> {
                           scale: 1),
                     ),
                     child: const Text(""),
+                  ):Column(
+                    children: <Widget>[
+                      Icon(
+                        Icons.warning_rounded,
+                        size: 50,
+                        color: iconcolor,
+                      ),
+                      Text(
+                        localizations?.internet ?? "No Internet",
+                        style: const TextStyle(fontFamily: "Eczar"),
+                      ),
+                    ],
                   ),
                 ),
                 Text.rich(

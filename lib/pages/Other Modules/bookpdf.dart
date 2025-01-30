@@ -222,14 +222,14 @@ class BookDetailsPage extends StatelessWidget {
 
 
     Book(
-      title: 'विदुर नीति',
-      author: 'महर्षि वेद व्यास',
-      image: 'assets/images/h4.png', // Replace with your image asset
+      title: 'चाणक्य नीति',
+      author: 'चाणक्य',
+      image: 'assets/images/h4.jpeg', // Replace with your image asset
       driveUrl:
-      'https://drive.google.com/file/d/1kcSmcLftQqGYPUROytv2KXAL5csdrn5V/view?usp=sharing',
-      pages: 147,
+      'https://drive.google.com/file/d/1zgBfJ_EhkNKoJm3gtCCmCtMvjS0bVPME/view',
+      pages: 379,
       description:
-      '"विदुर नीति" में विदुर के द्वारा साझा किए गए बुद्धिमान उपदेश और नैतिक सिद्धांत हैं, जो नैतिकता, शासन और धर्मपूर्ण जीवन के मार्ग पर केंद्रित हैं। यह व्यक्तिगत और सामाजिक कल्याण के लिए एक शाश्वत मार्गदर्शिका है।',
+      'चाणक्य नीति एक प्राचीन भारतीय दर्शन है, जिसमें राजनीति, अर्थशास्त्र और जीवन के विभिन्न पहलुओं पर मूल्यवान सुझाव दिए गए हैं। इसमें 413 श्लोक हैं, जो चाणक्य द्वारा लिखे गए थे। यह नीतिशास्त्र का एक महत्वपूर्ण ग्रंथ है।',
     ),
 
     Book(

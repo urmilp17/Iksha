@@ -58,8 +58,8 @@
   "sadhana_description": "Sadhana Chatushtaya provides a foundation for spiritual growth, enabling seekers to discern reality, detach from worldly desires, cultivate self-control, and intensely yearn for liberation, leading to Self-realization.",
   "discrimination": "DISCRIMINATION",
   "dispassion": "DISPASSION",
-  "shad_sampati": "SHAD SAMPATI",
-  "mumukshutva": "MUMUKSHUTVA",
+  "shad_sampati": "SIX VIRTUES",
+  "mumukshutva": "LONGING",
   "what_is_viveka_":"What is Viveka ?",
   "what_is_vairagya":"What is Vairagya ?",
   "what_is_shad":"What is Shad Sampatti ?",
@@ -289,6 +289,7 @@
   "save": "Save",
   "pfp_updated": "Profile updated successfully",
   "insta": "Instagram",
+  "uname_len": "Username must not exceed 10 characters.",
   "@fetch_error_message": {
     "description": "Error message displayed when username fetching fails.",
     "placeholders": {

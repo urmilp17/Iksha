@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iksha/colours.dart';
@@ -6,6 +5,7 @@ import 'package:iksha/pages/Articles/addarticle.dart';
 import 'package:iksha/pages/Articles/articlepage.dart';
 import 'package:iksha/pages/fourthpage.dart';
 import 'package:iksha/pages/login.dart';
+import 'package:iksha/pages/register.dart';
 // import 'package:iksha/pages/nointernet.dart';
 // import 'package:iksha/pages/nointernethi.dart';
 import 'NavBar.dart';
@@ -25,8 +25,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int currentPageIndex = 0;
 
-  late final StreamSubscription _internetConnectionStreamSubscription;
-
 
   @override
   void initState() {
@@ -39,17 +37,13 @@ class _MyHomePageState extends State<MyHomePage> {
         // User is not logged in, redirect to login page
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (_) => const LoginPage()),
+          MaterialPageRoute(builder: (_) => const Register()),
               (route) => false,
         );
       }
     });
   }
-  @override
-  void dispose() {
-    _internetConnectionStreamSubscription.cancel();
-    super.dispose();
-  }
+
 
   @override
   Widget build(BuildContext context) {

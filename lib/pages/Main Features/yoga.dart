@@ -8,15 +8,27 @@ class Yoga extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
+    final currentLocale = Localizations.localeOf(context).languageCode;
+
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    double getFontSize(String locale, double defaultSize, double hindiSize) {
+      return locale == 'hi' ? hindiSize : defaultSize;
+    }
+
     return Scaffold(
       body: Stack(
         children: [
           Column(
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(16.5, 16, 16.5, 0),
+                padding: EdgeInsets.fromLTRB(
+                  screenWidth * 0.04,
+                  screenHeight * 0.02,
+                  screenWidth * 0.04,
+                  0,),
                 child: Container(
-                  height: 500,
+                  height: screenHeight * 0.4,
                   width: double.maxFinite,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
@@ -32,10 +44,14 @@ class Yoga extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(16.3, 393, 16.3, 0),
+            padding: EdgeInsets.fromLTRB(
+              screenWidth * 0.04,
+              screenHeight * 0.4,
+              screenWidth * 0.04,
+              0,),
             child: Container(
               alignment: Alignment.bottomCenter,
-              height: 270,
+              height: screenHeight * 0.38,
               decoration: BoxDecoration(
                 color: const Color(0xFFFDF5DF),
                 borderRadius: BorderRadius.circular(25.0),
@@ -49,13 +65,13 @@ class Yoga extends StatelessWidget {
                      Text(
                       localizations?.yoga_questionnaire_title ??"Yoga Questionnaire",
                       textAlign: TextAlign.left,
-                      style: const TextStyle(
+                      style:  TextStyle(
                           fontFamily: 'Eczar',
                           fontWeight: FontWeight.w600,
-                          fontSize: 30),
+                          fontSize: screenHeight * 0.03),
                     ),
-                    const SizedBox(
-                      height: 3,
+                     SizedBox(
+                      height: screenHeight * 0.005,
                     ),
                      Text(
                       localizations?.yoga_questionnaire_description ??"The Questionnaire helps users identify "
@@ -66,11 +82,19 @@ class Yoga extends StatelessWidget {
                       "guidance based on their responses "
                       "to enhance their spiritual journey.",
                       textAlign: TextAlign.left,
-                      style: const TextStyle(
-                          fontFamily: 'Eczar', height: 1.6, fontSize: 14),
+                      style:  TextStyle(
+                          fontFamily: 'Eczar', height: 1.6, fontSize: getFontSize(
+                        currentLocale,
+                        screenHeight * 0.02,
+                        screenHeight * 0.021,
+                      ),
+                      ),
                     ),
                     const SizedBox(
                       height: 5,
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.01,
                     ),
                     GestureDetector(
                       onTap: () {
@@ -85,14 +109,14 @@ class Yoga extends StatelessWidget {
                         elevation: 8.0,
                         color: const Color(0xDF644C00),
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(screenWidth * 0.02),
                           child: Text(
                             localizations?.find_button??" Find ",
-                            style: const TextStyle(
+                            style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: 'Eczar',
                                 fontWeight: FontWeight.bold,
-                                fontSize: 16),
+                                fontSize: screenHeight * 0.02),
                           ),
                         ),
                       ),

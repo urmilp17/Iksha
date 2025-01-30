@@ -8,6 +8,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:open_settings_plus/open_settings_plus.dart';
+import '../colours.dart';
 import '../internet_service.dart';
 
 class LoginPage extends StatefulWidget {
@@ -22,9 +23,14 @@ class _LoginPageState extends State<LoginPage> {
   final password = TextEditingController();
   final formKey = GlobalKey<FormState>();
   final firestore = FirebaseFirestore.instance;
+  bool _passwordVisible = false;
   final auth = FirebaseAuth.instance;
   bool loading = false;
-
+  @override
+  void initState() {
+    _passwordVisible = false;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
@@ -236,6 +242,20 @@ class _LoginPageState extends State<LoginPage> {
                                   obscureText: true,
                                   style: const TextStyle(fontFamily: "Eczar"),
                                   decoration:  InputDecoration(
+                                    suffixIcon: GestureDetector(
+                                      onTap: (){
+                                        setState(() {
+                                          _passwordVisible = !_passwordVisible;
+                                        });
+                                      },
+                                      child: Icon(
+                                        // Based on passwordVisible state choose the icon
+                                        _passwordVisible
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                        color: iconcolor,
+                                      ),
+                                    ),
                                     hintStyle: const TextStyle(fontFamily: 'Eczar'),
                                     hintText: localizations?.password??'Enter your password',
                                     errorStyle: const TextStyle(fontFamily: 'Eczar'),

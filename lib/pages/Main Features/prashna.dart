@@ -9,18 +9,29 @@ class Prashna extends StatelessWidget {
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
     final currentLocale = Localizations.localeOf(context).languageCode;
+
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    // Font size calculation
     double getFontSize(String locale, double defaultSize, double hindiSize) {
       return locale == 'hi' ? hindiSize : defaultSize;
     }
+
     return Scaffold(
       body: Stack(
         children: [
           Column(
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(16.5, 16, 16.5, 0),
+                padding: EdgeInsets.fromLTRB(
+                  screenWidth * 0.04,
+                  screenHeight * 0.02,
+                  screenWidth * 0.04,
+                  0,
+                ),
                 child: Container(
-                  height: 500,
+                  height: screenHeight * 0.4,
                   width: double.maxFinite,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
@@ -36,48 +47,62 @@ class Prashna extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(16.3, 393, 16.3, 0),
+            padding: EdgeInsets.fromLTRB(
+              screenWidth * 0.04,
+              screenHeight * 0.4,
+              screenWidth * 0.04,
+              0,
+            ),
             child: Container(
               alignment: Alignment.bottomCenter,
-              height: 270,
+              height: screenHeight * 0.4,
               decoration: BoxDecoration(
                 color: const Color(0xFFFDF5DF),
                 borderRadius: BorderRadius.circular(25.0),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                     Text(
-                      localizations?.prashna_uttari_title ??"Prashna Uttari",
+                    Text(
+                      localizations?.prashna_uttari_title ?? "Prashna Uttari",
                       textAlign: TextAlign.left,
-                      style: const TextStyle(
-                          fontFamily: 'Eczar',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 30),
+                      style: TextStyle(
+                        fontFamily: 'Eczar',
+                        fontWeight: FontWeight.w600,
+                        fontSize: screenHeight * 0.03, // Dynamic font size
+                      ),
                     ),
-                    const SizedBox(
-                      height: 3,
+                    SizedBox(
+                      height: screenHeight * 0.005,
                     ),
-                     Text(
-                      localizations?.prashna_uttari_description ?? "The Question Answer Vector Model "
-                      "uses advanced AI to analyze user "
-                      "questions and provide answers based on "
-                      "Hindu scriptures. It helps users explore "
-                      "Dharma, spiritual paths, and "
-                      "philosophical concepts by delivering "
-                      "accurate, and insightful responses.",
+                    Text(
+                      localizations?.prashna_uttari_description ??
+                          "The Question Answer Vector Model "
+                              "uses advanced AI to analyze user "
+                              "questions and provide answers based on "
+                              "Hindu scriptures. It helps users explore "
+                              "Dharma, spiritual paths, and "
+                              "philosophical concepts by delivering "
+                              "accurate, and insightful responses.",
                       textAlign: TextAlign.left,
-                      style:  TextStyle(
-                          fontFamily: 'Eczar', height: 1.6, fontSize: getFontSize(currentLocale, 14, 15)),
+                      style: TextStyle(
+                        fontFamily: 'Eczar',
+                        height: 1.6,
+                        fontSize: getFontSize(
+                          currentLocale,
+                          screenHeight * 0.02,
+                          screenHeight * 0.021,
+                        ),
+                      ),
                     ),
-                    const SizedBox(
-                      height: 5,
+                    SizedBox(
+                      height: screenHeight * 0.01,
                     ),
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -89,14 +114,16 @@ class Prashna extends StatelessWidget {
                         elevation: 8.0,
                         color: const Color(0xDF644C00),
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(screenWidth * 0.02),
                           child: Text(
-                            localizations?.ask_prashnas_button ??"Ask Prashnas",
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Eczar',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16),
+                            localizations?.ask_prashnas_button ??
+                                "Ask Prashnas",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Eczar',
+                              fontWeight: FontWeight.bold,
+                              fontSize: screenHeight * 0.02,
+                            ),
                           ),
                         ),
                       ),
@@ -111,3 +138,4 @@ class Prashna extends StatelessWidget {
     );
   }
 }
+

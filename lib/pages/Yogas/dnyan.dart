@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iksha/colours.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+
+import '../../internet_service.dart';
 
 class DnyanYog extends StatefulWidget {
   const DnyanYog({super.key});
@@ -14,7 +17,8 @@ class _DnyanYogState extends State<DnyanYog> {
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
     final currentLocale = Localizations.localeOf(context).languageCode;
-
+    final isConnectedToInternet =
+        Provider.of<InternetConnectionService>(context).isConnectedToInternet;
 
     double getFontHeight(String locale, double defaultSize, double hindiSize) {
       return locale == 'hi' ? hindiSize : defaultSize;
@@ -44,7 +48,7 @@ class _DnyanYogState extends State<DnyanYog> {
                   padding: const EdgeInsets.symmetric(vertical: 7),
                   child: AspectRatio(
                     aspectRatio: 16 / 9,
-                    child: Container(
+                    child: isConnectedToInternet ? Container(
                       width: double.maxFinite,
                       height: 270,
                       decoration: BoxDecoration(
@@ -56,7 +60,19 @@ class _DnyanYogState extends State<DnyanYog> {
                             scale: 1),
                       ),
                       child: const Text(""),
-                    ),
+                    ):Column(
+                  children: <Widget>[
+                  Icon(
+                    Icons.warning_rounded,
+                    size: 50,
+                    color: iconcolor,
+                  ),
+                  Text(
+                    localizations?.internet ?? "No Internet",
+                    style: const TextStyle(fontFamily: "Eczar"),
+                  ),
+                  ],
+                ),
                   ),
                 ),
                  Text(
@@ -124,7 +140,7 @@ class _DnyanYogState extends State<DnyanYog> {
                     ),
                     TextSpan(
                       text: localizations?.jnanayoga_bahiranga_details ??"Refer Homepage for detailed information.\n",
-                      style: TextStyle(fontFamily: 'Eczar', height: 1.5),
+                      style: const TextStyle(fontFamily: 'Eczar', height: 1.5),
                     ),
                     TextSpan(
                       text: localizations?.jnanayoga_antaranga_sadhana ??"Antaranga sadhana (अंतरंग साधन) - \n",

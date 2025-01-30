@@ -34,6 +34,7 @@ class _RegisterState extends State<Register> {
   bool loading = false;
   File? _selectedImage;
   String? _imageUrl;
+  bool _passwordVisible = false;
   final picker = ImagePicker();
 
   Future<void> selectImage(BuildContext context) async {
@@ -109,6 +110,7 @@ class _RegisterState extends State<Register> {
   @override
   void initState() {
     super.initState();
+    _passwordVisible = false;
     passwordFocusNode.addListener(() {
       setState(() {
         hideLogo = true;
@@ -381,6 +383,9 @@ class _RegisterState extends State<Register> {
                                   return localizations?.pls_uname ??
                                       'Please enter a username';
                                 }
+                                if (value.length > 10) {
+                                  return localizations?.uname_len ?? 'Username must not exceed 10 characters';
+                                }
                                 if (value.contains(' ')) {
                                   return localizations?.uname_w_1 ??
                                       'Username must not have space';
@@ -432,10 +437,25 @@ class _RegisterState extends State<Register> {
                             TextFormField(
                               textAlign: TextAlign.center,
                               controller: password,
-                              obscureText: true,
+                              obscureText: !_passwordVisible,
                               focusNode: passwordFocusNode,
                               style: const TextStyle(fontFamily: 'Eczar'),
                               decoration: InputDecoration(
+                                  suffixIcon: GestureDetector(
+                                    onTap: (){
+                                      setState(() {
+                                        _passwordVisible = !_passwordVisible;
+                                      });
+                                    },
+                                    child: Icon(
+                                        // Based on passwordVisible state choose the icon
+                                        _passwordVisible
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                        color: iconcolor,
+                                      ),
+                                  ),
+
                                   hintText: localizations?.password ??
                                       'Enter your password',
                                   hintStyle:
@@ -542,7 +562,7 @@ class _RegisterState extends State<Register> {
     if (_selectedImage == null) {
        SnackBar(
         content: Text(
-          localizations?.no_img ??"No Image Selected",
+          localizations?.no_img ?? "No Image Selected",
           style: const TextStyle(fontFamily: "Eczar"),
         ),
       );
@@ -569,6 +589,21 @@ class _RegisterState extends State<Register> {
   }
 
   Future<void> register() async {
+    final localizations = AppLocalizations.of(context);
+    if (_selectedImage == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              localizations?.no_img ?? "No Image Selected",
+              style: const TextStyle(fontFamily: "Eczar"),
+            ),
+          ),
+      );
+      setState(() {
+        loading = false;
+      });
+      return;
+    }
     try {
       await upload();
       final result = await auth.createUserWithEmailAndPassword(
