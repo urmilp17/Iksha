@@ -17,8 +17,11 @@ class AddArticlePage extends StatefulWidget {
 class _AddArticlePageState extends State<AddArticlePage> {
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
+  final _titleHindiController = TextEditingController();
   final _dateController = TextEditingController();
+  final _dateHindiController = TextEditingController();
   final _contentController = TextEditingController();
+  final _contentHindiController = TextEditingController();
   File? _selectedImage;
   bool _isUploading = false;
   final picker = ImagePicker();
@@ -123,10 +126,15 @@ class _AddArticlePageState extends State<AddArticlePage> {
     final article = {
       'photoUrl': imageUrl,
       'title': _titleController.text,
+      'titleHindi': _titleHindiController.text,
       'date': _dateController.text,
+      'dateHindi': _dateHindiController.text,
       'content': _contentController.text,
+      'contentHindi': _contentHindiController.text,
       'views': 0,
       'likes': 0,
+      'commentsCount':0,
+      'articleNo':0
     };
 
     try {
@@ -188,6 +196,17 @@ class _AddArticlePageState extends State<AddArticlePage> {
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
+                  controller: _titleHindiController,
+                  decoration: const InputDecoration(labelText: 'Title in Hindi'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a title';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
                   controller: _dateController,
                   decoration: const InputDecoration(labelText: 'Date'),
                   validator: (value) {
@@ -199,8 +218,31 @@ class _AddArticlePageState extends State<AddArticlePage> {
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
+                  controller: _dateHindiController,
+                  decoration: const InputDecoration(labelText: 'Date in Hindi'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a date';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
                   controller: _contentController,
                   decoration: const InputDecoration(labelText: 'Content'),
+                  maxLines: 5,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter content';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: _contentHindiController,
+                  decoration: const InputDecoration(labelText: 'Content in Hindi'),
                   maxLines: 5,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
