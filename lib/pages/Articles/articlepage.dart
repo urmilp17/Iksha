@@ -15,11 +15,13 @@ class ArticlesPage extends StatefulWidget {
 }
 
 class _ArticlesPageState extends State<ArticlesPage> {
-  final int itemsPerPage = 10;
+
   int currentPage = 1;
-  bool hasLoopedToFirstPage = false; // Tracks whether we looped back to the first page
+  bool hasLoopedToFirstPage = false;
+  final TextEditingController _searchController = TextEditingController();// Tracks whether we looped back to the first page
   List<Article> displayedArticles = [];
   bool isLoading = false;
+  String searchQuery = "";
 
   @override
   void initState() {
@@ -33,7 +35,6 @@ class _ArticlesPageState extends State<ArticlesPage> {
           .collection('article')
           .orderBy('articleNo') // Order by the articleNo field
           .startAfter([startAfter]) // Start fetching after the last article number
-          .limit(itemsPerPage) // Limit the number of articles fetched
           .get();
 
       return snapshot.docs.map((doc) => Article.fromFirestore(doc)).toList();
@@ -42,8 +43,6 @@ class _ArticlesPageState extends State<ArticlesPage> {
       return [];
     }
   }
-
-
 
   Future<void> _loadInitialArticles() async {
     setState(() {
@@ -54,7 +53,6 @@ class _ArticlesPageState extends State<ArticlesPage> {
       final QuerySnapshot snapshot = await FirebaseFirestore.instance
           .collection('article')
           .orderBy('articleNo') // Order by articleNo
-          .limit(itemsPerPage) // Limit to the first 10 articles
           .get();
 
       setState(() {
@@ -72,13 +70,10 @@ class _ArticlesPageState extends State<ArticlesPage> {
     }
   }
 
-
-
   Future<List<Article>> fetchArticles() async {
     try {
       final QuerySnapshot snapshot = await FirebaseFirestore.instance
           .collection('article')
-          .limit(itemsPerPage)
           .get();
 
       return snapshot.docs.map((doc) => Article.fromFirestore(doc)).toList();
@@ -89,55 +84,35 @@ class _ArticlesPageState extends State<ArticlesPage> {
   }
 
 
-  Future<void> _loadMoreArticles() async {
-    if (isLoading) return; // Prevent simultaneous requests
-
-    setState(() {
-      isLoading = true;
-    });
+  Future<void> _loadArticles() async {
+    setState(() => isLoading = true);
 
     try {
-      if (hasLoopedToFirstPage) {
-        // If we've already looped, reset to the first 10 articles
-        await _loadInitialArticles();
-        setState(() {
-          hasLoopedToFirstPage = false; // Reset the loop flag
-        });
-        return;
-      }
-
-      // Get the `articleNo` of the last loaded article
-      final int lastArticleNo = displayedArticles.isNotEmpty
-          ? displayedArticles.last.articleNo
-          : 0; // Use 0 if it's the first load
-
-      // Fetch the next set of articles
-      final nextArticles = await fetchPaginatedArticles(startAfter: lastArticleNo);
-
-      if (nextArticles.isEmpty) {
-        // If no more articles to load, set the loop flag
-        setState(() {
-          hasLoopedToFirstPage = true;
-        });
-        print('No more articles to load. Will reset to first 10 on next Load More.');
+      QuerySnapshot snapshot;
+      if (searchQuery.isEmpty) {
+        snapshot = await FirebaseFirestore.instance
+            .collection('article')
+            .orderBy('articleNo')
+            .get();
       } else {
-        // Replace displayed articles with the next set
-        setState(() {
-          displayedArticles = nextArticles;
-          currentPage++; // Increment the page count
-        });
+        snapshot = await FirebaseFirestore.instance
+            .collection('article')
+            .get();
       }
-    } catch (e) {
-      print('Error loading more articles: $e');
-    } finally {
+
       setState(() {
-        isLoading = false;
+        displayedArticles = snapshot.docs
+            .map((doc) => Article.fromFirestore(doc))
+            .where((article) => article.title.toLowerCase().contains(searchQuery.toLowerCase()) ||
+            article.titleHindi.toLowerCase().contains(searchQuery.toLowerCase()))
+            .toList();
       });
+    } catch (e) {
+      print('Error loading articles: $e');
+    } finally {
+      setState(() => isLoading = false);
     }
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -145,28 +120,55 @@ class _ArticlesPageState extends State<ArticlesPage> {
         Provider.of<InternetConnectionService>(context).isConnectedToInternet;
     return isConnectedToInternet ? Scaffold(
       appBar: AppBar(
-        backgroundColor: background,
-        title: const Text(
-          'Articles',
-          style: TextStyle(
-              fontFamily: "Eczar", fontSize: 28, fontWeight: FontWeight.w500),
-        ),
+        title: const Text('Articles',style: TextStyle(
+            fontFamily: "Eczar", fontSize: 28, fontWeight: FontWeight.w500),),
         centerTitle: true,
+        backgroundColor: background,
       ),
-      body: isLoading && displayedArticles.isEmpty
-          ? const Center(child: CircularProgressIndicator())
-          : RefreshIndicator(
-        onRefresh: _loadMoreArticles,
-        child: ListView.builder(
-          itemCount: displayedArticles.length + (isLoading ? 1 : 0),
-          itemBuilder: (context, index) {
-            if (index == displayedArticles.length) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            final article = displayedArticles[index];
-            return ArtiTitle(article: article);
-          },
-        ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: background,
+                borderRadius: BorderRadius.circular(25)
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 5),
+                child: TextField(
+                  controller: _searchController,
+                  onChanged: (value) {
+                    setState(() {
+                      searchQuery = value;
+                    });
+                    _loadArticles();
+                  },
+                  style: const TextStyle(fontFamily: "Eczar"),
+                  decoration: InputDecoration(
+                    hintText: 'Search articles...',
+                    prefixIcon: Icon(Icons.search,color: iconcolor,),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : displayedArticles.isEmpty
+                ? const Center(
+              child: Text('No articles found',style: TextStyle(fontFamily: "Eczar"),),
+            )
+                : ListView.builder(
+              itemCount: displayedArticles.length,
+              itemBuilder: (context, index) {
+                return ArtiTitle(article: displayedArticles[index]);
+              },
+            ),
+          ),
+        ],
       ),
     ):Scaffold(
       body: Center(
@@ -298,6 +300,10 @@ class ArtiTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
+    final currentLocale = Localizations.localeOf(context).languageCode;
+    String getText(String locale, String engText, String hindText) {
+      return locale == 'hi' ? hindText : engText;
+    }
 
     return GestureDetector(
       onTap: () async {
@@ -356,7 +362,7 @@ class ArtiTitle extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              article.title,
+              getText(currentLocale, article.title, article.titleHindi),
               style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
@@ -364,7 +370,7 @@ class ArtiTitle extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              article.content.replaceAll("\\n", "\n"),
+              getText(currentLocale, article.content, article.contentHindi).replaceAll("\\n", "\n"),
               style: const TextStyle(
                   fontSize: 12, color: Colors.black87, fontFamily: "Eczar"),
               maxLines: 3,
@@ -381,7 +387,7 @@ class ArtiTitle extends StatelessWidget {
                         size: 14, color: Colors.grey),
                     const SizedBox(width: 4),
                     Text(
-                      article.date,
+                      getText(currentLocale, article.date, article.dateHindi),
                       style: const TextStyle(
                           fontSize: 12,
                           color: Colors.grey,
