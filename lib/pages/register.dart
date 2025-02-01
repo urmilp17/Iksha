@@ -12,8 +12,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:open_settings_plus/open_settings_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import '../home.dart';
 import '../internet_service.dart';
+
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -24,6 +26,7 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final name = TextEditingController();
+  final uname = TextEditingController();
   final email = TextEditingController();
   final password = TextEditingController();
   final formKey = GlobalKey<FormState>();
@@ -36,6 +39,21 @@ class _RegisterState extends State<Register> {
   String? _imageUrl;
   bool _passwordVisible = false;
   final picker = ImagePicker();
+
+  Future<void> sendWelcomeEmail(String userName, String userEmail) async {
+    final Email email = Email(
+      body: 'Hello $userName,\n\nWelcome to Iksha!',
+      subject: 'Welcome to Iksha!',
+      recipients: [userEmail],
+      isHTML: false,
+    );
+
+    try {
+      await FlutterEmailSender.send(email);
+    } catch (e) {
+      print('Failed to send email: $e');
+    }
+  }
 
   Future<void> selectImage(BuildContext context) async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -314,7 +332,7 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 20),
               Container(
                 width: 140,
                 height: 140,
@@ -365,7 +383,7 @@ class _RegisterState extends State<Register> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: Column(
-                          children: [
+                          children: <Widget>[
                             TextFormField(
                               textAlign: TextAlign.center,
                               controller: name,
@@ -373,7 +391,41 @@ class _RegisterState extends State<Register> {
                               style: const TextStyle(fontFamily: 'Eczar'),
                               decoration: InputDecoration(
                                   hintText:
-                                      localizations?.name ?? 'Enter your name',
+                                  localizations?.name ?? 'Enter your name',
+                                  hintStyle:
+                                  const TextStyle(fontFamily: 'Eczar'),
+                                  errorStyle:
+                                  const TextStyle(fontFamily: 'Eczar')),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return localizations?.pls_name ??
+                                      'Please enter a name';
+                                }
+                                if (value.startsWith('.') ||
+                                    value.endsWith('.') ||
+                                    value.startsWith('!') ||
+                                    value.startsWith('/') ||
+                                    value.startsWith(r'\') ||
+                                    value.startsWith(r'$') ||
+                                    value.startsWith(r'%') ||
+                                    value.startsWith(r'^') ||
+                                    value.startsWith(r'&') ||
+                                    value.startsWith(r'*') || value.startsWith(r'$')) {
+                                  return localizations?.name_w ??
+                                      'Name cannot start or end with a symbols';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: 7),
+                            TextFormField(
+                              textAlign: TextAlign.center,
+                              controller: uname,
+                              keyboardType: TextInputType.text,
+                              style: const TextStyle(fontFamily: 'Eczar'),
+                              decoration: InputDecoration(
+                                  hintText:
+                                      localizations?.username ?? 'Enter your username',
                                   hintStyle:
                                       const TextStyle(fontFamily: 'Eczar'),
                                   errorStyle:
@@ -588,6 +640,7 @@ class _RegisterState extends State<Register> {
     }
   }
 
+
   Future<void> register() async {
     final localizations = AppLocalizations.of(context);
     if (_selectedImage == null) {
@@ -610,9 +663,11 @@ class _RegisterState extends State<Register> {
           email: email.text, password: password.text);
       await firestore.collection('users').doc(result.user?.uid).set({
         'name': name.text,
+        'username': uname.text,
         'email': email.text,
         'imageUrl': _imageUrl,
       });
+      await sendWelcomeEmail(name.text, email.text);
       setState(() {
         loading = false;
       });

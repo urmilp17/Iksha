@@ -50,6 +50,7 @@ dependencies:
   share_plus: ^10.1.4
   open_settings_plus: ^0.4.0
   flutter_native_splash: ^2.4.4
+  flutter_email_sender: ^6.0.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
