@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:iksha/colours.dart';
 import 'package:iksha/internet_service.dart';
 import 'package:open_settings_plus/core/open_settings_plus.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'articlemodal.dart';
 import 'articletile.dart';
@@ -116,6 +117,7 @@ class _ArticlesPageState extends State<ArticlesPage> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
     final isConnectedToInternet =
         Provider.of<InternetConnectionService>(context).isConnectedToInternet;
     return isConnectedToInternet ? Scaffold(
@@ -181,19 +183,19 @@ class _ArticlesPageState extends State<ArticlesPage> {
               color: Colors.grey,
             ),
             const SizedBox(height: 20),
-            const Text(
-              'No Wifi or Cellular Data',
-              style: TextStyle(
+             Text(
+              localizations?.no_internet??'No Wifi or Cellular Data',
+              style: const TextStyle(
                 fontFamily: 'Eczar',
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 10),
-            const Text(
-              'Unable to load articles.\nPlease check your connection and try again.',
+             Text(
+              localizations?.no_articles??'Unable to load articles.\nPlease check your connection and try again.',
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: 'Eczar',
                 fontSize: 16,
                 color: Colors.grey,

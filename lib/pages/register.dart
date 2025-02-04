@@ -62,13 +62,17 @@ class _RegisterState extends State<Register> {
 
   Future<void> sendWelcomeEmail(String userName, String userEmail) async {
     // Use the generated App Password instead of your actual Gmail password
-    final smtpServer = gmail('your-email@gmail.com', 'your-app-password');
+    final smtpServer = gmail('appiksha108@gmail.com', 'mohj uujy gbwy eklw');
+    final localizations = AppLocalizations.of(context);
+      final String hello = localizations?.hey_user(userName)??'Hey, {userName} 👋';
+      final String body = localizations?.body??"The youth of today are navigating an increasingly complex world, where societal expectations, academic pressures, and the isolation of modern lifestyles have contributed to a widespread mental health crisis. Traditional solutions, such as clinical therapies, focus on addressing immediate psychological symptoms but often fail to explore the deeper, existential concerns that many individuals face. These concerns, related to purpose, identity, and the nature of existence, require more profound exploration than what is typically offered by conventional approaches.\n\n Simultaneously, there has been a noticeable decline in spiritual engagement, with rising trends of agnosticism, atheism, and anti-religious sentiments. This shift has left many without a moral or philosophical framework to anchor their lives, exacerbating feelings of disconnection and unrest. The loss of engagement with age-old spiritual traditions, particularly those rooted in Dharmic wisdom, has created a significant gap in addressing the holistic needs of the human mind and spirit.\n\nRecognizing these challenges, Iksha: A Hindu Guidance App seeks to provide a meaningful solution by integrating the timeless teachings of Sanatan Dharma with modern technological tools.\n\nThe app offers a platform where users can explore Dharmic principles, introspect on their own lives, and gain clarity about their mental, emotional, and spiritual well-being.\n\nWith a range of features designed to cater to different aspects of personal growth—such as understanding the nature of the mind, finding a suitable yoga path, and exploring philosophical insights—Iksha is a unique initiative that blends tradition with innovation. By providing resources that foster self-reflection, spiritual growth, and existential understanding, the app aspires to equip users with the tools to navigate life’s challenges and achieve a balanced and fulfilling existence.";
+
 
     final message = Message()
-      ..from = Address('your-email@gmail.com', 'Iksha')
+      ..from = const Address('appiksha108@gmail.com', 'Iksha')
       ..recipients.add(userEmail)
-      ..subject = 'Welcome to Iksha!'
-      ..text = 'Hello $userName,\n\nWelcome to Iksha! We are excited to have you here.';
+      ..subject = localizations?.welcome_message??'Welcome to Iksha!'
+      ..text = "$hello\n\n$body\n\n";
 
     try {
       final sendReport = await send(message, smtpServer);
