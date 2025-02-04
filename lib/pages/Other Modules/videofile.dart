@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iksha/colours.dart';
+import 'package:iksha/home.dart';
 import 'package:iksha/internet_service.dart';
+import 'package:iksha/pages/Other%20Modules/browser.dart';
+import 'package:iksha/pages/Other%20Modules/ytplaylist.dart';
 import 'package:open_settings_plus/open_settings_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -88,65 +91,65 @@ class VideoPage extends StatelessWidget {
     {
       "title": "विवेक चूड़ामणि",
       "thumbnail":
-      "https://i.ytimg.com/vi/UoaDEL-y3BM/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLAS78chaJDa2EZTN-p_Im_4c8P8nQ",
+          "https://i.ytimg.com/vi/UoaDEL-y3BM/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLAS78chaJDa2EZTN-p_Im_4c8P8nQ",
       "subtitle":
-      "विवेक चूड़ामणि आदि शंकराचार्य द्वारा रचित एक महत्वपूर्ण ग्रंथ है। इसमें अध्यात्म और ज्ञान के मार्गों का वर्णन किया गया है। स्वामी अविमुक्तेश्वरानंद ने इसकी व्याख्या की है, जिसमें आत्म-ज्ञान और मोक्ष के सिद्धांतों को समझाया गया है।",
+          "विवेक चूड़ामणि आदि शंकराचार्य द्वारा रचित एक महत्वपूर्ण ग्रंथ है। इसमें अध्यात्म और ज्ञान के मार्गों का वर्णन किया गया है। स्वामी अविमुक्तेश्वरानंद ने इसकी व्याख्या की है, जिसमें आत्म-ज्ञान और मोक्ष के सिद्धांतों को समझाया गया है।",
       "url":
-      "https://www.youtube.com/watch?v=UoaDEL-y3BM&list=PLhYFzRbyD5YgsZLAXrC7sjJQIptsZKWne"
+          "https://www.youtube.com/watch?v=UoaDEL-y3BM&list=PLhYFzRbyD5YgsZLAXrC7sjJQIptsZKWne"
     },
     {
       "title": "देवी भागवत",
       "thumbnail":
-      "https://i.ytimg.com/vi/73TljZYEEhk/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDhpiWSEezbM1h53_arDWiRXhz-QQ",
+          "https://i.ytimg.com/vi/73TljZYEEhk/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDhpiWSEezbM1h53_arDWiRXhz-QQ",
       "subtitle":
-      "देवी भागवत एक पवित्र हिंदू ग्रंथ है, जिसमें देवी की महिमा और शक्ति का वर्णन किया गया है। इसमें देवी के विभिन्न रूपों और उनकी लीलाओं का वर्णन है, जो भक्तों को आध्यात्मिक ज्ञान और शक्ति प्रदान करता है।",
+          "देवी भागवत एक पवित्र हिंदू ग्रंथ है, जिसमें देवी की महिमा और शक्ति का वर्णन किया गया है। इसमें देवी के विभिन्न रूपों और उनकी लीलाओं का वर्णन है, जो भक्तों को आध्यात्मिक ज्ञान और शक्ति प्रदान करता है।",
       "url":
-      "https://www.youtube.com/playlist?list=PLyXHXSHxLqKytTG4PkD8RlRe16Q5Zskcz"
+          "https://www.youtube.com/playlist?list=PLyXHXSHxLqKytTG4PkD8RlRe16Q5Zskcz"
     },
     {
       "title": "राम जन्मोत्सव",
       "thumbnail":
-      "https://i.ytimg.com/vi/QZncJeIeSLE/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLAKUC--c-uQvitSXyJwuzRqGIqraQ",
+          "https://i.ytimg.com/vi/QZncJeIeSLE/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLAKUC--c-uQvitSXyJwuzRqGIqraQ",
       "subtitle":
-      "राम जन्मोत्सव या राम नवमी हिंदू धर्म का एक महत्वपूर्ण त्योहार है। यह भगवान राम के जन्मदिन के रूप में मनाया जाता है, जो चैत्र मास की शुक्ल पक्ष की नवमी तिथि को पड़ता है।",
+          "राम जन्मोत्सव या राम नवमी हिंदू धर्म का एक महत्वपूर्ण त्योहार है। यह भगवान राम के जन्मदिन के रूप में मनाया जाता है, जो चैत्र मास की शुक्ल पक्ष की नवमी तिथि को पड़ता है।",
       "url":
-      "https://www.youtube.com/playlist?list=PLoKnMdfD1SWLTwHlQLNbQ5jbnI90oLvpe"
+          "https://www.youtube.com/playlist?list=PLoKnMdfD1SWLTwHlQLNbQ5jbnI90oLvpe"
     },
     {
       "title": "उपनिषद गंगा",
       "thumbnail":
-      "https://i.ytimg.com/vi/TuiVHlYeiBg/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLAnW22If5NBepn137sSVNgPLwYiQA",
+          "https://i.ytimg.com/vi/TuiVHlYeiBg/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLAnW22If5NBepn137sSVNgPLwYiQA",
       "subtitle":
-      "उपनिषद गंगा स्वामी चिन्मयानंद फाउंडेशन द्वारा प्रस्तुत एक टेलीविजन श्रृंखला है, जिसमें उपनिषदों के ज्ञान को सरल और आकर्षक तरीके से प्रस्तुत किया गया है। इसमें स्वामी चिन्मयानंद के व्याख्यानों को शामिल किया गया है।",
+          "उपनिषद गंगा स्वामी चिन्मयानंद फाउंडेशन द्वारा प्रस्तुत एक टेलीविजन श्रृंखला है, जिसमें उपनिषदों के ज्ञान को सरल और आकर्षक तरीके से प्रस्तुत किया गया है। इसमें स्वामी चिन्मयानंद के व्याख्यानों को शामिल किया गया है।",
       "url":
-      "https://www.youtube.com/playlist?list=PLFr_jkwUp0his35ff0LvPrI_U2oBYdL3b"
+          "https://www.youtube.com/playlist?list=PLFr_jkwUp0his35ff0LvPrI_U2oBYdL3b"
     },
     {
       "title": "कृष्ण बाल लीला कथा",
       "thumbnail":
-      "https://i.ytimg.com/vi/2hZOoemvTZE/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLBFCIRBRYo3w9RAyhol53jIDHVgug",
+          "https://i.ytimg.com/vi/2hZOoemvTZE/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLBFCIRBRYo3w9RAyhol53jIDHVgug",
       "subtitle":
-      "कृष्ण बाल लीला कथा इंद्रेश जी महाराज द्वारा प्रस्तुत एक पवित्र कथा है, जिसमें भगवान कृष्ण के बाल्यकाल की लीलाओं और चमत्कारों का वर्णन किया गया है। इसमें भक्ति और ज्ञान के मार्गों का प्रतिपादन किया गया है।",
+          "कृष्ण बाल लीला कथा इंद्रेश जी महाराज द्वारा प्रस्तुत एक पवित्र कथा है, जिसमें भगवान कृष्ण के बाल्यकाल की लीलाओं और चमत्कारों का वर्णन किया गया है। इसमें भक्ति और ज्ञान के मार्गों का प्रतिपादन किया गया है।",
       "url":
-      "https://www.youtube.com/playlist?list=PLW_QVE4bQ1ErQDd9rugjYFFiVjSb36GIX"
+          "https://www.youtube.com/playlist?list=PLW_QVE4bQ1ErQDd9rugjYFFiVjSb36GIX"
     },
     {
       "title": "सनातन धर्म दर्शन",
       "thumbnail":
-      "https://i.ytimg.com/vi/BT3X23bF5EQ/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDH1MnuTmiFnpZiUWD9KWXVSlZJWg",
+          "https://i.ytimg.com/vi/BT3X23bF5EQ/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDH1MnuTmiFnpZiUWD9KWXVSlZJWg",
       "subtitle":
-      "सनातन धर्म दर्शन एक प्राचीन और व्यापक दर्शन है, जो भारतीय संस्कृति और हिंदू धर्म पर आधारित है। इसमें आत्मा, परमात्मा, कर्म, धर्म, मोक्ष और पुनर्जन्म जैसे मूलभूत सिद्धांतों का वर्णन किया गया है। यह जीवन के उद्देश्य और लक्ष्य को समझने में मदद करता है।",
+          "सनातन धर्म दर्शन एक प्राचीन और व्यापक दर्शन है, जो भारतीय संस्कृति और हिंदू धर्म पर आधारित है। इसमें आत्मा, परमात्मा, कर्म, धर्म, मोक्ष और पुनर्जन्म जैसे मूलभूत सिद्धांतों का वर्णन किया गया है। यह जीवन के उद्देश्य और लक्ष्य को समझने में मदद करता है।",
       "url":
-      "https://www.youtube.com/playlist?list=PLxYDMSdfTAgRcDxcxmgoMvMNxySL0eaPH"
+          "https://www.youtube.com/playlist?list=PLxYDMSdfTAgRcDxcxmgoMvMNxySL0eaPH"
     },
     {
       "title": "श्री रामचरितमानस",
       "thumbnail":
-      "https://i.ytimg.com/vi/_WBkHVmnW_Y/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLCSl2uj3PrM5YE2_3DFLKmJQbUufQ",
+          "https://i.ytimg.com/vi/_WBkHVmnW_Y/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLCSl2uj3PrM5YE2_3DFLKmJQbUufQ",
       "subtitle":
-      "श्री रामचरितमानस गोस्वामी तुलसीदास द्वारा रचित एक महान हिंदू ग्रंथ है, जो भगवान राम की जीवनी और लीलाओं का वर्णन करता है। यह ग्रंथ अवधी भाषा में लिखा गया है और हिंदू धर्म के सबसे पवित्र और प्रेरक ग्रंथों में से एक माना जाता है।",
+          "श्री रामचरितमानस गोस्वामी तुलसीदास द्वारा रचित एक महान हिंदू ग्रंथ है, जो भगवान राम की जीवनी और लीलाओं का वर्णन करता है। यह ग्रंथ अवधी भाषा में लिखा गया है और हिंदू धर्म के सबसे पवित्र और प्रेरक ग्रंथों में से एक माना जाता है।",
       "url":
-      "https://www.youtube.com/playlist?list=PLxYDMSdfTAgSJZShNs8JQcdvQMGZUFVHv"
+          "https://www.youtube.com/playlist?list=PLxYDMSdfTAgSJZShNs8JQcdvQMGZUFVHv"
     },
   ];
 
@@ -172,15 +175,21 @@ class VideoPage extends StatelessWidget {
     Scaffold getWarning(String locale, Scaffold engWarn, Scaffold hindWarn) {
       return locale == 'hi' ? hindWarn : engWarn;
     }
+
     Text getAppBarText(String locale, Text engText, Text hindText) {
       return locale == 'hi' ? hindText : engText;
     }
 
-    Text appbarText = getAppBarText(currentLocale, const Text("Video Gallery",
-        style:
-        TextStyle(color: Colors.black, fontFamily: "LibreBaskerville"),), const Text("वीडियो गैलरी",
-        style:
-        TextStyle(color: Colors.black, fontFamily: "Eczar"),));
+    Text appbarText = getAppBarText(
+        currentLocale,
+        const Text(
+          "Video Gallery",
+          style: TextStyle(color: Colors.black, fontFamily: "LibreBaskerville"),
+        ),
+        const Text(
+          "वीडियो गैलरी",
+          style: TextStyle(color: Colors.black, fontFamily: "Eczar"),
+        ));
 
     Scaffold warningInternet = getWarning(
         currentLocale,
@@ -311,7 +320,22 @@ class VideoPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: background,
       appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => MyHomePage()),
+                  (route) => false,
+            );
+          },
+          child: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+            size: 28,
+          ),
+        ),
         title: appbarText,
+        centerTitle: true,
         backgroundColor: background,
       ),
       body: isConnectedToInternet
@@ -319,18 +343,21 @@ class VideoPage extends StatelessWidget {
               itemCount: mainList.length,
               itemBuilder: (context, index) {
                 final video = mainList[index];
-                return videotile(video);
+                return videotile(context, video);
               },
             )
           : warningInternet,
     );
   }
 
-  GestureDetector videotile(Map<String, String> video) {
+  GestureDetector videotile(BuildContext context, Map<String, String> video) {
     return GestureDetector(
       onTap: () {
-        // Open YouTube URL on tap
-        _launchURL(video["url"]!);
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (_) => BrowserWindow(url: video["url"]!,page: 'video',),),
+          (route) => false,
+        );
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

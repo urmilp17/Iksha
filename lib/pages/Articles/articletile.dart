@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iksha/colours.dart';
 import 'package:iksha/pages/Articles/comments.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'articlemodal.dart';
 
 class ArticleDetailPage extends StatelessWidget {
@@ -11,6 +13,43 @@ class ArticleDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+    final currentLocale = Localizations.localeOf(context).languageCode;
+    final user = FirebaseAuth.instance.currentUser;
+    String getText(String locale, String engText, String hindText) {
+      return locale == 'hi' ? hindText : engText;
+    }
+
+    Future<void> _toggleLike(BuildContext context) async {
+      final user = FirebaseAuth.instance.currentUser;
+
+      if (user == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('User not logged in.')),
+        );
+        return;
+      }
+
+      final articleRef =
+          FirebaseFirestore.instance.collection('article').doc(article.id);
+
+      final snapshot = await articleRef.get();
+      final data = snapshot.data() as Map<String, dynamic>;
+
+      final likedBy = data['likedBy'] ?? [];
+      if ((likedBy as List).contains(user.uid)) {
+        await articleRef.update({
+          'likes': FieldValue.increment(-1),
+          'likedBy': FieldValue.arrayRemove([user.uid]),
+        });
+      } else {
+        await articleRef.update({
+          'likes': FieldValue.increment(1),
+          'likedBy': FieldValue.arrayUnion([user.uid]),
+        });
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(title: const Text(" ")),
       body: SingleChildScrollView(
@@ -32,7 +71,7 @@ class ArticleDetailPage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                article.title,
+                getText(currentLocale, article.title, article.titleHindi),
                 style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w500,
@@ -50,42 +89,92 @@ class ArticleDetailPage extends StatelessWidget {
                             .doc(article.id)
                             .snapshots(),
                         builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
                             return const Text('...');
                           }
                           if (!snapshot.hasData || snapshot.data == null) {
                             return const Text('0');
                           }
 
-                          final data = snapshot.data!.data() as Map<String, dynamic>;
+                          final data =
+                              snapshot.data!.data() as Map<String, dynamic>;
                           final commentsCount = data['commentsCount'] ?? 0;
                           final likes = data['likes'] ?? 0;
                           final views = data['views'] ?? 0;
 
                           return Row(
                             children: [
-                              const Icon(Icons.comment, size: 16, color: Colors.grey),
+                              const Icon(Icons.comment,
+                                  size: 18, color: Colors.grey),
                               const SizedBox(width: 4),
                               Text('$commentsCount',
                                   style: const TextStyle(
                                       color: Colors.grey,
-                                      fontSize: 14,
+                                      fontSize: 16,
                                       fontFamily: "Eczar")),
                               const SizedBox(width: 16),
-                              const Icon(Icons.thumb_up, size: 16, color: Colors.grey),
-                              const SizedBox(width: 4),
-                              Text('$likes',
-                                  style: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 14,
-                                      fontFamily: "Eczar")),
-                              const SizedBox(width: 16),
-                              const Icon(Icons.visibility, size: 16, color: Colors.grey),
+                              StreamBuilder<DocumentSnapshot>(
+                                stream: FirebaseFirestore.instance
+                                    .collection('article')
+                                    .doc(article.id)
+                                    .snapshots(),
+                                builder: (context, snapshot) {
+                                  if (!snapshot.hasData || user == null) {
+                                    return Row(
+                                      children: [
+                                        const Icon(Icons.thumb_up,
+                                            size: 18, color: Colors.grey),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          article.likes.toString(),
+                                          style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.grey,
+                                              fontFamily: "Eczar"),
+                                        ),
+                                      ],
+                                    );
+                                  }
+
+                                  final data = snapshot.data?.data()
+                                      as Map<String, dynamic>;
+                                  final likedBy = data['likedBy'] ?? [];
+                                  final isLiked =
+                                      (likedBy as List).contains(user.uid);
+
+                                  return GestureDetector(
+                                    onTap: () => _toggleLike(context),
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.thumb_up,
+                                          size: 18,
+                                          color: isLiked
+                                              ? Colors.blue
+                                              : Colors.grey,
+                                        ),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          data['likes'].toString(),
+                                          style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.grey,
+                                              fontFamily: "Eczar"),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                              const SizedBox(width: 14),
+                              const Icon(Icons.visibility,
+                                  size: 18, color: Colors.grey),
                               const SizedBox(width: 4),
                               Text('$views',
                                   style: const TextStyle(
                                       color: Colors.grey,
-                                      fontSize: 14,
+                                      fontSize: 16,
                                       fontFamily: "Eczar")),
                             ],
                           );
@@ -94,7 +183,7 @@ class ArticleDetailPage extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    article.date,
+                    getText(currentLocale, article.date, article.dateHindi),
                     style: const TextStyle(
                         color: Colors.grey, fontSize: 16, fontFamily: "Eczar"),
                   ),
@@ -102,7 +191,7 @@ class ArticleDetailPage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   Navigator.push(
                     context,
                     PageRouteBuilder(
@@ -114,8 +203,8 @@ class ArticleDetailPage extends StatelessWidget {
                         const end = Offset.zero; // End at original position
                         const curve = Curves.easeInToLinear;
 
-                        var tween =
-                        Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                        var tween = Tween(begin: begin, end: end)
+                            .chain(CurveTween(curve: curve));
                         var offsetAnimation = animation.drive(tween);
 
                         return SlideTransition(
@@ -128,17 +217,18 @@ class ArticleDetailPage extends StatelessWidget {
                 },
                 child: Container(
                   width: double.maxFinite,
-                  decoration: BoxDecoration(
-                      color: background
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 14,vertical: 10),
+                  decoration: BoxDecoration(color: background),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          "Comments",
-                          style: TextStyle(fontFamily: "Eczar",fontWeight: FontWeight.w500, fontSize: 16),
+                          localizations?.comments ?? "Comments",
+                          style: TextStyle(
+                              fontFamily: "Eczar",
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16),
                         ),
                         Icon(Icons.comment)
                       ],
@@ -147,29 +237,32 @@ class ArticleDetailPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 14),
-        StreamBuilder<DocumentSnapshot>(
-          stream: FirebaseFirestore.instance
-              .collection('article')
-              .doc(article.id)
-              .snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (!snapshot.hasData || snapshot.data == null) {
-              return const Text(
-                'Content not available',
-                style: TextStyle(fontSize: 16, fontFamily: "Eczar", height: 1.5),
-              );
-            }
+              StreamBuilder<DocumentSnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('article')
+                    .doc(article.id)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (!snapshot.hasData || snapshot.data == null) {
+                    return const Text(
+                      'Content not available',
+                      style: TextStyle(
+                          fontSize: 16, fontFamily: "Eczar", height: 1.5),
+                    );
+                  }
 
-            final data = snapshot.data!.data() as Map<String, dynamic>;
-            final content = data['content']?.replaceAll("\\n", "\n") ?? '';
+                  final data = snapshot.data!.data() as Map<String, dynamic>;
+                  final content = getText(currentLocale, article.content,
+                              article.contentHindi)
+                          .replaceAll("\\n", "\n") ??
+                      '';
 
-            return ReadMoreText(content: content);
-          },
-        ),
-        
+                  return ReadMoreText(content: content);
+                },
+              ),
             ],
           ),
         ),

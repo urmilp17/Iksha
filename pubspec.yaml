@@ -51,6 +51,9 @@ dependencies:
   open_settings_plus: ^0.4.0
   flutter_native_splash: ^2.4.4
   flutter_email_sender: ^6.0.3
+  mailer: ^6.4.1
+  youtube_explode_dart: ^2.3.6
+  flutter_inappwebview: ^6.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

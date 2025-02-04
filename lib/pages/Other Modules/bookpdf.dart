@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iksha/colours.dart';
+import 'package:iksha/home.dart';
 import 'package:iksha/internet_service.dart';
+import 'package:iksha/pages/Other%20Modules/browser.dart';
 import 'package:open_settings_plus/open_settings_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -441,6 +443,20 @@ class BookDetailsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: background,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => MyHomePage()),
+                  (route) => false,
+            );
+          },
+          child: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+            size: 28,
+          ),
+        ),
         title: appbarText,
         centerTitle: true,
       ),
@@ -519,7 +535,13 @@ class BookDetailsPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                           ),
-                          onPressed: () => _launchDriveFolder(book.driveUrl),
+                          onPressed: () {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(builder: (_) => BrowserWindow(url: book.driveUrl,page: 'book',)),
+                                  (route) => false,
+                            );
+                          },
                           child:  Text(
                             getText(currentLocale, 'READ NOW', "अभी पढे"),
                             style:const TextStyle(

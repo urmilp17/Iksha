@@ -399,7 +399,7 @@ class _HomeState extends State<Home> {
                     }
 
                     var userData = snapshot.data!;
-                    String userName = userData['name'] ?? 'Unknown';
+                    String userName = userData['username'] ?? 'Unknown';
                     String profileUrl = userData['imageUrl'] ?? '';
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
